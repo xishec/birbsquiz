@@ -3,14 +3,17 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import rawBirbs from "./birbs.json";
-import { Box, Chip, CircularProgress } from "@mui/material";
+import { Box, Chip, Switch, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import "./App.css";
 
 function App() {
   let birbs = rawBirbs as any;
-
-  const [selectedBirb, setSelectedBirb] = React.useState<string>();
+  const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbs, setSelectedBirbs] = React.useState<Array<string>>(
-    JSON.parse(localStorage.getItem("selectedBirbs")!)
+    localStorage.getItem("selectedBirbs")
+      ? JSON.parse(localStorage.getItem("selectedBirbs")!)
+      : []
   );
   const [audioSources, setAudioSources] = React.useState<
     Map<string, Array<string>>
@@ -18,13 +21,11 @@ function App() {
   const [counter, setCounter] = React.useState(0);
   const [quizStarted, setQuizStarted] = React.useState(false);
   const [showAnswer, setShowAnswer] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
   const [sequence, setSequence] = React.useState<Array<number>>();
 
   const addBirb = (birbToAdd: string) => {
     if (!selectedBirbs.find((birb) => birb === birbToAdd)) {
-      setSelectedBirb(birbToAdd!);
-      setSelectedBirbs([...selectedBirbs, birbToAdd!]);
+      setSelectedBirbs([...selectedBirbs, birbToAdd]);
       fetchBirb(birbToAdd);
     }
   };
@@ -43,7 +44,7 @@ function App() {
   };
 
   const nextQuestion = () => {
-    if (counter == selectedBirbs.length - 1) {
+    if (counter === selectedBirbs.length - 1) {
       setCounter(0);
       setQuizStarted(false);
     } else {
@@ -64,8 +65,15 @@ function App() {
     localStorage.setItem("selectedBirbs", JSON.stringify(selectedBirbs));
   }, [selectedBirbs]);
 
+  useEffect(() => {
+    if (birbs[birbInput]) addBirb(birbInput);
+  }, [birbInput]);
+
   const fetchBirb = (birb: string) => {
     // setLoading(true);
+    if (!birbs[birb]) {
+      deleteBirb(birb);
+    }
     const latinName = birbs[birb] as string;
     fetch(
       `https://xeno-canto.org/api/2/recordings?query=${latinName
@@ -102,80 +110,159 @@ function App() {
   };
 
   return (
-    <Box>
-      {!quizStarted && (
-        <Box sx={{ margin: "1rem", display: "grid", gap: "1rem" }}>
-          <Autocomplete
-            value={selectedBirb}
-            onChange={(e, birbToAdd) => {
-              addBirb(birbToAdd!);
-            }}
-            freeSolo
-            options={Object.keys(birbs)}
-            renderInput={(params) => (
-              <TextField {...params} label="Recherche" />
-            )}
-          />
-          <Box sx={{ display: "flex", gap: "0.5rem" }}>
-            {selectedBirbs.map((birb) => (
-              <Chip
-                label={birb}
-                variant="outlined"
-                onDelete={() => deleteBirb(birb)}
+    <Box sx={{ height: "100vh" }}>
+      <Box
+        sx={{
+          display: "grid",
+          height: "100%",
+          gridTemplateRows: "min-content 1fr",
+        }}
+      >
+        <Box
+          sx={{ padding: "1rem", display: "grid", justifyContent: "center" }}
+        >
+          <Typography variant="h1">Birbsquiz</Typography>
+        </Box>
+
+        <Box
+          sx={{
+            padding: "1rem",
+            display: "grid",
+            justifyContent: "center",
+            gridTemplateColumns: "minmax(min-content, 800px)",
+          }}
+        >
+          {!quizStarted && (
+            <Box
+              sx={{
+                display: "grid",
+                gap: "1rem",
+                gridTemplateRows: "min-content max-content min-content",
+              }}
+            >
+              {/* <Autocomplete
+                value={selectedBirb}
+                onChange={(e, birbInput) => {
+                  console.log("hi", e.target);
+                  // if (birbInput) {
+                  //   console.log(birbInput);
+                  //   setBirbInput(birbInput);
+                  //   if (birbs[birbInput]) addBirb(birbInput);
+                  // }
+                }}
+                freeSolo
+                // open={birbInput.length > 2}
+                options={Object.keys(birbs)}
+                renderInput={(params) => (
+                  <TextField {...params} label="Recherche" />
+                )}
+              /> */}
+              <Autocomplete
+                inputValue={birbInput}
+                onInputChange={(e, v) => setBirbInput(v)}
+                options={Object.keys(birbs)}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Recherche ..."
+                    variant="outlined"
+                  />
+                )}
+                open={birbInput.length > 2}
+                popupIcon={null}
               />
-            ))}
-          </Box>
-
-          <Button
-            variant="contained"
-            onClick={startQuiz}
-            disabled={selectedBirbs.length <= 0}
-          >
-            Quiz
-          </Button>
-        </Box>
-      )}
-
-      {quizStarted && (
-        <Box sx={{ margin: "1rem", display: "grid", gap: "1rem" }}>
-          {loading && (
-            <Box sx={{ display: "flex" }}>
-              <CircularProgress />
-            </Box>
-          )}
-          {audioSources.size > 0 && (
-            <Box sx={{ display: "flex", gap: "0.5rem" }}>
-              {audioSources
-                .get(selectedBirbs[sequence![counter]])!
-                .map((audioSource: string) => (
-                  <audio controls src={audioSource}>
-                    Your browser does not support the
-                    <code>audio</code> element.
-                  </audio>
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+                }}
+              >
+                {selectedBirbs.map((birb, i) => (
+                  <Chip
+                    key={`chip-${i}`}
+                    label={birb}
+                    variant="outlined"
+                    onDelete={() => deleteBirb(birb)}
+                  />
                 ))}
+              </Box>
+
+              <LoadingButton
+                loading={selectedBirbs.length !== audioSources.size}
+                variant="contained"
+                onClick={startQuiz}
+                disabled={
+                  selectedBirbs.length <= 0 ||
+                  selectedBirbs.length !== audioSources.size
+                }
+              >
+                Quiz moi
+              </LoadingButton>
             </Box>
           )}
-          <Box sx={{ display: "grid", gap: "1rem" }}>
-            <Button variant="contained" onClick={nextQuestion}>
-              {counter === selectedBirbs.length ? "Terminer" : "Prochain"}
-            </Button>
 
-            {!showAnswer && (
-              <Button variant="contained" onClick={() => setShowAnswer(true)}>
-                Réponse
-              </Button>
-            )}
-            {showAnswer && (
-              <Box>
-                <Chip
-                  label={selectedBirbs[sequence![counter]]}
-                  variant="outlined"
-                />
+          {quizStarted && (
+            <Box sx={{ display: "grid", gap: "1rem" }}>
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fill, 1fr)",
+                }}
+              >
+                {audioSources
+                  .get(selectedBirbs[sequence![counter]])!
+                  .map((audioSource: string, i: number) => (
+                    <audio
+                      key={`audio-${i}`}
+                      style={{ width: "100%" }}
+                      controls
+                      src={audioSource}
+                    >
+                      Your browser does not support the
+                      <code>audio</code> element.
+                    </audio>
+                  ))}
               </Box>
-            )}
-          </Box>
+
+              <Box
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  gap: "1rem",
+                  gridTemplateColumns: "min-content 1fr",
+                }}
+              >
+                <Switch
+                  checked={showAnswer}
+                  onChange={() => setShowAnswer(!showAnswer)}
+                />
+                <Typography variant="body1">
+                  {showAnswer ? selectedBirbs[sequence![counter]] : "???"}
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: "grid", gap: "1rem" }}>
+                <Button
+                  variant={
+                    counter === selectedBirbs.length - 1
+                      ? "contained"
+                      : "outlined"
+                  }
+                  onClick={nextQuestion}
+                  disabled={!showAnswer}
+                >
+                  {counter === selectedBirbs.length - 1
+                    ? "Terminer"
+                    : "Prochain"}
+                </Button>
+              </Box>
+            </Box>
+          )}
         </Box>
-      )}
+      </Box>
     </Box>
   );
 }
