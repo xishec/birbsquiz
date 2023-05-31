@@ -2,14 +2,22 @@ import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import rawBirbs from "./birbs.json";
-import { Box, Chip, Switch, Typography } from "@mui/material";
-import LoadingButton from "@mui/lab/LoadingButton";
+import rawBirbs from "./birbsMap.json";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Snackbar,
+  Switch,
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import "./App.css";
 
 function App() {
-  let birbs = rawBirbs as any;
+  let birbsMap = rawBirbs as any;
   const [birbInput, setBirbInput] = React.useState<string>("");
+  const [selectedBirb, setSelectedBirb] = React.useState<string>("");
   const [selectedBirbs, setSelectedBirbs] = React.useState<Array<string>>(
     localStorage.getItem("selectedBirbs")
       ? JSON.parse(localStorage.getItem("selectedBirbs")!)
@@ -22,12 +30,18 @@ function App() {
   const [quizStarted, setQuizStarted] = React.useState(false);
   const [showAnswer, setShowAnswer] = React.useState(false);
   const [sequence, setSequence] = React.useState<Array<number>>();
+  const [openSnake, setOpenSnake] = React.useState(false);
+  const [snakeMessage, setSnakeMessage] = React.useState("");
 
   const addBirb = (birbToAdd: string) => {
-    if (!selectedBirbs.find((birb) => birb === birbToAdd)) {
+    if (
+      birbsMap[birbToAdd] &&
+      !selectedBirbs.find((birb) => birb === birbToAdd)
+    ) {
       setSelectedBirbs([...selectedBirbs, birbToAdd]);
-      fetchBirb(birbToAdd);
     }
+    setBirbInput("");
+    setSelectedBirb("");
   };
 
   const deleteBirb = (birbToDelete: string) => {
@@ -54,27 +68,26 @@ function App() {
   };
 
   useEffect(() => {
-    selectedBirbs.map((birb) => fetchBirb(birb));
-  }, []);
+    if (quizStarted && sequence) fetchBirb(selectedBirbs[sequence[counter]]);
+  }, [quizStarted]);
 
   useEffect(() => {
-    console.log(audioSources);
+    if (selectedBirb) addBirb(selectedBirb);
+  }, [selectedBirb]);
+
+  useEffect(() => {
+    // console.log(audioSources);
   }, [audioSources]);
 
   useEffect(() => {
     localStorage.setItem("selectedBirbs", JSON.stringify(selectedBirbs));
   }, [selectedBirbs]);
 
-  useEffect(() => {
-    if (birbs[birbInput]) addBirb(birbInput);
-  }, [birbInput]);
-
   const fetchBirb = (birb: string) => {
-    // setLoading(true);
-    if (!birbs[birb]) {
+    if (!birbsMap[birb]) {
       deleteBirb(birb);
     }
-    const latinName = birbs[birb] as string;
+    const latinName = birbsMap[birb] as string;
     fetch(
       `https://xeno-canto.org/api/2/recordings?query=${latinName
         .replace(" ", "%20")
@@ -88,11 +101,45 @@ function App() {
             .map((recording: any) => recording.file);
           setAudioSources(new Map(audioSources?.set(birb, recordings)));
         } else {
-          console.warn("no recording");
+          deleteBirb(birb);
+          setOpenSnake(true);
+          setSnakeMessage("Cet oiseau ne chante pas.");
         }
-        // setLoading(false);
       });
   };
+
+  // const fetchBirbs = (birbsToAdd: Array<string>, birbToAdd?: string) => {
+  //   Promise.all(
+  //     birbsToAdd.map((birb: string) => {
+  //       if (!birbsMap[birb]) {
+  //         deleteBirb(birb);
+  //       }
+  //       const latinName = birbsMap[birb] as string;
+  //       return fetch(
+  //         `https://xeno-canto.org/api/2/recordings?query=${latinName
+  //           .replace(" ", "%20")
+  //           .toLowerCase()}%20q:A`
+  //       );
+  //     })
+  //   )
+  //     .then((results) => Promise.all(results.map((result) => result.json())))
+  //     .then((results: Array<any>) => {
+  //       console.log(results);
+  //       results.forEach((result) => {
+  //         if (result.recordings) {
+  //           const latinName = `${result.recordings[0].gen} ${result.recordings[0].sp}`;
+  //           const recordings = result.recordings
+  //             .splice(0, 3)
+  //             .map((recording: any) => recording.file);
+  //           setAudioSources(new Map(audioSources?.set(latinName, recordings)));
+  //         } else {
+  //           deleteBirb(birbToAdd!);
+  //           setOpenSnake(true);
+  //           setSnakeMessage(`${birbToAdd} ne chante pas.`);
+  //         }
+  //       });
+  //     });
+  // };
 
   const randomSequence = (max: number) => {
     const newSequence = [...Array(max).keys()];
@@ -110,7 +157,7 @@ function App() {
   };
 
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ maxHeight: "100vh" }}>
       <Box
         sx={{
           display: "grid",
@@ -140,27 +187,12 @@ function App() {
                 gridTemplateRows: "min-content max-content min-content",
               }}
             >
-              {/* <Autocomplete
-                value={selectedBirb}
-                onChange={(e, birbInput) => {
-                  console.log("hi", e.target);
-                  // if (birbInput) {
-                  //   console.log(birbInput);
-                  //   setBirbInput(birbInput);
-                  //   if (birbs[birbInput]) addBirb(birbInput);
-                  // }
-                }}
-                freeSolo
-                // open={birbInput.length > 2}
-                options={Object.keys(birbs)}
-                renderInput={(params) => (
-                  <TextField {...params} label="Recherche" />
-                )}
-              /> */}
               <Autocomplete
                 inputValue={birbInput}
                 onInputChange={(e, v) => setBirbInput(v)}
-                options={Object.keys(birbs)}
+                value={selectedBirb}
+                onChange={(e, v) => setSelectedBirb(v!)}
+                options={Object.keys(birbsMap)}
                 getOptionLabel={(option) => option}
                 renderInput={(params) => (
                   <TextField
@@ -177,6 +209,7 @@ function App() {
                   display: "grid",
                   gap: "0.5rem",
                   gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+                  overflowY: "scroll",
                 }}
               >
                 {selectedBirbs.map((birb, i) => (
@@ -189,17 +222,13 @@ function App() {
                 ))}
               </Box>
 
-              <LoadingButton
-                loading={selectedBirbs.length !== audioSources.size}
+              <Button
                 variant="contained"
                 onClick={startQuiz}
-                disabled={
-                  selectedBirbs.length <= 0 ||
-                  selectedBirbs.length !== audioSources.size
-                }
+                disabled={selectedBirbs.length <= 0}
               >
                 Quiz moi
-              </LoadingButton>
+              </Button>
             </Box>
           )}
 
@@ -212,19 +241,30 @@ function App() {
                   gridTemplateColumns: "repeat(auto-fill, 1fr)",
                 }}
               >
-                {audioSources
-                  .get(selectedBirbs[sequence![counter]])!
-                  .map((audioSource: string, i: number) => (
-                    <audio
-                      key={`audio-${i}`}
-                      style={{ width: "100%" }}
-                      controls
-                      src={audioSource}
-                    >
-                      Your browser does not support the
-                      <code>audio</code> element.
-                    </audio>
-                  ))}
+                {audioSources.size <= 0 && (
+                  <Box
+                    sx={{
+                      display: "grid",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Box>
+                )}
+                {audioSources.size > 0 &&
+                  audioSources
+                    .get(selectedBirbs[sequence![counter]])!
+                    .map((audioSource: string, i: number) => (
+                      <audio
+                        key={`audio-${i}`}
+                        style={{ width: "100%" }}
+                        controls
+                        src={audioSource}
+                      >
+                        Your browser does not support the
+                        <code>audio</code> element.
+                      </audio>
+                    ))}
               </Box>
 
               <Box
@@ -262,6 +302,17 @@ function App() {
             </Box>
           )}
         </Box>
+
+        <Snackbar
+          open={openSnake}
+          autoHideDuration={5000}
+          message={snakeMessage}
+          onClose={() => {
+            setOpenSnake(false);
+            setSnakeMessage("");
+          }}
+          action={<CloseIcon fontSize="small" />}
+        />
       </Box>
     </Box>
   );
