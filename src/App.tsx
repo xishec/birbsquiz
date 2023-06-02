@@ -7,6 +7,7 @@ import {
   Box,
   Chip,
   CircularProgress,
+  Link,
   Snackbar,
   Switch,
   Typography,
@@ -80,7 +81,7 @@ function App() {
   const [snakeMessage, setSnakeMessage] = React.useState("");
   const birdEmoji = useMemo(
     () => birdEmojis[Math.floor(Math.random() * birdEmojis.length)],
-    [birdEmojis]
+    []
   );
 
   const addBirb = (birbToAdd: string) => {
@@ -281,7 +282,7 @@ function App() {
         >
           <Typography variant="h2">
             {/* <Box component="span" sx={{ color: "primary.main" }}> */}
-              Birbsquiz
+            Birbsquiz
             {/* </Box> */}
             {birdEmoji}
           </Typography>
@@ -350,6 +351,34 @@ function App() {
                 >
                   Quiz moi
                 </Button>
+              </Box>
+              
+              <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
+                <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+                  <Link
+                    sx={{ color: "#dcdcdc" }}
+                    target="_blank"
+                    rel="noopener"
+                    underline="hover"
+                    href="https://xeno-canto.org"
+                  >
+                    xeno-canto
+                  </Link>
+                </Typography>
+              </Box>
+
+              <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
+                <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+                  <Link
+                    sx={{ color: "#dcdcdc" }}
+                    target="_blank"
+                    rel="noopener"
+                    underline="hover"
+                    href="https://www.linkedin.com/in/xishec/"
+                  >
+                    Xi Chen
+                  </Link>
+                </Typography>
               </Box>
             </>
           )}
