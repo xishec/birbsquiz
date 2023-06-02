@@ -1,19 +1,73 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import rawBirbs from "./birbsMap.json";
-import { Box, Chip, CircularProgress, Switch, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Snackbar,
+  Switch,
+  Typography,
+} from "@mui/material";
+import LinearProgress, {
+  LinearProgressProps,
+} from "@mui/material/LinearProgress";
+
 import "./App.css";
+
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+const birdEmojis = [
+  " 🐦‍⬛",
+  " 🦤",
+  " 🦜",
+  " 🦅",
+  " 🦚",
+  " 🦃",
+  " 🦉",
+  " 🦢",
+  " 🦩",
+  " 🦆",
+  " 🪿",
+  " 🥚",
+  " 🍳",
+];
 
 function App() {
   let birbsMap = rawBirbs as any;
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirb, setSelectedBirb] = React.useState<string>("");
   const [selectedBirbs, setSelectedBirbs] = React.useState<Array<string>>(
-    localStorage.getItem("selectedBirbs")
-      ? JSON.parse(localStorage.getItem("selectedBirbs")!)
-      : []
+    () => {
+      const urlBirbs = new URLSearchParams(window.location.search).get("birbs");
+      if (urlBirbs)
+        return JSON.parse(urlBirbs).filter((birb: any) => birbsMap[birb]);
+
+      const localStorageBirbs = localStorage.getItem("selectedBirbs");
+      if (localStorageBirbs)
+        return JSON.parse(localStorageBirbs).filter(
+          (birb: any) => birbsMap[birb]
+        );
+
+      return [];
+    }
   );
   const [audioSources, setAudioSources] = React.useState<
     Map<string, Array<string>>
@@ -22,6 +76,12 @@ function App() {
   const [quizStarted, setQuizStarted] = React.useState(false);
   const [showAnswer, setShowAnswer] = React.useState(false);
   const [sequence, setSequence] = React.useState<Array<number>>();
+  const [openSnake, setOpenSnake] = React.useState(false);
+  const [snakeMessage, setSnakeMessage] = React.useState("");
+  const birdEmoji = useMemo(
+    () => birdEmojis[Math.floor(Math.random() * birdEmojis.length)],
+    [birdEmojis]
+  );
 
   const addBirb = (birbToAdd: string) => {
     if (
@@ -55,6 +115,15 @@ function App() {
       setCounter(counter + 1);
     }
     setShowAnswer(false);
+  };
+
+  const copyUrl = () => {
+    let url = `${
+      window.location.href.split("?")[0]
+    }?birbs=${localStorage.getItem("selectedBirbs")}`.replaceAll(" ", "%20");
+    navigator.clipboard.writeText(url);
+    setSnakeMessage("Lien copié!");
+    setOpenSnake(true);
   };
 
   useEffect(() => {
@@ -93,7 +162,12 @@ function App() {
       .then((data) => {
         if (data.recordings.length > 0) {
           const recordings = data.recordings
-            .splice(0, 4)
+            .filter(
+              (recording: any) =>
+                !recording["file-name"].includes(".wav") &&
+                !recording.type.includes("drumming")
+            )
+            .splice(0, 3)
             .map((recording: any) => recording.file);
           setAudioSources(new Map(audioSources?.set(birb, recordings)));
         } else {
@@ -161,7 +235,7 @@ function App() {
               justifyContent: "center",
             }}
           >
-            <CircularProgress color="inherit" />
+            <CircularProgress />
           </Box>
         )}
         {audioSource &&
@@ -205,7 +279,12 @@ function App() {
             overflow: "auto",
           }}
         >
-          <Typography variant="h2">Birbsquiz</Typography>
+          <Typography variant="h2">
+            {/* <Box component="span" sx={{ color: "primary.main" }}> */}
+              Birbsquiz
+            {/* </Box> */}
+            {birdEmoji}
+          </Typography>
 
           {!quizStarted && (
             <>
@@ -250,18 +329,37 @@ function App() {
                 </Box>
               )}
 
-              <Button
-                variant="contained"
-                onClick={startQuiz}
-                disabled={selectedBirbs.length <= 0}
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "1rem",
+                }}
               >
-                Quiz moi
-              </Button>
+                <Button
+                  variant="outlined"
+                  onClick={copyUrl}
+                  disabled={selectedBirbs.length <= 0}
+                >
+                  Partager
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={startQuiz}
+                  disabled={selectedBirbs.length <= 0}
+                >
+                  Quiz moi
+                </Button>
+              </Box>
             </>
           )}
 
           {quizStarted && (
             <>
+              <LinearProgressWithLabel
+                value={((counter + 1) / selectedBirbs.length) * 100}
+              />
+
               <Box
                 sx={{
                   display: "grid",
@@ -303,6 +401,17 @@ function App() {
             </>
           )}
         </Box>
+
+        <Snackbar
+          open={openSnake}
+          autoHideDuration={5000}
+          onClose={() => {
+            setOpenSnake(false);
+            setSnakeMessage("");
+          }}
+          message={snakeMessage}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        />
       </Box>
     </Box>
   );
