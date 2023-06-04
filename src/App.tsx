@@ -147,12 +147,16 @@ function App() {
 
   const nextQuestion = () => {
     if (counter === selectedBirbs.length - 1) {
-      setCounter(0);
-      setQuizStarted(false);
+      endQuiz();
     } else {
       setCounter(counter + 1);
     }
     setShowAnswer(false);
+  };
+
+  const endQuiz = () => {
+    setCounter(0);
+    setQuizStarted(false);
   };
 
   const copyUrl = () => {
@@ -165,27 +169,24 @@ function App() {
   };
 
   useEffect(() => {
-    if (quizStarted && sequence) fetchBirb(selectedBirbs[sequence[counter]]);
-  }, [quizStarted, sequence, counter, fetchBirb, selectedBirbs]);
-
-  useEffect(() => {
     if (selectedBirb) addBirb(selectedBirb);
   }, [selectedBirb, addBirb]);
-
-  useEffect(() => {
-    // console.log(audioSources);
-  }, [audioSources]);
 
   useEffect(() => {
     localStorage.setItem("selectedBirbs", JSON.stringify(selectedBirbs));
   }, [selectedBirbs]);
 
   useEffect(() => {
-    if (!quizStarted || !counter || !sequence) return;
+    if (
+      !quizStarted ||
+      !counter ||
+      !sequence ||
+      counter >= selectedBirbs.length - 1
+    )
+      return;
 
-    if (counter < selectedBirbs.length - 1 && sequence) {
-      fetchBirb(selectedBirbs[sequence![counter + 1]]);
-    }
+    // fetch next bird
+    fetchBirb(selectedBirbs[sequence![counter + 1]]);
   }, [quizStarted, counter, sequence, fetchBirb, selectedBirbs]);
 
   const randomSequence = (max: number) => {
