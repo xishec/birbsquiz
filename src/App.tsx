@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -84,23 +84,60 @@ function App() {
     []
   );
 
-  const addBirb = (birbToAdd: string) => {
-    if (
-      birbsMap[birbToAdd] &&
-      !selectedBirbs.find((birb) => birb === birbToAdd)
-    ) {
-      setSelectedBirbs([...selectedBirbs, birbToAdd]);
-    }
-    setBirbInput("");
-    setSelectedBirb("");
-  };
+  const addBirb = useCallback(
+    (birbToAdd: string) => {
+      if (
+        birbsMap[birbToAdd] &&
+        !selectedBirbs.find((birb) => birb === birbToAdd)
+      ) {
+        setSelectedBirbs([...selectedBirbs, birbToAdd]);
+      }
+      setBirbInput("");
+      setSelectedBirb("");
+    },
+    [birbsMap, selectedBirbs]
+  );
 
-  const deleteBirb = (birbToDelete: string) => {
-    const newSelectedBirbs = selectedBirbs?.filter(
-      (birb) => birb !== birbToDelete
-    );
-    setSelectedBirbs(newSelectedBirbs!);
-  };
+  const deleteBirb = useCallback(
+    (birbToDelete: string) => {
+      const newSelectedBirbs = selectedBirbs?.filter(
+        (birb) => birb !== birbToDelete
+      );
+      setSelectedBirbs(newSelectedBirbs!);
+    },
+    [selectedBirbs]
+  );
+
+  const fetchBirb = useCallback(
+    (birb: string) => {
+      if (!birbsMap[birb]) {
+        deleteBirb(birb);
+      }
+      const latinName = birbsMap[birb] as string;
+      fetch(
+        `https://xeno-canto.org/api/2/recordings?query=${latinName
+          .replace(" ", "%20")
+          .toLowerCase()}%20q:A`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.recordings.length > 0) {
+            const recordings = data.recordings
+              .filter(
+                (recording: any) =>
+                  !recording["file-name"].includes(".wav") &&
+                  !recording.type.includes("drumming")
+              )
+              .splice(0, 3)
+              .map((recording: any) => recording.file);
+            setAudioSources(new Map(audioSources?.set(birb, recordings)));
+          } else {
+            setAudioSources(new Map(audioSources?.set(birb, [])));
+          }
+        });
+    },
+    [audioSources, birbsMap, deleteBirb]
+  );
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -129,11 +166,11 @@ function App() {
 
   useEffect(() => {
     if (quizStarted && sequence) fetchBirb(selectedBirbs[sequence[counter]]);
-  }, [quizStarted]);
+  }, [quizStarted, sequence, counter, fetchBirb, selectedBirbs]);
 
   useEffect(() => {
     if (selectedBirb) addBirb(selectedBirb);
-  }, [selectedBirb]);
+  }, [selectedBirb, addBirb]);
 
   useEffect(() => {
     // console.log(audioSources);
@@ -144,71 +181,12 @@ function App() {
   }, [selectedBirbs]);
 
   useEffect(() => {
+    if (!quizStarted || !counter || !sequence) return;
+
     if (counter < selectedBirbs.length - 1 && sequence) {
       fetchBirb(selectedBirbs[sequence![counter + 1]]);
     }
-  }, [counter, sequence]);
-
-  const fetchBirb = (birb: string) => {
-    if (!birbsMap[birb]) {
-      deleteBirb(birb);
-    }
-    const latinName = birbsMap[birb] as string;
-    fetch(
-      `https://xeno-canto.org/api/2/recordings?query=${latinName
-        .replace(" ", "%20")
-        .toLowerCase()}%20q:A`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.recordings.length > 0) {
-          const recordings = data.recordings
-            .filter(
-              (recording: any) =>
-                !recording["file-name"].includes(".wav") &&
-                !recording.type.includes("drumming")
-            )
-            .splice(0, 3)
-            .map((recording: any) => recording.file);
-          setAudioSources(new Map(audioSources?.set(birb, recordings)));
-        } else {
-          setAudioSources(new Map(audioSources?.set(birb, [])));
-        }
-      });
-  };
-
-  // const fetchBirbs = (birbsToAdd: Array<string>, birbToAdd?: string) => {
-  //   Promise.all(
-  //     birbsToAdd.map((birb: string) => {
-  //       if (!birbsMap[birb]) {
-  //         deleteBirb(birb);
-  //       }
-  //       const latinName = birbsMap[birb] as string;
-  //       return fetch(
-  //         `https://xeno-canto.org/api/2/recordings?query=${latinName
-  //           .replace(" ", "%20")
-  //           .toLowerCase()}%20q:A`
-  //       );
-  //     })
-  //   )
-  //     .then((results) => Promise.all(results.map((result) => result.json())))
-  //     .then((results: Array<any>) => {
-  //       console.log(results);
-  //       results.forEach((result) => {
-  //         if (result.recordings) {
-  //           const latinName = `${result.recordings[0].gen} ${result.recordings[0].sp}`;
-  //           const recordings = result.recordings
-  //             .splice(0, 3)
-  //             .map((recording: any) => recording.file);
-  //           setAudioSources(new Map(audioSources?.set(latinName, recordings)));
-  //         } else {
-  //           deleteBirb(birbToAdd!);
-  //           setOpenSnake(true);
-  //           setSnakeMessage(`${birbToAdd} ne chante pas.`);
-  //         }
-  //       });
-  //     });
-  // };
+  }, [quizStarted, counter, sequence, fetchBirb, selectedBirbs]);
 
   const randomSequence = (max: number) => {
     const newSequence = [...Array(max).keys()];
@@ -352,7 +330,7 @@ function App() {
                   Quiz moi
                 </Button>
               </Box>
-              
+
               <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
                 <Typography sx={{ color: "#dcdcdc" }} variant="caption">
                   <Link
