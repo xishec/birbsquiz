@@ -1,42 +1,22 @@
+import "./App.css";
 import React, { useCallback, useEffect, useMemo } from "react";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
 import rawRecordingsMap from "./dendroica/recordingsMap.json";
-import DeleteIcon from "@mui/icons-material/Delete";
+import rawPhotosMap from "./dendroica/photosMap.json";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Box,
   Chip,
-  CircularProgress,
   Link,
   Snackbar,
   Switch,
+  Tab,
   Typography,
   styled,
 } from "@mui/material";
-import LinearProgress, {
-  LinearProgressProps,
-} from "@mui/material/LinearProgress";
-
-import "./App.css";
-
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
-) {
-  return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}
 
 const StyledChip = styled(Chip)({
   root: {
@@ -54,20 +34,21 @@ const birbEmojis = [
   " 🦤",
   " 🦜",
   " 🦅",
-  " 🦚",
+  // " 🦚",
   " 🦃",
-  " 🦉",
+  // " 🦉",
   " 🦢",
   " 🦩",
   " 🦆",
   " 🪿",
   " 🥚",
-  " 🍳",
+  // " 🍳",
 ];
 
 function App() {
   const birbsMapFr = rawBirbsMapFr as any;
   const recordingsMap = rawRecordingsMap as any;
+  const photosMap = rawPhotosMap as any;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
@@ -88,9 +69,6 @@ function App() {
       return [];
     }
   );
-  // const [audioSources, setAudioSources] = React.useState<
-  //   Map<string, Array<string>>
-  // >(new Map());
   const [counter, setCounter] = React.useState(0);
   const [quizStarted, setQuizStarted] = React.useState(false);
   const [showAnswer, setShowAnswer] = React.useState(false);
@@ -101,6 +79,11 @@ function App() {
     () => birbEmojis[Math.floor(Math.random() * birbEmojis.length)],
     []
   );
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   const addBirb = useCallback(
     (birbId: string) => {
@@ -179,6 +162,7 @@ function App() {
 
   const hi = async () => {
     const idsToFetch = Object.keys(birbsMapFr);
+    // .splice(0, 3);
     const myMap: any = {};
 
     // while (myMap.size < idsToFetch.length) {
@@ -187,11 +171,11 @@ function App() {
       fetch(`https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`)
         .then((response) => response.text())
         .then((data) => {
-          const regex = /\/files(.*?)mp3/g;
+          const regex = /\/files(.*?)jpg/g;
           const found = data.match(regex);
           if (found && found.length > 0) {
             const recordings = found
-              .splice(0, 3)
+              .splice(0, 1)
               .map((path: any) => `https://www.natureinstruct.org${path}`);
             myMap[birbId] = recordings;
             console.log(JSON.stringify(myMap));
@@ -207,10 +191,6 @@ function App() {
     // hi();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(audioSources);
-  // }, [audioSources]);
-
   useEffect(() => {
     if (selectedBirbId) addBirb(selectedBirbId);
   }, [selectedBirbId, addBirb]);
@@ -218,20 +198,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("selectedBirbIds", JSON.stringify(selectedBirbIds));
   }, [selectedBirbIds]);
-
-  // useEffect(() => {
-  //   if (!quizStarted || !sequence) return;
-
-  //   // fetch this birb
-  //   if (counter === 0) {
-  //     fetchBirb(selectedBirbIds[sequence![counter]]);
-  //   }
-
-  //   // fetch next birb
-  //   if (counter < selectedBirbIds.length - 1) {
-  //     fetchBirb(selectedBirbIds[sequence![counter + 1]]);
-  //   }
-  // }, [quizStarted, counter, sequence, fetchBirb, selectedBirbIds]);
 
   const randomSequence = (max: number) => {
     const newSequence = [...Array(max).keys()];
@@ -253,16 +219,6 @@ function App() {
     const audioSource = recordingsMap[selectedBirbIds[sequence![counter]]];
     return (
       <>
-        {!audioSource && (
-          <Box
-            sx={{
-              display: "grid",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        )}
         {audioSource &&
           audioSource.length > 0 &&
           audioSource.map((audioSource: string, i: number) => (
@@ -299,20 +255,20 @@ function App() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "2rem",
+            gap: "1.5rem",
             height: "100%",
             overflow: "auto",
           }}
         >
-          <Typography variant="h2">
-            {/* <Box component="span" sx={{ color: "primary.main" }}> */}
-            Birbsquiz
-            {/* </Box> */}
-            {birbEmoji}
-          </Typography>
-
           {!quizStarted && (
             <>
+              <Typography variant="h2">
+                {/* <Box component="span" sx={{ color: "primary.main" }}> */}
+                Birbsquiz
+                {/* </Box> */}
+                {birbEmoji}
+              </Typography>
+
               <Autocomplete
                 inputValue={birbInput}
                 onInputChange={(e, v) => setBirbInput(v)}
@@ -335,7 +291,6 @@ function App() {
                     variant="outlined"
                   />
                 )}
-                popupIcon={null}
               />
 
               {selectedBirbIds.length > 0 && (
@@ -369,7 +324,7 @@ function App() {
                   sx={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
-                    gap: "1rem",
+                    gap: "1.5rem",
                   }}
                 >
                   <Button
@@ -408,52 +363,87 @@ function App() {
 
           {quizStarted && (
             <>
-              <LinearProgressWithLabel
-                value={((counter + 1) / selectedBirbIds.length) * 100}
-              />
-
-              <Box
-                sx={{
-                  display: "grid",
-                  gap: "1rem",
-                  gridTemplateColumns: "repeat(auto-fill, 1fr)",
-                }}
-              >
-                {getAudioSource()}
-              </Box>
-
-              <Box
-                sx={{
-                  display: "grid",
-                  alignItems: "center",
-                  gap: "1rem",
-                  gridTemplateColumns: "min-content 1fr",
-                }}
-              >
-                <Switch
-                  checked={showAnswer}
-                  onChange={() => setShowAnswer(!showAnswer)}
-                />
-                <Typography variant="body1">
-                  {showAnswer
-                    ? birbsMapFr[selectedBirbIds[sequence![counter]]]
-                    : "???"}
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Typography variant="h4">
+                  {/* <Box component="span" sx={{ color: "primary.main" }}> */}
+                  {/* Birbsquizzing... */}
+                  {/* </Box> */}
+                  {` ${counter + 1}/${selectedBirbIds.length}`}
+                  {birbEmoji}
                 </Typography>
               </Box>
 
-              <Button
-                variant={
-                  counter === selectedBirbIds.length - 1
-                    ? "contained"
-                    : "outlined"
-                }
-                onClick={nextQuestion}
-                disabled={!showAnswer}
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList variant="fullWidth" onChange={handleChange}>
+                    <Tab label="Chants" value="1" />
+                    <Tab label="Image" value="2" />
+                  </TabList>
+                </Box>
+                <TabPanel sx={{ padding: "0" }} value="1">
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gap: "1.5rem",
+                      gridTemplateColumns: "repeat(auto-fill, 1fr)",
+                    }}
+                  >
+                    {getAudioSource()}
+                  </Box>
+                </TabPanel>
+                <TabPanel sx={{ padding: "0" }} value="2">
+                  <img
+                    style={{ height: "100%", width: "100%" }}
+                    src={photosMap[selectedBirbIds[sequence![counter]]]}
+                    loading="lazy"
+                  />
+                </TabPanel>
+              </TabContext>
+
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "1.5rem",
+                  gridTemplateColumns: "1fr",
+                }}
               >
-                {counter === selectedBirbIds.length - 1
-                  ? "Terminer"
-                  : "Prochain"}
-              </Button>
+                <Box
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    gap: "1.5rem",
+                    gridTemplateColumns: "min-content 1fr",
+                  }}
+                >
+                  <Switch
+                    checked={showAnswer}
+                    onChange={() => setShowAnswer(!showAnswer)}
+                  />
+                  <Typography variant="body1">
+                    {showAnswer
+                      ? birbsMapFr[selectedBirbIds[sequence![counter]]]
+                      : "???"}
+                  </Typography>
+                </Box>
+
+                <Button
+                  variant={
+                    counter === selectedBirbIds.length - 1
+                      ? "contained"
+                      : "outlined"
+                  }
+                  onClick={nextQuestion}
+                  disabled={!showAnswer}
+                >
+                  {counter === selectedBirbIds.length - 1
+                    ? "Terminer "
+                    : "Prochain "}
+                </Button>
+
+                {/* <LinearProgressWithLabel
+                  value={((counter + 1) / selectedBirbIds.length) * 100}
+                /> */}
+              </Box>
             </>
           )}
         </Box>
