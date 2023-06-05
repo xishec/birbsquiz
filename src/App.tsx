@@ -4,6 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
 import rawRecordingsMap from "./dendroica/recordingsMap.json";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Chip,
@@ -12,6 +13,7 @@ import {
   Snackbar,
   Switch,
   Typography,
+  styled,
 } from "@mui/material";
 import LinearProgress, {
   LinearProgressProps,
@@ -35,6 +37,17 @@ function LinearProgressWithLabel(
     </Box>
   );
 }
+
+const StyledChip = styled(Chip)({
+  root: {
+    width: "70%",
+    position: "relative",
+  },
+  svg: {
+    position: "absolute",
+    right: 0,
+  },
+});
 
 const birbEmojis = [
   " 🐦‍⬛",
@@ -62,7 +75,9 @@ function App() {
     () => {
       const urlBirbs = new URLSearchParams(window.location.search).get("birbs");
       if (urlBirbs)
-        return JSON.parse(urlBirbs).filter((birbId: any) => birbsMapFr[birbId]);
+        return JSON.parse(atob(urlBirbs)).filter(
+          (birbId: any) => birbsMapFr[birbId]
+        );
 
       const localStorageBirbs = localStorage.getItem("selectedBirbIds");
       if (localStorageBirbs)
@@ -155,11 +170,10 @@ function App() {
   };
 
   const copyUrl = () => {
-    let url = `${
-      window.location.href.split("?")[0]
-    }?birbs=${localStorage.getItem("selectedBirbIds")}`.replaceAll(" ", "%20");
+    const encodedBirbs = btoa(localStorage.getItem("selectedBirbIds")!);
+    let url = `${window.location.href.split("?")[0]}?birbs=${encodedBirbs}`;
     navigator.clipboard.writeText(url);
-    setSnakeMessage("Lien copié!");
+    setSnakeMessage(`Lien copié (${url})`);
     setOpenSnake(true);
   };
 
@@ -327,17 +341,15 @@ function App() {
               {selectedBirbIds.length > 0 && (
                 <Box
                   sx={{
-                    maxHeight: "100%",
                     display: "grid",
                     gridTemplateRows: "min-content min-content min-content",
                     overflow: "auto",
                     gap: "0.5rem",
-                    gridTemplateColumns:
-                      "repeat(auto-fill, minmax(200px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
                   }}
                 >
                   {selectedBirbIds.map((birbId, i) => (
-                    <Chip
+                    <StyledChip
                       key={`chip-${i}`}
                       label={birbsMapFr[birbId]}
                       variant="outlined"
@@ -350,52 +362,46 @@ function App() {
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "1rem",
+                  gridTemplateColumns: "1fr",
                 }}
               >
-                <Button
-                  variant="outlined"
-                  onClick={copyUrl}
-                  disabled={selectedBirbIds.length <= 0}
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "1rem",
+                  }}
                 >
-                  Partager
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={startQuiz}
-                  disabled={selectedBirbIds.length <= 0}
+                  <Button
+                    variant="outlined"
+                    onClick={copyUrl}
+                    disabled={selectedBirbIds.length <= 0}
+                  >
+                    Partager
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    onClick={startQuiz}
+                    disabled={selectedBirbIds.length <= 0}
+                  >
+                    Quiz moi
+                  </Button>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
                 >
-                  Quiz moi
-                </Button>
-              </Box>
-
-              <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
-                <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-                  <Link
-                    sx={{ color: "#dcdcdc" }}
-                    target="_blank"
-                    rel="noopener"
-                    underline="hover"
-                    href="https://xeno-canto.org"
+                  <Typography
+                    sx={{ position: "relative", top: 0 }}
+                    variant="caption"
                   >
-                    xeno-canto
-                  </Link>
-                </Typography>
-              </Box>
-
-              <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
-                <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-                  <Link
-                    sx={{ color: "#dcdcdc" }}
-                    target="_blank"
-                    rel="noopener"
-                    underline="hover"
-                    href="https://www.linkedin.com/in/xishec/"
-                  >
-                    Xi Chen
-                  </Link>
-                </Typography>
+                    {selectedBirbIds.length} birbs
+                  </Typography>
+                </Box>
               </Box>
             </>
           )}
@@ -450,6 +456,34 @@ function App() {
               </Button>
             </>
           )}
+        </Box>
+
+        <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
+          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+            <Link
+              sx={{ color: "#dcdcdc" }}
+              target="_blank"
+              rel="noopener"
+              underline="hover"
+              href="https://www.natureinstruct.org/dendroica/"
+            >
+              DENDROICA
+            </Link>
+          </Typography>
+        </Box>
+
+        <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
+          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+            <Link
+              sx={{ color: "#dcdcdc" }}
+              target="_blank"
+              rel="noopener"
+              underline="hover"
+              href="https://www.linkedin.com/in/xishec/"
+            >
+              Xi Chen
+            </Link>
+          </Typography>
         </Box>
 
         <Snackbar
