@@ -6,10 +6,12 @@ import TextField from "@mui/material/TextField";
 import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
 import rawRecordingsMap from "./dendroica/recordingsMap.json";
 import rawPhotosMap from "./dendroica/photosMap.json";
+import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Box,
   Chip,
+  IconButton,
   Link,
   Snackbar,
   Switch,
@@ -147,6 +149,11 @@ function App() {
     setShowAnswer(false);
   };
 
+  const previousQuestion = () => {
+    setCounter(counter - 1);
+    setShowAnswer(false);
+  };
+
   const endQuiz = () => {
     setCounter(0);
     setQuizStarted(false);
@@ -156,7 +163,7 @@ function App() {
     const encodedBirbs = btoa(localStorage.getItem("selectedBirbIds")!);
     let url = `${window.location.href.split("?")[0]}?birbs=${encodedBirbs}`;
     navigator.clipboard.writeText(url);
-    setSnakeMessage(`Lien copié (${url})`);
+    setSnakeMessage(`Lien copié!`);
     setOpenSnake(true);
   };
 
@@ -239,192 +246,228 @@ function App() {
       </>
     );
   };
-
   return (
     <Box sx={{ height: "100vh" }}>
       <Box
         sx={{
           height: "80%",
-          padding: "2rem",
+          padding: "1.5rem",
           display: "grid",
           justifyContent: "center",
           gridTemplateColumns: "minmax(min-content, 800px)",
+          alignContent: "flex-start",
+          gap: "1.5rem",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-            height: "100%",
-            overflow: "auto",
-          }}
-        >
-          {!quizStarted && (
-            <>
-              <Typography variant="h2">
-                {/* <Box component="span" sx={{ color: "primary.main" }}> */}
-                Birbsquiz
-                {/* </Box> */}
-                {birbEmoji}
-              </Typography>
+        {!quizStarted && (
+          <>
+            <Typography sx={{ justifySelf: "center" }} variant="h2">
+              {/* <Box component="span" sx={{ color: "primary.main" }}> */}
+              Birbsquiz
+              {/* </Box> */}
+              {birbEmoji}
+            </Typography>
 
-              <Autocomplete
-                inputValue={birbInput}
-                onInputChange={(e, v) => setBirbInput(v)}
-                value={selectedBirbId}
-                onChange={(e, v) => setSelectedBirbId(v!)}
-                options={Object.keys(birbsMapFr).sort((a, b) =>
-                  birbsMapFr[a].localeCompare(birbsMapFr[b])
-                )}
-                getOptionLabel={(birbId) =>
-                  birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
-                }
-                freeSolo
-                isOptionEqualToValue={(birbId, input) =>
-                  birbsMapFr[birbId] === input
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Recherche ..."
-                    variant="outlined"
-                  />
-                )}
-              />
-
-              {selectedBirbIds.length > 0 && (
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateRows: "min-content min-content min-content",
-                    overflow: "auto",
-                    gap: "0.5rem",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  }}
-                >
-                  {selectedBirbIds.map((birbId, i) => (
-                    <StyledChip
-                      key={`chip-${i}`}
-                      label={birbsMapFr[birbId]}
-                      variant="outlined"
-                      onDelete={() => deleteBirb(birbId)}
-                    />
-                  ))}
-                </Box>
+            <Autocomplete
+              inputValue={birbInput}
+              onInputChange={(e, v) => setBirbInput(v)}
+              value={selectedBirbId}
+              onChange={(e, v) => setSelectedBirbId(v!)}
+              options={Object.keys(birbsMapFr).sort((a, b) =>
+                birbsMapFr[a].localeCompare(birbsMapFr[b])
               )}
+              getOptionLabel={(birbId) =>
+                birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
+              }
+              freeSolo
+              isOptionEqualToValue={(birbId, input) =>
+                birbsMapFr[birbId] === input
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Recherche ..."
+                  variant="outlined"
+                />
+              )}
+            />
 
+            {selectedBirbIds.length > 0 && (
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "1fr",
+                  gridTemplateRows: "min-content min-content min-content",
+                  overflow: "auto",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1.5rem",
-                  }}
-                >
-                  <Button
+                {selectedBirbIds.map((birbId, i) => (
+                  <StyledChip
+                    key={`chip-${i}`}
+                    label={birbsMapFr[birbId]}
                     variant="outlined"
-                    onClick={copyUrl}
-                    disabled={selectedBirbIds.length <= 0}
-                  >
-                    Partager
-                  </Button>
+                    onDelete={() => deleteBirb(birbId)}
+                  />
+                ))}
+              </Box>
+            )}
 
-                  <Button
-                    variant="contained"
-                    onClick={startQuiz}
-                    disabled={selectedBirbIds.length <= 0}
-                  >
-                    Quiz moi
-                  </Button>
-                </Box>
+            {/* <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Typography
+                sx={{ position: "relative", top: 0 }}
+                variant="caption"
+              >
+                {selectedBirbIds.length} birbs
+              </Typography>
+            </Box> */}
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "min-content 1fr",
+                  gap: "0.5rem",
+                }}
+              >
+                {/* <Button
+                  variant="outlined"
+                  onClick={copyUrl}
+                  disabled={selectedBirbIds.length <= 0}
                 >
-                  <Typography
-                    sx={{ position: "relative", top: 0 }}
-                    variant="caption"
-                  >
-                    {selectedBirbIds.length} birbs
-                  </Typography>
-                </Box>
-              </Box>
-            </>
-          )}
+                  Partager
+                </Button> */}
+                <IconButton
+                  color="primary"
+                  onClick={copyUrl}
+                  disabled={selectedBirbIds.length <= 0}
+                >
+                  <CopyAllIcon />
+                </IconButton>
 
-          {quizStarted && (
-            <>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Typography variant="h4">
-                  {/* <Box component="span" sx={{ color: "primary.main" }}> */}
-                  {/* Birbsquizzing... */}
-                  {/* </Box> */}
-                  {` ${counter + 1}/${selectedBirbIds.length}`}
-                  {birbEmoji}
-                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={startQuiz}
+                  disabled={selectedBirbIds.length <= 0}
+                >
+                  {`Quiz moi ${selectedBirbIds.length} birb${
+                    selectedBirbIds.length === 1 ? "" : "s"
+                  }`}
+                </Button>
               </Box>
+            </Box>
+          </>
+        )}
 
-              <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <TabList variant="fullWidth" onChange={handleChange}>
-                    <Tab label="Chants" value="1" />
-                    <Tab label="Image" value="2" />
-                  </TabList>
-                </Box>
-                <TabPanel sx={{ padding: "0" }} value="1">
+        {quizStarted && (
+          <>
+            <IconButton
+              sx={{ position: "absolute", top: "0", right: "0" }}
+              onClick={copyUrl}
+              disabled={selectedBirbIds.length <= 0}
+            >
+              <CopyAllIcon />
+            </IconButton>
+
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Typography variant="h4">
+                {/* <Box component="span" sx={{ color: "primary.main" }}> */}
+                {/* Birbsquizzing... */}
+                {/* </Box> */}
+                {` ${counter + 1}/${selectedBirbIds.length}`}
+                {birbEmoji}
+              </Typography>
+            </Box>
+
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList variant="fullWidth" onChange={handleChange}>
+                  <Tab label="Chants" value="1" />
+                  <Tab label="Image" value="2" />
+                </TabList>
+              </Box>
+              {value === "1" && (
+                <TabPanel sx={{ padding: "0rem 1.5rem" }} value="1">
                   <Box
                     sx={{
                       display: "grid",
-                      gap: "1.5rem",
+                      gap: "0.5rem",
                       gridTemplateColumns: "repeat(auto-fill, 1fr)",
                     }}
                   >
                     {getAudioSource()}
                   </Box>
                 </TabPanel>
-                <TabPanel sx={{ padding: "0" }} value="2">
+              )}
+              {value === "2" && (
+                <TabPanel
+                  sx={{
+                    padding: "0rem 1.5rem",
+                    overflow: "auto",
+                    display: "grid",
+                    justifyContent: "center",
+                  }}
+                  value="2"
+                >
                   <img
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", width: "100%", objectFit: "fill" }}
                     src={photosMap[selectedBirbIds[sequence![counter]]]}
                     loading="lazy"
                   />
                 </TabPanel>
-              </TabContext>
+              )}
+            </TabContext>
 
+            <Box
+              sx={{
+                display: "grid",
+                alignItems: "center",
+                gap: "1.5rem",
+                gridTemplateColumns: "min-content 1fr",
+              }}
+            >
+              <Switch
+                checked={showAnswer}
+                onChange={() => setShowAnswer(!showAnswer)}
+              />
+              <Typography variant="body1">
+                {showAnswer
+                  ? birbsMapFr[selectedBirbIds[sequence![counter]]]
+                  : "???"}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "grid",
+                gap: "0.5rem",
+                gridTemplateColumns: "1fr",
+              }}
+            >
               <Box
                 sx={{
                   display: "grid",
-                  gap: "1.5rem",
-                  gridTemplateColumns: "1fr",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "1fr 1fr",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "grid",
-                    alignItems: "center",
-                    gap: "1.5rem",
-                    gridTemplateColumns: "min-content 1fr",
-                  }}
+                <Button
+                  variant="outlined"
+                  disabled={counter <= 0}
+                  onClick={previousQuestion}
                 >
-                  <Switch
-                    checked={showAnswer}
-                    onChange={() => setShowAnswer(!showAnswer)}
-                  />
-                  <Typography variant="body1">
-                    {showAnswer
-                      ? birbsMapFr[selectedBirbIds[sequence![counter]]]
-                      : "???"}
-                  </Typography>
-                </Box>
+                  Dernier
+                </Button>
 
                 <Button
                   variant={
@@ -433,60 +476,63 @@ function App() {
                       : "outlined"
                   }
                   onClick={nextQuestion}
-                  disabled={!showAnswer}
                 >
                   {counter === selectedBirbIds.length - 1
                     ? "Terminer "
                     : "Prochain "}
                 </Button>
+              </Box>
 
-                {/* <LinearProgressWithLabel
+              {/* <Button variant="outlined" color="error" onClick={endQuiz}>
+                retour
+              </Button> */}
+
+              {/* <LinearProgressWithLabel
                   value={((counter + 1) / selectedBirbIds.length) * 100}
                 /> */}
-              </Box>
-            </>
-          )}
-        </Box>
-
-        <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
-          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-            <Link
-              sx={{ color: "#dcdcdc" }}
-              target="_blank"
-              rel="noopener"
-              underline="hover"
-              href="https://www.natureinstruct.org/dendroica/"
-            >
-              DENDROICA
-            </Link>
-          </Typography>
-        </Box>
-
-        <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
-          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-            <Link
-              sx={{ color: "#dcdcdc" }}
-              target="_blank"
-              rel="noopener"
-              underline="hover"
-              href="https://www.linkedin.com/in/xishec/"
-            >
-              Xi Chen
-            </Link>
-          </Typography>
-        </Box>
-
-        <Snackbar
-          open={openSnake}
-          autoHideDuration={5000}
-          onClose={() => {
-            setOpenSnake(false);
-            setSnakeMessage("");
-          }}
-          message={snakeMessage}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        />
+            </Box>
+          </>
+        )}
       </Box>
+
+      <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
+        <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+          <Link
+            sx={{ color: "#dcdcdc" }}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            href="https://www.natureinstruct.org/dendroica/"
+          >
+            DENDROICA
+          </Link>
+        </Typography>
+      </Box>
+
+      <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
+        <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+          <Link
+            sx={{ color: "#dcdcdc" }}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            href="https://www.linkedin.com/in/xishec/"
+          >
+            Xi Chen
+          </Link>
+        </Typography>
+      </Box>
+
+      <Snackbar
+        open={openSnake}
+        autoHideDuration={5000}
+        onClose={() => {
+          setOpenSnake(false);
+          setSnakeMessage("");
+        }}
+        message={snakeMessage}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
     </Box>
   );
 }
