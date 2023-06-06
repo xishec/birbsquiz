@@ -9,6 +9,7 @@ import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Box,
+  Checkbox,
   Chip,
   IconButton,
   Link,
@@ -90,6 +91,7 @@ function App() {
   const [counter, setCounter] = React.useState(0);
   const [quizStarted, setQuizStarted] = React.useState(false);
   const [showAnswer, setShowAnswer] = React.useState(false);
+  const [isGoodAnswer, setIsGoodAnswer] = React.useState(true);
   const [sequence, setSequence] = React.useState<Array<number>>();
   const [openSnake, setOpenSnake] = React.useState(false);
   const [snakeMessage, setSnakeMessage] = React.useState("");
@@ -122,34 +124,6 @@ function App() {
     [selectedBirbIds]
   );
 
-  // const fetchBirb = useCallback(
-  //   (birbId: string) => {
-  //     console.log("fetchBirb", birbsMapFr[birbId]);
-  //     if (!birbsMapFr[birbId]) {
-  //       deleteBirb(birbId);
-  //     } else {
-  //       fetch(
-  //         `https://www.whateverorigin.org/get?url=https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           const regex = /\/files(.*?)mp3/g;
-  //           const found = data.contents.match(regex);
-  //           if (found.length > 0) {
-  //             const songs = found
-  //               .splice(0, 3)
-  //               .map((path: any) => `https://www.natureinstruct.org${path}`);
-  //             setAudioSources(new Map(audioSources?.set(birbId, songs)));
-  //           } else {
-  //             setAudioSources(new Map(audioSources?.set(birbId, [])));
-  //           }
-  //         })
-  //         .catch((e) => console.warn(e));
-  //     }
-  //   },
-  //   [audioSources, birbsMapFr, deleteBirb]
-  // );
-
   const startQuiz = () => {
     setQuizStarted(true);
     setCounter(0);
@@ -167,7 +141,7 @@ function App() {
 
   const previousQuestion = () => {
     setCounter(counter - 1);
-    setShowAnswer(false);
+    setShowAnswer(true);
   };
 
   const endQuiz = () => {
@@ -261,11 +235,9 @@ function App() {
   };
 
   const getAudioSource = () => {
-    // const audioSource = audioSources.get(selectedBirbIds[sequence![counter]]);
-    const audioSource = dataMap[
-      selectedBirbIds[sequence![counter]]
-    ].songs.splice(0, 3);
-    console.log(audioSource);
+    const audioSource = dataMap[selectedBirbIds[sequence![counter]]].songs
+      .slice()
+      .splice(0, 3);
     return (
       <>
         {audioSource &&
@@ -507,8 +479,8 @@ function App() {
               sx={{
                 display: "grid",
                 alignItems: "center",
-                gap: "1.5rem",
-                gridTemplateColumns: "min-content 1fr",
+                gridTemplateColumns: "auto 1fr",
+                gridTemplateRows: "1fr 1fr",
               }}
             >
               <Switch
@@ -520,6 +492,18 @@ function App() {
                   ? birbsMapFr[selectedBirbIds[sequence![counter]]]
                   : "???"}
               </Typography>
+
+              <Switch
+                color="success"
+                checked={isGoodAnswer}
+                onChange={() => setIsGoodAnswer(!isGoodAnswer)}
+                disabled={!showAnswer}
+              />
+              {showAnswer && (
+                <Typography variant="body1">
+                  {isGoodAnswer ? "Bonne réponse :)" : ":("}
+                </Typography>
+              )}
             </Box>
 
             <Box
