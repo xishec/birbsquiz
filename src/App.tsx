@@ -163,13 +163,14 @@ function App() {
     <Box sx={{ height: "100vh" }}>
       <Box
         sx={{
-          height: "80%",
-          padding: "1.5rem",
+          height: "90%",
+          padding: "2rem",
+          paddingBottom: "0",
           display: "grid",
           justifyContent: "center",
           gridTemplateColumns: "minmax(min-content, 800px)",
           alignContent: "flex-start",
-          gap: "1.5rem",
+          gap: "0rem",
         }}
       >
         {!quizStarted && <Welcome {...welcomeProps} />}
