@@ -4,8 +4,7 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
-import rawRecordingsMap from "./dendroica/recordingsMap.json";
-import rawPhotosMap from "./dendroica/photosMap.json";
+import rawData from "./dendroica/data.json";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
@@ -16,8 +15,11 @@ import {
   Snackbar,
   Switch,
   Tab,
+  Tooltip,
+  TooltipProps,
   Typography,
   styled,
+  tooltipClasses,
 } from "@mui/material";
 
 const StyledChip = styled(Chip)({
@@ -47,10 +49,24 @@ const birbEmojis = [
   // " 🍳",
 ];
 
+enum TabName {
+  Songs = "songs",
+  Photo = "photo",
+}
+
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip placement="left" {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#dddddd",
+    color: "rgba(0, 0, 0, 0.87)",
+    fontSize: theme.typography.pxToRem(12),
+  },
+}));
+
 function App() {
   const birbsMapFr = rawBirbsMapFr as any;
-  const recordingsMap = rawRecordingsMap as any;
-  const photosMap = rawPhotosMap as any;
+  const dataMap = rawData as any;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
@@ -81,10 +97,10 @@ function App() {
     () => birbEmojis[Math.floor(Math.random() * birbEmojis.length)],
     []
   );
-  const [value, setValue] = React.useState("1");
+  const [tab, setTab] = React.useState(TabName.Songs);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const handleTabChange = (e: any, newTab: TabName) => {
+    setTab(newTab);
   };
 
   const addBirb = useCallback(
@@ -120,10 +136,10 @@ function App() {
   //           const regex = /\/files(.*?)mp3/g;
   //           const found = data.contents.match(regex);
   //           if (found.length > 0) {
-  //             const recordings = found
+  //             const songs = found
   //               .splice(0, 3)
   //               .map((path: any) => `https://www.natureinstruct.org${path}`);
-  //             setAudioSources(new Map(audioSources?.set(birbId, recordings)));
+  //             setAudioSources(new Map(audioSources?.set(birbId, songs)));
   //           } else {
   //             setAudioSources(new Map(audioSources?.set(birbId, [])));
   //           }
@@ -172,23 +188,46 @@ function App() {
     // .splice(0, 3);
     const myMap: any = {};
 
-    // while (myMap.size < idsToFetch.length) {
     for (const birbId of idsToFetch) {
       if (myMap[birbId]) continue;
       fetch(`https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`)
         .then((response) => response.text())
         .then((data) => {
-          const regex = /\/files(.*?)jpg/g;
-          const found = data.match(regex);
-          if (found && found.length > 0) {
-            const recordings = found
-              .splice(0, 1)
+          myMap[birbId] = {};
+
+          const mp3s = data.match(/\/files(.*?)mp3/g);
+          if (mp3s && mp3s.length > 0) {
+            const songs = mp3s
+              .splice(0, 5)
               .map((path: any) => `https://www.natureinstruct.org${path}`);
-            myMap[birbId] = recordings;
-            console.log(JSON.stringify(myMap));
+            myMap[birbId].songs = songs;
           } else {
-            myMap[birbId] = [];
+            myMap[birbId].songs = [];
           }
+
+          const jpgs = data.match(/\/files(.*?)jpg/g);
+          if (jpgs && jpgs.length > 0) {
+            const photos = jpgs
+              .splice(0, 5)
+              .map((path: any) => `https://www.natureinstruct.org${path}`);
+            myMap[birbId].photos = photos;
+          } else {
+            myMap[birbId].photos = [];
+          }
+
+          myMap[birbId].songCredits = JSON.parse(
+            data
+              .match(/g_songCredits = \[(.*?)]/g)![0]
+              .replace("g_songCredits = ", "")
+          ).splice(0, 5);
+
+          myMap[birbId].photoCredits = JSON.parse(
+            data
+              .match(/g_photoCredits = \[(.*?)]/g)![0]
+              .replace("g_photoCredits = ", "")
+          ).splice(0, 5);
+
+          console.log(JSON.stringify(myMap));
         })
         .catch((e) => console.warn(e));
     }
@@ -223,21 +262,43 @@ function App() {
 
   const getAudioSource = () => {
     // const audioSource = audioSources.get(selectedBirbIds[sequence![counter]]);
-    const audioSource = recordingsMap[selectedBirbIds[sequence![counter]]];
+    const audioSource = dataMap[
+      selectedBirbIds[sequence![counter]]
+    ].songs.splice(0, 3);
+    console.log(audioSource);
     return (
       <>
         {audioSource &&
           audioSource.length > 0 &&
           audioSource.map((audioSource: string, i: number) => (
-            <audio
-              key={`audio-${i}`}
-              style={{ width: "100%" }}
-              controls
-              src={audioSource}
-            >
-              Your browser does not support the
-              <code>audio</code> element.
-            </audio>
+            <Box key={`audio-${i}`}>
+              <audio style={{ width: "100%" }} controls src={audioSource}>
+                Your browser does not support the
+                <code>audio</code> element.
+              </audio>
+              <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+                <Typography
+                  sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+                  variant="caption"
+                >
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              dataMap[selectedBirbIds[sequence![counter]]]
+                                .songCredits[i],
+                          }}
+                        />
+                      </React.Fragment>
+                    }
+                  >
+                    <Box>source</Box>
+                  </HtmlTooltip>
+                </Typography>
+              </Box>
+            </Box>
           ))}
 
         {audioSource && audioSource.length === 0 && (
@@ -371,14 +432,6 @@ function App() {
 
         {quizStarted && (
           <>
-            <IconButton
-              sx={{ position: "absolute", top: "0", right: "0" }}
-              onClick={copyUrl}
-              disabled={selectedBirbIds.length <= 0}
-            >
-              <CopyAllIcon />
-            </IconButton>
-
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Typography variant="h4">
                 {/* <Box component="span" sx={{ color: "primary.main" }}> */}
@@ -389,15 +442,15 @@ function App() {
               </Typography>
             </Box>
 
-            <TabContext value={value}>
+            <TabContext value={tab}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList variant="fullWidth" onChange={handleChange}>
-                  <Tab label="Chants" value="1" />
-                  <Tab label="Image" value="2" />
+                <TabList variant="fullWidth" onChange={handleTabChange}>
+                  <Tab label="Chants" value={TabName.Songs} />
+                  <Tab label="Photo" value={TabName.Photo} />
                 </TabList>
               </Box>
-              {value === "1" && (
-                <TabPanel sx={{ padding: "0rem 1.5rem" }} value="1">
+              {tab === TabName.Songs && (
+                <TabPanel sx={{ padding: "0rem 1.5rem" }} value={TabName.Songs}>
                   <Box
                     sx={{
                       display: "grid",
@@ -409,7 +462,7 @@ function App() {
                   </Box>
                 </TabPanel>
               )}
-              {value === "2" && (
+              {tab === TabName.Photo && (
                 <TabPanel
                   sx={{
                     padding: "0rem 1.5rem",
@@ -417,13 +470,35 @@ function App() {
                     display: "grid",
                     justifyContent: "center",
                   }}
-                  value="2"
+                  value={TabName.Photo}
                 >
                   <img
                     style={{ height: "100%", width: "100%", objectFit: "fill" }}
-                    src={photosMap[selectedBirbIds[sequence![counter]]]}
+                    src={dataMap[selectedBirbIds[sequence![counter]]].photos[0]}
                     loading="lazy"
                   />
+                  <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+                    <Typography
+                      sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+                      variant="caption"
+                    >
+                      <HtmlTooltip
+                        title={
+                          <React.Fragment>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  dataMap[selectedBirbIds[sequence![counter]]]
+                                    .photoCredits[0],
+                              }}
+                            />
+                          </React.Fragment>
+                        }
+                      >
+                        <Box>source</Box>
+                      </HtmlTooltip>
+                    </Typography>
+                  </Box>
                 </TabPanel>
               )}
             </TabContext>
