@@ -3,18 +3,8 @@ import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
-import { Box, Chip, IconButton, Typography, styled } from "@mui/material";
-
-const StyledChip = styled(Chip)({
-  root: {
-    width: "70%",
-    position: "relative",
-  },
-  svg: {
-    position: "absolute",
-    right: 0,
-  },
-});
+import { Box, IconButton, Typography } from "@mui/material";
+import StyledChip from "./StyledChip";
 
 type WelcomeProps = {
   birbsMapFr: any;
@@ -46,7 +36,7 @@ function Welcome({
       setBirbInput("");
       setSelectedBirbId("");
     },
-    [birbsMapFr, selectedBirbIds]
+    [birbsMapFr, selectedBirbIds, setSelectedBirbIds]
   );
 
   const deleteBirb = useCallback(
@@ -54,12 +44,11 @@ function Welcome({
       const newSelectedBirbIds = selectedBirbIds?.filter((id) => id !== birbId);
       setSelectedBirbIds(newSelectedBirbIds!);
     },
-    [selectedBirbIds]
+    [selectedBirbIds, setSelectedBirbIds]
   );
 
   const copyUrl = () => {
-    const encodedBirbs = btoa(localStorage.getItem("selectedBirbIds")!);
-    let url = `${window.location.href.split("?")[0]}?birbs=${encodedBirbs}`;
+    let url = window.location.href;
     navigator.clipboard.writeText(url);
     setSnakeMessage(`Lien copié!`);
     setOpenSnake(true);

@@ -5,6 +5,7 @@ import rawData from "./dendroica/data.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Welcome from "./components/Welcome";
 import Quiz from "./components/Quiz";
+import QuizDialog from "./components/QuizDialog";
 
 const birbEmojis = [
   " 🐦‍⬛",
@@ -34,12 +35,6 @@ function App() {
           (birbId: any) => birbsMapFr[birbId]
         );
 
-      const localStorageBirbs = localStorage.getItem("selectedBirbIds");
-      if (localStorageBirbs)
-        return JSON.parse(localStorageBirbs).filter(
-          (birbId: any) => birbsMapFr[birbId]
-        );
-
       return [];
     }
   );
@@ -54,6 +49,7 @@ function App() {
     () => birbEmojis[Math.floor(Math.random() * birbEmojis.length)],
     []
   );
+  const [openQuizDialog, setOpenQuizDialog] = React.useState(false);
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -66,6 +62,7 @@ function App() {
   const endQuiz = () => {
     setCounter(0);
     setQuizStarted(false);
+    setOpenQuizDialog(true);
   };
 
   const randomSequence = (max: number) => {
@@ -83,66 +80,69 @@ function App() {
     }
   };
 
-  const hi = async () => {
-    const idsToFetch = Object.keys(birbsMapFr);
-    // .splice(0, 3);
-    const myMap: any = {};
+  // const hi = async () => {
+  //   const idsToFetch = Object.keys(birbsMapFr);
+  //   // .splice(0, 3);
+  //   const myMap: any = {};
 
-    for (const birbId of idsToFetch) {
-      if (myMap[birbId]) continue;
-      fetch(`https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`)
-        .then((response) => response.text())
-        .then((data) => {
-          myMap[birbId] = {};
+  //   for (const birbId of idsToFetch) {
+  //     if (myMap[birbId]) continue;
+  //     fetch(`https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`)
+  //       .then((response) => response.text())
+  //       .then((data) => {
+  //         myMap[birbId] = {};
 
-          const mp3s = data.match(/\/files(.*?)mp3/g);
-          if (mp3s && mp3s.length > 0) {
-            const songs = mp3s
-              .splice(0, 5)
-              .map((path: any) => `https://www.natureinstruct.org${path}`);
-            myMap[birbId].songs = songs;
-          } else {
-            myMap[birbId].songs = [];
-          }
+  //         const mp3s = data.match(/\/files(.*?)mp3/g);
+  //         if (mp3s && mp3s.length > 0) {
+  //           const songs = mp3s
+  //             .splice(0, 5)
+  //             .map((path: any) => `https://www.natureinstruct.org${path}`);
+  //           myMap[birbId].songs = songs;
+  //         } else {
+  //           myMap[birbId].songs = [];
+  //         }
 
-          const jpgs = data.match(/\/files(.*?)jpg/g);
-          if (jpgs && jpgs.length > 0) {
-            const photos = jpgs
-              .splice(0, 5)
-              .map((path: any) => `https://www.natureinstruct.org${path}`);
-            myMap[birbId].photos = photos;
-          } else {
-            myMap[birbId].photos = [];
-          }
+  //         const jpgs = data.match(/\/files(.*?)jpg/g);
+  //         if (jpgs && jpgs.length > 0) {
+  //           const photos = jpgs
+  //             .splice(0, 5)
+  //             .map((path: any) => `https://www.natureinstruct.org${path}`);
+  //           myMap[birbId].photos = photos;
+  //         } else {
+  //           myMap[birbId].photos = [];
+  //         }
 
-          myMap[birbId].songCredits = JSON.parse(
-            data
-              .match(/g_songCredits = \[(.*?)]/g)![0]
-              .replace("g_songCredits = ", "")
-          ).splice(0, 5);
+  //         myMap[birbId].songCredits = JSON.parse(
+  //           data
+  //             .match(/g_songCredits = \[(.*?)]/g)![0]
+  //             .replace("g_songCredits = ", "")
+  //         ).splice(0, 5);
 
-          myMap[birbId].photoCredits = JSON.parse(
-            data
-              .match(/g_photoCredits = \[(.*?)]/g)![0]
-              .replace("g_photoCredits = ", "")
-          ).splice(0, 5);
+  //         myMap[birbId].photoCredits = JSON.parse(
+  //           data
+  //             .match(/g_photoCredits = \[(.*?)]/g)![0]
+  //             .replace("g_photoCredits = ", "")
+  //         ).splice(0, 5);
 
-          console.log(JSON.stringify(myMap));
-        })
-        .catch((e) => console.warn(e));
-    }
-  };
+  //         console.log(JSON.stringify(myMap));
+  //       })
+  //       .catch((e) => console.warn(e));
+  //   }
+  // };
 
   useEffect(() => {
     // hi();
   }, []);
 
   useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
-  useEffect(() => {
-    localStorage.setItem("selectedBirbIds", JSON.stringify(selectedBirbIds));
+    const url = new URL(window.location.href);
+    if (selectedBirbIds.length > 0) {
+      const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
+      url.searchParams.set("birbs", encodedBirbs);
+    } else {
+      url.searchParams.delete("birbs");
+    }
+    window.history.pushState(null, "", url.toString());
   }, [selectedBirbIds]);
 
   const welcomeProps = {
@@ -170,11 +170,19 @@ function App() {
     setShowAnswers,
   };
 
+  const quizDialogProps = {
+    birbsMapFr,
+    selectedBirbIds,
+    answers,
+    openQuizDialog,
+    setOpenQuizDialog,
+  };
+
   return (
     <Box sx={{ height: "100vh" }}>
       <Box
         sx={{
-          height: "90%",
+          height: "85%",
           padding: "2rem",
           paddingBottom: "0",
           display: "grid",
@@ -216,6 +224,8 @@ function App() {
           </Link>
         </Typography>
       </Box>
+
+      <QuizDialog {...quizDialogProps} />
 
       <Snackbar
         open={openSnake}

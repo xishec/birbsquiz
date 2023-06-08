@@ -1,35 +1,10 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-  Switch,
-  Tab,
-  Tooltip,
-  TooltipProps,
-  Typography,
-  styled,
-  tooltipClasses,
-} from "@mui/material";
+import { Box, IconButton, Switch, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip placement="left" {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: "50vw",
-    backgroundColor: "#dcdcdc",
-    color: "rgba(0, 0, 0, 0.87)",
-    fontSize: theme.typography.pxToRem(12),
-  },
-}));
+import HtmlTooltip from "./HtmlTooltip";
 
 enum TabName {
   Songs = "songs",
@@ -193,6 +168,7 @@ function Quiz({
               style={{ height: "100%", width: "100%", objectFit: "fill" }}
               src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
               loading="lazy"
+              alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
             />
             <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
               <Typography
