@@ -96,6 +96,7 @@ function Welcome({
         renderInput={(params) => (
           <TextField {...params} label="Recherche ..." variant="outlined" />
         )}
+        getOptionDisabled={(option) => selectedBirbIds.includes(option)}
       />
 
       {selectedBirbIds.length > 0 && (

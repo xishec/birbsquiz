@@ -45,8 +45,9 @@ function App() {
   );
   const [counter, setCounter] = React.useState(0);
   const [sequence, setSequence] = React.useState<Array<number>>([]);
+  const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>([]);
+  const [answers, setAnswers] = React.useState<Array<boolean>>([]);
   const [quizStarted, setQuizStarted] = React.useState(false);
-  const [isGoodAnswer, setIsGoodAnswer] = React.useState(true);
   const [openSnake, setOpenSnake] = React.useState(false);
   const [snakeMessage, setSnakeMessage] = React.useState("");
   const birbEmoji = useMemo(
@@ -58,6 +59,8 @@ function App() {
     setQuizStarted(true);
     setCounter(0);
     randomSequence(selectedBirbIds.length);
+    setShowAnswers(Array(selectedBirbIds.length).fill(false));
+    setAnswers(Array(selectedBirbIds.length).fill(false));
   };
 
   const endQuiz = () => {
@@ -135,6 +138,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log(answers);
+  }, [answers]);
+
+  useEffect(() => {
     localStorage.setItem("selectedBirbIds", JSON.stringify(selectedBirbIds));
   }, [selectedBirbIds]);
 
@@ -155,8 +162,12 @@ function App() {
     counter,
     birbEmoji,
     selectedBirbIds,
+    answers,
+    showAnswers,
     endQuiz,
     setCounter,
+    setAnswers,
+    setShowAnswers,
   };
 
   return (

@@ -2,7 +2,12 @@ import React from "react";
 import Button from "@mui/material/Button";
 import {
   Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   IconButton,
+  Radio,
+  RadioGroup,
   Switch,
   Tab,
   Tooltip,
@@ -38,8 +43,12 @@ type QuizProps = {
   counter: number;
   birbEmoji: string;
   selectedBirbIds: Array<string>;
+  answers: Array<boolean>;
+  showAnswers: Array<boolean>;
   endQuiz: () => void;
   setCounter: React.Dispatch<any>;
+  setAnswers: React.Dispatch<any>;
+  setShowAnswers: React.Dispatch<any>;
 };
 
 function Quiz({
@@ -49,11 +58,14 @@ function Quiz({
   counter,
   birbEmoji,
   selectedBirbIds,
+  answers,
+  showAnswers,
   endQuiz,
   setCounter,
+  setAnswers,
+  setShowAnswers,
 }: QuizProps) {
   const [tab, setTab] = React.useState(TabName.Songs);
-  const [showAnswer, setShowAnswer] = React.useState(false);
 
   const handleTabChange = (e: any, newTab: TabName) => {
     setTab(newTab);
@@ -61,12 +73,10 @@ function Quiz({
 
   const nextQuestion = () => {
     setCounter(counter + 1);
-    setShowAnswer(false);
   };
 
   const previousQuestion = () => {
     setCounter(counter - 1);
-    setShowAnswer(false);
   };
 
   const getAudioSource = () => {
@@ -144,7 +154,9 @@ function Quiz({
       </Box>
 
       <TabContext value={tab}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box
+          sx={{ marginTop: "0.5rem", borderBottom: 1, borderColor: "divider" }}
+        >
           <TabList variant="fullWidth" onChange={handleTabChange}>
             <Tab label="Chants" value={TabName.Songs} />
             <Tab label="Photo" value={TabName.Photo} />
@@ -218,39 +230,111 @@ function Quiz({
         }}
       >
         <Switch
-          checked={showAnswer}
-          onChange={() => setShowAnswer(!showAnswer)}
+          checked={showAnswers[sequence[counter]]}
+          onChange={() => {
+            const newShowAnswers: any = Array.from(showAnswers);
+            newShowAnswers[sequence[counter]] =
+              !newShowAnswers[sequence[counter]];
+            setShowAnswers(newShowAnswers);
+          }}
         />
         <Typography variant="body1">
-          {showAnswer ? birbsMapFr[selectedBirbIds[sequence[counter]]] : "???"}
+          {showAnswers[sequence[counter]]
+            ? birbsMapFr[selectedBirbIds[sequence[counter]]]
+            : "???"}
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          marginTop: "1rem",
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: "1fr 1fr",
-        }}
-      >
-        <Button
-          variant="outlined"
-          disabled={!showAnswer}
-          onClick={previousQuestion}
-          color="error"
+      {showAnswers[sequence[counter]] && (
+        <Box
+          sx={{
+            marginTop: "0.5rem",
+            display: "grid",
+            alignItems: "center",
+            gridTemplateColumns: "auto 1fr",
+            gap: "0.5rem",
+          }}
         >
-          Faux
-        </Button>
+          <Switch
+            color="success"
+            checked={answers[sequence[counter]]}
+            onChange={() => {
+              const newAnswers: any = Array.from(answers);
+              newAnswers[sequence[counter]] = !newAnswers[sequence[counter]];
+              setAnswers(newAnswers);
+            }}
+          />
+          <Typography variant="body1">
+            {answers[sequence[counter]] ? "Good birb" : "Faux"}
+          </Typography>
+        </Box>
+      )}
 
-        <Button
-          variant="outlined"
-          disabled={!showAnswer}
-          onClick={previousQuestion}
+      {/* {showAnswers[sequence[counter]] && (
+        <Box
+          sx={{
+            marginTop: "1rem",
+            display: "grid",
+            gap: "1rem",
+            gridTemplateColumns: "1fr 1fr",
+          }}
         >
-          Birb
+          <Button
+            variant={
+              answers[sequence[counter]] === null ||
+              answers[sequence[counter]] === true
+                ? "outlined"
+                : "contained"
+            }
+            onClick={() => {
+              const newAnswers: any = Array.from(answers);
+              newAnswers[sequence[counter]] = false;
+              setAnswers(newAnswers);
+            }}
+            color="error"
+          >
+            Faux
+          </Button>
+
+          <Button
+            variant={
+              answers[sequence[counter]] === null ||
+              answers[sequence[counter]] === false
+                ? "outlined"
+                : "contained"
+            }
+            onClick={() => {
+              const newAnswers: any = Array.from(answers);
+              newAnswers[sequence[counter]] = true;
+              setAnswers(newAnswers);
+            }}
+            // color="success"
+          >
+            Birb
+          </Button>
+        </Box>
+      )} */}
+
+      {showAnswers[sequence[counter]] &&
+        !(counter === selectedBirbIds.length - 1) && (
+          <Button
+            sx={{ marginTop: "1rem" }}
+            variant="outlined"
+            onClick={nextQuestion}
+          >
+            Prochain
+          </Button>
+        )}
+
+      {counter === selectedBirbIds.length - 1 && (
+        <Button
+          sx={{ marginTop: "1rem" }}
+          variant="contained"
+          onClick={endQuiz}
+        >
+          Terminer
         </Button>
-      </Box>
+      )}
     </>
   );
 }
