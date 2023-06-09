@@ -93,7 +93,6 @@ function Welcome({
           sx={{
             marginTop: "1.5rem",
             display: "grid",
-            gridTemplateRows: "min-content min-content min-content",
             overflow: "auto",
             gap: "0.5rem",
             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",

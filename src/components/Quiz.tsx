@@ -212,6 +212,10 @@ function Quiz({
             newShowAnswers[sequence[counter]] =
               !newShowAnswers[sequence[counter]];
             setShowAnswers(newShowAnswers);
+
+            const newAnswers: any = Array.from(answers);
+            newAnswers[sequence[counter]] = true;
+            setAnswers(newAnswers);
           }}
         />
         <Typography variant="body1">
@@ -232,6 +236,17 @@ function Quiz({
           }}
         >
           <Switch
+            sx={{
+              "&.MuiSwitch-root .MuiSwitch-switchBase": {
+                color: "red",
+              },
+              "&.MuiSwitch-root .Mui-checked": {
+                color: "green",
+              },
+              ".MuiSwitch-track": {
+                backgroundColor: "red",
+              },
+            }}
             color="success"
             checked={answers[sequence[counter]]}
             onChange={() => {

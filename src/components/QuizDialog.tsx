@@ -1,6 +1,12 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import StyledChip from "./StyledChip";
 
 export interface QuizDialogProps {
@@ -19,14 +25,20 @@ function QuizDialog({
   setOpenQuizDialog,
 }: QuizDialogProps) {
   return (
-    <Dialog onClose={() => setOpenQuizDialog(false)} open={openQuizDialog}>
-      <Box sx={{ padding: "2rem" }}>
-        <Typography variant="h5">Résultats</Typography>
+    <Dialog
+      onClose={() => setOpenQuizDialog(false)}
+      open={openQuizDialog}
+      scroll="paper"
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogTitle>
+        {`Résultats : ${answers.filter((answer) => answer).length}/${answers.length}`}
+      </DialogTitle>
+      <DialogContent>
         <Box
           sx={{
-            marginTop: "1rem",
             display: "grid",
-            gridTemplateRows: "min-content min-content min-content",
             overflow: "auto",
             gap: "0.5rem",
             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -41,7 +53,21 @@ function QuizDialog({
             />
           ))}
         </Box>
-      </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          sx={
+            {
+              // marginBottom: "-1rem",
+              // marginRight: "-1rem",
+            }
+          }
+          onClick={() => setOpenQuizDialog(false)}
+          variant="contained"
+        >
+          Retour
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
