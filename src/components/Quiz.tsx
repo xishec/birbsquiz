@@ -205,7 +205,30 @@ function Quiz({
           gap: "0.5rem",
         }}
       >
-        <Switch
+        {!showAnswers[sequence[counter]] && (
+          <Button
+            variant="contained"
+            onClick={() => {
+              const newShowAnswers: any = Array.from(showAnswers);
+              newShowAnswers[sequence[counter]] =
+                !newShowAnswers[sequence[counter]];
+              setShowAnswers(newShowAnswers);
+
+              const newAnswers: any = Array.from(answers);
+              newAnswers[sequence[counter]] = true;
+              setAnswers(newAnswers);
+            }}
+          >
+            Reveal
+          </Button>
+        )}
+
+        {showAnswers[sequence[counter]] && (
+          <Typography variant="body1">
+            {birbsMapFr[selectedBirbIds[sequence[counter]]]}
+          </Typography>
+        )}
+        {/* <Switch
           checked={showAnswers[sequence[counter]]}
           onChange={() => {
             const newShowAnswers: any = Array.from(showAnswers);
@@ -222,7 +245,7 @@ function Quiz({
           {showAnswers[sequence[counter]]
             ? birbsMapFr[selectedBirbIds[sequence[counter]]]
             : "???"}
-        </Typography>
+        </Typography> */}
       </Box>
 
       {showAnswers[sequence[counter]] && (
@@ -318,11 +341,7 @@ function Quiz({
         )}
 
       {counter === selectedBirbIds.length - 1 && (
-        <Button
-          sx={{ marginTop: "1rem" }}
-          variant="contained"
-          onClick={endQuiz}
-        >
+        <Button sx={{ marginTop: "1rem" }} onClick={endQuiz}>
           Terminer
         </Button>
       )}
