@@ -135,6 +135,20 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (quizStarted) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [quizStarted]);
+
+  useEffect(() => {
     const url = new URL(window.location.href);
     if (selectedBirbIds.length > 0) {
       const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
