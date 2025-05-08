@@ -13,6 +13,7 @@ type WelcomeProps = {
   startQuiz: React.Dispatch<any>;
   setOpenSnake: React.Dispatch<any>;
   setSnakeMessage: React.Dispatch<any>;
+  css_height_90: string;
 };
 
 function Welcome({
@@ -23,6 +24,7 @@ function Welcome({
   startQuiz,
   setOpenSnake,
   setSnakeMessage,
+  css_height_90,
 }: WelcomeProps) {
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
@@ -62,7 +64,7 @@ function Welcome({
       sx={{
         overflow: "auto",
         display: "grid",
-        height: "85vh",
+        height: css_height_90,
         minHeight: 0,
         gridTemplateRows: "auto auto 1fr auto auto",
       }}

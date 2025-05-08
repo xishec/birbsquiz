@@ -80,74 +80,6 @@ function App() {
     }
   };
 
-  // const hi = async () => {
-  //   const idsToFetch = Object.keys(birbsMapFr);
-  //   // .splice(0, 3);
-  //   const myMap: any = {};
-
-  //   for (const birbId of idsToFetch) {
-  //     if (myMap[birbId]) continue;
-  //     fetch(`https://www.natureinstruct.org/srv/json.php/get_species/${birbId}`)
-  //       .then((response) => response.text())
-  //       .then((data) => {
-  //         myMap[birbId] = {};
-
-  //         const mp3s = data.match(/\/files(.*?)mp3/g);
-  //         if (mp3s && mp3s.length > 0) {
-  //           const songs = mp3s
-  //             .splice(0, 5)
-  //             .map((path: any) => `https://www.natureinstruct.org${path}`);
-  //           myMap[birbId].songs = songs;
-  //         } else {
-  //           myMap[birbId].songs = [];
-  //         }
-
-  //         const jpgs = data.match(/\/files(.*?)jpg/g);
-  //         if (jpgs && jpgs.length > 0) {
-  //           const photos = jpgs
-  //             .splice(0, 5)
-  //             .map((path: any) => `https://www.natureinstruct.org${path}`);
-  //           myMap[birbId].photos = photos;
-  //         } else {
-  //           myMap[birbId].photos = [];
-  //         }
-
-  //         myMap[birbId].songCredits = JSON.parse(
-  //           data
-  //             .match(/g_songCredits = \[(.*?)]/g)![0]
-  //             .replace("g_songCredits = ", "")
-  //         ).splice(0, 5);
-
-  //         myMap[birbId].photoCredits = JSON.parse(
-  //           data
-  //             .match(/g_photoCredits = \[(.*?)]/g)![0]
-  //             .replace("g_photoCredits = ", "")
-  //         ).splice(0, 5);
-
-  //         console.log(JSON.stringify(myMap));
-  //       })
-  //       .catch((e) => console.warn(e));
-  //   }
-  // };
-
-  useEffect(() => {
-    // hi();
-  }, []);
-
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (quizStarted) {
-        event.preventDefault();
-        event.returnValue = "";
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [quizStarted]);
-
   useEffect(() => {
     const url = new URL(window.location.href);
     if (selectedBirbIds.length > 0) {
@@ -159,6 +91,8 @@ function App() {
     window.history.pushState(null, "", url.toString());
   }, [selectedBirbIds]);
 
+  const css_height_90 = "calc(var(--vh, 1vh) * 90)";
+
   const welcomeProps = {
     birbsMapFr,
     birbEmoji,
@@ -167,6 +101,7 @@ function App() {
     startQuiz,
     setOpenSnake,
     setSnakeMessage,
+    css_height_90,
   };
 
   const quizProps = {
@@ -182,6 +117,7 @@ function App() {
     setCounter,
     setAnswers,
     setShowAnswers,
+    css_height_90,
   };
 
   const quizDialogProps = {
@@ -192,11 +128,21 @@ function App() {
     setOpenQuizDialog,
   };
 
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    return () => window.removeEventListener("resize", setVh);
+  }, []);
+
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: css_height_90 }}>
       <Box
         sx={{
-          height: "85%",
+          height: css_height_90,
           padding: "2rem",
           paddingBottom: "0",
           display: "grid",

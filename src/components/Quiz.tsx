@@ -24,6 +24,7 @@ type QuizProps = {
   setCounter: React.Dispatch<any>;
   setAnswers: React.Dispatch<any>;
   setShowAnswers: React.Dispatch<any>;
+  css_height_90: string;
 };
 
 function Quiz({
@@ -39,6 +40,7 @@ function Quiz({
   setCounter,
   setAnswers,
   setShowAnswers,
+  css_height_90,
 }: QuizProps) {
   const [tab, setTab] = React.useState(TabName.Songs);
   const [previewing, setPreviewing] = React.useState(false);
@@ -58,15 +60,6 @@ function Quiz({
     setAudioPlayed(false);
   };
 
-  React.useEffect(() => {
-    // Pause and reset all audio elements each time the counter changes
-    const audioElements = document.querySelectorAll<HTMLAudioElement>("audio");
-    audioElements.forEach((audio) => {
-      audio.pause();
-      audio.currentTime = 0;
-    });
-  }, [counter]);
-
   const getAudioSource = () => {
     const audioSource = dataMap[selectedBirbIds[sequence[counter]]].songs
       .slice()
@@ -76,7 +69,7 @@ function Quiz({
         {audioSource &&
           audioSource.length > 0 &&
           audioSource.map((audioSource: string, i: number) => (
-            <Box key={`audio-${i}`}>
+            <Box key={`audio-${counter}-${i}`}>
               <audio
                 style={{ width: "100%" }}
                 controls
@@ -148,7 +141,7 @@ function Quiz({
       sx={{
         overflow: "auto",
         display: "grid",
-        height: "85vh",
+        height: css_height_90,
         minHeight: 0,
         gridTemplateRows: "auto 1fr auto",
       }}
@@ -334,6 +327,7 @@ function Quiz({
               </Button>
               <Box
                 sx={{
+                  width: "64px",
                   display: "grid",
                   justifyContent: "center",
                 }}
@@ -369,20 +363,37 @@ function Quiz({
 
         <Box
           sx={{
-            marginTop: "1rem",
+            marginTop: "0.5rem",
             display: "grid",
             alignItems: "center",
           }}
         >
           {!(counter === selectedBirbIds.length - 1) && (
-            <Button
-              disabled={!shouldReveal}
-              variant="contained"
-              onClick={nextQuestion}
-              color={answers[sequence[counter]] ? "success" : "error"}
+            <Box
+              sx={{
+                marginTop: "0.5rem",
+                display: "grid",
+                alignItems: "center",
+                gridTemplateColumns: "1fr auto",
+              }}
             >
-              <ArrowForwardIcon />
-            </Button>
+              <Button
+                disabled={!shouldReveal}
+                variant="contained"
+                onClick={nextQuestion}
+                color={answers[sequence[counter]] ? "success" : "error"}
+              >
+                <ArrowForwardIcon />
+              </Button>
+              {/* <Button
+                disabled={!shouldReveal}
+                variant="contained"
+                onClick={nextQuestion}
+                color={answers[sequence[counter]] ? "success" : "error"}
+              >
+                {` ${answers.filter((answer) => answer).length}/${counter + 1}`}
+              </Button> */}
+            </Box>
           )}
 
           {counter === selectedBirbIds.length - 1 && (
