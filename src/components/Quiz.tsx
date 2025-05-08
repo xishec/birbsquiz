@@ -41,6 +41,7 @@ function Quiz({
   setShowAnswers,
 }: QuizProps) {
   const [tab, setTab] = React.useState(TabName.Songs);
+  const [previewing, setPreviewing] = React.useState(false);
 
   const handleTabChange = (e: any, newTab: TabName) => {
     setTab(newTab);
@@ -112,9 +113,6 @@ function Quiz({
         </IconButton>
 
         <Typography variant="h4">
-          {/* <Box component="span" sx={{ color: "primary.main" }}> */}
-          {/* Birbsquizzing... */}
-          {/* </Box> */}
           {` ${counter + 1}/${selectedBirbIds.length}`}
           {birbEmoji}
         </Typography>
@@ -201,32 +199,81 @@ function Quiz({
           marginTop: "0.5rem",
           display: "grid",
           alignItems: "center",
-          gridTemplateColumns: "auto 1fr",
+          gridTemplateColumns: "1fr auto",
           gap: "0.5rem",
         }}
       >
         {!showAnswers[sequence[counter]] && (
-          <Button
-            variant="contained"
-            onClick={() => {
-              const newShowAnswers: any = Array.from(showAnswers);
-              newShowAnswers[sequence[counter]] =
-                !newShowAnswers[sequence[counter]];
-              setShowAnswers(newShowAnswers);
+          <>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                const newShowAnswers: any = Array.from(showAnswers);
+                newShowAnswers[sequence[counter]] =
+                  !newShowAnswers[sequence[counter]];
+                setShowAnswers(newShowAnswers);
 
-              const newAnswers: any = Array.from(answers);
-              newAnswers[sequence[counter]] = true;
-              setAnswers(newAnswers);
-            }}
-          >
-            Reveal
-          </Button>
+                const newAnswers: any = Array.from(answers);
+                newAnswers[sequence[counter]] = true;
+                setAnswers(newAnswers);
+              }}
+            >
+              Reveal
+            </Button>
+
+            {/* New Preview Image Button */}
+            {tab === TabName.Songs && (
+              <Button
+                variant="outlined"
+                onMouseDown={() => setPreviewing(true)}
+                onMouseUp={() => setPreviewing(false)}
+                onMouseLeave={() => setPreviewing(false)}
+                onTouchStart={() => setPreviewing(true)}
+                onTouchEnd={() => setPreviewing(false)}
+              >
+                👀
+              </Button>
+            )}
+          </>
         )}
 
         {showAnswers[sequence[counter]] && (
-          <Typography variant="body1">
-            {birbsMapFr[selectedBirbIds[sequence[counter]]]}
-          </Typography>
+          <Box
+            sx={{
+              marginTop: "0.5rem",
+              display: "grid",
+              alignItems: "center",
+              gridTemplateColumns: "1fr",
+              gap: "0.5rem",
+            }}
+          >
+            <Typography variant="body1">
+              {birbsMapFr[selectedBirbIds[sequence[counter]]]}
+            </Typography>
+            {tab === TabName.Songs && (
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  display: "grid",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "fill",
+                    maxWidth: "400px",
+                  }}
+                  src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
+                  loading="lazy"
+                  alt={
+                    dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]
+                  }
+                />
+              </Box>
+            )}
+          </Box>
         )}
         {/* <Switch
           checked={showAnswers[sequence[counter]]}
@@ -284,6 +331,22 @@ function Quiz({
         </Box>
       )}
 
+      {/* Conditionally render the image preview when holding the Preview Image button */}
+      {previewing && (
+        <Box sx={{ marginTop: "1rem" }}>
+          <img
+            style={{
+              height: "100%",
+              width: "100%",
+              objectFit: "fill",
+            }}
+            src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
+            loading="lazy"
+            alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
+          />
+        </Box>
+      )}
+
       {/* {showAnswers[sequence[counter]] && (
         <Box
           sx={{
@@ -333,7 +396,7 @@ function Quiz({
         !(counter === selectedBirbIds.length - 1) && (
           <Button
             sx={{ marginTop: "1rem" }}
-            variant="outlined"
+            variant="contained"
             onClick={nextQuestion}
           >
             Prochain
@@ -341,7 +404,11 @@ function Quiz({
         )}
 
       {counter === selectedBirbIds.length - 1 && (
-        <Button sx={{ marginTop: "1rem" }} onClick={endQuiz}>
+        <Button
+          sx={{ marginTop: "1rem" }}
+          variant="contained"
+          onClick={endQuiz}
+        >
           Terminer
         </Button>
       )}

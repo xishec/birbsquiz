@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect } from "react";
-import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Link, Typography } from "@mui/material";
 import StyledChip from "./StyledChip";
 
 type WelcomeProps = {
@@ -67,26 +66,36 @@ function Welcome({
         {birbEmoji}
       </Typography>
 
-      <Autocomplete
-        sx={{ marginTop: "1.5rem" }}
-        size="small"
-        inputValue={birbInput}
-        onInputChange={(e, v) => setBirbInput(v)}
-        value={selectedBirbId}
-        onChange={(e, v) => setSelectedBirbId(v!)}
-        options={Object.keys(birbsMapFr).sort((a, b) =>
-          birbsMapFr[a].localeCompare(birbsMapFr[b])
-        )}
-        getOptionLabel={(birbId) =>
-          birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
-        }
-        freeSolo
-        isOptionEqualToValue={(birbId, input) => birbsMapFr[birbId] === input}
-        renderInput={(params) => (
-          <TextField {...params} label="Recherche ..." variant="outlined" />
-        )}
-        getOptionDisabled={(option) => selectedBirbIds.includes(option)}
-      />
+      <Box
+        sx={{
+          marginTop: "1.5rem",
+          display: "grid",
+          alignItems: "center",
+          gap: "0.5rem",
+          gridTemplateColumns: "1fr auto",
+        }}
+      >
+        <Autocomplete
+          size="small"
+          inputValue={birbInput}
+          onInputChange={(e, v) => setBirbInput(v)}
+          value={selectedBirbId}
+          onChange={(e, v) => setSelectedBirbId(v!)}
+          options={Object.keys(birbsMapFr).sort((a, b) =>
+            birbsMapFr[a].localeCompare(birbsMapFr[b])
+          )}
+          getOptionLabel={(birbId) =>
+            birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
+          }
+          freeSolo
+          isOptionEqualToValue={(birbId, input) => birbsMapFr[birbId] === input}
+          renderInput={(params) => (
+            <TextField {...params} label="Recherche ..." variant="outlined" />
+          )}
+          getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+        />
+        <Button onClick={() => setSelectedBirbIds([])}>Reset</Button>
+      </Box>
 
       {selectedBirbIds.length > 0 && (
         <Box
@@ -122,6 +131,29 @@ function Welcome({
                 {selectedBirbIds.length} birbs
               </Typography>
             </Box> */}
+      <Box
+        sx={{
+          marginTop: "1.5rem",
+        }}
+      >
+        <Typography>Listes :</Typography>
+        <Box sx={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
+          <Button
+            href="https://birbsquiz.web.app/?birbs=WyIyNDYiLCIyNDciLCIyNTEiLCIyNTIiLCIyNDIiLCIyNTUiLCIyNjUiLCIyNjciLCIyNjkiLCIyNjAiLCIyMzMiLCIyNzAiLCIzMzEiLCIzMTAiLCIzMDkiLCIzMTEiLCIzMTgiLCIzMDEiLCI0MjciLCI0MjQiLCIyOTUiLCIyOTgiLCIyOTkiLCIyODMiLCIyODAiLCIzNTkiLCIzNjYiLCIzNjUiLCIzNjkiLCIzNjIiLCIzNjMiLCIzNzgiLCIzODIiLCIzODEiLCIzODgiLCIzNzkiLCIzNzAiLCIzNjAiLCIzOTEiLCIzNjEiLCI0MDciLCI0MTUiLCI0MDIiLCI0MDUiLCI0MzkiLCIzNDIiLCIzNDEiLCI3MyIsIjMyOSJd"
+            variant="outlined"
+            color="primary"
+          >
+            SEAT
+          </Button>
+          <Button
+            href="https://birbsquiz.web.app/?birbs=WyIyNCIsIjI2IiwiMzEiLCIyMzMiLCIxNTMiLCIxNTkiLCIyMDIiLCI2NSIsIjc1IiwiMjQyIiwiMjUyIiwiMjUxIiwiMjYwIiwiMjY1IiwiMjY5IiwiMjcwIiwiMjc3IiwiMzMxIiwiMzIyIiwiMzI3IiwiMzMwIiwiMzI5IiwiNTE3NyIsIjMwNiIsIjMwMiIsIjI4OCIsIjM0MiIsIjQxNSIsIjQwNSIsIjQwMCIsIjQzMiIsIjQzNiIsIjQzOSIsIjM4MiIsIjM2NSIsIjM2MSIsIjM1OSIsIjM2OSIsIjQyNyIsIjQyOSIsIjMwMSIsIjI5MSIsIjQzMSIsIjk2IiwiMzY2IiwiMzcxIiwiNDQyIiwiMjQ2IiwiMjQ3IiwiMjQxIiwiMjEzIiwiMjIyIiwiNzMiLCI3MCIsIjY5IiwiMTAyIiwiNDQwIiwiMzE4IiwiMzk5IiwiNDAyIl0%3D"
+            variant="outlined"
+            color="primary"
+          >
+            MBO
+          </Button>
+        </Box>
+      </Box>
 
       <Box
         sx={{

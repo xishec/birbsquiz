@@ -24,6 +24,9 @@ function QuizDialog({
   selectedBirbIds,
   setOpenQuizDialog,
 }: QuizDialogProps) {
+  const nbGood = answers.filter((answer) => answer).length;
+  const nbTotal = answers.length;
+
   return (
     <Dialog
       onClose={() => setOpenQuizDialog(false)}
@@ -33,7 +36,7 @@ function QuizDialog({
       fullWidth
     >
       <DialogTitle>
-        {`Résultats : ${answers.filter((answer) => answer).length}/${answers.length}`}
+        {`Résultats : ${nbGood}/${nbTotal} - ${((nbGood / nbTotal) * 100).toFixed(2)}%`}
       </DialogTitle>
       <DialogContent>
         <Box
