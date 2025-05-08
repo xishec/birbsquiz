@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { Box, IconButton, Switch, Tab, Typography } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { Box, IconButton, Switch, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
@@ -114,18 +113,19 @@ function Quiz({
         justifyContent: "center",
       }}
     >
-      <img
-        style={{
-          height: "100%",
-          width: "100%",
-          objectFit: "fill",
-          maxWidth: "400px",
-          maxHeight: "400px",
-        }}
-        src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
-        loading="lazy"
-        alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
-      />
+      <Box sx={{ overflow: "hidden", borderRadius: "0.1rem" }}>
+        <img
+          style={{
+            height: "100%",
+            width: "100%",
+            maxWidth: "400px",
+            maxHeight: "400px",
+          }}
+          src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
+          loading="lazy"
+          alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
+        />
+      </Box>
       <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
         <Typography
           sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}

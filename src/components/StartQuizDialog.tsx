@@ -31,12 +31,12 @@ function StartQuizDialog({
       fullWidth
     >
       <DialogTitle>Choose mode</DialogTitle>
-      <DialogContent sx={{ padding: "0rem 1.5rem" }}>
+      <DialogContent sx={{ padding: "1.5rem" }}>
         <Box
           sx={{
             display: "grid",
             gap: "1rem",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
           }}
         >
           <Button
@@ -61,17 +61,6 @@ function StartQuizDialog({
           </Button>
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button
-          sx={{ margin: "1rem" }}
-          onClick={() => setOpenStartQuizDialog(false)}
-          variant="outlined"
-          color="error"
-          fullWidth
-        >
-          Cancel
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

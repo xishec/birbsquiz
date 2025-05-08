@@ -120,9 +120,9 @@ function App() {
   };
 
   const endQuiz = () => {
+    if (counter === selectedBirbIds.length - 1) setOpenEndQuizDialog(true);
     setCounter(0);
     setQuizStarted(false);
-    setOpenEndQuizDialog(true);
   };
 
   const randomSequence = (max: number) => {
