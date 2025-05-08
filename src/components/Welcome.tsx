@@ -58,7 +58,15 @@ function Welcome({
   }, [selectedBirbId, addBirb]);
 
   return (
-    <>
+    <Box
+      sx={{
+        overflow: "auto",
+        display: "grid",
+        height: "85vh",
+        minHeight: 0,
+        gridTemplateRows: "auto auto 1fr auto auto",
+      }}
+    >
       <Typography sx={{ justifySelf: "center" }} variant="h2">
         {/* <Box component="span" sx={{ color: "primary.main" }}> */}
         Birbsquiz
@@ -97,17 +105,18 @@ function Welcome({
         <Button onClick={() => setSelectedBirbIds([])}>Reset</Button>
       </Box>
 
-      {selectedBirbIds.length > 0 && (
-        <Box
-          sx={{
-            marginTop: "1.5rem",
-            display: "grid",
-            overflow: "auto",
-            gap: "0.5rem",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          }}
-        >
-          {selectedBirbIds.map((birbId, i) => (
+      <Box
+        sx={{
+          marginTop: "1.5rem",
+          display: "grid",
+          overflow: "auto",
+          gap: "0.5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gridTemplateRows: "min-content",
+        }}
+      >
+        {selectedBirbIds.length > 0 &&
+          selectedBirbIds.map((birbId, i) => (
             <StyledChip
               key={`chip-${i}`}
               label={birbsMapFr[birbId]}
@@ -115,22 +124,8 @@ function Welcome({
               onDelete={() => deleteBirb(birbId)}
             />
           ))}
-        </Box>
-      )}
+      </Box>
 
-      {/* <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Typography
-                sx={{ position: "relative", top: 0 }}
-                variant="caption"
-              >
-                {selectedBirbIds.length} birbs
-              </Typography>
-            </Box> */}
       <Box
         sx={{
           marginTop: "1.5rem",
@@ -195,7 +190,7 @@ function Welcome({
           </Button>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 

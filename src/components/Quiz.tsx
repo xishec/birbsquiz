@@ -146,10 +146,9 @@ function Quiz({
   return (
     <Box
       sx={{
-        border: "1px solid #dcdcdc",
         overflow: "auto",
         display: "grid",
-        height: "100%",
+        height: "85vh",
         minHeight: 0,
         gridTemplateRows: "auto 1fr auto",
       }}
@@ -184,7 +183,7 @@ function Quiz({
           overflow: "auto",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          justifyContent: "start",
         }}
       >
         <TabContext value={tab}>
@@ -268,18 +267,23 @@ function Quiz({
       </Box>
 
       {/* Reveal and answer buttons */}
-      <Box>
-        <Box
-          sx={{
-            marginTop: "0.5rem",
-            display: "grid",
-            alignItems: "center",
-            gridTemplateColumns: "1fr auto",
-            gap: "0.5rem",
-          }}
-        >
+      <Box
+        sx={{
+          marginTop: "1rem",
+        }}
+      >
+        {/* Reveal buttons */}
+        <Box>
           {!shouldReveal && (
-            <>
+            <Box
+              sx={{
+                marginTop: "0.5rem",
+                display: "grid",
+                alignItems: "center",
+                gridTemplateColumns: "1fr auto",
+                gap: "0.5rem",
+              }}
+            >
               <Button
                 variant="outlined"
                 disabled={!audioPlayed && tab === TabName.Songs}
@@ -296,8 +300,6 @@ function Quiz({
               >
                 Reveal
               </Button>
-
-              {/* New Preview Image Button */}
               {tab === TabName.Songs && (
                 <Button
                   variant="outlined"
@@ -310,7 +312,7 @@ function Quiz({
                   👀
                 </Button>
               )}
-            </>
+            </Box>
           )}
 
           {shouldReveal && (
@@ -319,72 +321,81 @@ function Quiz({
                 marginTop: "0.5rem",
                 display: "grid",
                 alignItems: "center",
-                gridTemplateColumns: "1fr",
+                gridTemplateColumns: "1fr auto",
                 gap: "0.5rem",
               }}
             >
-              <Typography variant="body1">
+              <Button
+                variant="outlined"
+                sx={{ pointerEvents: "none" }}
+                color={answers[sequence[counter]] ? "success" : "error"}
+              >
                 {birbsMapFr[selectedBirbIds[sequence[counter]]]}
-              </Typography>
+              </Button>
+              <Box
+                sx={{
+                  display: "grid",
+                  justifyContent: "center",
+                }}
+              >
+                <Switch
+                  sx={{
+                    "&.MuiSwitch-root .MuiSwitch-switchBase": {
+                      color: "red",
+                    },
+                    "&.MuiSwitch-root .Mui-checked": {
+                      color: "green",
+                    },
+                    ".MuiSwitch-track": {
+                      backgroundColor: "red",
+                    },
+                  }}
+                  color="success"
+                  checked={answers[sequence[counter]]}
+                  onChange={() => {
+                    const newAnswers: any = Array.from(answers);
+                    newAnswers[sequence[counter]] =
+                      !newAnswers[sequence[counter]];
+                    setAnswers(newAnswers);
+                  }}
+                />
+                {/* <Typography variant="body1">
+                  {answers[sequence[counter]] ? "Good birb" : "Faux"}
+                </Typography> */}
+              </Box>
             </Box>
           )}
         </Box>
 
-        {shouldReveal && (
-          <Box
-            sx={{
-              marginTop: "0.5rem",
-              display: "grid",
-              alignItems: "center",
-              gridTemplateColumns: "auto 1fr",
-              gap: "0.5rem",
-            }}
-          >
-            <Switch
-              sx={{
-                "&.MuiSwitch-root .MuiSwitch-switchBase": {
-                  color: "red",
-                },
-                "&.MuiSwitch-root .Mui-checked": {
-                  color: "green",
-                },
-                ".MuiSwitch-track": {
-                  backgroundColor: "red",
-                },
-              }}
-              color="success"
-              checked={answers[sequence[counter]]}
-              onChange={() => {
-                const newAnswers: any = Array.from(answers);
-                newAnswers[sequence[counter]] = !newAnswers[sequence[counter]];
-                setAnswers(newAnswers);
-              }}
-            />
-            <Typography variant="body1">
-              {answers[sequence[counter]] ? "Good birb" : "Faux"}
-            </Typography>
-          </Box>
-        )}
+        <Box
+          sx={{
+            marginTop: "1rem",
+            display: "grid",
+            alignItems: "center",
+          }}
+        >
+          {!(counter === selectedBirbIds.length - 1) && (
+            <Button
+              disabled={!shouldReveal}
+              variant="contained"
+              onClick={nextQuestion}
+              color={answers[sequence[counter]] ? "success" : "error"}
+            >
+              <ArrowForwardIcon />
+            </Button>
+          )}
 
-        {shouldReveal && !(counter === selectedBirbIds.length - 1) && (
-          <Button
-            sx={{ marginTop: "1rem" }}
-            variant="contained"
-            onClick={nextQuestion}
-          >
-            Prochain
-          </Button>
-        )}
-
-        {shouldReveal && counter === selectedBirbIds.length - 1 && (
-          <Button
-            sx={{ marginTop: "1rem" }}
-            variant="contained"
-            onClick={endQuiz}
-          >
-            Terminer
-          </Button>
-        )}
+          {counter === selectedBirbIds.length - 1 && (
+            <Button
+              disabled={!shouldReveal}
+              variant="contained"
+              onClick={endQuiz}
+              color={answers[sequence[counter]] ? "success" : "error"}
+            >
+              <ArrowForwardIcon />
+            </Button>
+          )}
+        </Box>
       </Box>
     </Box>
   );
