@@ -27,29 +27,74 @@ function App() {
   const birbsMapFr = rawBirbsMapFr as any;
   const dataMap = rawData as any;
 
+  // Helper to load progress from localStorage
+  const loadProgress = () => {
+    const saved = localStorage.getItem("birbsQuizProgress");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Error parsing progress:", e);
+      }
+    }
+    return {};
+  };
+
+  const savedProgress = loadProgress();
+
+  // Use savedProgress values if available, else fall back to default values
   const [selectedBirbIds, setSelectedBirbIds] = React.useState<Array<string>>(
     () => {
       const urlBirbs = new URLSearchParams(window.location.search).get("birbs");
-      if (urlBirbs)
+      if (urlBirbs) {
         return JSON.parse(atob(urlBirbs)).filter(
           (birbId: any) => birbsMapFr[birbId]
         );
-
+      } else if (savedProgress.selectedBirbIds) {
+        return savedProgress.selectedBirbIds;
+      }
       return [];
     }
   );
-  const [counter, setCounter] = React.useState(0);
-  const [sequence, setSequence] = React.useState<Array<number>>([]);
-  const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>([]);
-  const [answers, setAnswers] = React.useState<Array<boolean>>([]);
-  const [quizStarted, setQuizStarted] = React.useState(false);
-  const [openSnake, setOpenSnake] = React.useState(false);
-  const [snakeMessage, setSnakeMessage] = React.useState("");
+
+  useEffect(() => {
+    console.log("selectedBirbIds", selectedBirbIds);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("birbs");
+    window.history.replaceState(null, "", url.toString());
+  }, [selectedBirbIds]);
+
+  const [counter, setCounter] = React.useState<number>(() =>
+    savedProgress.counter !== undefined ? savedProgress.counter : 0
+  );
+
+  const [sequence, setSequence] = React.useState<Array<number>>(
+    () => savedProgress.sequence || []
+  );
+
+  const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>(
+    () => savedProgress.showAnswers || []
+  );
+
+  const [answers, setAnswers] = React.useState<Array<boolean>>(
+    () => savedProgress.answers || []
+  );
+
+  const [quizStarted, setQuizStarted] = React.useState<boolean>(
+    () => savedProgress.quizStarted || false
+  );
+
+  const [openSnake, setOpenSnake] = React.useState<boolean>(false);
+  const [snakeMessage, setSnakeMessage] = React.useState<string>("");
+
   const birbEmoji = useMemo(
     () => birbEmojis[Math.floor(Math.random() * birbEmojis.length)],
     []
   );
-  const [openQuizDialog, setOpenQuizDialog] = React.useState(false);
+
+  const [openQuizDialog, setOpenQuizDialog] = React.useState<boolean>(
+    () => savedProgress.openQuizDialog || false
+  );
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -80,16 +125,38 @@ function App() {
     }
   };
 
+  // useEffect(() => {
+  //   const url = new URL(window.location.href);
+  //   if (selectedBirbIds.length > 0) {
+  //     const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
+  //     url.searchParams.set("birbs", encodedBirbs);
+  //   } else {
+  //     url.searchParams.delete("birbs");
+  //   }
+  //   window.history.pushState(null, "", url.toString());
+  // }, [selectedBirbIds]);
+
+  // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
-    const url = new URL(window.location.href);
-    if (selectedBirbIds.length > 0) {
-      const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
-      url.searchParams.set("birbs", encodedBirbs);
-    } else {
-      url.searchParams.delete("birbs");
-    }
-    window.history.pushState(null, "", url.toString());
-  }, [selectedBirbIds]);
+    const progress = {
+      selectedBirbIds,
+      counter,
+      sequence,
+      showAnswers,
+      answers,
+      quizStarted,
+      openQuizDialog,
+    };
+    localStorage.setItem("birbsQuizProgress", JSON.stringify(progress));
+  }, [
+    selectedBirbIds,
+    counter,
+    sequence,
+    showAnswers,
+    answers,
+    quizStarted,
+    openQuizDialog,
+  ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
 
@@ -153,7 +220,6 @@ function App() {
         }}
       >
         {!quizStarted && <Welcome {...welcomeProps} />}
-
         {quizStarted && <Quiz {...quizProps} />}
       </Box>
 

@@ -49,8 +49,11 @@ function Welcome({
   );
 
   const copyUrl = () => {
-    let url = window.location.href;
-    navigator.clipboard.writeText(url);
+    const url = new URL(window.location.href);
+    const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
+    url.searchParams.set("birbs", encodedBirbs);
+    navigator.clipboard.writeText(url.toString());
+    url.searchParams.delete("birbs");
     setSnakeMessage(`Lien copié!`);
     setOpenSnake(true);
   };
