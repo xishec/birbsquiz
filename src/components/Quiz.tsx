@@ -363,7 +363,6 @@ function Quiz({
 
         <Box
           sx={{
-            marginTop: "0.5rem",
             display: "grid",
             alignItems: "center",
           }}

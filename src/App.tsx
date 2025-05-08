@@ -53,7 +53,8 @@ function App() {
       } else if (savedProgress.selectedBirbIds) {
         return savedProgress.selectedBirbIds;
       }
-      return [];
+
+      return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
     }
   );
 

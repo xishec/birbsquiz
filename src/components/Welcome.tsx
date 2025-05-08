@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import CopyAllIcon from "@mui/icons-material/CopyAll";
-import { Box, Button, IconButton, Link, Typography } from "@mui/material";
+import ShareIcon from "@mui/icons-material/Share";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import StyledChip from "./StyledChip";
 
 type WelcomeProps = {
@@ -107,50 +107,54 @@ function Welcome({
           )}
           getOptionDisabled={(option) => selectedBirbIds.includes(option)}
         />
-        <Button onClick={() => setSelectedBirbIds([])}>Reset</Button>
+      </Box>
+
+      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
+        <Box
+          sx={{
+            display: "grid",
+            gap: "0.5rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          }}
+        >
+          {selectedBirbIds.length > 0 &&
+            selectedBirbIds.map((birbId, i) => (
+              <StyledChip
+                key={`chip-${i}`}
+                label={birbsMapFr[birbId]}
+                variant="outlined"
+                onDelete={() => deleteBirb(birbId)}
+              />
+            ))}
+        </Box>
       </Box>
 
       <Box
         sx={{
           marginTop: "1.5rem",
-          display: "grid",
-          overflow: "auto",
-          gap: "0.5rem",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gridTemplateRows: "min-content",
         }}
       >
-        {selectedBirbIds.length > 0 &&
-          selectedBirbIds.map((birbId, i) => (
-            <StyledChip
-              key={`chip-${i}`}
-              label={birbsMapFr[birbId]}
-              variant="outlined"
-              onDelete={() => deleteBirb(birbId)}
-            />
-          ))}
-      </Box>
-
-      <Box
-        sx={{
-          marginTop: "1.5rem",
-        }}
-      >
-        <Typography>Listes :</Typography>
         <Box sx={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
           <Button
-            href="https://birbsquiz.web.app/?birbs=WyIyNDYiLCIyNDciLCIyNTEiLCIyNTIiLCIyNDIiLCIyNTUiLCIyNjUiLCIyNjciLCIyNjkiLCIyNjAiLCIyMzMiLCIyNzAiLCIzMzEiLCIzMTAiLCIzMDkiLCIzMTEiLCIzMTgiLCIzMDEiLCI0MjciLCI0MjQiLCIyOTUiLCIyOTgiLCIyOTkiLCIyODMiLCIyODAiLCIzNTkiLCIzNjYiLCIzNjUiLCIzNjkiLCIzNjIiLCIzNjMiLCIzNzgiLCIzODIiLCIzODEiLCIzODgiLCIzNzkiLCIzNzAiLCIzNjAiLCIzOTEiLCIzNjEiLCI0MDciLCI0MTUiLCI0MDIiLCI0MDUiLCI0MzkiLCIzNDIiLCIzNDEiLCI3MyIsIjMyOSJd"
+            href="/?birbs=WyIyNDYiLCIyNDciLCIyNTEiLCIyNTIiLCIyNDIiLCIyNTUiLCIyNjUiLCIyNjciLCIyNjkiLCIyNjAiLCIyMzMiLCIyNzAiLCIzMzEiLCIzMTAiLCIzMDkiLCIzMTEiLCIzMTgiLCIzMDEiLCI0MjciLCI0MjQiLCIyOTUiLCIyOTgiLCIyOTkiLCIyODMiLCIyODAiLCIzNTkiLCIzNjYiLCIzNjUiLCIzNjkiLCIzNjIiLCIzNjMiLCIzNzgiLCIzODIiLCIzODEiLCIzODgiLCIzNzkiLCIzNzAiLCIzNjAiLCIzOTEiLCIzNjEiLCI0MDciLCI0MTUiLCI0MDIiLCI0MDUiLCI0MzkiLCIzNDIiLCIzNDEiLCI3MyIsIjMyOSJd"
             variant="outlined"
             color="primary"
           >
             SEAT
           </Button>
           <Button
-            href="https://birbsquiz.web.app/?birbs=WyIyNCIsIjI2IiwiMzEiLCIyMzMiLCIxNTMiLCIxNTkiLCIyMDIiLCI2NSIsIjc1IiwiMjQyIiwiMjUyIiwiMjUxIiwiMjYwIiwiMjY1IiwiMjY5IiwiMjcwIiwiMjc3IiwiMzMxIiwiMzIyIiwiMzI3IiwiMzMwIiwiMzI5IiwiNTE3NyIsIjMwNiIsIjMwMiIsIjI4OCIsIjM0MiIsIjQxNSIsIjQwNSIsIjQwMCIsIjQzMiIsIjQzNiIsIjQzOSIsIjM4MiIsIjM2NSIsIjM2MSIsIjM1OSIsIjM2OSIsIjQyNyIsIjQyOSIsIjMwMSIsIjI5MSIsIjQzMSIsIjk2IiwiMzY2IiwiMzcxIiwiNDQyIiwiMjQ2IiwiMjQ3IiwiMjQxIiwiMjEzIiwiMjIyIiwiNzMiLCI3MCIsIjY5IiwiMTAyIiwiNDQwIiwiMzE4IiwiMzk5IiwiNDAyIl0%3D"
+            href="/?birbs=WyIyNCIsIjI2IiwiMzEiLCIyMzMiLCIxNTMiLCIxNTkiLCIyMDIiLCI2NSIsIjc1IiwiMjQyIiwiMjUyIiwiMjUxIiwiMjYwIiwiMjY1IiwiMjY5IiwiMjcwIiwiMjc3IiwiMzMxIiwiMzIyIiwiMzI3IiwiMzMwIiwiMzI5IiwiNTE3NyIsIjMwNiIsIjMwMiIsIjI4OCIsIjM0MiIsIjQxNSIsIjQwNSIsIjQwMCIsIjQzMiIsIjQzNiIsIjQzOSIsIjM4MiIsIjM2NSIsIjM2MSIsIjM1OSIsIjM2OSIsIjQyNyIsIjQyOSIsIjMwMSIsIjI5MSIsIjQzMSIsIjk2IiwiMzY2IiwiMzcxIiwiNDQyIiwiMjQ2IiwiMjQ3IiwiMjQxIiwiMjEzIiwiMjIyIiwiNzMiLCI3MCIsIjY5IiwiMTAyIiwiNDQwIiwiMzE4IiwiMzk5IiwiNDAyIl0%3D"
             variant="outlined"
             color="primary"
           >
             MBO
+          </Button>
+          <Button
+            onClick={() => setSelectedBirbIds([])}
+            color="error"
+            variant="outlined"
+          >
+            Empty
           </Button>
         </Box>
       </Box>
@@ -181,7 +185,7 @@ function Welcome({
             onClick={copyUrl}
             disabled={selectedBirbIds.length <= 0}
           >
-            <CopyAllIcon />
+            <ShareIcon />
           </IconButton>
 
           <Button
