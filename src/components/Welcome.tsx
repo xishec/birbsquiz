@@ -5,9 +5,10 @@ import ShareIcon from "@mui/icons-material/Share";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import StyledChip from "./StyledChip";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
-import { ref, push, set } from "firebase/database";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { ref, set, get } from "firebase/database";
 
 type WelcomeProps = {
   birbsMapFr: any;
@@ -34,16 +35,16 @@ function Welcome({
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<any>(null);
   const [shareClickCount, setShareClickCount] = useState<number>(0);
-  const [listName, setListName] = useState("Birb List Name...");
+  const [listName, setListName] = useState("");
+  const [dbData, setDbData] = useState<any>({});
 
-  // Implement saveBirbList to write the selectedBirbIds to Firebase Realtime Database.
   const saveBirbList = () => {
     if (!user) return;
-    // Create a new list entry under `/users/<user.uid>/lists`
+    // Directly reference the path without a push
     const listRef = ref(database, `lists/${listName}`);
-    const newListRef = push(listRef);
-    set(newListRef, selectedBirbIds)
+    set(listRef, selectedBirbIds)
       .then(() => {
+        loadBirbList();
         setSnakeMessage("Liste sauvegardée avec succès!");
         setOpenSnake(true);
       })
@@ -53,6 +54,24 @@ function Welcome({
         setOpenSnake(true);
       });
   };
+
+  const loadBirbList = useCallback(() => {
+    const listRef = ref(database, `lists`);
+    get(listRef)
+      .then((snapshot) => {
+        const data = snapshot.val();
+        setDbData(data);
+      })
+      .catch((error) => {
+        console.error("Error reading birb list:", error);
+        setSnakeMessage("Erreur lors du chargement de la liste!");
+        setOpenSnake(true);
+      });
+  }, [setOpenSnake, setSnakeMessage, setDbData]);
+
+  useEffect(() => {
+    loadBirbList();
+  }, [loadBirbList]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
@@ -166,7 +185,19 @@ function Welcome({
         }}
       >
         <Box sx={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
-          <Button
+          {dbData &&
+            Object.entries(dbData).map(([key, value]) => {
+              return (
+                <Button
+                  onClick={() => setSelectedBirbIds(value)}
+                  variant="outlined"
+                  color="primary"
+                >
+                  {key}
+                </Button>
+              );
+            })}
+          {/* <Button
             href="/?birbs=WyIyNDYiLCIyNDciLCIyNTEiLCIyNTIiLCIyNDIiLCIyNTUiLCIyNjUiLCIyNjciLCIyNjkiLCIyNjAiLCIyMzMiLCIyNzAiLCIzMzEiLCIzMTAiLCIzMDkiLCIzMTEiLCIzMTgiLCIzMDEiLCI0MjciLCI0MjQiLCIyOTUiLCIyOTgiLCIyOTkiLCIyODMiLCIyODAiLCIzNTkiLCIzNjYiLCIzNjUiLCIzNjkiLCIzNjIiLCIzNjMiLCIzNzgiLCIzODIiLCIzODEiLCIzODgiLCIzNzkiLCIzNzAiLCIzNjAiLCIzOTEiLCIzNjEiLCI0MDciLCI0MTUiLCI0MDIiLCI0MDUiLCI0MzkiLCIzNDIiLCIzNDEiLCI3MyIsIjMyOSJd"
             variant="outlined"
             color="primary"
@@ -179,7 +210,7 @@ function Welcome({
             color="primary"
           >
             MBO
-          </Button>
+          </Button> */}
           <Button
             onClick={() => setSelectedBirbIds([])}
             color="error"
@@ -192,14 +223,14 @@ function Welcome({
 
       <Box>
         {user && (
-            <Box
+          <Box
             sx={{
               marginTop: "0.5rem",
               display: "grid",
               gap: "0.5rem",
               alignItems: "center",
             }}
-            >
+          >
             <TextField
               id="outlined-basic"
               label="List Name ..."
@@ -208,10 +239,15 @@ function Welcome({
               value={listName}
               onChange={(e) => setListName(e.target.value)}
             />
-            <Button onClick={saveBirbList} color="success" variant="outlined">
+            <Button
+              disabled={!listName}
+              onClick={saveBirbList}
+              color="success"
+              variant="outlined"
+            >
               Save
             </Button>
-            </Box>
+          </Box>
         )}
       </Box>
 
@@ -240,6 +276,17 @@ function Welcome({
             {!user && shareClickCount > 5 && (
               <IconButton color="primary" onClick={signInWithGoogle}>
                 <LoginIcon />
+              </IconButton>
+            )}
+            {user && (
+              <IconButton
+                color="error"
+                onClick={() => {
+                  setShareClickCount(0);
+                  signOut(auth);
+                }}
+              >
+                <LogoutIcon />
               </IconButton>
             )}
           </Box>

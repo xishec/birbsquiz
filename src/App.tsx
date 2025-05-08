@@ -65,7 +65,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log("selectedBirbIds", selectedBirbIds);
     const url = new URL(window.location.href);
     url.searchParams.delete("birbs");
     window.history.replaceState(null, "", url.toString());
@@ -250,7 +249,7 @@ function App() {
         {quizStarted && <Quiz {...quizProps} />}
       </Box>
 
-      <Box sx={{ position: "absolute", bottom: 0, left: "0.25rem" }}>
+      <Box sx={{ position: "absolute", bottom: 0, left: "2rem" }}>
         <Typography sx={{ color: "#dcdcdc" }} variant="caption">
           <Link
             sx={{ color: "#dcdcdc" }}
@@ -264,7 +263,7 @@ function App() {
         </Typography>
       </Box>
 
-      <Box sx={{ position: "absolute", bottom: 0, right: "0.25rem" }}>
+      <Box sx={{ position: "absolute", bottom: 0, right: "2rem" }}>
         <Typography sx={{ color: "#dcdcdc" }} variant="caption">
           <Link
             sx={{ color: "#dcdcdc" }}
