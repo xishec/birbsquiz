@@ -56,7 +56,8 @@ function Quiz({
   const getAudioSource = () => {
     const audioSource = dataMap[selectedBirbIds[sequence[counter]]].songs
       .slice()
-      .splice(0, 3);
+      .splice(0, 3)
+      .sort(() => Math.random() - 0.5);
     return (
       <>
         {audioSource &&
@@ -64,6 +65,7 @@ function Quiz({
           audioSource.map((audioSource: string, i: number) => (
             <Box key={`audio-${counter}-${i}`}>
               <audio
+                autoPlay={i === 0}
                 style={{ width: "100%" }}
                 controls
                 src={audioSource}
@@ -261,14 +263,14 @@ function Quiz({
       {/* Reveal and answer buttons */}
       <Box
         sx={{
-          marginTop: "1rem",
+          marginTop: "0rem",
         }}
       >
         <Box>
           {!shouldReveal && (
             <Box
               sx={{
-                marginTop: "0.5rem",
+                marginTop: "1rem",
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
@@ -306,10 +308,11 @@ function Quiz({
             </Box>
           )}
 
+          {/* Show answer */}
           {shouldReveal && (
             <Box
               sx={{
-                marginTop: "0.5rem",
+                marginTop: "1rem",
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
@@ -359,8 +362,10 @@ function Quiz({
           )}
         </Box>
 
+        {/* Next question button */}
         <Box
           sx={{
+            marginTop: "1rem",
             display: "grid",
             alignItems: "center",
           }}
@@ -368,7 +373,6 @@ function Quiz({
           {!(counter === selectedBirbIds.length - 1) && (
             <Box
               sx={{
-                marginTop: "1rem",
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",

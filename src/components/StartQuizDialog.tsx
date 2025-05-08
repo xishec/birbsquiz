@@ -3,7 +3,6 @@ import Dialog from "@mui/material/Dialog";
 import {
   Box,
   Button,
-  DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
@@ -30,8 +29,10 @@ function StartQuizDialog({
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle>Choose mode</DialogTitle>
-      <DialogContent sx={{ padding: "1.5rem" }}>
+      <DialogTitle sx={{ padding: "2rem", paddingBottom: "1.5rem" }}>
+        Choose mode
+      </DialogTitle>
+      <DialogContent sx={{ padding: "2rem" }}>
         <Box
           sx={{
             display: "grid",

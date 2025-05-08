@@ -1,9 +1,13 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ShareIcon from "@mui/icons-material/Share";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import StyledChip from "./StyledChip";
+import LoginIcon from "@mui/icons-material/Login";
+import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
+import { ref, push, set } from "firebase/database";
 
 type WelcomeProps = {
   birbsMapFr: any;
@@ -28,6 +32,32 @@ function Welcome({
 }: WelcomeProps) {
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
+  const [user, setUser] = useState<any>(null);
+  const [shareClickCount, setShareClickCount] = useState<number>(0);
+  const [listName, setListName] = useState("Birb List Name...");
+
+  // Implement saveBirbList to write the selectedBirbIds to Firebase Realtime Database.
+  const saveBirbList = () => {
+    if (!user) return;
+    // Create a new list entry under `/users/<user.uid>/lists`
+    const listRef = ref(database, `lists/${listName}`);
+    const newListRef = push(listRef);
+    set(newListRef, selectedBirbIds)
+      .then(() => {
+        setSnakeMessage("Liste sauvegardée avec succès!");
+        setOpenSnake(true);
+      })
+      .catch((error) => {
+        console.error("Error saving birb list:", error);
+        setSnakeMessage("Erreur lors de la sauvegarde!");
+        setOpenSnake(true);
+      });
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsubscribe();
+  }, []);
 
   const addBirb = useCallback(
     (birbId: string) => {
@@ -49,6 +79,7 @@ function Welcome({
   );
 
   const copyUrl = () => {
+    setShareClickCount((prev) => prev + 1);
     const url = new URL(window.location.href);
     const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
     url.searchParams.set("birbs", encodedBirbs);
@@ -69,14 +100,14 @@ function Welcome({
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto 1fr auto auto",
+        gridTemplateRows: "auto auto 1fr auto auto auto",
       }}
     >
       <Typography sx={{ justifySelf: "center" }} variant="h2">
         {/* <Box component="span" sx={{ color: "primary.main" }}> */}
         Birbsquiz
         {/* </Box> */}
-        {birbEmoji}
+        {user ? " 🦖" : birbEmoji}
       </Typography>
 
       <Box
@@ -159,6 +190,31 @@ function Welcome({
         </Box>
       </Box>
 
+      <Box>
+        {user && (
+            <Box
+            sx={{
+              marginTop: "0.5rem",
+              display: "grid",
+              gap: "0.5rem",
+              alignItems: "center",
+            }}
+            >
+            <TextField
+              id="outlined-basic"
+              label="List Name ..."
+              variant="outlined"
+              size="small"
+              value={listName}
+              onChange={(e) => setListName(e.target.value)}
+            />
+            <Button onClick={saveBirbList} color="success" variant="outlined">
+              Save
+            </Button>
+            </Box>
+        )}
+      </Box>
+
       <Box
         sx={{
           marginTop: "1.5rem",
@@ -169,17 +225,10 @@ function Welcome({
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "min-content 1fr",
+            gridTemplateColumns: "min-content min-content 1fr",
             gap: "0.5rem",
           }}
         >
-          {/* <Button
-                  variant="outlined"
-                  onClick={copyUrl}
-                  disabled={selectedBirbIds.length <= 0}
-                >
-                  Partager
-                </Button> */}
           <IconButton
             color="primary"
             onClick={copyUrl}
@@ -187,6 +236,13 @@ function Welcome({
           >
             <ShareIcon />
           </IconButton>
+          <Box>
+            {!user && shareClickCount > 5 && (
+              <IconButton color="primary" onClick={signInWithGoogle}>
+                <LoginIcon />
+              </IconButton>
+            )}
+          </Box>
 
           <Button
             variant="contained"

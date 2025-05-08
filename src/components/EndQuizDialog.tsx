@@ -2,8 +2,6 @@ import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import {
   Box,
-  Button,
-  DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
@@ -35,13 +33,13 @@ function EndQuizDialog({
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle>
-        {`Résultats : ${nbGood}/${nbTotal} - ${(
+      <DialogTitle sx={{ padding: "2rem", paddingBottom: "1.5rem" }}>
+        {`Résultats : ${(
           (nbGood / nbTotal) *
           100
-        ).toFixed(2)}%`}
+        ).toFixed(2)}% (${nbGood}/${nbTotal})`}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ padding: "2rem" }}>
         <Box
           sx={{
             display: "grid",
@@ -60,16 +58,6 @@ function EndQuizDialog({
           ))}
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button
-          sx={{ margin: "1rem" }}
-          onClick={() => setOpenEndQuizDialog(false)}
-          variant="outlined"
-          fullWidth
-        >
-          OK
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
