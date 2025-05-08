@@ -5,7 +5,8 @@ import rawData from "./dendroica/data.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Welcome from "./components/Welcome";
 import Quiz from "./components/Quiz";
-import QuizDialog from "./components/QuizDialog";
+import StartQuizDialog from "./components/StartQuizDialog";
+import EndQuizDialog from "./components/EndQuizDialog";
 
 const birbEmojis = [
   " 🐦‍⬛",
@@ -22,6 +23,11 @@ const birbEmojis = [
   " 🥚",
   " 🍳",
 ];
+
+export enum GameMode {
+  CHANTS = "chants",
+  IMAGES = "images",
+}
 
 function App() {
   const birbsMapFr = rawBirbsMapFr as any;
@@ -93,12 +99,20 @@ function App() {
     []
   );
 
-  const [openQuizDialog, setOpenQuizDialog] = React.useState<boolean>(
-    () => savedProgress.openQuizDialog || false
+  const [openEndQuizDialog, setOpenEndQuizDialog] = React.useState<boolean>(
+    () => savedProgress.openEndQuizDialog || false
+  );
+
+  const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(
+    () => savedProgress.openStartQuizDialog || false
+  );
+
+  const [gameMode, setGameMode] = React.useState<GameMode>(
+    () => savedProgress.gameMode || GameMode.CHANTS
   );
 
   const startQuiz = () => {
-    setQuizStarted(true);
+    setOpenStartQuizDialog(true);
     setCounter(0);
     randomSequence(selectedBirbIds.length);
     setShowAnswers(Array(selectedBirbIds.length).fill(false));
@@ -108,7 +122,7 @@ function App() {
   const endQuiz = () => {
     setCounter(0);
     setQuizStarted(false);
-    setOpenQuizDialog(true);
+    setOpenEndQuizDialog(true);
   };
 
   const randomSequence = (max: number) => {
@@ -146,7 +160,9 @@ function App() {
       showAnswers,
       answers,
       quizStarted,
-      openQuizDialog,
+      openEndQuizDialog,
+      openStartQuizDialog,
+      gameMode,
     };
     localStorage.setItem("birbsQuizProgress", JSON.stringify(progress));
   }, [
@@ -156,7 +172,9 @@ function App() {
     showAnswers,
     answers,
     quizStarted,
-    openQuizDialog,
+    openEndQuizDialog,
+    openStartQuizDialog,
+    gameMode,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -186,14 +204,22 @@ function App() {
     setAnswers,
     setShowAnswers,
     css_height_90,
+    gameMode,
   };
 
-  const quizDialogProps = {
+  const startQuizDialogProps = {
+    setQuizStarted,
+    setGameMode,
+    openStartQuizDialog,
+    setOpenStartQuizDialog,
+  };
+
+  const endQuizDialogProps = {
     birbsMapFr,
     selectedBirbIds,
     answers,
-    openQuizDialog,
-    setOpenQuizDialog,
+    openEndQuizDialog,
+    setOpenEndQuizDialog,
   };
 
   useEffect(() => {
@@ -252,7 +278,8 @@ function App() {
         </Typography>
       </Box>
 
-      <QuizDialog {...quizDialogProps} />
+      <StartQuizDialog {...startQuizDialogProps} />
+      <EndQuizDialog {...endQuizDialogProps} />
 
       <Snackbar
         open={openSnake}

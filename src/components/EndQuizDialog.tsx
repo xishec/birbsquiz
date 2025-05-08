@@ -11,32 +11,35 @@ import StyledChip from "./StyledChip";
 
 export interface QuizDialogProps {
   birbsMapFr: any;
-  openQuizDialog: boolean;
+  openEndQuizDialog: boolean;
   answers: Array<boolean>;
   selectedBirbIds: Array<string>;
-  setOpenQuizDialog: React.Dispatch<any>;
+  setOpenEndQuizDialog: React.Dispatch<any>;
 }
 
-function QuizDialog({
+function EndQuizDialog({
   birbsMapFr,
-  openQuizDialog,
+  openEndQuizDialog,
   answers,
   selectedBirbIds,
-  setOpenQuizDialog,
+  setOpenEndQuizDialog,
 }: QuizDialogProps) {
   const nbGood = answers.filter((answer) => answer).length;
   const nbTotal = answers.length;
 
   return (
     <Dialog
-      onClose={() => setOpenQuizDialog(false)}
-      open={openQuizDialog}
+      onClose={() => setOpenEndQuizDialog(false)}
+      open={openEndQuizDialog}
       scroll="paper"
       maxWidth="md"
       fullWidth
     >
       <DialogTitle>
-        {`Résultats : ${nbGood}/${nbTotal} - ${((nbGood / nbTotal) * 100).toFixed(2)}%`}
+        {`Résultats : ${nbGood}/${nbTotal} - ${(
+          (nbGood / nbTotal) *
+          100
+        ).toFixed(2)}%`}
       </DialogTitle>
       <DialogContent>
         <Box
@@ -59,20 +62,16 @@ function QuizDialog({
       </DialogContent>
       <DialogActions>
         <Button
-          sx={
-            {
-              // marginBottom: "-1rem",
-              // marginRight: "-1rem",
-            }
-          }
-          onClick={() => setOpenQuizDialog(false)}
-          variant="contained"
+          sx={{ margin: "1rem" }}
+          onClick={() => setOpenEndQuizDialog(false)}
+          variant="outlined"
+          fullWidth
         >
-          Retour
+          OK
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export default QuizDialog;
+export default EndQuizDialog;

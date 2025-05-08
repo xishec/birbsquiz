@@ -5,13 +5,10 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
+import CloseIcon from "@mui/icons-material/Close";
+import { GameMode } from "../App";
 
-enum TabName {
-  Songs = "songs",
-  Photo = "photo",
-}
-
-type QuizProps = {
+export type QuizProps = {
   dataMap: any;
   birbsMapFr: any;
   sequence: Array<number>;
@@ -25,6 +22,7 @@ type QuizProps = {
   setAnswers: React.Dispatch<any>;
   setShowAnswers: React.Dispatch<any>;
   css_height_90: string;
+  gameMode: GameMode;
 };
 
 function Quiz({
@@ -41,14 +39,10 @@ function Quiz({
   setAnswers,
   setShowAnswers,
   css_height_90,
+  gameMode,
 }: QuizProps) {
-  const [tab, setTab] = React.useState(TabName.Songs);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
-
-  const handleTabChange = (e: any, newTab: TabName) => {
-    setTab(newTab);
-  };
 
   const nextQuestion = () => {
     setCounter(counter + 1);
@@ -115,6 +109,7 @@ function Quiz({
     <Box
       sx={{
         marginTop: "1rem",
+        padding: "0 0.5rem",
         display: "grid",
         justifyContent: "center",
       }}
@@ -131,6 +126,28 @@ function Quiz({
         loading="lazy"
         alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
       />
+      <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+          variant="caption"
+        >
+          <HtmlTooltip
+            title={
+              <React.Fragment>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      dataMap[selectedBirbIds[sequence[counter]]]
+                        .photoCredits[0],
+                  }}
+                />
+              </React.Fragment>
+            }
+          >
+            <Box>source</Box>
+          </HtmlTooltip>
+        </Typography>
+      </Box>
     </Box>
   );
 
@@ -147,27 +164,54 @@ function Quiz({
       }}
     >
       {/* Header with counter and navigation buttons */}
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <IconButton
-          color="primary"
-          disabled={counter <= 0}
-          onClick={previousQuestion}
+      <Box
+        sx={{
+          display: "grid",
+          justifyContent: "space-between",
+          gridTemplateColumns: "1fr 1fr 1fr",
+        }}
+      >
+        <Box>
+          <Typography variant="h4">{birbEmoji}</Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignContent: "center",
+          }}
         >
-          <ArrowBackIcon />
-        </IconButton>
+          <IconButton
+            color="primary"
+            disabled={counter <= 0}
+            onClick={previousQuestion}
+          >
+            <ArrowBackIcon />
+          </IconButton>
 
-        <Typography variant="h4">
-          {` ${counter + 1}/${selectedBirbIds.length}`}
-          {birbEmoji}
-        </Typography>
+          <Typography variant="h4">
+            {`${counter + 1}/${selectedBirbIds.length}`}
+          </Typography>
 
-        <IconButton
-          color="primary"
-          disabled={counter >= selectedBirbIds.length - 1}
-          onClick={nextQuestion}
+          <IconButton
+            color="primary"
+            disabled={counter >= selectedBirbIds.length - 1}
+            onClick={nextQuestion}
+          >
+            <ArrowForwardIcon />
+          </IconButton>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
         >
-          <ArrowForwardIcon />
-        </IconButton>
+          <IconButton onClick={endQuiz} color="error">
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </Box>
 
       {/* Tabs for songs and photo */}
@@ -179,84 +223,39 @@ function Quiz({
           justifyContent: "start",
         }}
       >
-        <TabContext value={tab}>
+        {gameMode === GameMode.CHANTS && (
           <Box
             sx={{
-              marginTop: "0.5rem",
-              borderBottom: 1,
-              borderColor: "divider",
+              marginTop: "1.5rem",
+              overflow: "auto",
+              padding: "0rem 0.5rem",
             }}
           >
-            <TabList variant="fullWidth" onChange={handleTabChange}>
-              <Tab label="Chants" value={TabName.Songs} />
-              <Tab label="Photo" value={TabName.Photo} />
-            </TabList>
-          </Box>
-          {tab === TabName.Songs && (
-            <TabPanel
+            <Box
               sx={{
-                marginTop: "1.5rem",
-                overflow: "auto",
-                padding: "0rem 0.5rem",
-              }}
-              value={TabName.Songs}
-            >
-              <Box
-                sx={{
-                  display: "grid",
-                  gap: "0.5rem",
-                  gridTemplateColumns: "repeat(auto-fill, 1fr)",
-                }}
-              >
-                {getAudioSource()}
-              </Box>
-              {(previewing || shouldReveal) && birbImage}
-            </TabPanel>
-          )}
-          {tab === TabName.Photo && (
-            <TabPanel
-              sx={{
-                marginTop: "1.5rem",
-                padding: "0rem 1.5rem",
-                overflow: "auto",
                 display: "grid",
-                justifyContent: "center",
+                gap: "0.5rem",
+                gridTemplateColumns: "repeat(auto-fill, 1fr)",
               }}
-              value={TabName.Photo}
             >
-              <img
-                style={{ height: "100%", width: "100%", objectFit: "fill" }}
-                src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
-                loading="lazy"
-                alt={
-                  dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]
-                }
-              />
-              <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
-                <Typography
-                  sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
-                  variant="caption"
-                >
-                  <HtmlTooltip
-                    title={
-                      <React.Fragment>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              dataMap[selectedBirbIds[sequence[counter]]]
-                                .photoCredits[0],
-                          }}
-                        />
-                      </React.Fragment>
-                    }
-                  >
-                    <Box>source</Box>
-                  </HtmlTooltip>
-                </Typography>
-              </Box>
-            </TabPanel>
-          )}
-        </TabContext>
+              {getAudioSource()}
+            </Box>
+            {(previewing || shouldReveal) && birbImage}
+          </Box>
+        )}
+        {gameMode === GameMode.IMAGES && (
+          <Box
+            sx={{
+              marginTop: "1rem",
+              padding: "0rem",
+              overflow: "auto",
+              display: "grid",
+              justifyContent: "center",
+            }}
+          >
+            {birbImage}
+          </Box>
+        )}
       </Box>
 
       {/* Reveal and answer buttons */}
@@ -265,7 +264,6 @@ function Quiz({
           marginTop: "1rem",
         }}
       >
-        {/* Reveal buttons */}
         <Box>
           {!shouldReveal && (
             <Box
@@ -274,12 +272,12 @@ function Quiz({
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
-                gap: "0.5rem",
+                gap: "1rem",
               }}
             >
               <Button
                 variant="outlined"
-                disabled={!audioPlayed && tab === TabName.Songs}
+                disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                 onClick={() => {
                   const newShowAnswers: any = Array.from(showAnswers);
                   newShowAnswers[sequence[counter]] =
@@ -293,7 +291,7 @@ function Quiz({
               >
                 Reveal
               </Button>
-              {tab === TabName.Songs && (
+              {gameMode === GameMode.CHANTS && (
                 <Button
                   variant="outlined"
                   onMouseDown={() => setPreviewing(true)}
@@ -370,7 +368,7 @@ function Quiz({
           {!(counter === selectedBirbIds.length - 1) && (
             <Box
               sx={{
-                marginTop: "0.5rem",
+                marginTop: "1rem",
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
