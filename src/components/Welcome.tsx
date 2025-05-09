@@ -2,7 +2,17 @@ import React, { useCallback, useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ShareIcon from "@mui/icons-material/Share";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import StyledChip from "./StyledChip";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -15,10 +25,14 @@ type WelcomeProps = {
   birbEmoji: string;
   selectedBirbIds: Array<string>;
   setSelectedBirbIds: React.Dispatch<any>;
-  startQuiz: React.Dispatch<any>;
+  setOpenStartQuizDialog: React.Dispatch<any>;
   setOpenSnake: React.Dispatch<any>;
   setSnakeMessage: React.Dispatch<any>;
   css_height_90: string;
+  currentList: string;
+  setCurrentList: React.Dispatch<any>;
+  customList: Array<string>;
+  setCustomList: React.Dispatch<any>;
 };
 
 function Welcome({
@@ -26,17 +40,39 @@ function Welcome({
   birbEmoji,
   selectedBirbIds,
   setSelectedBirbIds,
-  startQuiz,
+  setOpenStartQuizDialog,
   setOpenSnake,
   setSnakeMessage,
   css_height_90,
+  currentList,
+  customList,
+  setCustomList,
+  setCurrentList,
 }: WelcomeProps) {
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<any>(null);
   const [shareClickCount, setShareClickCount] = useState<number>(0);
-  const [listName, setListName] = useState("");
+  const [listName, setListName] = useState(currentList);
   const [dbData, setDbData] = useState<any>({});
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const key = event.target.value;
+    if (key === "Custom") {
+      setSelectedBirbIds(customList ? customList : []);
+    } else {
+      setSelectedBirbIds(dbData[key]);
+    }
+
+    setCurrentList(key);
+  };
+
+  useEffect(() => {
+    if (currentList === "Custom") {
+      setCustomList(selectedBirbIds);
+    }
+    setListName(currentList);
+  }, [currentList, selectedBirbIds, setCustomList]);
 
   const saveBirbList = () => {
     if (!user) return;
@@ -119,47 +155,21 @@ function Welcome({
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto 1fr auto auto auto",
+        gridTemplateRows: "auto 1fr auto auto auto auto",
       }}
     >
-      <Typography sx={{ justifySelf: "center" }} variant="h2">
+      <Typography
+        sx={{ justifySelf: "center" }}
+        variant="h2"
+        onClick={() => window.location.reload()}
+      >
         {/* <Box component="span" sx={{ color: "primary.main" }}> */}
         Birbsquiz
         {/* </Box> */}
         {user ? " 🦖" : birbEmoji}
       </Typography>
 
-      <Box
-        sx={{
-          marginTop: "1.5rem",
-          display: "grid",
-          alignItems: "center",
-          gap: "0.5rem",
-          gridTemplateColumns: "1fr auto",
-        }}
-      >
-        <Autocomplete
-          size="small"
-          inputValue={birbInput}
-          onInputChange={(e, v) => setBirbInput(v)}
-          value={selectedBirbId}
-          onChange={(e, v) => setSelectedBirbId(v!)}
-          options={Object.keys(birbsMapFr).sort((a, b) =>
-            birbsMapFr[a].localeCompare(birbsMapFr[b])
-          )}
-          getOptionLabel={(birbId) =>
-            birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
-          }
-          freeSolo
-          isOptionEqualToValue={(birbId, input) => birbsMapFr[birbId] === input}
-          renderInput={(params) => (
-            <TextField {...params} label="Recherche ..." variant="outlined" />
-          )}
-          getOptionDisabled={(option) => selectedBirbIds.includes(option)}
-        />
-      </Box>
-
-      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
+      <Box sx={{ marginTop: "1rem", overflow: "auto" }}>
         <Box
           sx={{
             display: "grid",
@@ -181,43 +191,78 @@ function Welcome({
 
       <Box
         sx={{
-          marginTop: "1.5rem",
+          marginTop: "1rem",
+          display: "grid",
+          alignItems: "center",
+          gap: "0.5rem",
+          gridTemplateColumns: "1fr auto",
         }}
       >
-        <Box sx={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
-          {dbData &&
-            Object.entries(dbData).map(([key, value]) => {
-              return (
-                <Button
-                  onClick={() => setSelectedBirbIds(value)}
-                  variant="outlined"
-                  color="primary"
-                >
-                  {key}
-                </Button>
-              );
-            })}
-          {/* <Button
-            href="/?birbs=WyIyNDYiLCIyNDciLCIyNTEiLCIyNTIiLCIyNDIiLCIyNTUiLCIyNjUiLCIyNjciLCIyNjkiLCIyNjAiLCIyMzMiLCIyNzAiLCIzMzEiLCIzMTAiLCIzMDkiLCIzMTEiLCIzMTgiLCIzMDEiLCI0MjciLCI0MjQiLCIyOTUiLCIyOTgiLCIyOTkiLCIyODMiLCIyODAiLCIzNTkiLCIzNjYiLCIzNjUiLCIzNjkiLCIzNjIiLCIzNjMiLCIzNzgiLCIzODIiLCIzODEiLCIzODgiLCIzNzkiLCIzNzAiLCIzNjAiLCIzOTEiLCIzNjEiLCI0MDciLCI0MTUiLCI0MDIiLCI0MDUiLCI0MzkiLCIzNDIiLCIzNDEiLCI3MyIsIjMyOSJd"
-            variant="outlined"
-            color="primary"
-          >
-            SEAT
-          </Button>
-          <Button
-            href="/?birbs=WyIyNCIsIjI2IiwiMzEiLCIyMzMiLCIxNTMiLCIxNTkiLCIyMDIiLCI2NSIsIjc1IiwiMjQyIiwiMjUyIiwiMjUxIiwiMjYwIiwiMjY1IiwiMjY5IiwiMjcwIiwiMjc3IiwiMzMxIiwiMzIyIiwiMzI3IiwiMzMwIiwiMzI5IiwiNTE3NyIsIjMwNiIsIjMwMiIsIjI4OCIsIjM0MiIsIjQxNSIsIjQwNSIsIjQwMCIsIjQzMiIsIjQzNiIsIjQzOSIsIjM4MiIsIjM2NSIsIjM2MSIsIjM1OSIsIjM2OSIsIjQyNyIsIjQyOSIsIjMwMSIsIjI5MSIsIjQzMSIsIjk2IiwiMzY2IiwiMzcxIiwiNDQyIiwiMjQ2IiwiMjQ3IiwiMjQxIiwiMjEzIiwiMjIyIiwiNzMiLCI3MCIsIjY5IiwiMTAyIiwiNDQwIiwiMzE4IiwiMzk5IiwiNDAyIl0%3D"
-            variant="outlined"
-            color="primary"
-          >
-            MBO
-          </Button> */}
-          <Button
-            onClick={() => setSelectedBirbIds([])}
-            color="error"
-            variant="outlined"
-          >
-            Empty
-          </Button>
+        {(user || currentList === "Custom") && (
+          <Autocomplete
+            size="small"
+            inputValue={birbInput}
+            onInputChange={(e, v) => setBirbInput(v)}
+            value={selectedBirbId}
+            onChange={(e, v) => setSelectedBirbId(v!)}
+            options={Object.keys(birbsMapFr).sort((a, b) =>
+              birbsMapFr[a].localeCompare(birbsMapFr[b])
+            )}
+            getOptionLabel={(birbId) =>
+              birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
+            }
+            freeSolo
+            isOptionEqualToValue={(birbId, input) =>
+              birbsMapFr[birbId] === input
+            }
+            renderInput={(params) => (
+              <TextField {...params} label="Find brib ..." variant="outlined" />
+            )}
+            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+          />
+        )}
+      </Box>
+
+      <Box
+        sx={{
+          marginTop: "1rem",
+        }}
+      >
+        <Box
+          sx={{
+            marginTop: "0.5rem",
+            display: "grid",
+            gap: "0.5rem",
+            gridTemplateColumns:
+              user || currentList === "Custom" ? "1fr 125px" : "1fr",
+          }}
+        >
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">List</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Birb list"
+              value={currentList}
+              onChange={handleChange}
+              size="small"
+            >
+              <MenuItem value="Custom">Custom</MenuItem>
+              {dbData &&
+                Object.entries(dbData).map(([key, value]) => {
+                  return <MenuItem value={key}>{key}</MenuItem>;
+                })}
+            </Select>
+          </FormControl>
+          {(user || currentList === "Custom") && (
+            <Button
+              onClick={() => setSelectedBirbIds([])}
+              color="error"
+              variant="outlined"
+            >
+              Clear
+            </Button>
+          )}
         </Box>
       </Box>
 
@@ -228,24 +273,26 @@ function Welcome({
               marginTop: "0.5rem",
               display: "grid",
               gap: "0.5rem",
-              alignItems: "center",
+              gridTemplateColumns: "1fr 125px",
             }}
           >
             <TextField
-              id="outlined-basic"
-              label="List Name ..."
+              fullWidth
+              label="Save current list as ..."
               variant="outlined"
               size="small"
               value={listName}
               onChange={(e) => setListName(e.target.value)}
             />
             <Button
-              disabled={!listName}
+              disabled={!listName || listName === "Custom"}
               onClick={saveBirbList}
-              color="success"
+              color={
+                Object.keys(dbData).includes(listName) ? "warning" : "success"
+              }
               variant="outlined"
             >
-              Save
+              {Object.keys(dbData).includes(listName) ? "Overwrite" : "Save As"}
             </Button>
           </Box>
         )}
@@ -293,7 +340,7 @@ function Welcome({
 
           <Button
             variant="contained"
-            onClick={startQuiz}
+            onClick={() => setOpenStartQuizDialog(true)}
             disabled={selectedBirbIds.length <= 0}
           >
             {`Quiz moi ${selectedBirbIds.length} birb${

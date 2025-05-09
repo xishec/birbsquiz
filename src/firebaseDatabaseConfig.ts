@@ -31,7 +31,6 @@ const signInWithGoogle = () => {
       const token = credential?.accessToken;
       // The signed-in user info.
       const user = result.user;
-      console.log("Signed in user:", user);
       // Add any additional user handling here.
     })
     .catch((error) => {

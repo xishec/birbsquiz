@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Box, IconButton, Switch, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -43,14 +43,35 @@ function Quiz({
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
 
+  const pauseAllAudio = () => {
+    const audioElements = document.querySelectorAll("audio");
+    audioElements.forEach((audio) => audio.pause());
+  };
+
   const nextQuestion = () => {
+    pauseAllAudio();
     setCounter(counter + 1);
     setAudioPlayed(false);
   };
 
   const previousQuestion = () => {
+    pauseAllAudio();
     setCounter(counter - 1);
     setAudioPlayed(false);
+  };
+
+  const handleAudioPlay = (
+    e: React.SyntheticEvent<HTMLAudioElement, Event>
+  ) => {
+    const currentAudio = e.currentTarget;
+    const allAudios = document.querySelectorAll("audio");
+    allAudios.forEach((audio) => {
+      if (audio !== currentAudio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+    setAudioPlayed(true);
   };
 
   const getAudioSource = () => {
@@ -65,11 +86,12 @@ function Quiz({
           audioSource.map((audioSource: string, i: number) => (
             <Box key={`audio-${counter}-${i}`}>
               <audio
-                autoPlay={i === 0}
+                autoPlay={i === 0 && !shouldReveal}
+                id={`audio-${counter}-${i}`}
                 style={{ width: "100%" }}
                 controls
                 src={audioSource}
-                onPlay={() => setAudioPlayed(true)}
+                onPlay={handleAudioPlay}
               >
                 Your browser does not support the
                 <code>audio</code> element.
@@ -153,7 +175,7 @@ function Quiz({
     </Box>
   );
 
-  const shouldReveal = showAnswers[sequence[counter]];
+  const shouldReveal = showAnswers[counter];
 
   return (
     <Box
@@ -174,7 +196,9 @@ function Quiz({
         }}
       >
         <Box>
-          <Typography variant="h4">{birbEmoji}</Typography>
+          <Typography variant="h4" onClick={() => window.location.reload()}>
+            {birbEmoji}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -192,12 +216,12 @@ function Quiz({
           </IconButton>
 
           <Typography variant="h4">
-            {`${counter + 1}/${selectedBirbIds.length}`}
+            {`${counter + 1}/${sequence.length}`}
           </Typography>
 
           <IconButton
             color="primary"
-            disabled={counter >= selectedBirbIds.length - 1}
+            disabled={counter >= sequence.length - 1}
             onClick={nextQuestion}
           >
             <ArrowForwardIcon />
@@ -282,12 +306,12 @@ function Quiz({
                 disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                 onClick={() => {
                   const newShowAnswers: any = Array.from(showAnswers);
-                  newShowAnswers[sequence[counter]] =
-                    !newShowAnswers[sequence[counter]];
+                  newShowAnswers[counter] = !newShowAnswers[counter];
                   setShowAnswers(newShowAnswers);
+                  pauseAllAudio();
 
                   const newAnswers: any = Array.from(answers);
-                  newAnswers[sequence[counter]] = true;
+                  newAnswers[counter] = true;
                   setAnswers(newAnswers);
                 }}
               >
@@ -322,7 +346,7 @@ function Quiz({
               <Button
                 variant="outlined"
                 sx={{ pointerEvents: "none" }}
-                color={answers[sequence[counter]] ? "success" : "error"}
+                color={answers[counter] ? "success" : "error"}
               >
                 {birbsMapFr[selectedBirbIds[sequence[counter]]]}
               </Button>
@@ -346,16 +370,15 @@ function Quiz({
                     },
                   }}
                   color="success"
-                  checked={answers[sequence[counter]]}
+                  checked={answers[counter]}
                   onChange={() => {
                     const newAnswers: any = Array.from(answers);
-                    newAnswers[sequence[counter]] =
-                      !newAnswers[sequence[counter]];
+                    newAnswers[counter] = !newAnswers[counter];
                     setAnswers(newAnswers);
                   }}
                 />
                 {/* <Typography variant="body1">
-                  {answers[sequence[counter]] ? "Good birb" : "Faux"}
+                  {answers[counter] ? "Good birb" : "Faux"}
                 </Typography> */}
               </Box>
             </Box>
@@ -370,7 +393,7 @@ function Quiz({
             alignItems: "center",
           }}
         >
-          {!(counter === selectedBirbIds.length - 1) && (
+          {!(counter === sequence.length - 1) && (
             <Box
               sx={{
                 display: "grid",
@@ -382,7 +405,7 @@ function Quiz({
                 disabled={!shouldReveal}
                 variant="contained"
                 onClick={nextQuestion}
-                color={answers[sequence[counter]] ? "success" : "error"}
+                color={answers[counter] ? "success" : "error"}
               >
                 <ArrowForwardIcon />
               </Button>
@@ -390,19 +413,19 @@ function Quiz({
                 disabled={!shouldReveal}
                 variant="contained"
                 onClick={nextQuestion}
-                color={answers[sequence[counter]] ? "success" : "error"}
+                color={answers[counter] ? "success" : "error"}
               >
                 {` ${answers.filter((answer) => answer).length}/${counter + 1}`}
               </Button> */}
             </Box>
           )}
 
-          {counter === selectedBirbIds.length - 1 && (
+          {counter === sequence.length - 1 && (
             <Button
               disabled={!shouldReveal}
               variant="contained"
               onClick={endQuiz}
-              color={answers[sequence[counter]] ? "success" : "error"}
+              color={answers[counter] ? "success" : "error"}
             >
               <ArrowForwardIcon />
             </Button>

@@ -1,10 +1,6 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import {
-  Box,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { Box, DialogContent, DialogTitle } from "@mui/material";
 import StyledChip from "./StyledChip";
 
 export interface QuizDialogProps {
@@ -13,6 +9,7 @@ export interface QuizDialogProps {
   answers: Array<boolean>;
   selectedBirbIds: Array<string>;
   setOpenEndQuizDialog: React.Dispatch<any>;
+  sequence: Array<number>;
 }
 
 function EndQuizDialog({
@@ -21,6 +18,7 @@ function EndQuizDialog({
   answers,
   selectedBirbIds,
   setOpenEndQuizDialog,
+  sequence,
 }: QuizDialogProps) {
   const nbGood = answers.filter((answer) => answer).length;
   const nbTotal = answers.length;
@@ -34,10 +32,9 @@ function EndQuizDialog({
       fullWidth
     >
       <DialogTitle sx={{ padding: "2rem", paddingBottom: "1.5rem" }}>
-        {`Résultats : ${(
-          (nbGood / nbTotal) *
-          100
-        ).toFixed(2)}% (${nbGood}/${nbTotal})`}
+        {`Résultats : ${((nbGood / nbTotal) * 100).toFixed(
+          2
+        )}% (${nbGood}/${nbTotal})`}
       </DialogTitle>
       <DialogContent sx={{ padding: "2rem" }}>
         <Box
@@ -48,10 +45,10 @@ function EndQuizDialog({
             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           }}
         >
-          {selectedBirbIds.map((birbId, i) => (
+          {sequence.map((sequenceNb, i) => (
             <StyledChip
               key={`chip-${i}`}
-              label={birbsMapFr[birbId]}
+              label={birbsMapFr[selectedBirbIds[sequenceNb]]}
               variant="outlined"
               color={answers[i] ? "success" : "error"}
             />

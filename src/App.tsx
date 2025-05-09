@@ -48,18 +48,25 @@ function App() {
 
   const savedProgress = loadProgress();
 
-  // Use savedProgress values if available, else fall back to default values
   const [selectedBirbIds, setSelectedBirbIds] = React.useState<Array<string>>(
     () => {
       const urlBirbs = new URLSearchParams(window.location.search).get("birbs");
       if (urlBirbs) {
-        return JSON.parse(atob(urlBirbs)).filter(
-          (birbId: any) => birbsMapFr[birbId]
-        );
-      } else if (savedProgress.selectedBirbIds) {
+        try {
+          const parsedBirbs = JSON.parse(atob(urlBirbs));
+          return Array.isArray(parsedBirbs)
+            ? parsedBirbs.filter((birbId: any) => birbsMapFr[birbId])
+            : [];
+        } catch (e) {
+          console.error("Error parsing URL birbs:", e);
+          return [];
+        }
+      } else if (
+        savedProgress.selectedBirbIds &&
+        Array.isArray(savedProgress.selectedBirbIds)
+      ) {
         return savedProgress.selectedBirbIds;
       }
-
       return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
     }
   );
@@ -110,24 +117,31 @@ function App() {
     () => savedProgress.gameMode || GameMode.CHANTS
   );
 
-  const startQuiz = () => {
-    setOpenStartQuizDialog(true);
+  const [currentList, setCurrentList] = React.useState<string>(
+    () => savedProgress.currentList || "Custom"
+  );
+
+  const [customList, setCustomList] = React.useState<Array<string>>(
+    () => savedProgress.customList || []
+  );
+
+  const startQuiz = (nbBirb: number) => {
     setCounter(0);
-    randomSequence(selectedBirbIds.length);
-    setShowAnswers(Array(selectedBirbIds.length).fill(false));
-    setAnswers(Array(selectedBirbIds.length).fill(false));
+    randomSequence(nbBirb);
+    setShowAnswers(Array(nbBirb).fill(false));
+    setAnswers(Array(nbBirb).fill(false));
   };
 
   const endQuiz = () => {
-    if (counter === selectedBirbIds.length - 1) setOpenEndQuizDialog(true);
+    if (counter === sequence.length - 1) setOpenEndQuizDialog(true);
     setCounter(0);
     setQuizStarted(false);
   };
 
   const randomSequence = (max: number) => {
-    const newSequence = [...Array(max).keys()];
+    const newSequence = [...Array(selectedBirbIds.length).keys()];
     shuffleArray(newSequence);
-    setSequence(newSequence);
+    setSequence(newSequence.splice(0, max));
   };
 
   const shuffleArray = (array: Array<any>) => {
@@ -138,17 +152,6 @@ function App() {
       array[j] = temp;
     }
   };
-
-  // useEffect(() => {
-  //   const url = new URL(window.location.href);
-  //   if (selectedBirbIds.length > 0) {
-  //     const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
-  //     url.searchParams.set("birbs", encodedBirbs);
-  //   } else {
-  //     url.searchParams.delete("birbs");
-  //   }
-  //   window.history.pushState(null, "", url.toString());
-  // }, [selectedBirbIds]);
 
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
@@ -162,6 +165,8 @@ function App() {
       openEndQuizDialog,
       openStartQuizDialog,
       gameMode,
+      currentList,
+      customList,
     };
     localStorage.setItem("birbsQuizProgress", JSON.stringify(progress));
   }, [
@@ -174,6 +179,8 @@ function App() {
     openEndQuizDialog,
     openStartQuizDialog,
     gameMode,
+    currentList,
+    customList,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -183,10 +190,14 @@ function App() {
     birbEmoji,
     selectedBirbIds,
     setSelectedBirbIds,
-    startQuiz,
+    setOpenStartQuizDialog,
     setOpenSnake,
     setSnakeMessage,
     css_height_90,
+    currentList,
+    setCurrentList,
+    customList,
+    setCustomList,
   };
 
   const quizProps = {
@@ -211,6 +222,8 @@ function App() {
     setGameMode,
     openStartQuizDialog,
     setOpenStartQuizDialog,
+    selectedBirbIds,
+    startQuiz,
   };
 
   const endQuizDialogProps = {
@@ -219,6 +232,7 @@ function App() {
     answers,
     openEndQuizDialog,
     setOpenEndQuizDialog,
+    sequence,
   };
 
   useEffect(() => {
