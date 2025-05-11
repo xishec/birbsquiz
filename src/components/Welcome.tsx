@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ShareIcon from "@mui/icons-material/Share";
@@ -33,6 +33,7 @@ type WelcomeProps = {
   setCurrentList: React.Dispatch<any>;
   customList: Array<string>;
   setCustomList: React.Dispatch<any>;
+  dataMap: any;
 };
 
 function Welcome({
@@ -48,6 +49,7 @@ function Welcome({
   customList,
   setCustomList,
   setCurrentList,
+  dataMap,
 }: WelcomeProps) {
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
@@ -119,6 +121,7 @@ function Welcome({
       if (birbsMapFr[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
+      playAudioForBirb(birbId);
       setBirbInput("");
       setSelectedBirbId("");
     },
@@ -148,6 +151,35 @@ function Welcome({
     if (selectedBirbId) addBirb(selectedBirbId);
   }, [selectedBirbId, addBirb]);
 
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const playAudioForBirb = (birbId: string) => {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
+
+    const randomIndex = (Math.random() * 3) | 0;
+    const songSrc = dataMap[birbId]?.songs?.[randomIndex];
+    if (songSrc) {
+      const audio = new Audio(songSrc);
+      currentAudioRef.current = audio;
+      audio
+        .play()
+        .then(() => {
+          setTimeout(() => {
+            audio.pause();
+            if (currentAudioRef.current === audio) {
+              currentAudioRef.current = null;
+            }
+          }, 2000); // Pause after 2 seconds
+        })
+        .catch((error) => {
+          console.error("Error playing audio", error);
+        });
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -159,17 +191,28 @@ function Welcome({
       }}
     >
       <Typography
-        sx={{ justifySelf: "center" }}
         variant="h2"
         onClick={() => window.location.reload()}
+        sx={{
+          justifySelf: "center",
+          cursor: "pointer",
+        }}
       >
-        {/* <Box component="span" sx={{ color: "primary.main" }}> */}
         Birbsquiz
-        {/* </Box> */}
-        {user ? " 🦖" : birbEmoji}
+        <Box
+          component="span"
+          sx={{
+            marginLeft: "0.5rem",
+            display: "inline-block",
+            transition: "transform 0.1s ease",
+            "&:hover": { transform: "scale(1.1)" },
+          }}
+        >
+          {user ? "🦖" : birbEmoji}
+        </Box>
       </Typography>
 
-      <Box sx={{ marginTop: "1rem", overflow: "auto" }}>
+      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
         <Box
           sx={{
             display: "grid",
@@ -180,9 +223,17 @@ function Welcome({
           {selectedBirbIds.length > 0 &&
             selectedBirbIds.map((birbId, i) => (
               <StyledChip
+                sx={{
+                  margin: "0.2rem",
+                  cursor: "pointer",
+                  transition: "transform 0.1s ease",
+                  "&:hover": {},
+                  "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+                }}
                 key={`chip-${i}`}
                 label={birbsMapFr[birbId]}
                 variant="outlined"
+                onClick={() => playAudioForBirb(birbId)}
                 onDelete={() => deleteBirb(birbId)}
               />
             ))}

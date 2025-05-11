@@ -40,6 +40,7 @@ function Quiz({
   css_height_90,
   gameMode,
 }: QuizProps) {
+  const [audioSource, setAudioSource] = React.useState([]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
 
@@ -74,11 +75,17 @@ function Quiz({
     setAudioPlayed(true);
   };
 
+  useEffect(() => {
+    const songs = dataMap[selectedBirbIds[sequence[counter]]].songs.slice(0, 3);
+    const offset = Number(selectedBirbIds[sequence[0]]) % 3;
+    // Rotate the songs array by the offset
+    const pseudoSortedSongs = songs
+      .slice(offset)
+      .concat(songs.slice(0, offset));
+    setAudioSource(pseudoSortedSongs);
+  }, [counter, dataMap, selectedBirbIds, sequence]);
+
   const getAudioSource = () => {
-    const audioSource = dataMap[selectedBirbIds[sequence[counter]]].songs
-      .slice()
-      .splice(0, 3)
-      .sort(() => Math.random() - 0.5);
     return (
       <>
         {audioSource &&
@@ -196,7 +203,19 @@ function Quiz({
         }}
       >
         <Box>
-          <Typography variant="h4" onClick={() => window.location.reload()}>
+          <Typography
+            variant="h4"
+            onClick={() => window.location.reload()}
+            sx={{
+              width: "min-content",
+              cursor: "pointer",
+              transition: "transform 0.1s ease",
+              "&:hover": {
+                transform: "scale(1.2)",
+              },
+              padding: "0.5rem",
+            }}
+          >
             {birbEmoji}
           </Typography>
         </Box>
@@ -215,7 +234,7 @@ function Quiz({
             <ArrowBackIcon />
           </IconButton>
 
-          <Typography variant="h4">
+          <Typography variant="h4" sx={{ alignSelf: "center" }}>
             {`${counter + 1}/${sequence.length}`}
           </Typography>
 

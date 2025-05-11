@@ -9,19 +9,19 @@ import StartQuizDialog from "./components/StartQuizDialog";
 import EndQuizDialog from "./components/EndQuizDialog";
 
 const birbEmojis = [
-  " 🐦‍⬛",
-  " 🦤",
-  " 🦜",
-  " 🦅",
-  " 🦚",
-  " 🦃",
-  " 🦉",
-  " 🦢",
-  " 🦩",
-  " 🦆",
-  " 🪿",
-  " 🥚",
-  " 🍳",
+  "🐦‍⬛",
+  "🦤",
+  "🦜",
+  "🦅",
+  "🦚",
+  "🦃",
+  "🦉",
+  "🦢",
+  "🦩",
+  "🦆",
+  "🪿",
+  "🥚",
+  "🍳",
 ];
 
 export enum GameMode {
@@ -198,6 +198,7 @@ function App() {
     setCurrentList,
     customList,
     setCustomList,
+    dataMap,
   };
 
   const quizProps = {
