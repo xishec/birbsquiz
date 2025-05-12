@@ -1,45 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Box, IconButton, Switch, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
 import CloseIcon from "@mui/icons-material/Close";
-import { GameMode } from "../App";
+import { GameMode, QuizContext } from "../App";
 
-export type QuizProps = {
-  dataMap: any;
-  birbsMapFr: any;
-  sequence: Array<number>;
-  counter: number;
-  birbEmoji: string;
-  selectedBirbIds: Array<string>;
-  answers: Array<boolean>;
-  showAnswers: Array<boolean>;
-  endQuiz: () => void;
-  setCounter: React.Dispatch<any>;
-  setAnswers: React.Dispatch<any>;
-  setShowAnswers: React.Dispatch<any>;
-  css_height_90: string;
-  gameMode: GameMode;
-};
+function Quiz() {
+  const quizContext = useContext(QuizContext);
+  if (!quizContext) {
+    throw new Error("Must be used within a QuizContext.Provider");
+  }
+  const {
+    dataMap,
+    birbsMapFr,
+    sequence,
+    counter,
+    birbEmoji,
+    selectedBirbIds,
+    answers,
+    showAnswers,
+    endQuiz,
+    setCounter,
+    setAnswers,
+    setShowAnswers,
+    css_height_90,
+    gameMode,
+  } = quizContext;
 
-function Quiz({
-  dataMap,
-  birbsMapFr,
-  sequence,
-  counter,
-  birbEmoji,
-  selectedBirbIds,
-  answers,
-  showAnswers,
-  endQuiz,
-  setCounter,
-  setAnswers,
-  setShowAnswers,
-  css_height_90,
-  gameMode,
-}: QuizProps) {
   const [audioSource, setAudioSource] = React.useState([]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);

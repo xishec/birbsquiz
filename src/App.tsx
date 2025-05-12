@@ -1,12 +1,12 @@
 import "./App.css";
-import React, { useEffect, useMemo } from "react";
+import React, { createContext, useEffect, useMemo } from "react";
 import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
 import rawData from "./dendroica/data.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
-import Welcome from "./components/Welcome";
+import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import StartQuizDialog from "./components/StartQuizDialog";
-import EndQuizDialog from "./components/EndQuizDialog";
+import StartQuizDialog from "./components/Dialog/StartQuizDialog";
+import EndQuizDialog from "./components/Dialog/EndQuizDialog";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -28,6 +28,41 @@ export enum GameMode {
   CHANTS = "chants",
   IMAGES = "images",
 }
+
+export type QuizContextType = {
+  dataMap: any;
+  birbsMapFr: any;
+  sequence: Array<number>;
+  counter: number;
+  birbEmoji: string;
+  selectedBirbIds: Array<string>;
+  answers: Array<boolean>;
+  showAnswers: Array<boolean>;
+  endQuiz: () => void;
+  setCounter: React.Dispatch<React.SetStateAction<number>>;
+  setAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
+  setShowAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
+  css_height_90: string;
+  gameMode: string;
+  setSelectedBirbIds: React.Dispatch<any>;
+  setOpenStartQuizDialog: React.Dispatch<any>;
+  setOpenSnake: React.Dispatch<any>;
+  setSnakeMessage: React.Dispatch<any>;
+  currentList: string;
+  setCurrentList: React.Dispatch<any>;
+  customList: Array<string>;
+  setCustomList: React.Dispatch<any>;
+  setQuizStarted: React.Dispatch<any>;
+  setGameMode: React.Dispatch<any>;
+  openStartQuizDialog: boolean;
+  startQuiz: (nbBirb: number) => void;
+  openEndQuizDialog: boolean;
+  setOpenEndQuizDialog: React.Dispatch<any>;
+};
+
+export const QuizContext = createContext<QuizContextType | undefined>(
+  undefined
+);
 
 function App() {
   const birbsMapFr = rawBirbsMapFr as any;
@@ -185,57 +220,6 @@ function App() {
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
 
-  const welcomeProps = {
-    birbsMapFr,
-    birbEmoji,
-    selectedBirbIds,
-    setSelectedBirbIds,
-    setOpenStartQuizDialog,
-    setOpenSnake,
-    setSnakeMessage,
-    css_height_90,
-    currentList,
-    setCurrentList,
-    customList,
-    setCustomList,
-    dataMap,
-  };
-
-  const quizProps = {
-    dataMap,
-    birbsMapFr,
-    sequence,
-    counter,
-    birbEmoji,
-    selectedBirbIds,
-    answers,
-    showAnswers,
-    endQuiz,
-    setCounter,
-    setAnswers,
-    setShowAnswers,
-    css_height_90,
-    gameMode,
-  };
-
-  const startQuizDialogProps = {
-    setQuizStarted,
-    setGameMode,
-    openStartQuizDialog,
-    setOpenStartQuizDialog,
-    selectedBirbIds,
-    startQuiz,
-  };
-
-  const endQuizDialogProps = {
-    birbsMapFr,
-    selectedBirbIds,
-    answers,
-    openEndQuizDialog,
-    setOpenEndQuizDialog,
-    sequence,
-  };
-
   useEffect(() => {
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
@@ -260,8 +244,41 @@ function App() {
           gap: "0rem",
         }}
       >
-        {!quizStarted && <Welcome {...welcomeProps} />}
-        {quizStarted && <Quiz {...quizProps} />}
+        <QuizContext.Provider
+          value={{
+            dataMap,
+            birbsMapFr,
+            sequence,
+            counter,
+            birbEmoji,
+            selectedBirbIds,
+            answers,
+            showAnswers,
+            endQuiz,
+            setCounter,
+            setAnswers,
+            setShowAnswers,
+            css_height_90,
+            gameMode,
+            setSelectedBirbIds,
+            setOpenStartQuizDialog,
+            setOpenSnake,
+            setSnakeMessage,
+            currentList,
+            setCurrentList,
+            customList,
+            setCustomList,
+            setQuizStarted,
+            setGameMode,
+            openStartQuizDialog,
+            startQuiz,
+            openEndQuizDialog,
+            setOpenEndQuizDialog,
+          }}
+        >
+          {!quizStarted && <Lobby />}
+          {quizStarted && <Quiz />}
+        </QuizContext.Provider>
       </Box>
 
       <Box sx={{ position: "absolute", bottom: 0, left: "2rem" }}>
@@ -292,8 +309,8 @@ function App() {
         </Typography>
       </Box>
 
-      <StartQuizDialog {...startQuizDialogProps} />
-      <EndQuizDialog {...endQuizDialogProps} />
+      <StartQuizDialog />
+      <EndQuizDialog />
 
       <Snackbar
         open={openSnake}

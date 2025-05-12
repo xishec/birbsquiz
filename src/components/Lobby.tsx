@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ShareIcon from "@mui/icons-material/Share";
@@ -19,38 +25,29 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
+import { QuizContext } from "../App";
 
-type WelcomeProps = {
-  birbsMapFr: any;
-  birbEmoji: string;
-  selectedBirbIds: Array<string>;
-  setSelectedBirbIds: React.Dispatch<any>;
-  setOpenStartQuizDialog: React.Dispatch<any>;
-  setOpenSnake: React.Dispatch<any>;
-  setSnakeMessage: React.Dispatch<any>;
-  css_height_90: string;
-  currentList: string;
-  setCurrentList: React.Dispatch<any>;
-  customList: Array<string>;
-  setCustomList: React.Dispatch<any>;
-  dataMap: any;
-};
+function Lobby() {
+  const quizContext = useContext(QuizContext);
+  if (!quizContext) {
+    throw new Error("Must be used within a QuizContext.Provider");
+  }
+  const {
+    birbsMapFr,
+    birbEmoji,
+    selectedBirbIds,
+    setSelectedBirbIds,
+    setOpenStartQuizDialog,
+    setOpenSnake,
+    setSnakeMessage,
+    css_height_90,
+    currentList,
+    setCurrentList,
+    customList,
+    setCustomList,
+    dataMap,
+  } = quizContext;
 
-function Welcome({
-  birbsMapFr,
-  birbEmoji,
-  selectedBirbIds,
-  setSelectedBirbIds,
-  setOpenStartQuizDialog,
-  setOpenSnake,
-  setSnakeMessage,
-  css_height_90,
-  currentList,
-  customList,
-  setCustomList,
-  setCurrentList,
-  dataMap,
-}: WelcomeProps) {
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<any>(null);
@@ -394,7 +391,7 @@ function Welcome({
             onClick={() => setOpenStartQuizDialog(true)}
             disabled={selectedBirbIds.length <= 0}
           >
-            {`Quiz moi ${selectedBirbIds.length} birb${
+            {`Moi ${selectedBirbIds.length} birb${
               selectedBirbIds.length === 1 ? "" : "s"
             }`}
           </Button>
@@ -404,4 +401,4 @@ function Welcome({
   );
 }
 
-export default Welcome;
+export default Lobby;

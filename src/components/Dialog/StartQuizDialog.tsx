@@ -9,25 +9,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { GameMode } from "../App";
+import { GameMode } from "../../App";
+import { QuizContext } from "../../App";
 
-export interface QuizProps {
-  setQuizStarted: React.Dispatch<any>;
-  setGameMode: React.Dispatch<any>;
-  openStartQuizDialog: boolean;
-  setOpenStartQuizDialog: React.Dispatch<any>;
-  selectedBirbIds: Array<string>;
-  startQuiz: (nbBirb: number) => void;
-}
+function StartQuizDialog() {
+  const quizContext = React.useContext(QuizContext);
+  if (!quizContext) {
+    throw new Error("Must be used within a QuizContext.Provider");
+  }
+  const {
+    openStartQuizDialog,
+    setOpenStartQuizDialog,
+    selectedBirbIds,
+    setGameMode,
+    setQuizStarted,
+    startQuiz,
+  } = quizContext;
 
-function StartQuizDialog({
-  setQuizStarted,
-  setGameMode,
-  openStartQuizDialog,
-  setOpenStartQuizDialog,
-  selectedBirbIds,
-  startQuiz,
-}: QuizProps) {
   const [sliderValue, setSliderValue] = React.useState<number>(
     selectedBirbIds.length
   );

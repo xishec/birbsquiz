@@ -1,25 +1,23 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import { Box, DialogContent, DialogTitle } from "@mui/material";
-import StyledChip from "./StyledChip";
+import StyledChip from "../StyledChip";
+import { QuizContext } from "../../App";
 
-export interface QuizDialogProps {
-  birbsMapFr: any;
-  openEndQuizDialog: boolean;
-  answers: Array<boolean>;
-  selectedBirbIds: Array<string>;
-  setOpenEndQuizDialog: React.Dispatch<any>;
-  sequence: Array<number>;
-}
+function EndQuizDialog() {
+  const quizContext = React.useContext(QuizContext);
+  if (!quizContext) {
+    throw new Error("Must be used within a QuizContext.Provider");
+  }
+  const {
+    openEndQuizDialog,
+    setOpenEndQuizDialog,
+    sequence,
+    selectedBirbIds,
+    answers,
+    birbsMapFr,
+  } = quizContext;
 
-function EndQuizDialog({
-  birbsMapFr,
-  openEndQuizDialog,
-  answers,
-  selectedBirbIds,
-  setOpenEndQuizDialog,
-  sequence,
-}: QuizDialogProps) {
   const nbGood = answers.filter((answer) => answer).length;
   const nbTotal = answers.length;
 
