@@ -26,6 +26,7 @@ import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
+import { AudioType, fetchAudio } from "../macaulay/Helper";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -33,7 +34,7 @@ function Lobby() {
     throw new Error("Must be used within a QuizContext.Provider");
   }
   const {
-    birbsMapFr,
+    eBird,
     birbEmoji,
     selectedBirbIds,
     setSelectedBirbIds,
@@ -45,7 +46,6 @@ function Lobby() {
     setCurrentList,
     customList,
     setCustomList,
-    dataMap,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -76,7 +76,7 @@ function Lobby() {
   const saveBirbList = () => {
     if (!user) return;
     // Directly reference the path without a push
-    const listRef = ref(database, `lists/${listName}`);
+    const listRef = ref(database, `v2/lists/${listName}`);
     set(listRef, selectedBirbIds)
       .then(() => {
         loadBirbList();
@@ -91,7 +91,7 @@ function Lobby() {
   };
 
   const loadBirbList = useCallback(() => {
-    const listRef = ref(database, `lists`);
+    const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {
         const data = snapshot.val();
@@ -115,14 +115,14 @@ function Lobby() {
 
   const addBirb = useCallback(
     (birbId: string) => {
-      if (birbsMapFr[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
+      if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
-      playAudioForBirb(birbId);
+      playAudioForBirb(birbId, AudioType.CAll);
       setBirbInput("");
       setSelectedBirbId("");
     },
-    [birbsMapFr, selectedBirbIds, setSelectedBirbIds]
+    [eBird, selectedBirbIds, setSelectedBirbIds]
   );
 
   const deleteBirb = useCallback(
@@ -150,31 +150,39 @@ function Lobby() {
 
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playAudioForBirb = (birbId: string) => {
-    if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current = null;
-    }
+  const playAudioForBirb = (birbId: string, audioType: AudioType) => {
+    fetchAudio(birbId, audioType).then((audioList) => {
+      if (!audioList) return;
 
-    const randomIndex = (Math.random() * 3) | 0;
-    const songSrc = dataMap[birbId]?.songs?.[randomIndex];
-    if (songSrc) {
-      const audio = new Audio(songSrc);
-      currentAudioRef.current = audio;
-      audio
-        .play()
-        .then(() => {
-          setTimeout(() => {
-            audio.pause();
-            if (currentAudioRef.current === audio) {
-              currentAudioRef.current = null;
-            }
-          }, 2000); // Pause after 2 seconds
-        })
-        .catch((error) => {
-          console.error("Error playing audio", error);
-        });
-    }
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+      }
+
+      const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
+      console.log(audioList, randomIndex);
+      const songSrc = audioList?.[randomIndex];
+      console.log("songSrc", songSrc);
+
+      if (songSrc) {
+        const audio = new Audio(songSrc);
+        currentAudioRef.current = audio;
+        audio.currentTime = Math.random() * 5;
+        audio
+          .play()
+          .then(() => {
+            setTimeout(() => {
+              audio.pause();
+              if (currentAudioRef.current === audio) {
+                currentAudioRef.current = null;
+              }
+            }, 3000); // Pause after 2 seconds
+          })
+          .catch((error) => {
+            console.error("Error playing audio", error);
+          });
+      }
+    });
   };
 
   return (
@@ -184,7 +192,7 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto 1fr auto auto auto auto",
+        gridTemplateRows: "auto auto 1fr auto auto auto",
       }}
     >
       <Typography
@@ -209,6 +217,40 @@ function Lobby() {
         </Box>
       </Typography>
 
+      <Box
+        sx={{
+          marginTop: "1rem",
+          display: "grid",
+          alignItems: "center",
+          gap: "0.5rem",
+          gridTemplateColumns: "1fr auto",
+        }}
+      >
+        {(user || currentList === "Custom") && (
+          <Autocomplete
+            size="small"
+            inputValue={birbInput}
+            onInputChange={(e, v) => setBirbInput(v)}
+            value={selectedBirbId}
+            onChange={(e, v) => setSelectedBirbId(v!)}
+            options={Object.keys(eBird).sort((a, b) =>
+              eBird[a].comNameFr.localeCompare(eBird[b].comNameFr)
+            )}
+            getOptionLabel={(birbId) =>
+              eBird[birbId] ? eBird[birbId].comNameFr : ""
+            }
+            freeSolo
+            isOptionEqualToValue={(birbId, input) =>
+              eBird[birbId].comNameFr === input
+            }
+            renderInput={(params) => (
+              <TextField {...params} label="Find brib ..." variant="outlined" />
+            )}
+            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+          />
+        )}
+      </Box>
+
       <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
         <Box
           sx={{
@@ -228,47 +270,13 @@ function Lobby() {
                   "&:active": { transform: "scale(1.02)", boxShadow: 0 },
                 }}
                 key={`chip-${i}`}
-                label={birbsMapFr[birbId]}
+                label={eBird[birbId].comNameFr}
                 variant="outlined"
-                onClick={() => playAudioForBirb(birbId)}
+                onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
                 onDelete={() => deleteBirb(birbId)}
               />
             ))}
         </Box>
-      </Box>
-
-      <Box
-        sx={{
-          marginTop: "1rem",
-          display: "grid",
-          alignItems: "center",
-          gap: "0.5rem",
-          gridTemplateColumns: "1fr auto",
-        }}
-      >
-        {(user || currentList === "Custom") && (
-          <Autocomplete
-            size="small"
-            inputValue={birbInput}
-            onInputChange={(e, v) => setBirbInput(v)}
-            value={selectedBirbId}
-            onChange={(e, v) => setSelectedBirbId(v!)}
-            options={Object.keys(birbsMapFr).sort((a, b) =>
-              birbsMapFr[a].localeCompare(birbsMapFr[b])
-            )}
-            getOptionLabel={(birbId) =>
-              birbsMapFr[birbId] ? birbsMapFr[birbId] : ""
-            }
-            freeSolo
-            isOptionEqualToValue={(birbId, input) =>
-              birbsMapFr[birbId] === input
-            }
-            renderInput={(params) => (
-              <TextField {...params} label="Find brib ..." variant="outlined" />
-            )}
-            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
-          />
-        )}
       </Box>
 
       <Box

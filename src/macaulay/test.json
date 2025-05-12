@@ -1,0 +1,2410 @@
+{
+    "results": {
+        "count": 0,
+        "content": [
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/339922801",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Song",
+                "catalogId": "339922801",
+                "locationLine2": "DuPage, Illinois, United States",
+                "location": "Elsen's Hill, West DuPage Woods Forest Preserve, DuPage, Illinois, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/339922801/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/339922801/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/339922801/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/339922801/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER323963",
+                "longitude": -88.1725,
+                "latitude": 41.8621,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Matt Wistrand",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "339922801",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S87891918",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MzIzOTYz",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Elsen's Hill, West DuPage Woods Forest Preserve",
+                "obsDttm": "12 May 2021",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S87891918",
+                "ratingCount": "17",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/337365371",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "337365371",
+                "locationLine2": "Monroe, Florida, United States",
+                "location": "Key Largo Hammocks State Botanical Site, Monroe, Florida, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/337365371/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/337365371/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/337365371/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/337365371/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER182152",
+                "longitude": -80.3694,
+                "latitude": 25.1758,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "James (Jim) Holmes",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "337365371",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S86685885",
+                "obsComments": null,
+                "userProfileUrl": null,
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Key Largo Hammocks State Botanical Site",
+                "obsDttm": "29 Apr 2021",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S86685885",
+                "ratingCount": "12",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/191181",
+                "age": "Adult",
+                "sex": "Unknown",
+                "behaviors": "Call, Flying",
+                "catalogId": "191181",
+                "locationLine2": "Morgan, West Virginia, United States",
+                "location": "Burnt Mill Road, Morgan, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/191181/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/191181/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/191181/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/191181/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "unknown",
+                                "count": 2,
+                                "localizedString": "Adult – 2",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Unknown"
+                            }
+                        ],
+                        "subjectTags": {
+                            "behaviors": [
+                                {
+                                    "localizedString": "Flying",
+                                    "key": "flying_flight"
+                                }
+                            ],
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -78.0869,
+                "latitude": 39.6436,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "4.875",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "191181",
+                "comments": "Habitat: Deciduous forest. At least 2 Northern Cardinals chasing and calling in understory. Equipment Notes: Sound Devices 702 stereo HPF at 80Hz, -12dB/octave.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Burnt Mill Road",
+                "obsDttm": "6 Jun 2012",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "8",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94289",
+                "age": "Adult",
+                "sex": "Female",
+                "behaviors": "Call",
+                "catalogId": "94289",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94289/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94289/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94289/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94289/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "female",
+                                "count": 1,
+                                "localizedString": "Adult Female – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Female"
+                            },
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94289",
+                "comments": "NOTES: Cardinal pair scolding me even though I'm standing perfectly still. Other Behaviors: Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "7",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94287",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "94287",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94287/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94287/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94287/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94287/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94287",
+                "comments": "Other Behaviors: Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94286",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "94286",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94286/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94286/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94286/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94286/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94286",
+                "comments": "Other Behaviors: Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94285",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "94285",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94285/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94285/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94285/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94285/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94285",
+                "comments": "Other Behaviors: Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94284",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "94284",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94284/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94284/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94284/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94284/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94284",
+                "comments": "NOTES: Cardinal pair scolding me even though I'm standing perfectly still. Other Behaviors: Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/81497091",
+                "age": null,
+                "sex": null,
+                "behaviors": "Call",
+                "catalogId": "81497091",
+                "locationLine2": "Cape May, New Jersey, United States",
+                "location": "Cape Island--Cape May Point SP (CMPSP), Cape May, New Jersey, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/81497091/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/81497091/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/81497091/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/81497091/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER102818",
+                "longitude": -74.9551,
+                "latitude": 38.9338,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Tom Reed",
+                "rating": "4.363636363636363",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "81497091",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S41819060",
+                "obsComments": null,
+                "userProfileUrl": null,
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Cape Island--Cape May Point SP (CMPSP)",
+                "obsDttm": "11 Jan 2018",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S41819060",
+                "ratingCount": "11",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/101113031",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "101113031",
+                "locationLine2": "District of Columbia, District of Columbia, United States",
+                "location": "Kenilworth Park and Aquatic Gardens, District of Columbia, District of Columbia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/101113031/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/101113031/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/101113031/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/101113031/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": -1,
+                                "localizedString": "Adult Male",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER182152",
+                "longitude": -76.9443,
+                "latitude": 38.9133,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "James (Jim) Holmes",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "101113031",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S45852739",
+                "obsComments": null,
+                "userProfileUrl": null,
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Kenilworth Park and Aquatic Gardens",
+                "obsDttm": "20 May 2018",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S45852739",
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/249823",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "249823",
+                "locationLine2": "Berkeley, West Virginia, United States",
+                "location": "First Hairpin, Sleepy Creek Rd, SCWMA, Hedgesville US-WV (39.4980,-78.1373), Berkeley, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/249823/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/249823/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/249823/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/249823/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -78.1373,
+                "latitude": 39.498,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "249823",
+                "comments": "Sleepy Creek road 0.5 miles west of ranger station.\n\"Adult male Northern Cardinal giving chip calls.\nHabitat: Deciduous woods.\nDistance: 9 meters.\nEquipment note: Telinga Pro 7 HPF on.\"",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "First Hairpin, Sleepy Creek Rd, SCWMA, Hedgesville US-WV (39.4980,-78.1373)",
+                "obsDttm": "28 May 2015",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/110211",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "110211",
+                "locationLine2": "Berkeley, West Virginia, United States",
+                "location": "Hedgesville; 170 Stallion Ct., Berkeley, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/110211/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/110211/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/110211/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/110211/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -78.0575,
+                "latitude": 39.5739,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "110211",
+                "comments": "NOTES: High Pass Filter on; -20dB pad on. Response to playback: No response.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Hedgesville; 170 Stallion Ct.",
+                "obsDttm": "7 May 2001",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/107290",
+                "age": "Adult",
+                "sex": "Female",
+                "behaviors": "Call, Non-vocal",
+                "catalogId": "107290",
+                "locationLine2": "Frederick, Maryland, United States",
+                "location": "6.0 km S of Libertytown , Audrey Carroll Wildlife Sanctu, Frederick, Maryland, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/107290/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/107290/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/107290/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/107290/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "female",
+                                "count": 2,
+                                "localizedString": "Adult Female – 2",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Female"
+                            },
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 2,
+                                "localizedString": "Adult Male – 2",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Non-vocal",
+                                    "key": "non_vocal"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.2083,
+                "latitude": 39.4167,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "107290",
+                "comments": "NOTES: Two or three pairs of Cardinals chasing and calling.  Territory or mate disputes. Response to playback: No response. Other Behaviors: Fight. Habitat: Pond.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "6.0 km S of Libertytown , Audrey Carroll Wildlife Sanctu",
+                "obsDttm": "26 Mar 2000",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94288",
+                "age": "Adult",
+                "sex": "Female",
+                "behaviors": "Call, Courtship, Display, or Copulation, Song",
+                "catalogId": "94288",
+                "locationLine2": "Jefferson, West Virginia, United States",
+                "location": "5.0 km W of Shannondale; Shannondale Springs WMA, Jefferson, West Virginia, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94288/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94288/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94288/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94288/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "female",
+                                "count": 1,
+                                "localizedString": "Adult Female – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Female"
+                            },
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "breeding": [
+                                {
+                                    "localizedString": "Courtship, Display, or Copulation",
+                                    "key": "courtship_display_or_copulation"
+                                }
+                            ],
+                            "sounds": [
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                },
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.8167,
+                "latitude": 39.2333,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94288",
+                "comments": "NOTES: Female nearby. Male and female start to scold me ever though I was perfectly still for the entire song bout. BNA: Songs with \"chirrs\" ~1:36. slhalkin. Other Behaviors: Court, Scold. Habitat: Forest, Deciduous Forest, Field, Hedgerow, Edge.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "5.0 km W of Shannondale; Shannondale Springs WMA",
+                "obsDttm": "22 Apr 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/94238",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "94238",
+                "locationLine2": "Frederick, Maryland, United States",
+                "location": "Audrey Carroll Audubon Sanctuary, Frederick, Maryland, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Use",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94238/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94238/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94238/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/94238/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER187124",
+                "longitude": -77.207,
+                "latitude": 39.4179,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Wil Hershberger",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "94238",
+                "comments": "NOTES: Chip call notes from male. Habitat: Forest, Deciduous Forest, Rural, Field, Hedgerow.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTg3MTI0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Audrey Carroll Audubon Sanctuary",
+                "obsDttm": "15 Mar 1998",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/210653601",
+                "age": null,
+                "sex": null,
+                "behaviors": "Call, Foraging or Eating, Song",
+                "catalogId": "210653601",
+                "locationLine2": "Alachua, Florida, United States",
+                "location": "Sweetwater Wetlands Park, Alachua, Florida, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/210653601/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/210653601/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/210653601/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/210653601/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [],
+                        "subjectTags": {
+                            "behaviors": [
+                                {
+                                    "localizedString": "Foraging or Eating",
+                                    "key": "foraging_eating"
+                                }
+                            ],
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER924632",
+                "longitude": -82.3286,
+                "latitude": 29.6193,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Natasza Fontaine",
+                "rating": "4.666666666666667",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "210653601",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S64235400",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/OTI0NjMy",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Sweetwater Wetlands Park",
+                "obsDttm": "8 Feb 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S64235400",
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/91931711",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Song",
+                "catalogId": "91931711",
+                "locationLine2": "Oakland, Michigan, United States",
+                "location": "Seven Lakes SP, Oakland, Michigan, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/91931711/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/91931711/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/91931711/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/91931711/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": -1,
+                                "localizedString": "Adult Male",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER359041",
+                "longitude": -83.655,
+                "latitude": 42.814,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Robert Bochenek",
+                "rating": "4.666666666666667",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "91931711",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S44039982",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MzU5MDQx",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Seven Lakes SP",
+                "obsDttm": "28 Mar 2018",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S44039982",
+                "ratingCount": "6",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/310448821",
+                "age": "Adult",
+                "sex": "Female",
+                "behaviors": "Call",
+                "catalogId": "310448821",
+                "locationLine2": "Collier, Florida, United States",
+                "location": "Picayune Strand SF--Belle Mead Horse Trail, Collier, Florida, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/310448821/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/310448821/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/310448821/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/310448821/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "female",
+                                "count": 1,
+                                "localizedString": "Adult Female – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Female"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER609807",
+                "longitude": -81.6539,
+                "latitude": 26.1407,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Tom Marvel",
+                "rating": "4.375",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "310448821",
+                "comments": "Chip note is from female. ",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S82145880",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/NjA5ODA3",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Picayune Strand SF--Belle Mead Horse Trail",
+                "obsDttm": "22 Feb 2021",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S82145880",
+                "ratingCount": "8",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/430497051",
+                "age": null,
+                "sex": null,
+                "behaviors": "Call, Song",
+                "catalogId": "430497051",
+                "locationLine2": "Orange, Florida, United States",
+                "location": "Residence Inn Marriott At SeaWorld, Orange, Florida, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/430497051/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/430497051/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/430497051/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/430497051/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER543622",
+                "longitude": -81.4753,
+                "latitude": 28.4056,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Esha Munshi",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "430497051",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S105887696",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/NTQzNjIy",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Residence Inn Marriott At SeaWorld",
+                "obsDttm": "30 Mar 2022",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S105887696",
+                "ratingCount": "4",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/234566771",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "234566771",
+                "locationLine2": "Gibson, Tennessee, United States",
+                "location": "Mt. Orange--Greene Yard, Gibson, Tennessee, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/234566771/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/234566771/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/234566771/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/234566771/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER167616",
+                "longitude": -88.9985,
+                "latitude": 35.9564,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Mark Greene",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "234566771",
+                "comments": "Alarm notes from a male cardinal in response to a Gray Ratsnake that was in the bush where their nest was.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S69011099",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTY3NjE2",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Mt. Orange--Greene Yard",
+                "obsDttm": "13 May 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S69011099",
+                "ratingCount": "4",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/111076261",
+                "age": null,
+                "sex": null,
+                "behaviors": "Call, Song",
+                "catalogId": "111076261",
+                "locationLine2": "Saginaw, Michigan, United States",
+                "location": "Shiawassee NWR--Ferguson Bayou Trail, Saginaw, Michigan, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/111076261/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/111076261/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/111076261/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/111076261/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER115374",
+                "longitude": -84.0258,
+                "latitude": 43.3392,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Dave Slager",
+                "rating": "4.75",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "111076261",
+                "comments": "Natural song and call from seen male at 9:48am. Highpass filter 250 Hz in Ocen Audio.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S43960938",
+                "obsComments": null,
+                "userProfileUrl": null,
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Shiawassee NWR--Ferguson Bayou Trail",
+                "obsDttm": "22 Mar 2018",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S43960938",
+                "ratingCount": "4",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/209323",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Song",
+                "catalogId": "209323",
+                "locationLine2": "Monroe, Indiana, United States",
+                "location": "Meadow Park Apartments parking lot, Monroe, Indiana, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/209323/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/209323/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/209323/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/209323/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                },
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER833749",
+                "longitude": -86.4789,
+                "latitude": 39.1724,
+                "mediaType": "Audio",
+                "source": "ml",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Julia Ferguson",
+                "rating": "4.2",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "209323",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": null,
+                "obsComments": null,
+                "userProfileUrl": null,
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Meadow Park Apartments parking lot",
+                "obsDttm": "27 Apr 2014",
+                "collected": false,
+                "eBirdChecklistUrl": null,
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "archive",
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/626038949",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "626038949",
+                "locationLine2": "Brazos, Texas, United States",
+                "location": "Texas A&M Univ.--Ecology & Natural Resource area, Brazos, Texas, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/626038949/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/626038949/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/626038949/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/626038949/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER952955",
+                "longitude": -96.365,
+                "latitude": 30.5734,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Brady Schwab",
+                "rating": "4.4",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "626038949",
+                "comments": "Distress calls from bird in-hand while banding",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S201902850",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/OTUyOTU1",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Texas A&M Univ.--Ecology & Natural Resource area",
+                "obsDttm": "9 Nov 2024",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S201902850",
+                "ratingCount": "5",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/612541661",
+                "age": "Adult",
+                "sex": "Unknown",
+                "behaviors": "Call, Non-vocal",
+                "catalogId": "612541661",
+                "locationLine2": "Iowa, Wisconsin, United States",
+                "location": "6681 Leaches Crossing Rd-General, Iowa, Wisconsin, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/612541661/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/612541661/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/612541661/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/612541661/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "unknown",
+                                "count": 1,
+                                "localizedString": "Adult – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Unknown"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Non-vocal",
+                                    "key": "non_vocal"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER631544",
+                "longitude": -90.235,
+                "latitude": 43.1385,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "David Drews",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "612541661",
+                "comments": "Nearly dark. Bird calling from bushes after I apparently disturbed it by walking by. Moving from spot to spot on occasion, but never far.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S156895982",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/NjMxNTQ0",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "6681 Leaches Crossing Rd-General",
+                "obsDttm": "22 Dec 2023",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S156895982",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/316948901",
+                "age": null,
+                "sex": null,
+                "behaviors": "Call, Song",
+                "catalogId": "316948901",
+                "locationLine2": "Wayne, Michigan, United States",
+                "location": "Belle Isle, Wayne, Michigan, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/316948901/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/316948901/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/316948901/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/316948901/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER1478587",
+                "longitude": -82.9775,
+                "latitude": 42.3401,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Kiera Scott",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "316948901",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S83455201",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTQ3ODU4Nw",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Belle Isle",
+                "obsDttm": "15 Mar 2021",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S83455201",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/284999651",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Foraging or Eating",
+                "catalogId": "284999651",
+                "locationLine2": "Clay, Florida, United States",
+                "location": "Clay - Crowbar (private residence), Clay, Florida, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/284999651/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/284999651/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/284999651/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/284999651/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "behaviors": [
+                                {
+                                    "localizedString": "Foraging or Eating",
+                                    "key": "foraging_eating"
+                                }
+                            ],
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER538698",
+                "longitude": -81.7074,
+                "latitude": 30.1765,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Jeff Graham",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "284999651",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S77029741",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/NTM4Njk4",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Clay - Crowbar (private residence)",
+                "obsDttm": "3 Dec 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S77029741",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/282216971",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call",
+                "catalogId": "282216971",
+                "locationLine2": "Harris, Texas, United States",
+                "location": "BellaVita Neighborhood (access limited), Harris, Texas, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/282216971/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/282216971/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/282216971/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/282216971/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER106177",
+                "longitude": -95.2287,
+                "latitude": 29.5615,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Mike Austin",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "282216971",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S76589446",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTA2MTc3",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "BellaVita Neighborhood (access limited)",
+                "obsDttm": "23 Nov 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S76589446",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/225370771",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Song",
+                "catalogId": "225370771",
+                "locationLine2": "Tompkins, New York, United States",
+                "location": "Edwards Lake Cliffs Preserve, Tompkins, New York, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/225370771/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/225370771/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/225370771/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/225370771/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER59213",
+                "longitude": -76.519,
+                "latitude": 42.522,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Brad Walker",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "225370771",
+                "comments": null,
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S67467156",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/NTkyMTM",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Edwards Lake Cliffs Preserve",
+                "obsDttm": "19 Apr 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S67467156",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "no_playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/208264591",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Foraging or Eating, Non-vocal, Song",
+                "catalogId": "208264591",
+                "locationLine2": "Eddy, New Mexico, United States",
+                "location": "Carlsbad Caverns NP--Rattlesnake Springs, Eddy, New Mexico, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/208264591/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/208264591/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/208264591/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/208264591/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": 1,
+                                "localizedString": "Adult Male – 1",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "behaviors": [
+                                {
+                                    "localizedString": "Foraging or Eating",
+                                    "key": "foraging_eating"
+                                }
+                            ],
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Non-vocal",
+                                    "key": "non_vocal"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER240085",
+                "longitude": -104.4661,
+                "latitude": 32.1109,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Bob Nieman",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "208264591",
+                "comments": "Male in Hackberry tree, occasionally eating one, only 20' away. Unfortunately there was a humming transformer overhead. 32 bit float saved the recording because the bird was so close it blew out the gain, but no information was lost when I normalized it to -3dB",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S64279086",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MjQwMDg1",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Carlsbad Caverns NP--Rattlesnake Springs",
+                "obsDttm": "9 Feb 2020",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S64279086",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": null,
+                "specimenIds": null,
+                "assetRelateds": []
+            },
+            {
+                "specimenUrl": "https://macaulaylibrary.org/asset/30944971",
+                "age": "Adult",
+                "sex": "Male",
+                "behaviors": "Call, Song",
+                "catalogId": "30944971",
+                "locationLine2": "Tompkins, New York, United States",
+                "location": "Salmon Creek Bird Sanctuary (FLLT), Tompkins, New York, United States",
+                "isInternalUser": false,
+                "licenseType": "Any Lab Use=eBird",
+                "mediaUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/30944971/audio",
+                "largeUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/30944971/spectrogram_small",
+                "thumbnailUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/30944971/poster",
+                "previewUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/30944971/poster",
+                "subjectData": [
+                    {
+                        "speciesCode": "norcar",
+                        "sciName": "Cardinalis cardinalis",
+                        "comName": "Northern Cardinal",
+                        "ageSexCounts": [
+                            {
+                                "age": "adult",
+                                "sex": "male",
+                                "count": -1,
+                                "localizedString": "Adult Male",
+                                "localizedAgeString": "Adult",
+                                "localizedSexString": "Male"
+                            }
+                        ],
+                        "subjectTags": {
+                            "sounds": [
+                                {
+                                    "localizedString": "Call",
+                                    "key": "call"
+                                },
+                                {
+                                    "localizedString": "Song",
+                                    "key": "song"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "userId": "USER16990",
+                "longitude": -76.5384,
+                "latitude": 42.6071,
+                "mediaType": "Audio",
+                "source": "ebird",
+                "recorder": null,
+                "valid": "true",
+                "userDisplayName": "Jay McGowan",
+                "rating": "5.0",
+                "assetState": "committed",
+                "homeArchive": null,
+                "exifData": {},
+                "reportAs": "norcar",
+                "exoticCategory": null,
+                "commonName": "Northern Cardinal",
+                "sciName": "Cardinalis cardinalis",
+                "assetId": "30944971",
+                "comments": "Two long songs from a male then two call types, one oddly low-pitched, from this male and a female.",
+                "speciesCode": "norcar",
+                "mediaDownloadUrl": "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/",
+                "eBirdChecklistId": "S30526820",
+                "obsComments": null,
+                "userProfileUrl": "https://ebird.org/profile/MTY5OTA",
+                "ebirdSpeciesUrl": "https://ebird.org/species/norcar",
+                "locationLine1": "Salmon Creek Bird Sanctuary (FLLT)",
+                "obsDttm": "4 Jul 2016",
+                "collected": false,
+                "eBirdChecklistUrl": "https://ebird.org/view/checklist/S30526820",
+                "ratingCount": "3",
+                "microphone": null,
+                "accessories": null,
+                "width": null,
+                "height": null,
+                "assetTags": [
+                    "playback"
+                ],
+                "specimenIds": null,
+                "assetRelateds": []
+            }
+        ],
+        "nextCursorMark": "My4xMTg5NTE0ODk4MDI3MDc4X18zMDk0NDk3MQ"
+    }
+}

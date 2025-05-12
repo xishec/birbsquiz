@@ -6,6 +6,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext } from "../App";
+import { AudioType, fetchAudio, fetchImage } from "../macaulay/Helper";
+import { set } from "firebase/database";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -13,9 +15,9 @@ function Quiz() {
     throw new Error("Must be used within a QuizContext.Provider");
   }
   const {
-    dataMap,
-    birbsMapFr,
+    eBird,
     sequence,
+    randomSeed,
     counter,
     birbEmoji,
     selectedBirbIds,
@@ -29,7 +31,9 @@ function Quiz() {
     gameMode,
   } = quizContext;
 
-  const [audioSource, setAudioSource] = React.useState([]);
+  const [audioSource, setAudioSource] = React.useState<string[]>();
+  const [imageSource, setImageSource] = React.useState<string>();
+  const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
 
@@ -65,14 +69,29 @@ function Quiz() {
   };
 
   useEffect(() => {
-    const songs = dataMap[selectedBirbIds[sequence[counter]]].songs.slice(0, 3);
-    const offset = Number(selectedBirbIds[sequence[0]]) % 3;
-    // Rotate the songs array by the offset
-    const pseudoSortedSongs = songs
-      .slice(offset)
-      .concat(songs.slice(0, offset));
-    setAudioSource(pseudoSortedSongs);
-  }, [counter, dataMap, selectedBirbIds, sequence]);
+    setBirbId(sequence[counter]);
+  }, [counter, selectedBirbIds, sequence]);
+
+  useEffect(() => {
+    setAudioSource([]);
+    fetchAudio(birbId, AudioType.SONG).then((audioList) => {
+      if (!audioList) return;
+      const candidateCount = Math.min(audioList.length, 5);
+      const randomIndex = Math.floor(randomSeed * candidateCount);
+      // console.log(`audio ${randomIndex} in ${audioList.length}`);
+      const audioSrc = audioList?.[randomIndex];
+      setAudioSource([audioSrc]);
+    });
+
+    setImageSource("");
+    fetchImage(birbId).then((imageList) => {
+      if (!imageList) return;
+      const candidateCount = imageList.length;
+      const randomIndex = Math.floor(randomSeed * candidateCount);
+      const imageSrc = imageList?.[randomIndex];
+      setImageSource(imageSrc);
+    });
+  }, [birbId, randomSeed]);
 
   const getAudioSource = () => {
     return (
@@ -92,7 +111,8 @@ function Quiz() {
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
-              <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+              {/* todo : add credits */}
+              {/* <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
                 <Typography
                   sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
                   variant="caption"
@@ -102,9 +122,7 @@ function Quiz() {
                       <React.Fragment>
                         <div
                           dangerouslySetInnerHTML={{
-                            __html:
-                              dataMap[selectedBirbIds[sequence[counter]]]
-                                .songCredits[i],
+                            __html: dataMap[birbId].songCredits[i],
                           }}
                         />
                       </React.Fragment>
@@ -113,7 +131,7 @@ function Quiz() {
                     <Box>source</Box>
                   </HtmlTooltip>
                 </Typography>
-              </Box>
+              </Box> */}
             </Box>
           ))}
 
@@ -141,9 +159,9 @@ function Quiz() {
             maxWidth: "400px",
             maxHeight: "400px",
           }}
-          src={dataMap[selectedBirbIds[sequence[counter]]].photos[0]}
+          src={imageSource}
           loading="lazy"
-          alt={dataMap[selectedBirbIds[sequence[counter]]].photoCredits[0]}
+          alt={"dataMap[birbId].photoCredits[0]"}
         />
       </Box>
       <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
@@ -156,9 +174,7 @@ function Quiz() {
               <React.Fragment>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html:
-                      dataMap[selectedBirbIds[sequence[counter]]]
-                        .photoCredits[0],
+                    __html: "dataMap[birbId].photoCredits[0]",
                   }}
                 />
               </React.Fragment>
@@ -356,7 +372,7 @@ function Quiz() {
                 sx={{ pointerEvents: "none" }}
                 color={answers[counter] ? "success" : "error"}
               >
-                {birbsMapFr[selectedBirbIds[sequence[counter]]]}
+                {eBird[birbId].comNameFr}
               </Button>
               <Box
                 sx={{

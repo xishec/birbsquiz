@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { createContext, useEffect, useMemo } from "react";
-import rawBirbsMapFr from "./dendroica/birbsMapFr.json";
-import rawData from "./dendroica/data.json";
+import raw_eBird from "./macaulay/ebird_taxonomy_merged_minimal.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
@@ -30,9 +29,9 @@ export enum GameMode {
 }
 
 export type QuizContextType = {
-  dataMap: any;
-  birbsMapFr: any;
-  sequence: Array<number>;
+  eBird: any;
+  sequence: Array<string>;
+  randomSeed: number;
   counter: number;
   birbEmoji: string;
   selectedBirbIds: Array<string>;
@@ -65,12 +64,11 @@ export const QuizContext = createContext<QuizContextType | undefined>(
 );
 
 function App() {
-  const birbsMapFr = rawBirbsMapFr as any;
-  const dataMap = rawData as any;
+  const eBird = raw_eBird as any;
 
   // Helper to load progress from localStorage
   const loadProgress = () => {
-    const saved = localStorage.getItem("birbsQuizProgress");
+    const saved = localStorage.getItem("birbsQuizV2");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -90,7 +88,7 @@ function App() {
         try {
           const parsedBirbs = JSON.parse(atob(urlBirbs));
           return Array.isArray(parsedBirbs)
-            ? parsedBirbs.filter((birbId: any) => birbsMapFr[birbId])
+            ? parsedBirbs.filter((birbId: any) => eBird[birbId])
             : [];
         } catch (e) {
           console.error("Error parsing URL birbs:", e);
@@ -102,6 +100,7 @@ function App() {
       ) {
         return savedProgress.selectedBirbIds;
       }
+      return [];
       return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
     }
   );
@@ -116,8 +115,12 @@ function App() {
     savedProgress.counter !== undefined ? savedProgress.counter : 0
   );
 
-  const [sequence, setSequence] = React.useState<Array<number>>(
+  const [sequence, setSequence] = React.useState<Array<string>>(
     () => savedProgress.sequence || []
+  );
+
+  const [randomSeed, setRandomSeed] = React.useState<number>(
+    () => savedProgress.randomSeed || 0
   );
 
   const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>(
@@ -174,9 +177,10 @@ function App() {
   };
 
   const randomSequence = (max: number) => {
-    const newSequence = [...Array(selectedBirbIds.length).keys()];
+    const newSequence = [...selectedBirbIds];
     shuffleArray(newSequence);
     setSequence(newSequence.splice(0, max));
+    setRandomSeed(Math.random());
   };
 
   const shuffleArray = (array: Array<any>) => {
@@ -194,6 +198,7 @@ function App() {
       selectedBirbIds,
       counter,
       sequence,
+      randomSeed,
       showAnswers,
       answers,
       quizStarted,
@@ -203,11 +208,12 @@ function App() {
       currentList,
       customList,
     };
-    localStorage.setItem("birbsQuizProgress", JSON.stringify(progress));
+    localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
   }, [
     selectedBirbIds,
     counter,
     sequence,
+    randomSeed,
     showAnswers,
     answers,
     quizStarted,
@@ -233,9 +239,9 @@ function App() {
   return (
     <QuizContext.Provider
       value={{
-        dataMap,
-        birbsMapFr,
+        eBird,
         sequence,
+        randomSeed,
         counter,
         birbEmoji,
         selectedBirbIds,
