@@ -26,7 +26,7 @@ def download_and_merge_taxonomy():
     merged_data = {}
     for entry in en_data:
         species_code = entry.get("speciesCode")
-        if species_code in fr_name_by_code and not species_code[-1].isdigit():
+        if species_code in fr_name_by_code:
             merged_data[species_code] = {
                 "sciName": entry["sciName"],
                 "comName": entry["comName"],
