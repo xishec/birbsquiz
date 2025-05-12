@@ -13,6 +13,7 @@ export const fetchAudioForOne = async (id: string) => {
     [AudioType.CAll]: [],
     [AudioType.SONG]: [],
   };
+
   try {
     const response = await fetch(
       `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=na&mediaType=audio&sort=rating_rank_desc&limit=1`
@@ -21,8 +22,9 @@ export const fetchAudioForOne = async (id: string) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    console.log(data?.results?.content);
     data?.results?.content?.forEach((item: any) => {
-      if (item.source === "ebird" && item.mediaUrl) {
+      if (item.mediaUrl) {
         if (String(item?.behaviors).toLowerCase() === AudioType.CAll) {
           birdAudio[AudioType.CAll].push(item.mediaUrl);
         }
@@ -31,6 +33,26 @@ export const fetchAudioForOne = async (id: string) => {
         }
       }
     });
+
+    if (birdAudio[AudioType.CAll].length === 0) {
+      data?.results?.content?.forEach((item: any) => {
+        if (item.mediaUrl) {
+          if (String(item?.behaviors).toLowerCase().includes(AudioType.CAll)) {
+            birdAudio[AudioType.CAll].push(item.mediaUrl);
+          }
+        }
+      });
+    }
+
+    if (birdAudio[AudioType.SONG].length === 0) {
+      data?.results?.content?.forEach((item: any) => {
+        if (item.mediaUrl) {
+          if (String(item?.behaviors).toLowerCase().includes(AudioType.SONG)) {
+            birdAudio[AudioType.SONG].push(item.mediaUrl);
+          }
+        }
+      });
+    }
 
     return birdAudio;
   } catch (err) {

@@ -400,7 +400,7 @@ function Lobby() {
             onClick={() => setOpenStartQuizDialog(true)}
             disabled={selectedBirbIds.length <= 0}
           >
-            {`Moi ${selectedBirbIds.length} birb${
+            {`Quiz ${selectedBirbIds.length} birb${
               selectedBirbIds.length === 1 ? "" : "s"
             }`}
           </Button>

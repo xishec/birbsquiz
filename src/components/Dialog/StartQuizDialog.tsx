@@ -3,8 +3,11 @@ import Dialog from "@mui/material/Dialog";
 import {
   Box,
   Button,
+  Checkbox,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
+  FormGroup,
   Slider,
   TextField,
   Typography,
@@ -24,6 +27,10 @@ function StartQuizDialog() {
     setGameMode,
     setQuizStarted,
     startQuiz,
+    callCheckbox,
+    setCallCheckbox,
+    songCheckbox,
+    setSongCheckbox,
   } = quizContext;
 
   const [sliderValue, setSliderValue] = React.useState<number>(
@@ -77,7 +84,7 @@ function StartQuizDialog() {
           sx={{
             display: "grid",
             gap: "1rem",
-            gridTemplateRows: "min-content 1fr 1fr",
+            gridTemplateRows: "min-content 1fr 1fr 1fr",
           }}
         >
           <Box>
@@ -117,18 +124,47 @@ function StartQuizDialog() {
             </Box>
           </Box>
 
-          <Button
-            variant="outlined"
-            disabled={sliderValue <= 0}
-            onClick={() => {
-              setGameMode(GameMode.CHANTS);
-              setQuizStarted(true);
-              setOpenStartQuizDialog(false);
-              startQuiz(sliderValue);
+          <Box
+            sx={{
+              display: "grid",
+              gap: "1rem",
+              gridTemplateColumns: "min-content 1fr",
             }}
           >
-            Chants <span style={{ marginLeft: "1rem" }}>🎶</span>
-          </Button>
+            <FormGroup
+              sx={{
+                display: "grid",
+                gap: "1rem",
+                gridTemplateColumns: "1fr 1fr",
+              }}
+            >
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={callCheckbox}
+                onChange={(event, checked) => setCallCheckbox(checked)}
+                label="Calls"
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={songCheckbox}
+                onChange={(event, checked) => setSongCheckbox(checked)}
+                label="Songs"
+              />
+            </FormGroup>
+            <Button
+              variant="outlined"
+              disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
+              onClick={() => {
+                setGameMode(GameMode.CHANTS);
+                setQuizStarted(true);
+                setOpenStartQuizDialog(false);
+                startQuiz(sliderValue);
+              }}
+            >
+              Audio <span style={{ marginLeft: "1rem" }}>🎶</span>
+            </Button>
+          </Box>
+
           <Button
             variant="outlined"
             disabled={sliderValue <= 0}

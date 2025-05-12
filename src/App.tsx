@@ -57,6 +57,10 @@ export type QuizContextType = {
   startQuiz: (nbBirb: number) => void;
   openEndQuizDialog: boolean;
   setOpenEndQuizDialog: React.Dispatch<any>;
+  songCheckbox: boolean;
+  setSongCheckbox: React.Dispatch<any>;
+  callCheckbox: boolean;
+  setCallCheckbox: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -132,7 +136,7 @@ function App() {
   );
 
   const [quizStarted, setQuizStarted] = React.useState<boolean>(
-    () => savedProgress.quizStarted || false
+    () => savedProgress.quizStarted
   );
 
   const [openSnake, setOpenSnake] = React.useState<boolean>(false);
@@ -144,11 +148,11 @@ function App() {
   );
 
   const [openEndQuizDialog, setOpenEndQuizDialog] = React.useState<boolean>(
-    () => savedProgress.openEndQuizDialog || false
+    () => savedProgress.openEndQuizDialog
   );
 
   const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(
-    () => savedProgress.openStartQuizDialog || false
+    () => savedProgress.openStartQuizDialog
   );
 
   const [gameMode, setGameMode] = React.useState<GameMode>(
@@ -161,6 +165,14 @@ function App() {
 
   const [customList, setCustomList] = React.useState<Array<string>>(
     () => savedProgress.customList || []
+  );
+
+  const [songCheckbox, setSongCheckbox] = React.useState(
+    () => savedProgress.songCheckbox
+  );
+
+  const [callCheckbox, setCallCheckbox] = React.useState(
+    () => savedProgress.callCheckbox
   );
 
   const startQuiz = (nbBirb: number) => {
@@ -207,6 +219,8 @@ function App() {
       gameMode,
       currentList,
       customList,
+      songCheckbox,
+      callCheckbox,
     };
     localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
   }, [
@@ -222,6 +236,8 @@ function App() {
     gameMode,
     currentList,
     customList,
+    songCheckbox,
+    callCheckbox,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -267,6 +283,10 @@ function App() {
         startQuiz,
         openEndQuizDialog,
         setOpenEndQuizDialog,
+        songCheckbox,
+        setSongCheckbox,
+        callCheckbox,
+        setCallCheckbox,
       }}
     >
       <Box sx={{ height: css_height_90 }}>

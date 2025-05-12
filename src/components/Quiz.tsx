@@ -33,6 +33,8 @@ function Quiz() {
     setShowAnswers,
     css_height_90,
     gameMode,
+    callCheckbox,
+    songCheckbox,
   } = quizContext;
 
   const [audioSources, setAudioSources] = React.useState<string[]>();
@@ -40,6 +42,7 @@ function Quiz() {
   const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
+  const [currentAudioType, setCurrentAudioType] = React.useState<AudioType>();
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
@@ -79,11 +82,19 @@ function Quiz() {
   useEffect(() => {
     setAudioSources([]);
     fetchAudioForOne(birbId).then((birdAudio) => {
+      console.log(birdAudio);
       if (!birdAudio) return;
-      const audioList = birdAudio[AudioType.SONG];
+      let newAudioType = AudioType.CAll;
+      if (callCheckbox) newAudioType = AudioType.CAll;
+      if (songCheckbox) newAudioType = AudioType.SONG;
+      if (callCheckbox && songCheckbox) {
+        newAudioType = randomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
+      }
+      setCurrentAudioType(newAudioType);
+      const audioList = birdAudio[newAudioType];
       const candidateCount = Math.min(audioList.length, 5);
       const randomIndex = Math.floor(randomSeed * candidateCount);
-      // console.log(`audio ${randomIndex} in ${audioList.length}`);
+      console.log(`audio ${randomIndex} in ${audioList.length}`);
       const audioSrc = audioList?.[randomIndex];
       setAudioSources([audioSrc]);
     });
@@ -107,12 +118,34 @@ function Quiz() {
   }, [birbId, randomSeed]);
 
   const getAudioSources = () => {
+    const shouldShowAudioType = shouldReveal && callCheckbox && songCheckbox;
     return (
       <>
         {audioSources &&
           audioSources.length > 0 &&
           audioSources.map((audioSources: string, i: number) => (
-            <Box key={`audio-${counter}-${i}`}>
+            <Box
+              key={`audio-${counter}-${i}`}
+              sx={{
+                display: "grid",
+                gap: "0.5rem",
+                gridTemplateColumns: shouldShowAudioType
+                  ? "max-content 1fr"
+                  : "1fr",
+                alignItems: "center",
+              }}
+            >
+              {shouldShowAudioType && (
+                <Typography>
+                  {`${
+                    currentAudioType
+                      ? currentAudioType.charAt(0).toUpperCase() +
+                        currentAudioType.slice(1)
+                      : ""
+                  } :`}
+                </Typography>
+              )}
+
               <audio
                 autoPlay={i === 0 && !shouldReveal}
                 id={`audio-${counter}-${i}`}
@@ -120,6 +153,9 @@ function Quiz() {
                 controls
                 src={audioSources}
                 onPlay={handleAudioPlay}
+                onLoadedMetadata={(e) => {
+                  e.currentTarget.currentTime = 4 + randomSeed * 4;
+                }}
               >
                 Your browser does not support the
                 <code>audio</code> element.
@@ -158,7 +194,7 @@ function Quiz() {
   const birbImage = (
     <Box
       sx={{
-        marginTop: "1rem",
+        marginTop: "2rem",
         padding: "0 0.5rem",
         display: "grid",
         justifyContent: "center",
