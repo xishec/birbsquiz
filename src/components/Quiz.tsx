@@ -81,8 +81,12 @@ function Quiz() {
 
   useEffect(() => {
     setAudioSources([]);
+    const currentId = birbId;
+
     fetchAudioForOne(birbId).then((birdAudio) => {
+      if (birbId !== currentId) return;
       if (!birdAudio) return;
+      
       let newAudioType = AudioType.CAll;
       if (callCheckbox) newAudioType = AudioType.CAll;
       if (songCheckbox) newAudioType = AudioType.SONG;
@@ -100,6 +104,7 @@ function Quiz() {
     setImageSources([]);
     fetchImageForOne(birbId).then((birdImage) => {
       if (!birdImage) return;
+      if (birbId !== currentId) return;
 
       const imageListMale = birdImage[Sex.MALE];
       const candidateCountMale = imageListMale.length;
@@ -113,7 +118,7 @@ function Quiz() {
 
       setImageSources([imageSrcMale, imageSrcFemale]);
     });
-  }, [birbId, randomSeed]);
+  }, [birbId, callCheckbox, randomSeed, songCheckbox]);
 
   const getAudioSources = () => {
     const shouldShowAudioType = shouldReveal && callCheckbox && songCheckbox;

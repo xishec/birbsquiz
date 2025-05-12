@@ -125,7 +125,7 @@ function Lobby() {
       if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
-      playAudioForBirb(birbId, AudioType.CAll);
+      playAudioForBirb(birbId, AudioType.SONG);
       setBirbInput("");
       setSelectedBirbId("");
     },
@@ -173,7 +173,7 @@ function Lobby() {
       if (songSrc) {
         const audio = new Audio(songSrc);
         currentAudioRef.current = audio;
-        audio.currentTime = Math.random() * 5;
+        audio.currentTime = 4 + Math.random() * 4;
         audio
           .play()
           .then(() => {
@@ -182,7 +182,7 @@ function Lobby() {
               if (currentAudioRef.current === audio) {
                 currentAudioRef.current = null;
               }
-            }, 3000); // Pause after 2 seconds
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error playing audio", error);
@@ -350,11 +350,15 @@ function Lobby() {
               disabled={!listName || listName === "Custom"}
               onClick={saveBirbList}
               color={
-                Object.keys(dbListsData).includes(listName) ? "warning" : "success"
+                Object.keys(dbListsData).includes(listName)
+                  ? "warning"
+                  : "success"
               }
               variant="outlined"
             >
-              {Object.keys(dbListsData).includes(listName) ? "Overwrite" : "Save As"}
+              {Object.keys(dbListsData).includes(listName)
+                ? "Overwrite"
+                : "Save As"}
             </Button>
           </Box>
         )}
