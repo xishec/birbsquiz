@@ -53,16 +53,15 @@ function Lobby() {
   const [user, setUser] = useState<any>(null);
   const [shareClickCount, setShareClickCount] = useState<number>(0);
   const [listName, setListName] = useState(currentList);
-  const [dbData, setDbData] = useState<any>({});
+  const [dbListsData, setDbListsData] = useState<any>({});
 
   const handleChange = (event: SelectChangeEvent) => {
     const key = event.target.value;
     if (key === "Custom") {
       setSelectedBirbIds(customList ? customList : []);
     } else {
-      setSelectedBirbIds(dbData[key]);
+      setSelectedBirbIds(dbListsData[key]);
     }
-
     setCurrentList(key);
   };
 
@@ -94,15 +93,23 @@ function Lobby() {
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {
-        const data = snapshot.val();
-        setDbData(data);
+        let data = snapshot.val();
+        if (!data) {
+          data = {};
+          set(listRef, data)
+            .then(() =>
+              console.log("Created v2/lists because it did not exist")
+            )
+            .catch((error) => console.error("Error creating v2/lists:", error));
+        }
+        setDbListsData(data);
       })
       .catch((error) => {
         console.error("Error reading birb list:", error);
         setSnakeMessage("Erreur lors du chargement de la liste!");
         setOpenSnake(true);
       });
-  }, [setOpenSnake, setSnakeMessage, setDbData]);
+  }, [setOpenSnake, setSnakeMessage, setDbListsData]);
 
   useEffect(() => {
     loadBirbList();
@@ -303,8 +310,8 @@ function Lobby() {
               size="small"
             >
               <MenuItem value="Custom">Custom</MenuItem>
-              {dbData &&
-                Object.entries(dbData).map(([key, value]) => {
+              {dbListsData &&
+                Object.entries(dbListsData).map(([key, value]) => {
                   return <MenuItem value={key}>{key}</MenuItem>;
                 })}
             </Select>
@@ -343,11 +350,11 @@ function Lobby() {
               disabled={!listName || listName === "Custom"}
               onClick={saveBirbList}
               color={
-                Object.keys(dbData).includes(listName) ? "warning" : "success"
+                Object.keys(dbListsData).includes(listName) ? "warning" : "success"
               }
               variant="outlined"
             >
-              {Object.keys(dbData).includes(listName) ? "Overwrite" : "Save As"}
+              {Object.keys(dbListsData).includes(listName) ? "Overwrite" : "Save As"}
             </Button>
           </Box>
         )}
