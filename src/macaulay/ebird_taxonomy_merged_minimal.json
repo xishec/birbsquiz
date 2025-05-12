@@ -1,0 +1,7064 @@
+[
+  {
+    "sciName": "Dendrocygna autumnalis",
+    "comName": "Black-bellied Whistling-Duck",
+    "comNameFr": "Dendrocygne à ventre noir",
+    "speciesCode": "bbwduc"
+  },
+  {
+    "sciName": "Dendrocygna bicolor",
+    "comName": "Fulvous Whistling-Duck",
+    "comNameFr": "Dendrocygne fauve",
+    "speciesCode": "fuwduc"
+  },
+  {
+    "sciName": "Anser indicus",
+    "comName": "Bar-headed Goose",
+    "comNameFr": "Oie à tête barrée",
+    "speciesCode": "bahgoo"
+  },
+  {
+    "sciName": "Anser canagicus",
+    "comName": "Emperor Goose",
+    "comNameFr": "Oie empereur",
+    "speciesCode": "empgoo"
+  },
+  {
+    "sciName": "Anser caerulescens",
+    "comName": "Snow Goose",
+    "comNameFr": "Oie des neiges",
+    "speciesCode": "snogoo"
+  },
+  {
+    "sciName": "Anser rossii",
+    "comName": "Ross's Goose",
+    "comNameFr": "Oie de Ross",
+    "speciesCode": "rosgoo"
+  },
+  {
+    "sciName": "Anser anser",
+    "comName": "Graylag Goose",
+    "comNameFr": "Oie cendrée",
+    "speciesCode": "gragoo"
+  },
+  {
+    "sciName": "Anser albifrons",
+    "comName": "Greater White-fronted Goose",
+    "comNameFr": "Oie rieuse",
+    "speciesCode": "gwfgoo"
+  },
+  {
+    "sciName": "Anser erythropus",
+    "comName": "Lesser White-fronted Goose",
+    "comNameFr": "Oie naine",
+    "speciesCode": "lwfgoo"
+  },
+  {
+    "sciName": "Anser brachyrhynchus",
+    "comName": "Pink-footed Goose",
+    "comNameFr": "Oie à bec court",
+    "speciesCode": "pifgoo"
+  },
+  {
+    "sciName": "Branta bernicla",
+    "comName": "Brant",
+    "comNameFr": "Bernache cravant",
+    "speciesCode": "brant"
+  },
+  {
+    "sciName": "Branta leucopsis",
+    "comName": "Barnacle Goose",
+    "comNameFr": "Bernache nonnette",
+    "speciesCode": "bargoo"
+  },
+  {
+    "sciName": "Branta canadensis",
+    "comName": "Canada Goose",
+    "comNameFr": "Bernache du Canada",
+    "speciesCode": "cangoo"
+  },
+  {
+    "sciName": "Branta sandvicensis",
+    "comName": "Hawaiian Goose",
+    "comNameFr": "Bernache néné",
+    "speciesCode": "hawgoo"
+  },
+  {
+    "sciName": "Cygnus olor",
+    "comName": "Mute Swan",
+    "comNameFr": "Cygne tuberculé",
+    "speciesCode": "mutswa"
+  },
+  {
+    "sciName": "Cygnus atratus",
+    "comName": "Black Swan",
+    "comNameFr": "Cygne noir",
+    "speciesCode": "blkswa"
+  },
+  {
+    "sciName": "Cygnus buccinator",
+    "comName": "Trumpeter Swan",
+    "comNameFr": "Cygne trompette",
+    "speciesCode": "truswa"
+  },
+  {
+    "sciName": "Cygnus columbianus",
+    "comName": "Tundra Swan",
+    "comNameFr": "Cygne siffleur",
+    "speciesCode": "tunswa"
+  },
+  {
+    "sciName": "Cygnus cygnus",
+    "comName": "Whooper Swan",
+    "comNameFr": "Cygne chanteur",
+    "speciesCode": "whoswa"
+  },
+  {
+    "sciName": "Alopochen aegyptiaca",
+    "comName": "Egyptian Goose",
+    "comNameFr": "Ouette d'Égypte",
+    "speciesCode": "egygoo"
+  },
+  {
+    "sciName": "Tadorna ferruginea",
+    "comName": "Ruddy Shelduck",
+    "comNameFr": "Tadorne casarca",
+    "speciesCode": "rudshe"
+  },
+  {
+    "sciName": "Tadorna tadorna",
+    "comName": "Common Shelduck",
+    "comNameFr": "Tadorne de Belon",
+    "speciesCode": "comshe"
+  },
+  {
+    "sciName": "Cairina moschata",
+    "comName": "Muscovy Duck",
+    "comNameFr": "Canard musqué",
+    "speciesCode": "musduc"
+  },
+  {
+    "sciName": "Aix sponsa",
+    "comName": "Wood Duck",
+    "comNameFr": "Canard branchu",
+    "speciesCode": "wooduc"
+  },
+  {
+    "sciName": "Aix galericulata",
+    "comName": "Mandarin Duck",
+    "comNameFr": "Canard mandarin",
+    "speciesCode": "manduc"
+  },
+  {
+    "sciName": "Sibirionetta formosa",
+    "comName": "Baikal Teal",
+    "comNameFr": "Sarcelle élégante",
+    "speciesCode": "baitea"
+  },
+  {
+    "sciName": "Spatula querquedula",
+    "comName": "Garganey",
+    "comNameFr": "Sarcelle d'été",
+    "speciesCode": "gargan"
+  },
+  {
+    "sciName": "Spatula discors",
+    "comName": "Blue-winged Teal",
+    "comNameFr": "Sarcelle à ailes bleues",
+    "speciesCode": "buwtea"
+  },
+  {
+    "sciName": "Spatula cyanoptera",
+    "comName": "Cinnamon Teal",
+    "comNameFr": "Sarcelle cannelle",
+    "speciesCode": "cintea"
+  },
+  {
+    "sciName": "Spatula clypeata",
+    "comName": "Northern Shoveler",
+    "comNameFr": "Canard souchet",
+    "speciesCode": "norsho"
+  },
+  {
+    "sciName": "Mareca strepera",
+    "comName": "Gadwall",
+    "comNameFr": "Canard chipeau",
+    "speciesCode": "gadwal"
+  },
+  {
+    "sciName": "Mareca falcata",
+    "comName": "Falcated Duck",
+    "comNameFr": "Canard à faucilles",
+    "speciesCode": "falduc"
+  },
+  {
+    "sciName": "Mareca penelope",
+    "comName": "Eurasian Wigeon",
+    "comNameFr": "Canard siffleur",
+    "speciesCode": "eurwig"
+  },
+  {
+    "sciName": "Mareca americana",
+    "comName": "American Wigeon",
+    "comNameFr": "Canard d'Amérique",
+    "speciesCode": "amewig"
+  },
+  {
+    "sciName": "Anas laysanensis",
+    "comName": "Laysan Duck",
+    "comNameFr": "Canard de Laysan",
+    "speciesCode": "layduc"
+  },
+  {
+    "sciName": "Anas wyvilliana",
+    "comName": "Hawaiian Duck",
+    "comNameFr": "Canard des Hawaï",
+    "speciesCode": "hawduc"
+  },
+  {
+    "sciName": "Anas zonorhyncha",
+    "comName": "Eastern Spot-billed Duck",
+    "comNameFr": "Canard de Chine",
+    "speciesCode": "spbduc"
+  },
+  {
+    "sciName": "Anas diazi",
+    "comName": "Mexican Duck",
+    "comNameFr": "Canard du Mexique",
+    "speciesCode": "mexduc"
+  },
+  {
+    "sciName": "Anas platyrhynchos/diazi",
+    "comName": "Mallard/Mexican Duck",
+    "comNameFr": "Canard colvert ou C. du Mexique",
+    "speciesCode": "mallar"
+  },
+  {
+    "sciName": "Anas rubripes",
+    "comName": "American Black Duck",
+    "comNameFr": "Canard noir",
+    "speciesCode": "ambduc"
+  },
+  {
+    "sciName": "Anas fulvigula",
+    "comName": "Mottled Duck",
+    "comNameFr": "Canard brun",
+    "speciesCode": "motduc"
+  },
+  {
+    "sciName": "Anas bahamensis",
+    "comName": "White-cheeked Pintail",
+    "comNameFr": "Canard des Bahamas",
+    "speciesCode": "whcpin"
+  },
+  {
+    "sciName": "Anas acuta",
+    "comName": "Northern Pintail",
+    "comNameFr": "Canard pilet",
+    "speciesCode": "norpin"
+  },
+  {
+    "sciName": "Anas crecca",
+    "comName": "Green-winged Teal",
+    "comNameFr": "Sarcelle d'hiver",
+    "speciesCode": "gnwtea"
+  },
+  {
+    "sciName": "Anatidae sp. (teal sp.)",
+    "comName": "teal sp.",
+    "comNameFr": "sarcelle sp.",
+    "speciesCode": "teal"
+  },
+  {
+    "sciName": "Netta rufina",
+    "comName": "Red-crested Pochard",
+    "comNameFr": "Nette rousse",
+    "speciesCode": "recpoc"
+  },
+  {
+    "sciName": "Aythya valisineria",
+    "comName": "Canvasback",
+    "comNameFr": "Fuligule à dos blanc",
+    "speciesCode": "canvas"
+  },
+  {
+    "sciName": "Aythya americana",
+    "comName": "Redhead",
+    "comNameFr": "Fuligule à tête rouge",
+    "speciesCode": "redhea"
+  },
+  {
+    "sciName": "Aythya ferina",
+    "comName": "Common Pochard",
+    "comNameFr": "Fuligule milouin",
+    "speciesCode": "compoc"
+  },
+  {
+    "sciName": "Aythya collaris",
+    "comName": "Ring-necked Duck",
+    "comNameFr": "Fuligule à collier",
+    "speciesCode": "rinduc"
+  },
+  {
+    "sciName": "Aythya nyroca",
+    "comName": "Ferruginous Duck",
+    "comNameFr": "Fuligule nyroca",
+    "speciesCode": "ferduc"
+  },
+  {
+    "sciName": "Aythya fuligula",
+    "comName": "Tufted Duck",
+    "comNameFr": "Fuligule morillon",
+    "speciesCode": "tufduc"
+  },
+  {
+    "sciName": "Aythya marila",
+    "comName": "Greater Scaup",
+    "comNameFr": "Fuligule milouinan",
+    "speciesCode": "gresca"
+  },
+  {
+    "sciName": "Aythya affinis",
+    "comName": "Lesser Scaup",
+    "comNameFr": "Petit Fuligule",
+    "speciesCode": "lessca"
+  },
+  {
+    "sciName": "Aythya marila/affinis",
+    "comName": "Greater/Lesser Scaup",
+    "comNameFr": "Fuligule milouinan ou Petit Fuligule",
+    "speciesCode": "scaup"
+  },
+  {
+    "sciName": "Polysticta stelleri",
+    "comName": "Steller's Eider",
+    "comNameFr": "Eider de Steller",
+    "speciesCode": "steeid"
+  },
+  {
+    "sciName": "Camptorhynchus labradorius",
+    "comName": "Labrador Duck",
+    "comNameFr": "Eider du Labrador",
+    "speciesCode": "labduc"
+  },
+  {
+    "sciName": "Somateria fischeri",
+    "comName": "Spectacled Eider",
+    "comNameFr": "Eider à lunettes",
+    "speciesCode": "speeid"
+  },
+  {
+    "sciName": "Somateria spectabilis",
+    "comName": "King Eider",
+    "comNameFr": "Eider à tête grise",
+    "speciesCode": "kineid"
+  },
+  {
+    "sciName": "Somateria mollissima",
+    "comName": "Common Eider",
+    "comNameFr": "Eider à duvet",
+    "speciesCode": "comeid"
+  },
+  {
+    "sciName": "Somateria spectabilis/mollissima",
+    "comName": "King/Common Eider",
+    "comNameFr": "Eider à tête grise ou E. à duvet",
+    "speciesCode": "eider"
+  },
+  {
+    "sciName": "Histrionicus histrionicus",
+    "comName": "Harlequin Duck",
+    "comNameFr": "Arlequin plongeur",
+    "speciesCode": "harduc"
+  },
+  {
+    "sciName": "Melanitta perspicillata",
+    "comName": "Surf Scoter",
+    "comNameFr": "Macreuse à front blanc",
+    "speciesCode": "sursco"
+  },
+  {
+    "sciName": "Melanitta fusca/deglandi/stejnegeri",
+    "comName": "Velvet/White-winged/Stejneger's Scoter",
+    "comNameFr": "Macreuse brune, M. à ailes blanches ou M. de Sibérie",
+    "speciesCode": "whwsco"
+  },
+  {
+    "sciName": "Melanitta perspicillata/americana",
+    "comName": "Surf/Black Scoter",
+    "comNameFr": "Macreuse à front blanc ou M. à bec jaune",
+    "speciesCode": "dawsco"
+  },
+  {
+    "sciName": "Melanitta nigra/americana",
+    "comName": "Common/Black Scoter",
+    "comNameFr": "Macreuse noire ou M. à bec jaune",
+    "speciesCode": "blksco"
+  },
+  {
+    "sciName": "Melanitta sp.",
+    "comName": "scoter sp.",
+    "comNameFr": "macreuse sp.",
+    "speciesCode": "scoter"
+  },
+  {
+    "sciName": "Clangula hyemalis",
+    "comName": "Long-tailed Duck",
+    "comNameFr": "Harelde kakawi",
+    "speciesCode": "lotduc"
+  },
+  {
+    "sciName": "Bucephala albeola",
+    "comName": "Bufflehead",
+    "comNameFr": "Petit Garrot",
+    "speciesCode": "buffle"
+  },
+  {
+    "sciName": "Bucephala clangula",
+    "comName": "Common Goldeneye",
+    "comNameFr": "Garrot à oeil d'or",
+    "speciesCode": "comgol"
+  },
+  {
+    "sciName": "Bucephala islandica",
+    "comName": "Barrow's Goldeneye",
+    "comNameFr": "Garrot d'Islande",
+    "speciesCode": "bargol"
+  },
+  {
+    "sciName": "Mergellus albellus",
+    "comName": "Smew",
+    "comNameFr": "Harle piette",
+    "speciesCode": "smew"
+  },
+  {
+    "sciName": "Lophodytes cucullatus",
+    "comName": "Hooded Merganser",
+    "comNameFr": "Harle couronné",
+    "speciesCode": "hoomer"
+  },
+  {
+    "sciName": "Mergus merganser",
+    "comName": "Common Merganser",
+    "comNameFr": "Grand Harle",
+    "speciesCode": "commer"
+  },
+  {
+    "sciName": "Mergus serrator",
+    "comName": "Red-breasted Merganser",
+    "comNameFr": "Harle huppé",
+    "speciesCode": "rebmer"
+  },
+  {
+    "sciName": "Nomonyx dominicus",
+    "comName": "Masked Duck",
+    "comNameFr": "Érismature routoutou",
+    "speciesCode": "masduc"
+  },
+  {
+    "sciName": "Oxyura jamaicensis",
+    "comName": "Ruddy Duck",
+    "comNameFr": "Érismature rousse",
+    "speciesCode": "rudduc"
+  },
+  {
+    "sciName": "Ortalis vetula",
+    "comName": "Plain Chachalaca",
+    "comNameFr": "Ortalide chacamel",
+    "speciesCode": "placha"
+  },
+  {
+    "sciName": "Numida meleagris",
+    "comName": "Helmeted Guineafowl",
+    "comNameFr": "Pintade de Numidie",
+    "speciesCode": "helgui"
+  },
+  {
+    "sciName": "Oreortyx pictus",
+    "comName": "Mountain Quail",
+    "comNameFr": "Colin des montagnes",
+    "speciesCode": "mouqua"
+  },
+  {
+    "sciName": "Colinus virginianus",
+    "comName": "Northern Bobwhite",
+    "comNameFr": "Colin de Virginie",
+    "speciesCode": "norbob"
+  },
+  {
+    "sciName": "Callipepla squamata",
+    "comName": "Scaled Quail",
+    "comNameFr": "Colin écaillé",
+    "speciesCode": "scaqua"
+  },
+  {
+    "sciName": "Callipepla douglasii",
+    "comName": "Elegant Quail",
+    "comNameFr": "Colin élégant",
+    "speciesCode": "elequa"
+  },
+  {
+    "sciName": "Callipepla californica",
+    "comName": "California Quail",
+    "comNameFr": "Colin de Californie",
+    "speciesCode": "calqua"
+  },
+  {
+    "sciName": "Callipepla gambelii",
+    "comName": "Gambel's Quail",
+    "comNameFr": "Colin de Gambel",
+    "speciesCode": "gamqua"
+  },
+  {
+    "sciName": "Cyrtonyx montezumae",
+    "comName": "Montezuma Quail",
+    "comNameFr": "Colin arlequin",
+    "speciesCode": "monqua"
+  },
+  {
+    "sciName": "Meleagris gallopavo",
+    "comName": "Wild Turkey",
+    "comNameFr": "Dindon sauvage",
+    "speciesCode": "wiltur"
+  },
+  {
+    "sciName": "Bonasa umbellus",
+    "comName": "Ruffed Grouse",
+    "comNameFr": "Gélinotte huppée",
+    "speciesCode": "rufgro"
+  },
+  {
+    "sciName": "Centrocercus urophasianus",
+    "comName": "Greater Sage-Grouse",
+    "comNameFr": "Tétras des armoises",
+    "speciesCode": "saggro"
+  },
+  {
+    "sciName": "Centrocercus minimus",
+    "comName": "Gunnison Sage-Grouse",
+    "comNameFr": "Tétras du Gunnison",
+    "speciesCode": "gusgro"
+  },
+  {
+    "sciName": "Dendragapus obscurus",
+    "comName": "Dusky Grouse",
+    "comNameFr": "Tétras sombre",
+    "speciesCode": "dusgro"
+  },
+  {
+    "sciName": "Dendragapus obscurus/fuliginosus",
+    "comName": "Dusky/Sooty Grouse",
+    "comNameFr": "Tétras sombre ou T. fuligineux",
+    "speciesCode": "blugrs"
+  },
+  {
+    "sciName": "Tympanuchus phasianellus",
+    "comName": "Sharp-tailed Grouse",
+    "comNameFr": "Tétras à queue fine",
+    "speciesCode": "shtgro"
+  },
+  {
+    "sciName": "Tympanuchus cupido",
+    "comName": "Greater Prairie-Chicken",
+    "comNameFr": "Tétras des prairies",
+    "speciesCode": "grpchi"
+  },
+  {
+    "sciName": "Tympanuchus pallidicinctus",
+    "comName": "Lesser Prairie-Chicken",
+    "comNameFr": "Tétras pâle",
+    "speciesCode": "lepchi"
+  },
+  {
+    "sciName": "Lagopus lagopus",
+    "comName": "Willow Ptarmigan",
+    "comNameFr": "Lagopède des saules",
+    "speciesCode": "wilpta"
+  },
+  {
+    "sciName": "Canachites canadensis",
+    "comName": "Spruce Grouse",
+    "comNameFr": "Tétras du Canada",
+    "speciesCode": "sprgro"
+  },
+  {
+    "sciName": "Perdix perdix",
+    "comName": "Gray Partridge",
+    "comNameFr": "Perdrix grise",
+    "speciesCode": "grypar"
+  },
+  {
+    "sciName": "Chrysolophus pictus",
+    "comName": "Golden Pheasant",
+    "comNameFr": "Faisan doré",
+    "speciesCode": "golphe"
+  },
+  {
+    "sciName": "Phasianus colchicus/versicolor",
+    "comName": "Ring-necked/Green Pheasant",
+    "comNameFr": "Faisan de Colchide ou F. versicolore",
+    "speciesCode": "rinphe"
+  },
+  {
+    "sciName": "Lophura leucomelanos",
+    "comName": "Kalij Pheasant",
+    "comNameFr": "Faisan leucomèle",
+    "speciesCode": "kalphe"
+  },
+  {
+    "sciName": "Lophura nycthemera",
+    "comName": "Silver Pheasant",
+    "comNameFr": "Faisan argenté",
+    "speciesCode": "silphe"
+  },
+  {
+    "sciName": "Pavo cristatus",
+    "comName": "Indian Peafowl",
+    "comNameFr": "Paon bleu",
+    "speciesCode": "compea"
+  },
+  {
+    "sciName": "Gallus gallus",
+    "comName": "Red Junglefowl",
+    "comNameFr": "Coq bankiva",
+    "speciesCode": "redjun"
+  },
+  {
+    "sciName": "Ortygornis pondicerianus",
+    "comName": "Gray Francolin",
+    "comNameFr": "Francolin gris",
+    "speciesCode": "gryfra"
+  },
+  {
+    "sciName": "Francolinus francolinus",
+    "comName": "Black Francolin",
+    "comNameFr": "Francolin noir",
+    "speciesCode": "blkfra"
+  },
+  {
+    "sciName": "Tetraogallus himalayensis",
+    "comName": "Himalayan Snowcock",
+    "comNameFr": "Tétraogalle de l'Himalaya",
+    "speciesCode": "himsno"
+  },
+  {
+    "sciName": "Coturnix japonica",
+    "comName": "Japanese Quail",
+    "comNameFr": "Caille du Japon",
+    "speciesCode": "japqua"
+  },
+  {
+    "sciName": "Alectoris chukar",
+    "comName": "Chukar",
+    "comNameFr": "Perdrix choukar",
+    "speciesCode": "chukar"
+  },
+  {
+    "sciName": "Pternistis erckelii",
+    "comName": "Erckel's Spurfowl",
+    "comNameFr": "Francolin d'Erckel",
+    "speciesCode": "ercfra"
+  },
+  {
+    "sciName": "Columba livia",
+    "comName": "Rock Pigeon",
+    "comNameFr": "Pigeon biset",
+    "speciesCode": "rocpig"
+  },
+  {
+    "sciName": "Patagioenas inornata",
+    "comName": "Plain Pigeon",
+    "comNameFr": "Pigeon simple",
+    "speciesCode": "plapig"
+  },
+  {
+    "sciName": "Patagioenas caribaea",
+    "comName": "Ring-tailed Pigeon",
+    "comNameFr": "Pigeon de Jamaïque",
+    "speciesCode": "ritpig"
+  },
+  {
+    "sciName": "Patagioenas subvinacea",
+    "comName": "Ruddy Pigeon",
+    "comNameFr": "Pigeon vineux",
+    "speciesCode": "rudpig"
+  },
+  {
+    "sciName": "Patagioenas nigrirostris",
+    "comName": "Short-billed Pigeon",
+    "comNameFr": "Pigeon à bec noir",
+    "speciesCode": "shbpig"
+  },
+  {
+    "sciName": "Ectopistes migratorius",
+    "comName": "Passenger Pigeon",
+    "comNameFr": "Tourte voyageuse",
+    "speciesCode": "paspig"
+  },
+  {
+    "sciName": "Streptopelia turtur",
+    "comName": "European Turtle-Dove",
+    "comNameFr": "Tourterelle des bois",
+    "speciesCode": "eutdov"
+  },
+  {
+    "sciName": "Streptopelia orientalis",
+    "comName": "Oriental Turtle-Dove",
+    "comNameFr": "Tourterelle orientale",
+    "speciesCode": "ortdov"
+  },
+  {
+    "sciName": "Streptopelia decaocto",
+    "comName": "Eurasian Collared-Dove",
+    "comNameFr": "Tourterelle turque",
+    "speciesCode": "eucdov"
+  },
+  {
+    "sciName": "Streptopelia capicola",
+    "comName": "Ring-necked Dove",
+    "comNameFr": "Tourterelle du Cap",
+    "speciesCode": "rindov"
+  },
+  {
+    "sciName": "Spilopelia chinensis",
+    "comName": "Spotted Dove",
+    "comNameFr": "Tourterelle tigrine",
+    "speciesCode": "spodov"
+  },
+  {
+    "sciName": "Geopelia striata",
+    "comName": "Zebra Dove",
+    "comNameFr": "Géopélie zébrée",
+    "speciesCode": "zebdov"
+  },
+  {
+    "sciName": "Columbina inca",
+    "comName": "Inca Dove",
+    "comNameFr": "Colombe inca",
+    "speciesCode": "incdov"
+  },
+  {
+    "sciName": "Columbina passerina",
+    "comName": "Common Ground Dove",
+    "comNameFr": "Colombe à queue noire",
+    "speciesCode": "cogdov"
+  },
+  {
+    "sciName": "Columbina talpacoti",
+    "comName": "Ruddy Ground Dove",
+    "comNameFr": "Colombe rousse",
+    "speciesCode": "rugdov"
+  },
+  {
+    "sciName": "Geotrygon montana",
+    "comName": "Ruddy Quail-Dove",
+    "comNameFr": "Colombe rouviolette",
+    "speciesCode": "ruqdov"
+  },
+  {
+    "sciName": "Geotrygon caniceps",
+    "comName": "Gray-fronted Quail-Dove",
+    "comNameFr": "Colombe de Gundlach",
+    "speciesCode": "gfqdov"
+  },
+  {
+    "sciName": "Geotrygon leucometopia",
+    "comName": "White-fronted Quail-Dove",
+    "comNameFr": "Colombe d'Hispaniola",
+    "speciesCode": "wfqdov"
+  },
+  {
+    "sciName": "Geotrygon chrysia",
+    "comName": "Key West Quail-Dove",
+    "comNameFr": "Colombe à joues blanches",
+    "speciesCode": "kwqdov"
+  },
+  {
+    "sciName": "Leptotila verreauxi",
+    "comName": "White-tipped Dove",
+    "comNameFr": "Colombe de Verreaux",
+    "speciesCode": "whtdov"
+  },
+  {
+    "sciName": "Zenaida asiatica",
+    "comName": "White-winged Dove",
+    "comNameFr": "Tourterelle à ailes blanches",
+    "speciesCode": "whwdov"
+  },
+  {
+    "sciName": "Zenaida aurita",
+    "comName": "Zenaida Dove",
+    "comNameFr": "Tourterelle à queue carrée",
+    "speciesCode": "zendov"
+  },
+  {
+    "sciName": "Zenaida macroura",
+    "comName": "Mourning Dove",
+    "comNameFr": "Tourterelle triste",
+    "speciesCode": "moudov"
+  },
+  {
+    "sciName": "Pterocles exustus",
+    "comName": "Chestnut-bellied Sandgrouse",
+    "comNameFr": "Ganga à ventre brun",
+    "speciesCode": "chbsan"
+  },
+  {
+    "sciName": "Crotophaga ani",
+    "comName": "Smooth-billed Ani",
+    "comNameFr": "Ani à bec lisse",
+    "speciesCode": "smbani"
+  },
+  {
+    "sciName": "Crotophaga sulcirostris",
+    "comName": "Groove-billed Ani",
+    "comNameFr": "Ani à bec cannelé",
+    "speciesCode": "grbani"
+  },
+  {
+    "sciName": "Geococcyx californianus",
+    "comName": "Greater Roadrunner",
+    "comNameFr": "Grand Géocoucou",
+    "speciesCode": "greroa"
+  },
+  {
+    "sciName": "Coccyzus americanus",
+    "comName": "Yellow-billed Cuckoo",
+    "comNameFr": "Coulicou à bec jaune",
+    "speciesCode": "yebcuc"
+  },
+  {
+    "sciName": "Coccyzus minor",
+    "comName": "Mangrove Cuckoo",
+    "comNameFr": "Coulicou manioc",
+    "speciesCode": "mancuc"
+  },
+  {
+    "sciName": "Coccyzus erythropthalmus",
+    "comName": "Black-billed Cuckoo",
+    "comNameFr": "Coulicou à bec noir",
+    "speciesCode": "bkbcuc"
+  },
+  {
+    "sciName": "Coccyzus lansbergi",
+    "comName": "Gray-capped Cuckoo",
+    "comNameFr": "Coulicou à tête grise",
+    "speciesCode": "gyccuc"
+  },
+  {
+    "sciName": "Cuculus canorus",
+    "comName": "Common Cuckoo",
+    "comNameFr": "Coucou gris",
+    "speciesCode": "comcuc"
+  },
+  {
+    "sciName": "Chordeiles acutipennis",
+    "comName": "Lesser Nighthawk",
+    "comNameFr": "Engoulevent minime",
+    "speciesCode": "lesnig"
+  },
+  {
+    "sciName": "Chordeiles minor",
+    "comName": "Common Nighthawk",
+    "comNameFr": "Engoulevent d'Amérique",
+    "speciesCode": "comnig"
+  },
+  {
+    "sciName": "Chordeiles gundlachii",
+    "comName": "Antillean Nighthawk",
+    "comNameFr": "Engoulevent piramidig",
+    "speciesCode": "antnig"
+  },
+  {
+    "sciName": "Nyctidromus albicollis",
+    "comName": "Common Pauraque",
+    "comNameFr": "Engoulevent pauraqué",
+    "speciesCode": "compau"
+  },
+  {
+    "sciName": "Siphonorhis americana",
+    "comName": "Jamaican Pauraque",
+    "comNameFr": "Engoulevent de Jamaïque",
+    "speciesCode": "jampau"
+  },
+  {
+    "sciName": "Phalaenoptilus nuttallii",
+    "comName": "Common Poorwill",
+    "comNameFr": "Engoulevent de Nuttall",
+    "speciesCode": "compoo"
+  },
+  {
+    "sciName": "Antrostomus carolinensis",
+    "comName": "Chuck-will's-widow",
+    "comNameFr": "Engoulevent de Caroline",
+    "speciesCode": "chwwid"
+  },
+  {
+    "sciName": "Antrostomus ridgwayi",
+    "comName": "Buff-collared Nightjar",
+    "comNameFr": "Engoulevent de Ridgway",
+    "speciesCode": "bucnig"
+  },
+  {
+    "sciName": "Antrostomus vociferus/arizonae",
+    "comName": "Eastern/Mexican Whip-poor-will",
+    "comNameFr": "Engoulevent bois-pourri ou E. d'Arizona",
+    "speciesCode": "whpwil"
+  },
+  {
+    "sciName": "Caprimulgus indicus/jotaka",
+    "comName": "Jungle/Gray Nightjar",
+    "comNameFr": "Engoulevent de jungle ou E. jotaka",
+    "speciesCode": "granig"
+  },
+  {
+    "sciName": "Cypseloides niger",
+    "comName": "Black Swift",
+    "comNameFr": "Martinet sombre",
+    "speciesCode": "blkswi"
+  },
+  {
+    "sciName": "Streptoprocne zonaris",
+    "comName": "White-collared Swift",
+    "comNameFr": "Martinet à collier blanc",
+    "speciesCode": "whcswi"
+  },
+  {
+    "sciName": "Chaetura spinicaudus",
+    "comName": "Band-rumped Swift",
+    "comNameFr": "Martinet spinicaude",
+    "speciesCode": "barswi"
+  },
+  {
+    "sciName": "Chaetura fumosa",
+    "comName": "Costa Rican Swift",
+    "comNameFr": "Martinet du Costa Rica",
+    "speciesCode": "corswi"
+  },
+  {
+    "sciName": "Chaetura pelagica",
+    "comName": "Chimney Swift",
+    "comNameFr": "Martinet ramoneur",
+    "speciesCode": "chiswi"
+  },
+  {
+    "sciName": "Chaetura vauxi",
+    "comName": "Vaux's Swift",
+    "comNameFr": "Martinet de Vaux",
+    "speciesCode": "vauswi"
+  },
+  {
+    "sciName": "Chaetura sp.",
+    "comName": "Chaetura sp.",
+    "comNameFr": "Chaetura sp.",
+    "speciesCode": "chaetu"
+  },
+  {
+    "sciName": "Hirundapus caudacutus",
+    "comName": "White-throated Needletail",
+    "comNameFr": "Martinet épineux",
+    "speciesCode": "whtnee"
+  },
+  {
+    "sciName": "Aerodramus bartschi",
+    "comName": "Mariana Swiftlet",
+    "comNameFr": "Salangane de Guam",
+    "speciesCode": "marswi"
+  },
+  {
+    "sciName": "Apus apus",
+    "comName": "Common Swift",
+    "comNameFr": "Martinet noir",
+    "speciesCode": "comswi"
+  },
+  {
+    "sciName": "Apus pacificus",
+    "comName": "Pacific Swift",
+    "comNameFr": "Martinet de Sibérie",
+    "speciesCode": "fotswi"
+  },
+  {
+    "sciName": "Aeronautes saxatalis",
+    "comName": "White-throated Swift",
+    "comNameFr": "Martinet à gorge blanche",
+    "speciesCode": "whtswi"
+  },
+  {
+    "sciName": "Tachornis phoenicobia",
+    "comName": "Antillean Palm Swift",
+    "comNameFr": "Martinet petit-rollé",
+    "speciesCode": "anpswi"
+  },
+  {
+    "sciName": "Glaucis aeneus",
+    "comName": "Bronzy Hermit",
+    "comNameFr": "Ermite bronzé",
+    "speciesCode": "broher"
+  },
+  {
+    "sciName": "Glaucis hirsutus",
+    "comName": "Rufous-breasted Hermit",
+    "comNameFr": "Ermite hirsute",
+    "speciesCode": "rubher"
+  },
+  {
+    "sciName": "Phaethornis longirostris",
+    "comName": "Long-billed Hermit",
+    "comNameFr": "Ermite à longue queue",
+    "speciesCode": "lobher"
+  },
+  {
+    "sciName": "Anthracothorax prevostii",
+    "comName": "Green-breasted Mango",
+    "comNameFr": "Mango de Prévost",
+    "speciesCode": "gnbman"
+  },
+  {
+    "sciName": "Lophornis brachylophus",
+    "comName": "Short-crested Coquette",
+    "comNameFr": "Coquette du Guerrero",
+    "speciesCode": "shccoq"
+  },
+  {
+    "sciName": "Heliomaster constantii",
+    "comName": "Plain-capped Starthroat",
+    "comNameFr": "Colibri de Constant",
+    "speciesCode": "plcsta"
+  },
+  {
+    "sciName": "Lampornis clemenciae",
+    "comName": "Blue-throated Mountain-gem",
+    "comNameFr": "Colibri à gorge bleue",
+    "speciesCode": "buthum"
+  },
+  {
+    "sciName": "Lampornis calolaemus",
+    "comName": "Purple-throated Mountain-gem",
+    "comNameFr": "Colibri à gorge pourprée",
+    "speciesCode": "ptmgem"
+  },
+  {
+    "sciName": "Calothorax lucifer",
+    "comName": "Lucifer Hummingbird",
+    "comNameFr": "Colibri lucifer",
+    "speciesCode": "luchum"
+  },
+  {
+    "sciName": "Archilochus colubris",
+    "comName": "Ruby-throated Hummingbird",
+    "comNameFr": "Colibri à gorge rubis",
+    "speciesCode": "rthhum"
+  },
+  {
+    "sciName": "Archilochus alexandri",
+    "comName": "Black-chinned Hummingbird",
+    "comNameFr": "Colibri à gorge noire",
+    "speciesCode": "bkchum"
+  },
+  {
+    "sciName": "Nesophlox evelynae",
+    "comName": "Bahama Woodstar",
+    "comNameFr": "Colibri des Bahamas",
+    "speciesCode": "bahwoo"
+  },
+  {
+    "sciName": "Calypte anna",
+    "comName": "Anna's Hummingbird",
+    "comNameFr": "Colibri d'Anna",
+    "speciesCode": "annhum"
+  },
+  {
+    "sciName": "Calypte costae",
+    "comName": "Costa's Hummingbird",
+    "comNameFr": "Colibri de Costa",
+    "speciesCode": "coshum"
+  },
+  {
+    "sciName": "Calypte anna/costae",
+    "comName": "Anna's/Costa's Hummingbird",
+    "comNameFr": "Colibri d'Anna ou C. de Costa",
+    "speciesCode": "calypt"
+  },
+  {
+    "sciName": "Selasphorus calliope",
+    "comName": "Calliope Hummingbird",
+    "comNameFr": "Colibri calliope",
+    "speciesCode": "calhum"
+  },
+  {
+    "sciName": "Selasphorus rufus",
+    "comName": "Rufous Hummingbird",
+    "comNameFr": "Colibri roux",
+    "speciesCode": "rufhum"
+  },
+  {
+    "sciName": "Selasphorus sasin",
+    "comName": "Allen's Hummingbird",
+    "comNameFr": "Colibri d'Allen",
+    "speciesCode": "allhum"
+  },
+  {
+    "sciName": "Selasphorus platycercus",
+    "comName": "Broad-tailed Hummingbird",
+    "comNameFr": "Colibri à queue large",
+    "speciesCode": "brthum"
+  },
+  {
+    "sciName": "Selasphorus heloisa",
+    "comName": "Bumblebee Hummingbird",
+    "comNameFr": "Colibri héloïse",
+    "speciesCode": "bumhum"
+  },
+  {
+    "sciName": "Selasphorus sp.",
+    "comName": "Selasphorus sp.",
+    "comNameFr": "Selasphorus sp.",
+    "speciesCode": "selasp"
+  },
+  {
+    "sciName": "Cynanthus latirostris",
+    "comName": "Broad-billed Hummingbird",
+    "comNameFr": "Colibri circé",
+    "speciesCode": "brbhum"
+  },
+  {
+    "sciName": "Basilinna leucotis",
+    "comName": "White-eared Hummingbird",
+    "comNameFr": "Colibri à oreilles blanches",
+    "speciesCode": "whehum"
+  },
+  {
+    "sciName": "Basilinna xantusii",
+    "comName": "Xantus's Hummingbird",
+    "comNameFr": "Colibri de Xantus",
+    "speciesCode": "xanhum"
+  },
+  {
+    "sciName": "Ramosomyia violiceps",
+    "comName": "Violet-crowned Hummingbird",
+    "comNameFr": "Ariane à couronne violette",
+    "speciesCode": "vichum"
+  },
+  {
+    "sciName": "Saucerottia beryllina",
+    "comName": "Berylline Hummingbird",
+    "comNameFr": "Ariane béryl",
+    "speciesCode": "berhum"
+  },
+  {
+    "sciName": "Amazilia yucatanensis",
+    "comName": "Buff-bellied Hummingbird",
+    "comNameFr": "Ariane du Yucatan",
+    "speciesCode": "bubhum"
+  },
+  {
+    "sciName": "Amazilia tzacatl",
+    "comName": "Rufous-tailed Hummingbird",
+    "comNameFr": "Ariane à ventre gris",
+    "speciesCode": "rtlhum"
+  },
+  {
+    "sciName": "Trochilidae sp.",
+    "comName": "hummingbird sp.",
+    "comNameFr": "trochilidé sp.",
+    "speciesCode": "hummin"
+  },
+  {
+    "sciName": "Rallus tenuirostris/elegans",
+    "comName": "Aztec/King Rail",
+    "comNameFr": "Râle du Mexique ou R. élégant",
+    "speciesCode": "kinrai"
+  },
+  {
+    "sciName": "Rallus elegans/crepitans",
+    "comName": "King/Clapper Rail",
+    "comNameFr": "Râle élégant ou R. tapageur",
+    "speciesCode": "rallus"
+  },
+  {
+    "sciName": "Rallus obsoletus/longirostris/crepitans",
+    "comName": "Ridgway's/Mangrove/Clapper Rail",
+    "comNameFr": "Râle de Californie, R. gris ou R. tapageur",
+    "speciesCode": "clarai"
+  },
+  {
+    "sciName": "Rallus limicola",
+    "comName": "Virginia Rail",
+    "comNameFr": "Râle de Virginie",
+    "speciesCode": "virrai"
+  },
+  {
+    "sciName": "Crex crex",
+    "comName": "Corn Crake",
+    "comNameFr": "Râle des genêts",
+    "speciesCode": "corcra"
+  },
+  {
+    "sciName": "Pardirallus maculatus",
+    "comName": "Spotted Rail",
+    "comNameFr": "Râle tacheté",
+    "speciesCode": "sporai"
+  },
+  {
+    "sciName": "Mustelirallus erythrops",
+    "comName": "Paint-billed Crake",
+    "comNameFr": "Râle à bec peint",
+    "speciesCode": "pabcra"
+  },
+  {
+    "sciName": "Porzana carolina",
+    "comName": "Sora",
+    "comNameFr": "Marouette de Caroline",
+    "speciesCode": "sora"
+  },
+  {
+    "sciName": "Gallinula chloropus/galeata",
+    "comName": "Eurasian Moorhen/Common Gallinule",
+    "comNameFr": "Gallinule poule-d'eau ou G. d'Amérique",
+    "speciesCode": "commoo"
+  },
+  {
+    "sciName": "Fulica atra",
+    "comName": "Eurasian Coot",
+    "comNameFr": "Foulque macroule",
+    "speciesCode": "eurcoo"
+  },
+  {
+    "sciName": "Fulica alai",
+    "comName": "Hawaiian Coot",
+    "comNameFr": "Foulque des Hawaï",
+    "speciesCode": "hawcoo"
+  },
+  {
+    "sciName": "Fulica americana (Red-shielded)",
+    "comName": "American Coot (Red-shielded)",
+    "comNameFr": "Foulque d'Amérique (forme à cachet rouge)",
+    "speciesCode": "amecoo"
+  },
+  {
+    "sciName": "Porphyrio sp. (swamphen sp.)",
+    "comName": "swamphen sp.",
+    "comNameFr": "talève sp.",
+    "speciesCode": "purswa"
+  },
+  {
+    "sciName": "Zapornia palmeri",
+    "comName": "Laysan Rail",
+    "comNameFr": "Marouette de Laysan",
+    "speciesCode": "layrai"
+  },
+  {
+    "sciName": "Zapornia sandwichensis",
+    "comName": "Hawaiian Rail",
+    "comNameFr": "Marouette des Hawaï",
+    "speciesCode": "hawrai"
+  },
+  {
+    "sciName": "Coturnicops noveboracensis",
+    "comName": "Yellow Rail",
+    "comNameFr": "Râle jaune",
+    "speciesCode": "yelrai"
+  },
+  {
+    "sciName": "Laterallus jamaicensis",
+    "comName": "Black Rail",
+    "comNameFr": "Râle noir",
+    "speciesCode": "blkrai"
+  },
+  {
+    "sciName": "Aramus guarauna",
+    "comName": "Limpkin",
+    "comNameFr": "Courlan brun",
+    "speciesCode": "limpki"
+  },
+  {
+    "sciName": "Antigone canadensis",
+    "comName": "Sandhill Crane",
+    "comNameFr": "Grue du Canada",
+    "speciesCode": "sancra"
+  },
+  {
+    "sciName": "Grus grus",
+    "comName": "Common Crane",
+    "comNameFr": "Grue cendrée",
+    "speciesCode": "comcra"
+  },
+  {
+    "sciName": "Grus americana",
+    "comName": "Whooping Crane",
+    "comNameFr": "Grue blanche",
+    "speciesCode": "whocra"
+  },
+  {
+    "sciName": "Hesperoburhinus bistriatus",
+    "comName": "Double-striped Thick-knee",
+    "comNameFr": "Oedicnème bistrié",
+    "speciesCode": "dstkne"
+  },
+  {
+    "sciName": "Himantopus himantopus",
+    "comName": "Black-winged Stilt",
+    "comNameFr": "Échasse blanche",
+    "speciesCode": "bkwsti"
+  },
+  {
+    "sciName": "Himantopus mexicanus",
+    "comName": "Black-necked Stilt",
+    "comNameFr": "Échasse d'Amérique",
+    "speciesCode": "bknsti"
+  },
+  {
+    "sciName": "Recurvirostra americana",
+    "comName": "American Avocet",
+    "comNameFr": "Avocette d'Amérique",
+    "speciesCode": "ameavo"
+  },
+  {
+    "sciName": "Haematopus palliatus",
+    "comName": "American Oystercatcher",
+    "comNameFr": "Huîtrier d'Amérique",
+    "speciesCode": "ameoys"
+  },
+  {
+    "sciName": "Haematopus bachmani",
+    "comName": "Black Oystercatcher",
+    "comNameFr": "Huîtrier de Bachman",
+    "speciesCode": "blkoys"
+  },
+  {
+    "sciName": "Pluvialis squatarola",
+    "comName": "Black-bellied Plover",
+    "comNameFr": "Pluvier argenté",
+    "speciesCode": "bkbplo"
+  },
+  {
+    "sciName": "Pluvialis apricaria",
+    "comName": "European Golden-Plover",
+    "comNameFr": "Pluvier doré",
+    "speciesCode": "eugplo"
+  },
+  {
+    "sciName": "Pluvialis dominica",
+    "comName": "American Golden-Plover",
+    "comNameFr": "Pluvier bronzé",
+    "speciesCode": "amgplo"
+  },
+  {
+    "sciName": "Pluvialis fulva",
+    "comName": "Pacific Golden-Plover",
+    "comNameFr": "Pluvier fauve",
+    "speciesCode": "pagplo"
+  },
+  {
+    "sciName": "Pluvialis dominica/apricaria/fulva",
+    "comName": "golden-plover sp.",
+    "comNameFr": "Pluvier bronzé, P. doré ou P. fauve",
+    "speciesCode": "golplo"
+  },
+  {
+    "sciName": "Eudromias morinellus",
+    "comName": "Eurasian Dotterel",
+    "comNameFr": "Pluvier guignard",
+    "speciesCode": "eurdot"
+  },
+  {
+    "sciName": "Charadrius vociferus",
+    "comName": "Killdeer",
+    "comNameFr": "Pluvier kildir",
+    "speciesCode": "killde"
+  },
+  {
+    "sciName": "Charadrius hiaticula",
+    "comName": "Common Ringed Plover",
+    "comNameFr": "Pluvier grand-gravelot",
+    "speciesCode": "corplo"
+  },
+  {
+    "sciName": "Charadrius semipalmatus",
+    "comName": "Semipalmated Plover",
+    "comNameFr": "Pluvier semipalmé",
+    "speciesCode": "semplo"
+  },
+  {
+    "sciName": "Charadrius melodus",
+    "comName": "Piping Plover",
+    "comNameFr": "Pluvier siffleur",
+    "speciesCode": "pipplo"
+  },
+  {
+    "sciName": "Thinornis dubius",
+    "comName": "Little Ringed Plover",
+    "comNameFr": "Pluvier petit-gravelot",
+    "speciesCode": "lirplo"
+  },
+  {
+    "sciName": "Vanellus vanellus",
+    "comName": "Northern Lapwing",
+    "comNameFr": "Vanneau huppé",
+    "speciesCode": "norlap"
+  },
+  {
+    "sciName": "Anarhynchus mongolus/atrifrons",
+    "comName": "Siberian/Tibetan Sand-Plover",
+    "comNameFr": "Pluvier de Mongolie ou P. du Tibet",
+    "speciesCode": "lesplo"
+  },
+  {
+    "sciName": "Anarhynchus leschenaultii",
+    "comName": "Greater Sand-Plover",
+    "comNameFr": "Pluvier de Leschenault",
+    "speciesCode": "grsplo"
+  },
+  {
+    "sciName": "Anarhynchus wilsonia",
+    "comName": "Wilson's Plover",
+    "comNameFr": "Pluvier de Wilson",
+    "speciesCode": "wilplo"
+  },
+  {
+    "sciName": "Anarhynchus montanus",
+    "comName": "Mountain Plover",
+    "comNameFr": "Pluvier montagnard",
+    "speciesCode": "mouplo"
+  },
+  {
+    "sciName": "Anarhynchus nivosus/alexandrinus",
+    "comName": "Snowy/Kentish Plover",
+    "comNameFr": "Pluvier neigeux ou P. à collier interrompu",
+    "speciesCode": "snoplo"
+  },
+  {
+    "sciName": "Jacana spinosa",
+    "comName": "Northern Jacana",
+    "comNameFr": "Jacana du Mexique",
+    "speciesCode": "norjac"
+  },
+  {
+    "sciName": "Bartramia longicauda",
+    "comName": "Upland Sandpiper",
+    "comNameFr": "Maubèche des champs",
+    "speciesCode": "uplsan"
+  },
+  {
+    "sciName": "Numenius tahitiensis",
+    "comName": "Bristle-thighed Curlew",
+    "comNameFr": "Courlis d'Alaska",
+    "speciesCode": "brtcur"
+  },
+  {
+    "sciName": "Numenius phaeopus",
+    "comName": "Whimbrel",
+    "comNameFr": "Courlis corlieu",
+    "speciesCode": "whimbr"
+  },
+  {
+    "sciName": "Numenius minutus",
+    "comName": "Little Curlew",
+    "comNameFr": "Courlis nain",
+    "speciesCode": "litcur"
+  },
+  {
+    "sciName": "Numenius borealis",
+    "comName": "Eskimo Curlew",
+    "comNameFr": "Courlis esquimau",
+    "speciesCode": "eskcur"
+  },
+  {
+    "sciName": "Numenius americanus",
+    "comName": "Long-billed Curlew",
+    "comNameFr": "Courlis à long bec",
+    "speciesCode": "lobcur"
+  },
+  {
+    "sciName": "Numenius madagascariensis",
+    "comName": "Far Eastern Curlew",
+    "comNameFr": "Courlis de Sibérie",
+    "speciesCode": "faecur"
+  },
+  {
+    "sciName": "Numenius tenuirostris",
+    "comName": "Slender-billed Curlew",
+    "comNameFr": "Courlis à bec grêle",
+    "speciesCode": "slbcur"
+  },
+  {
+    "sciName": "Numenius arquata",
+    "comName": "Eurasian Curlew",
+    "comNameFr": "Courlis cendré",
+    "speciesCode": "eurcur"
+  },
+  {
+    "sciName": "Limosa lapponica",
+    "comName": "Bar-tailed Godwit",
+    "comNameFr": "Barge rousse",
+    "speciesCode": "batgod"
+  },
+  {
+    "sciName": "Limosa limosa",
+    "comName": "Black-tailed Godwit",
+    "comNameFr": "Barge à queue noire",
+    "speciesCode": "bktgod"
+  },
+  {
+    "sciName": "Limosa haemastica",
+    "comName": "Hudsonian Godwit",
+    "comNameFr": "Barge hudsonienne",
+    "speciesCode": "hudgod"
+  },
+  {
+    "sciName": "Limosa fedoa",
+    "comName": "Marbled Godwit",
+    "comNameFr": "Barge marbrée",
+    "speciesCode": "margod"
+  },
+  {
+    "sciName": "Limnodromus griseus",
+    "comName": "Short-billed Dowitcher",
+    "comNameFr": "Bécassin roux",
+    "speciesCode": "shbdow"
+  },
+  {
+    "sciName": "Limnodromus scolopaceus",
+    "comName": "Long-billed Dowitcher",
+    "comNameFr": "Bécassin à long bec",
+    "speciesCode": "lobdow"
+  },
+  {
+    "sciName": "Limnodromus griseus/scolopaceus",
+    "comName": "Short-billed/Long-billed Dowitcher",
+    "comNameFr": "Bécassin roux ou B. à long bec",
+    "speciesCode": "dowitc"
+  },
+  {
+    "sciName": "Lymnocryptes minimus",
+    "comName": "Jack Snipe",
+    "comNameFr": "Bécassine sourde",
+    "speciesCode": "jacsni"
+  },
+  {
+    "sciName": "Scolopax minor",
+    "comName": "American Woodcock",
+    "comNameFr": "Bécasse d'Amérique",
+    "speciesCode": "amewoo"
+  },
+  {
+    "sciName": "Scolopax rusticola",
+    "comName": "Eurasian Woodcock",
+    "comNameFr": "Bécasse des bois",
+    "speciesCode": "eurwoo"
+  },
+  {
+    "sciName": "Gallinago stenura",
+    "comName": "Pin-tailed Snipe",
+    "comNameFr": "Bécassine à queue pointue",
+    "speciesCode": "pitsni"
+  },
+  {
+    "sciName": "Gallinago gallinago",
+    "comName": "Common Snipe",
+    "comNameFr": "Bécassine des marais",
+    "speciesCode": "comsni"
+  },
+  {
+    "sciName": "Phalaropus tricolor",
+    "comName": "Wilson's Phalarope",
+    "comNameFr": "Phalarope de Wilson",
+    "speciesCode": "wilpha"
+  },
+  {
+    "sciName": "Phalaropus lobatus",
+    "comName": "Red-necked Phalarope",
+    "comNameFr": "Phalarope à bec étroit",
+    "speciesCode": "renpha"
+  },
+  {
+    "sciName": "Phalaropus sp.",
+    "comName": "phalarope sp.",
+    "comNameFr": "phalarope sp.",
+    "speciesCode": "phalar"
+  },
+  {
+    "sciName": "Xenus cinereus",
+    "comName": "Terek Sandpiper",
+    "comNameFr": "Chevalier bargette",
+    "speciesCode": "tersan"
+  },
+  {
+    "sciName": "Actitis hypoleucos",
+    "comName": "Common Sandpiper",
+    "comNameFr": "Chevalier guignette",
+    "speciesCode": "comsan"
+  },
+  {
+    "sciName": "Actitis macularius",
+    "comName": "Spotted Sandpiper",
+    "comNameFr": "Chevalier grivelé",
+    "speciesCode": "sposan"
+  },
+  {
+    "sciName": "Tringa ochropus",
+    "comName": "Green Sandpiper",
+    "comNameFr": "Chevalier cul-blanc",
+    "speciesCode": "grnsan"
+  },
+  {
+    "sciName": "Tringa solitaria",
+    "comName": "Solitary Sandpiper",
+    "comNameFr": "Chevalier solitaire",
+    "speciesCode": "solsan"
+  },
+  {
+    "sciName": "Tringa stagnatilis",
+    "comName": "Marsh Sandpiper",
+    "comNameFr": "Chevalier stagnatile",
+    "speciesCode": "marsan"
+  },
+  {
+    "sciName": "Tringa glareola",
+    "comName": "Wood Sandpiper",
+    "comNameFr": "Chevalier sylvain",
+    "speciesCode": "woosan"
+  },
+  {
+    "sciName": "Tringa flavipes",
+    "comName": "Lesser Yellowlegs",
+    "comNameFr": "Petit Chevalier",
+    "speciesCode": "lesyel"
+  },
+  {
+    "sciName": "Tringa erythropus",
+    "comName": "Spotted Redshank",
+    "comNameFr": "Chevalier arlequin",
+    "speciesCode": "spored"
+  },
+  {
+    "sciName": "Tringa nebularia",
+    "comName": "Common Greenshank",
+    "comNameFr": "Chevalier aboyeur",
+    "speciesCode": "comgre"
+  },
+  {
+    "sciName": "Tringa melanoleuca",
+    "comName": "Greater Yellowlegs",
+    "comNameFr": "Grand Chevalier",
+    "speciesCode": "greyel"
+  },
+  {
+    "sciName": "Arenaria interpres",
+    "comName": "Ruddy Turnstone",
+    "comNameFr": "Tournepierre à collier",
+    "speciesCode": "rudtur"
+  },
+  {
+    "sciName": "Arenaria melanocephala",
+    "comName": "Black Turnstone",
+    "comNameFr": "Tournepierre noir",
+    "speciesCode": "blktur"
+  },
+  {
+    "sciName": "Calidris tenuirostris",
+    "comName": "Great Knot",
+    "comNameFr": "Bécasseau de l'Anadyr",
+    "speciesCode": "grekno"
+  },
+  {
+    "sciName": "Calidris canutus",
+    "comName": "Red Knot",
+    "comNameFr": "Bécasseau maubèche",
+    "speciesCode": "redkno"
+  },
+  {
+    "sciName": "Calidris virgata",
+    "comName": "Surfbird",
+    "comNameFr": "Bécasseau du ressac",
+    "speciesCode": "surfbi"
+  },
+  {
+    "sciName": "Calidris pugnax",
+    "comName": "Ruff",
+    "comNameFr": "Combattant varié",
+    "speciesCode": "ruff"
+  },
+  {
+    "sciName": "Calidris falcinellus",
+    "comName": "Broad-billed Sandpiper",
+    "comNameFr": "Bécasseau falcinelle",
+    "speciesCode": "brbsan"
+  },
+  {
+    "sciName": "Calidris acuminata",
+    "comName": "Sharp-tailed Sandpiper",
+    "comNameFr": "Bécasseau à queue pointue",
+    "speciesCode": "shtsan"
+  },
+  {
+    "sciName": "Calidris ferruginea",
+    "comName": "Curlew Sandpiper",
+    "comNameFr": "Bécasseau cocorli",
+    "speciesCode": "cursan"
+  },
+  {
+    "sciName": "Calidris himantopus",
+    "comName": "Stilt Sandpiper",
+    "comNameFr": "Bécasseau à échasses",
+    "speciesCode": "stisan"
+  },
+  {
+    "sciName": "Calidris temminckii",
+    "comName": "Temminck's Stint",
+    "comNameFr": "Bécasseau de Temminck",
+    "speciesCode": "temsti"
+  },
+  {
+    "sciName": "Calidris subminuta",
+    "comName": "Long-toed Stint",
+    "comNameFr": "Bécasseau à longs doigts",
+    "speciesCode": "lotsti"
+  },
+  {
+    "sciName": "Calidris ruficollis",
+    "comName": "Red-necked Stint",
+    "comNameFr": "Bécasseau à col roux",
+    "speciesCode": "rensti"
+  },
+  {
+    "sciName": "Calidris subruficollis",
+    "comName": "Buff-breasted Sandpiper",
+    "comNameFr": "Bécasseau roussâtre",
+    "speciesCode": "bubsan"
+  },
+  {
+    "sciName": "Calidris alba",
+    "comName": "Sanderling",
+    "comNameFr": "Bécasseau sanderling",
+    "speciesCode": "sander"
+  },
+  {
+    "sciName": "Calidris alpina",
+    "comName": "Dunlin",
+    "comNameFr": "Bécasseau variable",
+    "speciesCode": "dunlin"
+  },
+  {
+    "sciName": "Calidris maritima",
+    "comName": "Purple Sandpiper",
+    "comNameFr": "Bécasseau violet",
+    "speciesCode": "pursan"
+  },
+  {
+    "sciName": "Calidris ptilocnemis",
+    "comName": "Rock Sandpiper",
+    "comNameFr": "Bécasseau des Aléoutiennes",
+    "speciesCode": "rocsan"
+  },
+  {
+    "sciName": "Calidris bairdii",
+    "comName": "Baird's Sandpiper",
+    "comNameFr": "Bécasseau de Baird",
+    "speciesCode": "baisan"
+  },
+  {
+    "sciName": "Calidris minuta",
+    "comName": "Little Stint",
+    "comNameFr": "Bécasseau minute",
+    "speciesCode": "litsti"
+  },
+  {
+    "sciName": "Calidris fuscicollis",
+    "comName": "White-rumped Sandpiper",
+    "comNameFr": "Bécasseau à croupion blanc",
+    "speciesCode": "whrsan"
+  },
+  {
+    "sciName": "Calidris minutilla",
+    "comName": "Least Sandpiper",
+    "comNameFr": "Bécasseau minuscule",
+    "speciesCode": "leasan"
+  },
+  {
+    "sciName": "Calidris melanotos",
+    "comName": "Pectoral Sandpiper",
+    "comNameFr": "Bécasseau à poitrine cendrée",
+    "speciesCode": "pecsan"
+  },
+  {
+    "sciName": "Calidris mauri",
+    "comName": "Western Sandpiper",
+    "comNameFr": "Bécasseau d'Alaska",
+    "speciesCode": "wessan"
+  },
+  {
+    "sciName": "Calidris pusilla",
+    "comName": "Semipalmated Sandpiper",
+    "comNameFr": "Bécasseau semipalmé",
+    "speciesCode": "semsan"
+  },
+  {
+    "sciName": "Calidris sp. (peep sp.)",
+    "comName": "peep sp.",
+    "comNameFr": "Calidris sp. (petit bécasseau sp.)",
+    "speciesCode": "calidr"
+  },
+  {
+    "sciName": "Turnix varius",
+    "comName": "Painted Buttonquail",
+    "comNameFr": "Turnix bariolé",
+    "speciesCode": "paibut"
+  },
+  {
+    "sciName": "Glareola pratincola",
+    "comName": "Collared Pratincole",
+    "comNameFr": "Glaréole à collier",
+    "speciesCode": "colpra"
+  },
+  {
+    "sciName": "Glareola maldivarum",
+    "comName": "Oriental Pratincole",
+    "comNameFr": "Glaréole orientale",
+    "speciesCode": "oripra"
+  },
+  {
+    "sciName": "Stercorarius longicaudus",
+    "comName": "Long-tailed Jaeger",
+    "comNameFr": "Labbe à longue queue",
+    "speciesCode": "lotjae"
+  },
+  {
+    "sciName": "Stercorarius parasiticus",
+    "comName": "Parasitic Jaeger",
+    "comNameFr": "Labbe parasite",
+    "speciesCode": "parjae"
+  },
+  {
+    "sciName": "Stercorarius pomarinus",
+    "comName": "Pomarine Jaeger",
+    "comNameFr": "Labbe pomarin",
+    "speciesCode": "pomjae"
+  },
+  {
+    "sciName": "Stercorarius sp. (jaeger sp.)",
+    "comName": "jaeger sp.",
+    "comNameFr": "Labbe pomarin, L. parasite ou L. à longue queue",
+    "speciesCode": "jaeger"
+  },
+  {
+    "sciName": "Stercorarius sp. (skua sp.)",
+    "comName": "skua sp.",
+    "comNameFr": "labbe sp. (groupe Catharacta)",
+    "speciesCode": "skua"
+  },
+  {
+    "sciName": "Cerorhinca monocerata",
+    "comName": "Rhinoceros Auklet",
+    "comNameFr": "Macareux rhinocéros",
+    "speciesCode": "rhiauk"
+  },
+  {
+    "sciName": "Fratercula cirrhata",
+    "comName": "Tufted Puffin",
+    "comNameFr": "Macareux huppé",
+    "speciesCode": "tufpuf"
+  },
+  {
+    "sciName": "Fratercula arctica",
+    "comName": "Atlantic Puffin",
+    "comNameFr": "Macareux moine",
+    "speciesCode": "atlpuf"
+  },
+  {
+    "sciName": "Fratercula corniculata",
+    "comName": "Horned Puffin",
+    "comNameFr": "Macareux cornu",
+    "speciesCode": "horpuf"
+  },
+  {
+    "sciName": "Ptychoramphus aleuticus",
+    "comName": "Cassin's Auklet",
+    "comNameFr": "Starique de Cassin",
+    "speciesCode": "casauk"
+  },
+  {
+    "sciName": "Aethia pusilla",
+    "comName": "Least Auklet",
+    "comNameFr": "Starique minuscule",
+    "speciesCode": "leaauk"
+  },
+  {
+    "sciName": "Aethia pygmaea",
+    "comName": "Whiskered Auklet",
+    "comNameFr": "Starique pygmée",
+    "speciesCode": "whiauk"
+  },
+  {
+    "sciName": "Aethia cristatella",
+    "comName": "Crested Auklet",
+    "comNameFr": "Starique cristatelle",
+    "speciesCode": "creauk"
+  },
+  {
+    "sciName": "Aethia psittacula",
+    "comName": "Parakeet Auklet",
+    "comNameFr": "Starique perroquet",
+    "speciesCode": "parauk"
+  },
+  {
+    "sciName": "Ptychoramphus/Aethia sp.",
+    "comName": "auklet sp.",
+    "comNameFr": "starique sp.",
+    "speciesCode": "auklet"
+  },
+  {
+    "sciName": "Brachyramphus perdix",
+    "comName": "Long-billed Murrelet",
+    "comNameFr": "Guillemot à long bec",
+    "speciesCode": "lobmur"
+  },
+  {
+    "sciName": "Brachyramphus brevirostris",
+    "comName": "Kittlitz's Murrelet",
+    "comNameFr": "Guillemot de Kittlitz",
+    "speciesCode": "kitmur"
+  },
+  {
+    "sciName": "Brachyramphus marmoratus",
+    "comName": "Marbled Murrelet",
+    "comNameFr": "Guillemot marbré",
+    "speciesCode": "marmur"
+  },
+  {
+    "sciName": "Cepphus grylle",
+    "comName": "Black Guillemot",
+    "comNameFr": "Guillemot à miroir",
+    "speciesCode": "blkgui"
+  },
+  {
+    "sciName": "Cepphus columba",
+    "comName": "Pigeon Guillemot",
+    "comNameFr": "Guillemot colombin",
+    "speciesCode": "piggui"
+  },
+  {
+    "sciName": "Alca torda",
+    "comName": "Razorbill",
+    "comNameFr": "Petit Pingouin",
+    "speciesCode": "razorb"
+  },
+  {
+    "sciName": "Pinguinus impennis",
+    "comName": "Great Auk",
+    "comNameFr": "Grand Pingouin",
+    "speciesCode": "greauk"
+  },
+  {
+    "sciName": "Alle alle",
+    "comName": "Dovekie",
+    "comNameFr": "Mergule nain",
+    "speciesCode": "doveki"
+  },
+  {
+    "sciName": "Uria lomvia",
+    "comName": "Thick-billed Murre",
+    "comNameFr": "Guillemot de Brünnich",
+    "speciesCode": "thbmur"
+  },
+  {
+    "sciName": "Uria aalge",
+    "comName": "Common Murre",
+    "comNameFr": "Guillemot marmette",
+    "speciesCode": "commur"
+  },
+  {
+    "sciName": "Uria lomvia/aalge",
+    "comName": "Thick-billed/Common Murre",
+    "comNameFr": "Guillemot de Brünnich ou G. marmette",
+    "speciesCode": "murre"
+  },
+  {
+    "sciName": "Synthliboramphus antiquus",
+    "comName": "Ancient Murrelet",
+    "comNameFr": "Guillemot à cou blanc",
+    "speciesCode": "ancmur"
+  },
+  {
+    "sciName": "Synthliboramphus scrippsi/hypoleucus",
+    "comName": "Scripps's/Guadalupe Murrelet (Xantus's Murrelet)",
+    "comNameFr": "Guillemot de Scripps ou G. de Xantus",
+    "speciesCode": "xanmur"
+  },
+  {
+    "sciName": "Synthliboramphus craveri",
+    "comName": "Craveri's Murrelet",
+    "comNameFr": "Guillemot de Craveri",
+    "speciesCode": "cramur"
+  },
+  {
+    "sciName": "Brachyramphus/Synthliboramphus sp.",
+    "comName": "murrelet sp.",
+    "comNameFr": "Synthliboramphus ou Brachyramphus sp.",
+    "speciesCode": "murrel"
+  },
+  {
+    "sciName": "Alcidae sp.",
+    "comName": "alcid sp.",
+    "comNameFr": "alcidé sp.",
+    "speciesCode": "alcid"
+  },
+  {
+    "sciName": "Hydrocoloeus minutus",
+    "comName": "Little Gull",
+    "comNameFr": "Mouette pygmée",
+    "speciesCode": "litgul"
+  },
+  {
+    "sciName": "Rhodostethia rosea",
+    "comName": "Ross's Gull",
+    "comNameFr": "Mouette rosée",
+    "speciesCode": "rosgul"
+  },
+  {
+    "sciName": "Rissa tridactyla",
+    "comName": "Black-legged Kittiwake",
+    "comNameFr": "Mouette tridactyle",
+    "speciesCode": "bklkit"
+  },
+  {
+    "sciName": "Rissa brevirostris",
+    "comName": "Red-legged Kittiwake",
+    "comNameFr": "Mouette des brumes",
+    "speciesCode": "relkit"
+  },
+  {
+    "sciName": "Pagophila eburnea",
+    "comName": "Ivory Gull",
+    "comNameFr": "Mouette blanche",
+    "speciesCode": "ivogul"
+  },
+  {
+    "sciName": "Xema sabini",
+    "comName": "Sabine's Gull",
+    "comNameFr": "Mouette de Sabine",
+    "speciesCode": "sabgul"
+  },
+  {
+    "sciName": "Chroicocephalus philadelphia",
+    "comName": "Bonaparte's Gull",
+    "comNameFr": "Mouette de Bonaparte",
+    "speciesCode": "bongul"
+  },
+  {
+    "sciName": "Chroicocephalus ridibundus",
+    "comName": "Black-headed Gull",
+    "comNameFr": "Mouette rieuse",
+    "speciesCode": "bkhgul"
+  },
+  {
+    "sciName": "Chroicocephalus cirrocephalus",
+    "comName": "Gray-hooded Gull",
+    "comNameFr": "Mouette à tête grise",
+    "speciesCode": "grhgul"
+  },
+  {
+    "sciName": "Leucophaeus modestus",
+    "comName": "Gray Gull",
+    "comNameFr": "Goéland gris",
+    "speciesCode": "grygul"
+  },
+  {
+    "sciName": "Leucophaeus atricilla",
+    "comName": "Laughing Gull",
+    "comNameFr": "Mouette atricille",
+    "speciesCode": "laugul"
+  },
+  {
+    "sciName": "Leucophaeus pipixcan",
+    "comName": "Franklin's Gull",
+    "comNameFr": "Mouette de Franklin",
+    "speciesCode": "fragul"
+  },
+  {
+    "sciName": "Larus belcheri",
+    "comName": "Belcher's Gull",
+    "comNameFr": "Goéland siméon",
+    "speciesCode": "belgul"
+  },
+  {
+    "sciName": "Larus crassirostris",
+    "comName": "Black-tailed Gull",
+    "comNameFr": "Goéland à queue noire",
+    "speciesCode": "bktgul"
+  },
+  {
+    "sciName": "Larus heermanni",
+    "comName": "Heermann's Gull",
+    "comNameFr": "Goéland de Heermann",
+    "speciesCode": "heegul"
+  },
+  {
+    "sciName": "Larus canus",
+    "comName": "Common Gull",
+    "comNameFr": "Goéland cendré",
+    "speciesCode": "mewgul"
+  },
+  {
+    "sciName": "Larus delawarensis",
+    "comName": "Ring-billed Gull",
+    "comNameFr": "Goéland à bec cerclé",
+    "speciesCode": "ribgul"
+  },
+  {
+    "sciName": "Larus livens",
+    "comName": "Yellow-footed Gull",
+    "comNameFr": "Goéland de Cortez",
+    "speciesCode": "yefgul"
+  },
+  {
+    "sciName": "Larus occidentalis",
+    "comName": "Western Gull",
+    "comNameFr": "Goéland d'Audubon",
+    "speciesCode": "wesgul"
+  },
+  {
+    "sciName": "Larus dominicanus",
+    "comName": "Kelp Gull",
+    "comNameFr": "Goéland dominicain",
+    "speciesCode": "kelgul"
+  },
+  {
+    "sciName": "Larus marinus",
+    "comName": "Great Black-backed Gull",
+    "comNameFr": "Goéland marin",
+    "speciesCode": "gbbgul"
+  },
+  {
+    "sciName": "Larus hyperboreus",
+    "comName": "Glaucous Gull",
+    "comNameFr": "Goéland bourgmestre",
+    "speciesCode": "glagul"
+  },
+  {
+    "sciName": "Larus smithsonianus/vegae/argentatus x hyperboreus",
+    "comName": "American Herring/Vega/European Herring x Glaucous Gull (hybrid)",
+    "comNameFr": "Hybride Goéland hudsonien/de la Vega/argenté x G. bourgmestre",
+    "speciesCode": "nelgul"
+  },
+  {
+    "sciName": "Larus fuscus",
+    "comName": "Lesser Black-backed Gull",
+    "comNameFr": "Goéland brun",
+    "speciesCode": "lbbgul"
+  },
+  {
+    "sciName": "Larus californicus",
+    "comName": "California Gull",
+    "comNameFr": "Goéland de Californie",
+    "speciesCode": "calgul"
+  },
+  {
+    "sciName": "Larus glaucescens",
+    "comName": "Glaucous-winged Gull",
+    "comNameFr": "Goéland à ailes grises",
+    "speciesCode": "glwgul"
+  },
+  {
+    "sciName": "Larus schistisagus",
+    "comName": "Slaty-backed Gull",
+    "comNameFr": "Goéland à manteau ardoisé",
+    "speciesCode": "slbgul"
+  },
+  {
+    "sciName": "Larus glaucoides thayeri",
+    "comName": "Iceland Gull (Thayer's)",
+    "comNameFr": "Goéland arctique (thayeri)",
+    "speciesCode": "thagul"
+  },
+  {
+    "sciName": "Larus glaucoides kumlieni/glaucoides",
+    "comName": "Iceland Gull (kumlieni/glaucoides)",
+    "comNameFr": "Goéland arctique (kumlieni/glaucoides)",
+    "speciesCode": "icegul"
+  },
+  {
+    "sciName": "Larinae sp.",
+    "comName": "gull sp.",
+    "comNameFr": "goéland ou mouette sp.",
+    "speciesCode": "larus"
+  },
+  {
+    "sciName": "Rynchops niger",
+    "comName": "Black Skimmer",
+    "comNameFr": "Bec-en-ciseaux noir",
+    "speciesCode": "blkski"
+  },
+  {
+    "sciName": "Gygis alba",
+    "comName": "White Tern",
+    "comNameFr": "Gygis blanche",
+    "speciesCode": "whiter"
+  },
+  {
+    "sciName": "Anous stolidus",
+    "comName": "Brown Noddy",
+    "comNameFr": "Noddi brun",
+    "speciesCode": "brnnod"
+  },
+  {
+    "sciName": "Anous minutus",
+    "comName": "Black Noddy",
+    "comNameFr": "Noddi noir",
+    "speciesCode": "blknod"
+  },
+  {
+    "sciName": "Anous stolidus/minutus",
+    "comName": "Brown/Black Noddy",
+    "comNameFr": "Noddi brun ou N. noir",
+    "speciesCode": "noddy"
+  },
+  {
+    "sciName": "Anous ceruleus",
+    "comName": "Blue-gray Noddy",
+    "comNameFr": "Noddi bleu",
+    "speciesCode": "bugnod"
+  },
+  {
+    "sciName": "Chlidonias niger",
+    "comName": "Black Tern",
+    "comNameFr": "Guifette noire",
+    "speciesCode": "blkter"
+  },
+  {
+    "sciName": "Chlidonias leucopterus",
+    "comName": "White-winged Tern",
+    "comNameFr": "Guifette leucoptère",
+    "speciesCode": "whwter"
+  },
+  {
+    "sciName": "Sterna forsteri",
+    "comName": "Forster's Tern",
+    "comNameFr": "Sterne de Forster",
+    "speciesCode": "forter"
+  },
+  {
+    "sciName": "Sterna trudeaui",
+    "comName": "Snowy-crowned Tern",
+    "comNameFr": "Sterne de Trudeau",
+    "speciesCode": "truter"
+  },
+  {
+    "sciName": "Sterna paradisaea",
+    "comName": "Arctic Tern",
+    "comNameFr": "Sterne arctique",
+    "speciesCode": "arcter"
+  },
+  {
+    "sciName": "Sterna hirundo",
+    "comName": "Common Tern",
+    "comNameFr": "Sterne pierregarin",
+    "speciesCode": "comter"
+  },
+  {
+    "sciName": "Sterna dougallii",
+    "comName": "Roseate Tern",
+    "comNameFr": "Sterne de Dougall",
+    "speciesCode": "roster"
+  },
+  {
+    "sciName": "Sterna sp.",
+    "comName": "Sterna sp.",
+    "comNameFr": "Sterna sp.",
+    "speciesCode": "sterna"
+  },
+  {
+    "sciName": "Phoenicopterus ruber/roseus",
+    "comName": "American/Greater Flamingo",
+    "comNameFr": "Flamant des Caraïbes ou F. rose",
+    "speciesCode": "grefla"
+  },
+  {
+    "sciName": "Tachybaptus dominicus",
+    "comName": "Least Grebe",
+    "comNameFr": "Grèbe minime",
+    "speciesCode": "leagre"
+  },
+  {
+    "sciName": "Podilymbus podiceps",
+    "comName": "Pied-billed Grebe",
+    "comNameFr": "Grèbe à bec bigarré",
+    "speciesCode": "pibgre"
+  },
+  {
+    "sciName": "Podiceps auritus",
+    "comName": "Horned Grebe",
+    "comNameFr": "Grèbe esclavon",
+    "speciesCode": "horgre"
+  },
+  {
+    "sciName": "Podiceps grisegena",
+    "comName": "Red-necked Grebe",
+    "comNameFr": "Grèbe jougris",
+    "speciesCode": "rengre"
+  },
+  {
+    "sciName": "Podiceps nigricollis",
+    "comName": "Eared Grebe",
+    "comNameFr": "Grèbe à cou noir",
+    "speciesCode": "eargre"
+  },
+  {
+    "sciName": "Aechmophorus occidentalis",
+    "comName": "Western Grebe",
+    "comNameFr": "Grèbe élégant",
+    "speciesCode": "wesgre"
+  },
+  {
+    "sciName": "Aechmophorus clarkii",
+    "comName": "Clark's Grebe",
+    "comNameFr": "Grèbe à face blanche",
+    "speciesCode": "clagre"
+  },
+  {
+    "sciName": "Phaethon lepturus",
+    "comName": "White-tailed Tropicbird",
+    "comNameFr": "Phaéton à bec jaune",
+    "speciesCode": "whttro"
+  },
+  {
+    "sciName": "Phaethon aethereus",
+    "comName": "Red-billed Tropicbird",
+    "comNameFr": "Phaéton à bec rouge",
+    "speciesCode": "rebtro"
+  },
+  {
+    "sciName": "Phaethon rubricauda",
+    "comName": "Red-tailed Tropicbird",
+    "comNameFr": "Phaéton à brins rouges",
+    "speciesCode": "rettro"
+  },
+  {
+    "sciName": "Gavia stellata",
+    "comName": "Red-throated Loon",
+    "comNameFr": "Plongeon catmarin",
+    "speciesCode": "retloo"
+  },
+  {
+    "sciName": "Gavia arctica",
+    "comName": "Arctic Loon",
+    "comNameFr": "Plongeon arctique",
+    "speciesCode": "arcloo"
+  },
+  {
+    "sciName": "Gavia pacifica",
+    "comName": "Pacific Loon",
+    "comNameFr": "Plongeon du Pacifique",
+    "speciesCode": "pacloo"
+  },
+  {
+    "sciName": "Gavia immer",
+    "comName": "Common Loon",
+    "comNameFr": "Plongeon huard",
+    "speciesCode": "comloo"
+  },
+  {
+    "sciName": "Gavia adamsii",
+    "comName": "Yellow-billed Loon",
+    "comNameFr": "Plongeon à bec blanc",
+    "speciesCode": "yebloo"
+  },
+  {
+    "sciName": "Gavia sp.",
+    "comName": "loon sp.",
+    "comNameFr": "plongeon sp.",
+    "speciesCode": "loon"
+  },
+  {
+    "sciName": "Diomedea exulans/dabbenena/antipodensis",
+    "comName": "Snowy/Tristan/Antipodean Albatross",
+    "comNameFr": "Albatros hurleur, A. de Tristan da Cunha ou A. des Antipodes",
+    "speciesCode": "wanalb"
+  },
+  {
+    "sciName": "Phoebastria irrorata",
+    "comName": "Waved Albatross",
+    "comNameFr": "Albatros des Galapagos",
+    "speciesCode": "wavalb"
+  },
+  {
+    "sciName": "Phoebastria immutabilis",
+    "comName": "Laysan Albatross",
+    "comNameFr": "Albatros de Laysan",
+    "speciesCode": "layalb"
+  },
+  {
+    "sciName": "Phoebastria nigripes",
+    "comName": "Black-footed Albatross",
+    "comNameFr": "Albatros à pieds noirs",
+    "speciesCode": "bkfalb"
+  },
+  {
+    "sciName": "Phoebastria albatrus",
+    "comName": "Short-tailed Albatross",
+    "comNameFr": "Albatros à queue courte",
+    "speciesCode": "shtalb"
+  },
+  {
+    "sciName": "Thalassarche chlororhynchos/carteri",
+    "comName": "Atlantic/Indian Yellow-nosed Albatross",
+    "comNameFr": "Albatros à nez jaune ou A. de Carter",
+    "speciesCode": "yenalb"
+  },
+  {
+    "sciName": "Thalassarche chrysostoma",
+    "comName": "Gray-headed Albatross",
+    "comNameFr": "Albatros à tête grise",
+    "speciesCode": "gyhalb"
+  },
+  {
+    "sciName": "Thalassarche cauta/salvini/eremita",
+    "comName": "White-capped/Salvin's/Chatham Albatross",
+    "comNameFr": "Albatros à cape blanche, A. de Salvin ou A. des Chatham",
+    "speciesCode": "shyalb"
+  },
+  {
+    "sciName": "Thalassarche melanophris",
+    "comName": "Black-browed Albatross",
+    "comNameFr": "Albatros à sourcils noirs",
+    "speciesCode": "bkbalb"
+  },
+  {
+    "sciName": "Oceanites oceanicus",
+    "comName": "Wilson's Storm-Petrel",
+    "comNameFr": "Océanite de Wilson",
+    "speciesCode": "wispet"
+  },
+  {
+    "sciName": "Pelagodroma marina",
+    "comName": "White-faced Storm-Petrel",
+    "comNameFr": "Océanite frégate",
+    "speciesCode": "wfspet"
+  },
+  {
+    "sciName": "Hydrobates pelagicus",
+    "comName": "European Storm-Petrel",
+    "comNameFr": "Océanite tempête",
+    "speciesCode": "bripet"
+  },
+  {
+    "sciName": "Hydrobates furcatus",
+    "comName": "Fork-tailed Storm-Petrel",
+    "comNameFr": "Océanite à queue fourchue",
+    "speciesCode": "ftspet"
+  },
+  {
+    "sciName": "Hydrobates leucorhous",
+    "comName": "Leach's Storm-Petrel",
+    "comNameFr": "Océanite cul-blanc",
+    "speciesCode": "lcspet"
+  },
+  {
+    "sciName": "Hydrobates monorhis",
+    "comName": "Swinhoe's Storm-Petrel",
+    "comNameFr": "Océanite de Swinhoe",
+    "speciesCode": "swspet"
+  },
+  {
+    "sciName": "Hydrobates homochroa",
+    "comName": "Ashy Storm-Petrel",
+    "comNameFr": "Océanite cendré",
+    "speciesCode": "asspet"
+  },
+  {
+    "sciName": "Hydrobates castro",
+    "comName": "Band-rumped Storm-Petrel",
+    "comNameFr": "Océanite de Castro",
+    "speciesCode": "barpet"
+  },
+  {
+    "sciName": "Hydrobates tethys",
+    "comName": "Wedge-rumped Storm-Petrel",
+    "comNameFr": "Océanite téthys",
+    "speciesCode": "wrspet"
+  },
+  {
+    "sciName": "Hydrobates melania",
+    "comName": "Black Storm-Petrel",
+    "comNameFr": "Océanite noir",
+    "speciesCode": "bkspet"
+  },
+  {
+    "sciName": "Hydrobates macrodactylus",
+    "comName": "Guadalupe Storm-Petrel",
+    "comNameFr": "Océanite de Guadalupe",
+    "speciesCode": "guspet"
+  },
+  {
+    "sciName": "Hydrobates markhami",
+    "comName": "Markham's Storm-Petrel",
+    "comNameFr": "Océanite de Markham",
+    "speciesCode": "maspet"
+  },
+  {
+    "sciName": "Hydrobates tristrami",
+    "comName": "Tristram's Storm-Petrel",
+    "comNameFr": "Océanite de Tristram",
+    "speciesCode": "trspet"
+  },
+  {
+    "sciName": "Hydrobates microsoma",
+    "comName": "Least Storm-Petrel",
+    "comNameFr": "Océanite minute",
+    "speciesCode": "lsspet"
+  },
+  {
+    "sciName": "Oceanitidae/Hydrobatidae sp.",
+    "comName": "storm-petrel sp.",
+    "comNameFr": "océanite sp.",
+    "speciesCode": "stopet"
+  },
+  {
+    "sciName": "Fulmarus glacialis",
+    "comName": "Northern Fulmar",
+    "comNameFr": "Fulmar boréal",
+    "speciesCode": "norful"
+  },
+  {
+    "sciName": "Daption capense",
+    "comName": "Pintado Petrel",
+    "comNameFr": "Damier du Cap",
+    "speciesCode": "cappet"
+  },
+  {
+    "sciName": "Pterodroma neglecta",
+    "comName": "Kermadec Petrel",
+    "comNameFr": "Pétrel des Kermadec",
+    "speciesCode": "kerpet"
+  },
+  {
+    "sciName": "Pterodroma arminjoniana/heraldica",
+    "comName": "Trindade/Herald Petrel",
+    "comNameFr": "Pétrel de Trindade ou P. du Herald",
+    "speciesCode": "herpet"
+  },
+  {
+    "sciName": "Pterodroma ultima",
+    "comName": "Murphy's Petrel",
+    "comNameFr": "Pétrel de Murphy",
+    "speciesCode": "murpet"
+  },
+  {
+    "sciName": "Pterodroma madeira",
+    "comName": "Zino's Petrel",
+    "comNameFr": "Pétrel de Madère",
+    "speciesCode": "madpet"
+  },
+  {
+    "sciName": "Pterodroma inexpectata",
+    "comName": "Mottled Petrel",
+    "comNameFr": "Pétrel maculé",
+    "speciesCode": "motpet"
+  },
+  {
+    "sciName": "Pterodroma cahow",
+    "comName": "Bermuda Petrel",
+    "comNameFr": "Pétrel des Bermudes",
+    "speciesCode": "berpet"
+  },
+  {
+    "sciName": "Pterodroma hasitata",
+    "comName": "Black-capped Petrel",
+    "comNameFr": "Pétrel diablotin",
+    "speciesCode": "bkcpet"
+  },
+  {
+    "sciName": "Pterodroma externa",
+    "comName": "Juan Fernandez Petrel",
+    "comNameFr": "Pétrel de Juan Fernandez",
+    "speciesCode": "jufpet"
+  },
+  {
+    "sciName": "Pterodroma phaeopygia",
+    "comName": "Galapagos Petrel",
+    "comNameFr": "Pétrel des Galapagos",
+    "speciesCode": "galpet"
+  },
+  {
+    "sciName": "Pterodroma cervicalis",
+    "comName": "White-necked Petrel",
+    "comNameFr": "Pétrel à col blanc",
+    "speciesCode": "whnpet"
+  },
+  {
+    "sciName": "Pterodroma hypoleuca",
+    "comName": "Bonin Petrel",
+    "comNameFr": "Pétrel des Bonin",
+    "speciesCode": "bonpet"
+  },
+  {
+    "sciName": "Pterodroma nigripennis",
+    "comName": "Black-winged Petrel",
+    "comNameFr": "Pétrel à ailes noires",
+    "speciesCode": "bkwpet"
+  },
+  {
+    "sciName": "Pterodroma cookii",
+    "comName": "Cook's Petrel",
+    "comNameFr": "Pétrel de Cook",
+    "speciesCode": "coopet"
+  },
+  {
+    "sciName": "Pterodroma longirostris",
+    "comName": "Stejneger's Petrel",
+    "comNameFr": "Pétrel de Stejneger",
+    "speciesCode": "stepet"
+  },
+  {
+    "sciName": "Pterodroma sp.",
+    "comName": "Pterodroma sp.",
+    "comNameFr": "Pterodroma sp.",
+    "speciesCode": "pterod"
+  },
+  {
+    "sciName": "Bulweria bulwerii",
+    "comName": "Bulwer's Petrel",
+    "comNameFr": "Pétrel de Bulwer",
+    "speciesCode": "bulpet"
+  },
+  {
+    "sciName": "Bulweria fallax",
+    "comName": "Jouanin's Petrel",
+    "comNameFr": "Pétrel de Jouanin",
+    "speciesCode": "joupet"
+  },
+  {
+    "sciName": "Procellaria cinerea",
+    "comName": "Gray Petrel",
+    "comNameFr": "Puffin gris",
+    "speciesCode": "grapet"
+  },
+  {
+    "sciName": "Calonectris leucomelas",
+    "comName": "Streaked Shearwater",
+    "comNameFr": "Puffin leucomèle",
+    "speciesCode": "strshe"
+  },
+  {
+    "sciName": "Calonectris borealis/diomedea",
+    "comName": "Cory's/Scopoli's Shearwater",
+    "comNameFr": "Puffin cendré ou P. de Scopoli",
+    "speciesCode": "corshe"
+  },
+  {
+    "sciName": "Ardenna creatopus",
+    "comName": "Pink-footed Shearwater",
+    "comNameFr": "Puffin à pieds roses",
+    "speciesCode": "pifshe"
+  },
+  {
+    "sciName": "Ardenna carneipes",
+    "comName": "Flesh-footed Shearwater",
+    "comNameFr": "Puffin à pieds pâles",
+    "speciesCode": "flfshe"
+  },
+  {
+    "sciName": "Ardenna gravis",
+    "comName": "Great Shearwater",
+    "comNameFr": "Puffin majeur",
+    "speciesCode": "greshe"
+  },
+  {
+    "sciName": "Ardenna pacifica",
+    "comName": "Wedge-tailed Shearwater",
+    "comNameFr": "Puffin fouquet",
+    "speciesCode": "wetshe"
+  },
+  {
+    "sciName": "Ardenna bulleri",
+    "comName": "Buller's Shearwater",
+    "comNameFr": "Puffin de Buller",
+    "speciesCode": "bulshe"
+  },
+  {
+    "sciName": "Ardenna grisea",
+    "comName": "Sooty Shearwater",
+    "comNameFr": "Puffin fuligineux",
+    "speciesCode": "sooshe"
+  },
+  {
+    "sciName": "Ardenna tenuirostris",
+    "comName": "Short-tailed Shearwater",
+    "comNameFr": "Puffin à bec grêle",
+    "speciesCode": "shtshe"
+  },
+  {
+    "sciName": "Puffinus nativitatis",
+    "comName": "Christmas Shearwater",
+    "comNameFr": "Puffin de la Nativité",
+    "speciesCode": "chrshe"
+  },
+  {
+    "sciName": "Puffinus puffinus",
+    "comName": "Manx Shearwater",
+    "comNameFr": "Puffin des Anglais",
+    "speciesCode": "manshe"
+  },
+  {
+    "sciName": "Puffinus auricularis/newelli",
+    "comName": "Townsend's/Newell's Shearwater",
+    "comNameFr": "Puffin de Townsend ou P. de Newell",
+    "speciesCode": "towshe"
+  },
+  {
+    "sciName": "Puffinus opisthomelas",
+    "comName": "Black-vented Shearwater",
+    "comNameFr": "Puffin cul-noir",
+    "speciesCode": "bkvshe"
+  },
+  {
+    "sciName": "Puffinus assimilis/elegans",
+    "comName": "Little/Subantarctic Shearwater",
+    "comNameFr": "Petit Puffin ou P. élégant",
+    "speciesCode": "litshe"
+  },
+  {
+    "sciName": "Puffinus lherminieri",
+    "comName": "Sargasso Shearwater",
+    "comNameFr": "Puffin des Sargasses",
+    "speciesCode": "audshe"
+  },
+  {
+    "sciName": "Procellariidae sp. (shearwater sp.)",
+    "comName": "shearwater sp.",
+    "comNameFr": "Calonectris, Ardenna ou Puffinus sp.",
+    "speciesCode": "shearw"
+  },
+  {
+    "sciName": "Jabiru mycteria",
+    "comName": "Jabiru",
+    "comNameFr": "Jabiru d'Amérique",
+    "speciesCode": "jabiru"
+  },
+  {
+    "sciName": "Mycteria americana",
+    "comName": "Wood Stork",
+    "comNameFr": "Tantale d'Amérique",
+    "speciesCode": "woosto"
+  },
+  {
+    "sciName": "Fregata magnificens",
+    "comName": "Magnificent Frigatebird",
+    "comNameFr": "Frégate superbe",
+    "speciesCode": "magfri"
+  },
+  {
+    "sciName": "Fregata ariel",
+    "comName": "Lesser Frigatebird",
+    "comNameFr": "Frégate ariel",
+    "speciesCode": "lesfri"
+  },
+  {
+    "sciName": "Fregata minor",
+    "comName": "Great Frigatebird",
+    "comNameFr": "Frégate du Pacifique",
+    "speciesCode": "grefri"
+  },
+  {
+    "sciName": "Fregata sp.",
+    "comName": "frigatebird sp.",
+    "comNameFr": "frégate sp.",
+    "speciesCode": "frigat"
+  },
+  {
+    "sciName": "Morus bassanus",
+    "comName": "Northern Gannet",
+    "comNameFr": "Fou de Bassan",
+    "speciesCode": "norgan"
+  },
+  {
+    "sciName": "Sula sula",
+    "comName": "Red-footed Booby",
+    "comNameFr": "Fou à pieds rouges",
+    "speciesCode": "refboo"
+  },
+  {
+    "sciName": "Sula leucogaster",
+    "comName": "Brown Booby",
+    "comNameFr": "Fou brun",
+    "speciesCode": "brnboo"
+  },
+  {
+    "sciName": "Sula dactylatra",
+    "comName": "Masked Booby",
+    "comNameFr": "Fou masqué",
+    "speciesCode": "masboo"
+  },
+  {
+    "sciName": "Sula nebouxii",
+    "comName": "Blue-footed Booby",
+    "comNameFr": "Fou à pieds bleus",
+    "speciesCode": "bfoboo"
+  },
+  {
+    "sciName": "Sulidae sp.",
+    "comName": "sulid sp.",
+    "comNameFr": "fou sp.",
+    "speciesCode": "sulid"
+  },
+  {
+    "sciName": "Anhinga anhinga",
+    "comName": "Anhinga",
+    "comNameFr": "Anhinga d'Amérique",
+    "speciesCode": "anhing"
+  },
+  {
+    "sciName": "Urile penicillatus",
+    "comName": "Brandt's Cormorant",
+    "comNameFr": "Cormoran de Brandt",
+    "speciesCode": "bracor"
+  },
+  {
+    "sciName": "Urile urile",
+    "comName": "Red-faced Cormorant",
+    "comNameFr": "Cormoran à face rouge",
+    "speciesCode": "refcor"
+  },
+  {
+    "sciName": "Urile pelagicus",
+    "comName": "Pelagic Cormorant",
+    "comNameFr": "Cormoran pélagique",
+    "speciesCode": "pelcor"
+  },
+  {
+    "sciName": "Phalacrocorax carbo",
+    "comName": "Great Cormorant",
+    "comNameFr": "Grand Cormoran",
+    "speciesCode": "grecor"
+  },
+  {
+    "sciName": "Nannopterum auritum",
+    "comName": "Double-crested Cormorant",
+    "comNameFr": "Cormoran à aigrettes",
+    "speciesCode": "doccor"
+  },
+  {
+    "sciName": "Nannopterum brasilianum",
+    "comName": "Neotropic Cormorant",
+    "comNameFr": "Cormoran vigua",
+    "speciesCode": "neocor"
+  },
+  {
+    "sciName": "Eudocimus albus",
+    "comName": "White Ibis",
+    "comNameFr": "Ibis blanc",
+    "speciesCode": "whiibi"
+  },
+  {
+    "sciName": "Eudocimus ruber",
+    "comName": "Scarlet Ibis",
+    "comNameFr": "Ibis rouge",
+    "speciesCode": "scaibi"
+  },
+  {
+    "sciName": "Plegadis falcinellus",
+    "comName": "Glossy Ibis",
+    "comNameFr": "Ibis falcinelle",
+    "speciesCode": "gloibi"
+  },
+  {
+    "sciName": "Plegadis chihi",
+    "comName": "White-faced Ibis",
+    "comNameFr": "Ibis à face blanche",
+    "speciesCode": "whfibi"
+  },
+  {
+    "sciName": "Plegadis falcinellus/chihi",
+    "comName": "Glossy/White-faced Ibis",
+    "comNameFr": "Ibis falcinelle ou I. à face blanche",
+    "speciesCode": "plegad"
+  },
+  {
+    "sciName": "Botaurus lentiginosus",
+    "comName": "American Bittern",
+    "comNameFr": "Butor d'Amérique",
+    "speciesCode": "amebit"
+  },
+  {
+    "sciName": "Botaurus exilis",
+    "comName": "Least Bittern",
+    "comNameFr": "Petit Blongios",
+    "speciesCode": "leabit"
+  },
+  {
+    "sciName": "Botaurus sinensis",
+    "comName": "Yellow Bittern",
+    "comNameFr": "Blongios de Chine",
+    "speciesCode": "yelbit"
+  },
+  {
+    "sciName": "Nyctanassa violacea",
+    "comName": "Yellow-crowned Night Heron",
+    "comNameFr": "Bihoreau violacé",
+    "speciesCode": "ycnher"
+  },
+  {
+    "sciName": "Nycticorax nycticorax",
+    "comName": "Black-crowned Night Heron",
+    "comNameFr": "Bihoreau gris",
+    "speciesCode": "bcnher"
+  },
+  {
+    "sciName": "Egretta caerulea",
+    "comName": "Little Blue Heron",
+    "comNameFr": "Aigrette bleue",
+    "speciesCode": "libher"
+  },
+  {
+    "sciName": "Egretta tricolor",
+    "comName": "Tricolored Heron",
+    "comNameFr": "Aigrette tricolore",
+    "speciesCode": "triher"
+  },
+  {
+    "sciName": "Egretta rufescens",
+    "comName": "Reddish Egret",
+    "comNameFr": "Aigrette roussâtre",
+    "speciesCode": "redegr"
+  },
+  {
+    "sciName": "Egretta eulophotes",
+    "comName": "Chinese Egret",
+    "comNameFr": "Aigrette de Chine",
+    "speciesCode": "chiegr"
+  },
+  {
+    "sciName": "Egretta thula",
+    "comName": "Snowy Egret",
+    "comNameFr": "Aigrette neigeuse",
+    "speciesCode": "snoegr"
+  },
+  {
+    "sciName": "Egretta garzetta",
+    "comName": "Little Egret",
+    "comNameFr": "Aigrette garzette",
+    "speciesCode": "litegr"
+  },
+  {
+    "sciName": "Egretta gularis",
+    "comName": "Western Reef-Heron",
+    "comNameFr": "Aigrette à gorge blanche",
+    "speciesCode": "werher"
+  },
+  {
+    "sciName": "Butorides striata",
+    "comName": "Striated Heron",
+    "comNameFr": "Héron strié",
+    "speciesCode": "strher"
+  },
+  {
+    "sciName": "Butorides virescens",
+    "comName": "Green Heron",
+    "comNameFr": "Héron vert",
+    "speciesCode": "grnher"
+  },
+  {
+    "sciName": "Ardea ibis/coromanda",
+    "comName": "Western/Eastern Cattle-Egret",
+    "comNameFr": "Héron garde-boeufs ou H. de Coromandel",
+    "speciesCode": "categr"
+  },
+  {
+    "sciName": "Ardea alba",
+    "comName": "Great Egret",
+    "comNameFr": "Grande Aigrette",
+    "speciesCode": "greegr"
+  },
+  {
+    "sciName": "Ardea herodias [herodias Group]",
+    "comName": "Great Blue Heron (Great Blue)",
+    "comNameFr": "Grand Héron (groupe herodias)",
+    "speciesCode": "grbher"
+  },
+  {
+    "sciName": "Ardea herodias occidentalis",
+    "comName": "Great Blue Heron (Great White)",
+    "comNameFr": "Grand Héron (occidentalis)",
+    "speciesCode": "grwher"
+  },
+  {
+    "sciName": "Ardea herodias wardi x occidentalis",
+    "comName": "Great Blue Heron (Wurdemann's)",
+    "comNameFr": "Grand Héron (forme de Würdemann)",
+    "speciesCode": "wurher"
+  },
+  {
+    "sciName": "Pelecanus erythrorhynchos",
+    "comName": "American White Pelican",
+    "comNameFr": "Pélican d'Amérique",
+    "speciesCode": "amwpel"
+  },
+  {
+    "sciName": "Pelecanus occidentalis",
+    "comName": "Brown Pelican",
+    "comNameFr": "Pélican brun",
+    "speciesCode": "brnpel"
+  },
+  {
+    "sciName": "Gymnogyps californianus",
+    "comName": "California Condor",
+    "comNameFr": "Condor de Californie",
+    "speciesCode": "calcon"
+  },
+  {
+    "sciName": "Coragyps atratus",
+    "comName": "Black Vulture",
+    "comNameFr": "Urubu noir",
+    "speciesCode": "blkvul"
+  },
+  {
+    "sciName": "Cathartes aura",
+    "comName": "Turkey Vulture",
+    "comNameFr": "Urubu à tête rouge",
+    "speciesCode": "turvul"
+  },
+  {
+    "sciName": "Pandion haliaetus",
+    "comName": "Osprey",
+    "comNameFr": "Balbuzard pêcheur",
+    "speciesCode": "osprey"
+  },
+  {
+    "sciName": "Elanus leucurus",
+    "comName": "White-tailed Kite",
+    "comNameFr": "Élanion à queue blanche",
+    "speciesCode": "whtkit"
+  },
+  {
+    "sciName": "Chondrohierax uncinatus",
+    "comName": "Hook-billed Kite",
+    "comNameFr": "Bec-en-croc de Temminck",
+    "speciesCode": "hobkit"
+  },
+  {
+    "sciName": "Elanoides forficatus",
+    "comName": "Swallow-tailed Kite",
+    "comNameFr": "Naucler à queue fourchue",
+    "speciesCode": "swtkit"
+  },
+  {
+    "sciName": "Aquila chrysaetos",
+    "comName": "Golden Eagle",
+    "comNameFr": "Aigle royal",
+    "speciesCode": "goleag"
+  },
+  {
+    "sciName": "Accipiter striatus",
+    "comName": "Sharp-shinned Hawk",
+    "comNameFr": "Épervier brun",
+    "speciesCode": "shshaw"
+  },
+  {
+    "sciName": "Astur cooperii",
+    "comName": "Cooper's Hawk",
+    "comNameFr": "Épervier de Cooper",
+    "speciesCode": "coohaw"
+  },
+  {
+    "sciName": "Astur atricapillus",
+    "comName": "American Goshawk",
+    "comNameFr": "Autour d'Amérique",
+    "speciesCode": "norgos"
+  },
+  {
+    "sciName": "Aerospiza/Tachyspiza/Accipiter/Astur sp.",
+    "comName": "Accipitrine hawk sp. (former Accipiter sp.)",
+    "comNameFr": "Aerospiza, Tachyspiza, Accipiter ou Astur sp.",
+    "speciesCode": "accipi"
+  },
+  {
+    "sciName": "Circus cyaneus/hudsonius",
+    "comName": "Hen/Northern Harrier",
+    "comNameFr": "Busard Saint-Martin ou B. des marais",
+    "speciesCode": "norhar"
+  },
+  {
+    "sciName": "Haliaeetus albicilla",
+    "comName": "White-tailed Eagle",
+    "comNameFr": "Pygargue à queue blanche",
+    "speciesCode": "whteag"
+  },
+  {
+    "sciName": "Haliaeetus leucocephalus",
+    "comName": "Bald Eagle",
+    "comNameFr": "Pygargue à tête blanche",
+    "speciesCode": "baleag"
+  },
+  {
+    "sciName": "Haliaeetus pelagicus",
+    "comName": "Steller's Sea-Eagle",
+    "comNameFr": "Pygargue empereur",
+    "speciesCode": "stseag"
+  },
+  {
+    "sciName": "Ictinia mississippiensis",
+    "comName": "Mississippi Kite",
+    "comNameFr": "Milan du Mississippi",
+    "speciesCode": "miskit"
+  },
+  {
+    "sciName": "Geranospiza caerulescens",
+    "comName": "Crane Hawk",
+    "comNameFr": "Buse échasse",
+    "speciesCode": "crahaw"
+  },
+  {
+    "sciName": "Rostrhamus sociabilis",
+    "comName": "Snail Kite",
+    "comNameFr": "Milan des marais",
+    "speciesCode": "snakit"
+  },
+  {
+    "sciName": "Cryptoleucopteryx plumbea",
+    "comName": "Plumbeous Hawk",
+    "comNameFr": "Buse plombée",
+    "speciesCode": "pluhaw"
+  },
+  {
+    "sciName": "Buteogallus anthracinus anthracinus",
+    "comName": "Common Black Hawk (Common)",
+    "comNameFr": "Buse noire (anthracinus)",
+    "speciesCode": "cobhaw"
+  },
+  {
+    "sciName": "Rupornis magnirostris",
+    "comName": "Roadside Hawk",
+    "comNameFr": "Buse à gros bec",
+    "speciesCode": "roahaw"
+  },
+  {
+    "sciName": "Parabuteo unicinctus",
+    "comName": "Harris's Hawk",
+    "comNameFr": "Buse de Harris",
+    "speciesCode": "hrshaw"
+  },
+  {
+    "sciName": "Geranoaetus albicaudatus",
+    "comName": "White-tailed Hawk",
+    "comNameFr": "Buse à queue blanche",
+    "speciesCode": "whthaw"
+  },
+  {
+    "sciName": "Leucopternis semiplumbeus",
+    "comName": "Semiplumbeous Hawk",
+    "comNameFr": "Buse semiplombée",
+    "speciesCode": "semhaw"
+  },
+  {
+    "sciName": "Buteo platypterus",
+    "comName": "Broad-winged Hawk",
+    "comNameFr": "Petite Buse",
+    "speciesCode": "brwhaw"
+  },
+  {
+    "sciName": "Buteo lineatus",
+    "comName": "Red-shouldered Hawk",
+    "comNameFr": "Buse à épaulettes",
+    "speciesCode": "reshaw"
+  },
+  {
+    "sciName": "Buteo albonotatus",
+    "comName": "Zone-tailed Hawk",
+    "comNameFr": "Buse à queue barrée",
+    "speciesCode": "zothaw"
+  },
+  {
+    "sciName": "Buteo solitarius",
+    "comName": "Hawaiian Hawk",
+    "comNameFr": "Buse d'Hawaï",
+    "speciesCode": "hawhaw"
+  },
+  {
+    "sciName": "Buteo brachyurus",
+    "comName": "Short-tailed Hawk",
+    "comNameFr": "Buse à queue courte",
+    "speciesCode": "shthaw"
+  },
+  {
+    "sciName": "Buteo swainsoni",
+    "comName": "Swainson's Hawk",
+    "comNameFr": "Buse de Swainson",
+    "speciesCode": "swahaw"
+  },
+  {
+    "sciName": "Buteo jamaicensis",
+    "comName": "Red-tailed Hawk",
+    "comNameFr": "Buse à queue rousse",
+    "speciesCode": "rethaw"
+  },
+  {
+    "sciName": "Buteo lagopus",
+    "comName": "Rough-legged Hawk",
+    "comNameFr": "Buse pattue",
+    "speciesCode": "rolhaw"
+  },
+  {
+    "sciName": "Buteo regalis",
+    "comName": "Ferruginous Hawk",
+    "comNameFr": "Buse rouilleuse",
+    "speciesCode": "ferhaw"
+  },
+  {
+    "sciName": "Buteo sp.",
+    "comName": "Buteo sp.",
+    "comNameFr": "Buteo sp.",
+    "speciesCode": "buteo"
+  },
+  {
+    "sciName": "Accipitridae sp. (hawk sp.)",
+    "comName": "hawk sp.",
+    "comNameFr": "rapace sp.",
+    "speciesCode": "hawk"
+  },
+  {
+    "sciName": "Tyto furcata",
+    "comName": "American Barn Owl",
+    "comNameFr": "Effraie d'Amérique",
+    "speciesCode": "brnowl"
+  },
+  {
+    "sciName": "Otus sunia",
+    "comName": "Oriental Scops-Owl",
+    "comNameFr": "Petit-duc d'Orient",
+    "speciesCode": "orsowl"
+  },
+  {
+    "sciName": "Psiloscops flammeolus",
+    "comName": "Flammulated Owl",
+    "comNameFr": "Petit-duc nain",
+    "speciesCode": "flaowl"
+  },
+  {
+    "sciName": "Gymnasio nudipes",
+    "comName": "Puerto Rican Owl",
+    "comNameFr": "Petit-duc de Porto Rico",
+    "speciesCode": "prsowl"
+  },
+  {
+    "sciName": "Megascops clarkii",
+    "comName": "Bare-shanked Screech-Owl",
+    "comNameFr": "Petit-duc de Clark",
+    "speciesCode": "bssowl"
+  },
+  {
+    "sciName": "Megascops choliba",
+    "comName": "Tropical Screech-Owl",
+    "comNameFr": "Petit-duc choliba",
+    "speciesCode": "trsowl"
+  },
+  {
+    "sciName": "Megascops guatemalae",
+    "comName": "Middle American Screech-Owl",
+    "comNameFr": "Petit-duc guatémaltèque",
+    "speciesCode": "vesowl"
+  },
+  {
+    "sciName": "Megascops barbarus",
+    "comName": "Bearded Screech-Owl",
+    "comNameFr": "Petit-duc bridé",
+    "speciesCode": "besowl"
+  },
+  {
+    "sciName": "Megascops seductus",
+    "comName": "Balsas Screech-Owl",
+    "comNameFr": "Petit-duc du Balsas",
+    "speciesCode": "basowl"
+  },
+  {
+    "sciName": "Margarobyas lawrencii",
+    "comName": "Bare-legged Owl",
+    "comNameFr": "Petit-duc de Cuba",
+    "speciesCode": "balowl"
+  },
+  {
+    "sciName": "Bubo virginianus",
+    "comName": "Great Horned Owl",
+    "comNameFr": "Grand-duc d'Amérique",
+    "speciesCode": "grhowl"
+  },
+  {
+    "sciName": "Surnia ulula",
+    "comName": "Northern Hawk Owl",
+    "comNameFr": "Épervière boréale",
+    "speciesCode": "nohowl"
+  },
+  {
+    "sciName": "Glaucidium gnoma",
+    "comName": "Northern Pygmy-Owl",
+    "comNameFr": "Chevêchette naine",
+    "speciesCode": "nopowl"
+  },
+  {
+    "sciName": "Glaucidium costaricanum",
+    "comName": "Costa Rican Pygmy-Owl",
+    "comNameFr": "Chevêchette du Costa Rica",
+    "speciesCode": "crpowl"
+  },
+  {
+    "sciName": "Glaucidium brasilianum",
+    "comName": "Ferruginous Pygmy-Owl",
+    "comNameFr": "Chevêchette brune",
+    "speciesCode": "fepowl"
+  },
+  {
+    "sciName": "Micrathene whitneyi",
+    "comName": "Elf Owl",
+    "comNameFr": "Chevêchette des saguaros",
+    "speciesCode": "elfowl"
+  },
+  {
+    "sciName": "Athene cunicularia",
+    "comName": "Burrowing Owl",
+    "comNameFr": "Chevêche des terriers",
+    "speciesCode": "burowl"
+  },
+  {
+    "sciName": "Strix virgata",
+    "comName": "Mottled Owl",
+    "comNameFr": "Chouette mouchetée",
+    "speciesCode": "motowl"
+  },
+  {
+    "sciName": "Strix occidentalis",
+    "comName": "Spotted Owl",
+    "comNameFr": "Chouette tachetée",
+    "speciesCode": "spoowl"
+  },
+  {
+    "sciName": "Strix varia",
+    "comName": "Barred Owl",
+    "comNameFr": "Chouette rayée",
+    "speciesCode": "brdowl"
+  },
+  {
+    "sciName": "Strix nebulosa",
+    "comName": "Great Gray Owl",
+    "comNameFr": "Chouette lapone",
+    "speciesCode": "grgowl"
+  },
+  {
+    "sciName": "Asio otus",
+    "comName": "Long-eared Owl",
+    "comNameFr": "Hibou moyen-duc",
+    "speciesCode": "loeowl"
+  },
+  {
+    "sciName": "Asio flammeus",
+    "comName": "Short-eared Owl",
+    "comNameFr": "Hibou des marais",
+    "speciesCode": "sheowl"
+  },
+  {
+    "sciName": "Aegolius funereus",
+    "comName": "Boreal Owl",
+    "comNameFr": "Nyctale de Tengmalm",
+    "speciesCode": "borowl"
+  },
+  {
+    "sciName": "Aegolius acadicus",
+    "comName": "Northern Saw-whet Owl",
+    "comNameFr": "Petite Nyctale",
+    "speciesCode": "nswowl"
+  },
+  {
+    "sciName": "Euptilotis neoxenus",
+    "comName": "Eared Quetzal",
+    "comNameFr": "Quetzal oreillard",
+    "speciesCode": "earque"
+  },
+  {
+    "sciName": "Trogon elegans",
+    "comName": "Elegant Trogon",
+    "comNameFr": "Trogon élégant",
+    "speciesCode": "eletro"
+  },
+  {
+    "sciName": "Upupa epops",
+    "comName": "Eurasian Hoopoe",
+    "comNameFr": "Huppe fasciée",
+    "speciesCode": "hoopoe"
+  },
+  {
+    "sciName": "Chloroceryle americana",
+    "comName": "Green Kingfisher",
+    "comNameFr": "Martin-pêcheur vert",
+    "speciesCode": "grnkin"
+  },
+  {
+    "sciName": "Jynx torquilla",
+    "comName": "Eurasian Wryneck",
+    "comNameFr": "Torcol fourmilier",
+    "speciesCode": "eurwry"
+  },
+  {
+    "sciName": "Sphyrapicus thyroideus",
+    "comName": "Williamson's Sapsucker",
+    "comNameFr": "Pic de Williamson",
+    "speciesCode": "wilsap"
+  },
+  {
+    "sciName": "Sphyrapicus varius",
+    "comName": "Yellow-bellied Sapsucker",
+    "comNameFr": "Pic maculé",
+    "speciesCode": "yebsap"
+  },
+  {
+    "sciName": "Sphyrapicus nuchalis",
+    "comName": "Red-naped Sapsucker",
+    "comNameFr": "Pic à nuque rouge",
+    "speciesCode": "rensap"
+  },
+  {
+    "sciName": "Sphyrapicus ruber",
+    "comName": "Red-breasted Sapsucker",
+    "comNameFr": "Pic à poitrine rouge",
+    "speciesCode": "rebsap"
+  },
+  {
+    "sciName": "Sphyrapicus sp.",
+    "comName": "sapsucker sp.",
+    "comNameFr": "Sphyrapicus sp.",
+    "speciesCode": "sapsuc"
+  },
+  {
+    "sciName": "Melanerpes lewis",
+    "comName": "Lewis's Woodpecker",
+    "comNameFr": "Pic de Lewis",
+    "speciesCode": "lewwoo"
+  },
+  {
+    "sciName": "Melanerpes erythrocephalus",
+    "comName": "Red-headed Woodpecker",
+    "comNameFr": "Pic à tête rouge",
+    "speciesCode": "rehwoo"
+  },
+  {
+    "sciName": "Melanerpes formicivorus",
+    "comName": "Acorn Woodpecker",
+    "comNameFr": "Pic glandivore",
+    "speciesCode": "acowoo"
+  },
+  {
+    "sciName": "Melanerpes pygmaeus",
+    "comName": "Yucatan Woodpecker",
+    "comNameFr": "Pic du Yucatan",
+    "speciesCode": "yucwoo"
+  },
+  {
+    "sciName": "Melanerpes uropygialis",
+    "comName": "Gila Woodpecker",
+    "comNameFr": "Pic des saguaros",
+    "speciesCode": "gilwoo"
+  },
+  {
+    "sciName": "Melanerpes aurifrons",
+    "comName": "Golden-fronted Woodpecker",
+    "comNameFr": "Pic à front doré",
+    "speciesCode": "gofwoo"
+  },
+  {
+    "sciName": "Melanerpes carolinus",
+    "comName": "Red-bellied Woodpecker",
+    "comNameFr": "Pic à ventre roux",
+    "speciesCode": "rebwoo"
+  },
+  {
+    "sciName": "Picoides arcticus",
+    "comName": "Black-backed Woodpecker",
+    "comNameFr": "Pic à dos noir",
+    "speciesCode": "bkbwoo"
+  },
+  {
+    "sciName": "Dendrocopos major",
+    "comName": "Great Spotted Woodpecker",
+    "comNameFr": "Pic épeiche",
+    "speciesCode": "grswoo"
+  },
+  {
+    "sciName": "Dryobates pubescens",
+    "comName": "Downy Woodpecker",
+    "comNameFr": "Pic mineur",
+    "speciesCode": "dowwoo"
+  },
+  {
+    "sciName": "Dryobates nuttallii",
+    "comName": "Nuttall's Woodpecker",
+    "comNameFr": "Pic de Nuttall",
+    "speciesCode": "nutwoo"
+  },
+  {
+    "sciName": "Dryobates scalaris",
+    "comName": "Ladder-backed Woodpecker",
+    "comNameFr": "Pic arlequin",
+    "speciesCode": "labwoo"
+  },
+  {
+    "sciName": "Dryobates borealis",
+    "comName": "Red-cockaded Woodpecker",
+    "comNameFr": "Pic à face blanche",
+    "speciesCode": "recwoo"
+  },
+  {
+    "sciName": "Dryobates villosus",
+    "comName": "Hairy Woodpecker",
+    "comNameFr": "Pic chevelu",
+    "speciesCode": "haiwoo"
+  },
+  {
+    "sciName": "Dryobates albolarvatus",
+    "comName": "White-headed Woodpecker",
+    "comNameFr": "Pic à tête blanche",
+    "speciesCode": "whhwoo"
+  },
+  {
+    "sciName": "Dryobates stricklandi",
+    "comName": "Strickland's Woodpecker",
+    "comNameFr": "Pic de Strickland",
+    "speciesCode": "strwoo"
+  },
+  {
+    "sciName": "Dryobates arizonae",
+    "comName": "Arizona Woodpecker",
+    "comNameFr": "Pic d'Arizona",
+    "speciesCode": "ariwoo"
+  },
+  {
+    "sciName": "Campephilus principalis",
+    "comName": "Ivory-billed Woodpecker",
+    "comNameFr": "Pic à bec ivoire",
+    "speciesCode": "ivbwoo"
+  },
+  {
+    "sciName": "Dryocopus pileatus",
+    "comName": "Pileated Woodpecker",
+    "comNameFr": "Grand Pic",
+    "speciesCode": "pilwoo"
+  },
+  {
+    "sciName": "Colaptes auratus",
+    "comName": "Northern Flicker",
+    "comNameFr": "Pic flamboyant",
+    "speciesCode": "norfli"
+  },
+  {
+    "sciName": "Colaptes auratus auratus/luteus",
+    "comName": "Northern Flicker (Yellow-shafted)",
+    "comNameFr": "Pic flamboyant (auratus/luteus)",
+    "speciesCode": "yesfli"
+  },
+  {
+    "sciName": "Colaptes auratus [cafer Group]",
+    "comName": "Northern Flicker (Red-shafted)",
+    "comNameFr": "Pic flamboyant (groupe cafer)",
+    "speciesCode": "resfli"
+  },
+  {
+    "sciName": "Colaptes auratus luteus x cafer",
+    "comName": "Northern Flicker (Yellow-shafted x Red-shafted)",
+    "comNameFr": "Pic flamboyant (hybride forme dorée x rosée)",
+    "speciesCode": "rxyfli"
+  },
+  {
+    "sciName": "Colaptes chrysoides",
+    "comName": "Gilded Flicker",
+    "comNameFr": "Pic chrysoïde",
+    "speciesCode": "gilfli"
+  },
+  {
+    "sciName": "Falco tinnunculus",
+    "comName": "Eurasian Kestrel",
+    "comNameFr": "Faucon crécerelle",
+    "speciesCode": "eurkes"
+  },
+  {
+    "sciName": "Falco sparverius",
+    "comName": "American Kestrel",
+    "comNameFr": "Crécerelle d'Amérique",
+    "speciesCode": "amekes"
+  },
+  {
+    "sciName": "Falco columbarius",
+    "comName": "Merlin",
+    "comNameFr": "Faucon émerillon",
+    "speciesCode": "merlin"
+  },
+  {
+    "sciName": "Falco subbuteo",
+    "comName": "Eurasian Hobby",
+    "comNameFr": "Faucon hobereau",
+    "speciesCode": "eurhob"
+  },
+  {
+    "sciName": "Falco femoralis",
+    "comName": "Aplomado Falcon",
+    "comNameFr": "Faucon aplomado",
+    "speciesCode": "aplfal"
+  },
+  {
+    "sciName": "Falco rusticolus",
+    "comName": "Gyrfalcon",
+    "comNameFr": "Faucon gerfaut",
+    "speciesCode": "gyrfal"
+  },
+  {
+    "sciName": "Falco peregrinus",
+    "comName": "Peregrine Falcon",
+    "comNameFr": "Faucon pèlerin",
+    "speciesCode": "perfal"
+  },
+  {
+    "sciName": "Falco mexicanus",
+    "comName": "Prairie Falcon",
+    "comNameFr": "Faucon des prairies",
+    "speciesCode": "prafal"
+  },
+  {
+    "sciName": "Falco sp. (large falcon sp.)",
+    "comName": "large falcon sp.",
+    "comNameFr": "gros faucon sp.",
+    "speciesCode": "larfal"
+  },
+  {
+    "sciName": "Falco sp. (small falcon sp.)",
+    "comName": "small falcon sp.",
+    "comNameFr": "petit faucon sp.",
+    "speciesCode": "smafal"
+  },
+  {
+    "sciName": "Falco sp.",
+    "comName": "falcon sp.",
+    "comNameFr": "Falco sp.",
+    "speciesCode": "falcon"
+  },
+  {
+    "sciName": "Nymphicus hollandicus",
+    "comName": "Cockatiel",
+    "comNameFr": "Calopsitte élégante",
+    "speciesCode": "cockat"
+  },
+  {
+    "sciName": "Eolophus roseicapilla",
+    "comName": "Galah",
+    "comNameFr": "Cacatoès rosalbin",
+    "speciesCode": "galah"
+  },
+  {
+    "sciName": "Cacatua moluccensis",
+    "comName": "Salmon-crested Cockatoo",
+    "comNameFr": "Cacatoès à huppe rouge",
+    "speciesCode": "saccoc"
+  },
+  {
+    "sciName": "Cacatua galerita",
+    "comName": "Sulphur-crested Cockatoo",
+    "comNameFr": "Cacatoès à huppe jaune",
+    "speciesCode": "succoc"
+  },
+  {
+    "sciName": "Eclectus sp.",
+    "comName": "eclectus sp.",
+    "comNameFr": "éclectus sp.",
+    "speciesCode": "eclpar"
+  },
+  {
+    "sciName": "Psittacula krameri",
+    "comName": "Rose-ringed Parakeet",
+    "comNameFr": "Perruche à collier",
+    "speciesCode": "rorpar"
+  },
+  {
+    "sciName": "Melopsittacus undulatus",
+    "comName": "Budgerigar",
+    "comNameFr": "Perruche ondulée",
+    "speciesCode": "budger"
+  },
+  {
+    "sciName": "Agapornis roseicollis",
+    "comName": "Rosy-faced Lovebird",
+    "comNameFr": "Inséparable rosegorge",
+    "speciesCode": "peflov"
+  },
+  {
+    "sciName": "Agapornis personatus",
+    "comName": "Yellow-collared Lovebird",
+    "comNameFr": "Inséparable masqué",
+    "speciesCode": "yeclov"
+  },
+  {
+    "sciName": "Psittacus erithacus",
+    "comName": "Gray Parrot",
+    "comNameFr": "Perroquet jaco",
+    "speciesCode": "grepar"
+  },
+  {
+    "sciName": "Poicephalus senegalus",
+    "comName": "Senegal Parrot",
+    "comNameFr": "Perroquet youyou",
+    "speciesCode": "senpar"
+  },
+  {
+    "sciName": "Myiopsitta monachus",
+    "comName": "Monk Parakeet",
+    "comNameFr": "Perriche veuve",
+    "speciesCode": "monpar"
+  },
+  {
+    "sciName": "Brotogeris versicolurus",
+    "comName": "White-winged Parakeet",
+    "comNameFr": "Toui à ailes variées",
+    "speciesCode": "whwpar"
+  },
+  {
+    "sciName": "Brotogeris chiriri",
+    "comName": "Yellow-chevroned Parakeet",
+    "comNameFr": "Toui à ailes jaunes",
+    "speciesCode": "yecpar"
+  },
+  {
+    "sciName": "Brotogeris jugularis",
+    "comName": "Orange-chinned Parakeet",
+    "comNameFr": "Toui à menton d'or",
+    "speciesCode": "orcpar"
+  },
+  {
+    "sciName": "Pionus senilis",
+    "comName": "White-crowned Parrot",
+    "comNameFr": "Pione à couronne blanche",
+    "speciesCode": "whcpar"
+  },
+  {
+    "sciName": "Amazona viridigenalis",
+    "comName": "Red-crowned Amazon",
+    "comNameFr": "Amazone à joues vertes",
+    "speciesCode": "recpar"
+  },
+  {
+    "sciName": "Amazona finschi",
+    "comName": "Lilac-crowned Amazon",
+    "comNameFr": "Amazone à couronne lilas",
+    "speciesCode": "licpar"
+  },
+  {
+    "sciName": "Amazona autumnalis",
+    "comName": "Red-lored Amazon",
+    "comNameFr": "Amazone à diadème",
+    "speciesCode": "relpar"
+  },
+  {
+    "sciName": "Amazona oratrix",
+    "comName": "Yellow-headed Amazon",
+    "comNameFr": "Amazone à tête jaune",
+    "speciesCode": "yehpar"
+  },
+  {
+    "sciName": "Amazona ochrocephala",
+    "comName": "Yellow-crowned Amazon",
+    "comNameFr": "Amazone à front jaune",
+    "speciesCode": "ywcpar"
+  },
+  {
+    "sciName": "Amazona aestiva",
+    "comName": "Turquoise-fronted Amazon",
+    "comNameFr": "Amazone à front bleu",
+    "speciesCode": "bufpar"
+  },
+  {
+    "sciName": "Amazona farinosa",
+    "comName": "Mealy Amazon",
+    "comNameFr": "Amazone poudrée",
+    "speciesCode": "meapar"
+  },
+  {
+    "sciName": "Amazona amazonica",
+    "comName": "Orange-winged Amazon",
+    "comNameFr": "Amazone aourou",
+    "speciesCode": "orwpar"
+  },
+  {
+    "sciName": "Amazona sp.",
+    "comName": "amazon sp.",
+    "comNameFr": "Amazona sp.",
+    "speciesCode": "amazon"
+  },
+  {
+    "sciName": "Pyrrhura frontalis",
+    "comName": "Maroon-bellied Parakeet",
+    "comNameFr": "Conure de Vieillot",
+    "speciesCode": "mabpar"
+  },
+  {
+    "sciName": "Pyrrhura molinae",
+    "comName": "Green-cheeked Parakeet",
+    "comNameFr": "Conure de Molina",
+    "speciesCode": "gncpar"
+  },
+  {
+    "sciName": "Cyanoliseus patagonus",
+    "comName": "Burrowing Parakeet",
+    "comNameFr": "Conure de Patagonie",
+    "speciesCode": "burpar"
+  },
+  {
+    "sciName": "Rhynchopsitta pachyrhyncha",
+    "comName": "Thick-billed Parrot",
+    "comNameFr": "Conure à gros bec",
+    "speciesCode": "thbpar"
+  },
+  {
+    "sciName": "Eupsittula canicularis",
+    "comName": "Orange-fronted Parakeet",
+    "comNameFr": "Conure à front rouge",
+    "speciesCode": "orfpar"
+  },
+  {
+    "sciName": "Conuropsis carolinensis",
+    "comName": "Carolina Parakeet",
+    "comNameFr": "Conure de Caroline",
+    "speciesCode": "carpar"
+  },
+  {
+    "sciName": "Aratinga weddellii",
+    "comName": "Dusky-headed Parakeet",
+    "comNameFr": "Conure de Weddell",
+    "speciesCode": "duhpar"
+  },
+  {
+    "sciName": "Aratinga nenday",
+    "comName": "Nanday Parakeet",
+    "comNameFr": "Conure nanday",
+    "speciesCode": "bkhpar"
+  },
+  {
+    "sciName": "Primolius auricollis",
+    "comName": "Yellow-collared Macaw",
+    "comNameFr": "Ara à collier jaune",
+    "speciesCode": "yecmac"
+  },
+  {
+    "sciName": "Ara ararauna",
+    "comName": "Blue-and-yellow Macaw",
+    "comNameFr": "Ara bleu",
+    "speciesCode": "baymac"
+  },
+  {
+    "sciName": "Ara militaris",
+    "comName": "Military Macaw",
+    "comNameFr": "Ara militaire",
+    "speciesCode": "milmac"
+  },
+  {
+    "sciName": "Ara ambiguus",
+    "comName": "Great Green Macaw",
+    "comNameFr": "Ara de Buffon",
+    "speciesCode": "grgmac"
+  },
+  {
+    "sciName": "Thectocercus acuticaudatus",
+    "comName": "Blue-crowned Parakeet",
+    "comNameFr": "Conure à tête bleue",
+    "speciesCode": "bucpar"
+  },
+  {
+    "sciName": "Psittacara holochlorus",
+    "comName": "Green Parakeet",
+    "comNameFr": "Conure verte",
+    "speciesCode": "grnpar"
+  },
+  {
+    "sciName": "Psittacara finschi",
+    "comName": "Crimson-fronted Parakeet",
+    "comNameFr": "Conure de Finsch",
+    "speciesCode": "crfpar"
+  },
+  {
+    "sciName": "Psittacara mitratus",
+    "comName": "Mitred Parakeet",
+    "comNameFr": "Conure mitrée",
+    "speciesCode": "mitpar"
+  },
+  {
+    "sciName": "Psittacara erythrogenys",
+    "comName": "Red-masked Parakeet",
+    "comNameFr": "Conure à tête rouge",
+    "speciesCode": "rempar"
+  },
+  {
+    "sciName": "Psittacara chloropterus",
+    "comName": "Hispaniolan Parakeet",
+    "comNameFr": "Conure maîtresse",
+    "speciesCode": "hispar"
+  },
+  {
+    "sciName": "Eupsittula/Aratinga/Thectocercus/Psittacara sp.",
+    "comName": "large parakeet sp. (former Aratinga sp.)",
+    "comNameFr": "Eupsittula, Aratinga, Thectocercus ou Psittacara sp.",
+    "speciesCode": "aratin"
+  },
+  {
+    "sciName": "Psittaciformes sp. (parakeet sp.)",
+    "comName": "parakeet sp.",
+    "comNameFr": "Psittaciformes sp. (Parakeet)",
+    "speciesCode": "parake"
+  },
+  {
+    "sciName": "Psittaciformes sp. (parrot sp.)",
+    "comName": "parrot sp.",
+    "comNameFr": "Psittaciformes sp. (Parrot)",
+    "speciesCode": "parrot"
+  },
+  {
+    "sciName": "Myrmotherula ignota",
+    "comName": "Moustached Antwren",
+    "comNameFr": "Myrmidon de Griscom",
+    "speciesCode": "mouant"
+  },
+  {
+    "sciName": "Myrmotherula pacifica",
+    "comName": "Pacific Antwren",
+    "comNameFr": "Myrmidon du Pacifique",
+    "speciesCode": "pacant"
+  },
+  {
+    "sciName": "Neophilydor fuscipenne",
+    "comName": "Slaty-winged Foliage-gleaner",
+    "comNameFr": "Anabate à ailes sombres",
+    "speciesCode": "swfgle"
+  },
+  {
+    "sciName": "Dendroma rufa",
+    "comName": "Buff-fronted Foliage-gleaner",
+    "comNameFr": "Anabate roux",
+    "speciesCode": "bffgle"
+  },
+  {
+    "sciName": "Procnias tricarunculatus",
+    "comName": "Three-wattled Bellbird",
+    "comNameFr": "Araponga tricaronculé",
+    "speciesCode": "thwbel"
+  },
+  {
+    "sciName": "Schiffornis sp.",
+    "comName": "schiffornis sp.",
+    "comNameFr": "antriade sp.",
+    "speciesCode": "thlsch"
+  },
+  {
+    "sciName": "Pachyramphus aglaiae",
+    "comName": "Rose-throated Becard",
+    "comNameFr": "Bécarde à gorge rose",
+    "speciesCode": "rotbec"
+  },
+  {
+    "sciName": "Ornithion brunneicapillus",
+    "comName": "Brown-capped Tyrannulet",
+    "comNameFr": "Tyranneau à tête brune",
+    "speciesCode": "brctyr"
+  },
+  {
+    "sciName": "Camptostoma imberbe",
+    "comName": "Northern Beardless-Tyrannulet",
+    "comNameFr": "Tyranneau imberbe",
+    "speciesCode": "nobtyr"
+  },
+  {
+    "sciName": "Myiopagis viridicata",
+    "comName": "Greenish Elaenia",
+    "comNameFr": "Élénie verdâtre",
+    "speciesCode": "greela"
+  },
+  {
+    "sciName": "Mitrephanes phaeocercus",
+    "comName": "Tufted Flycatcher",
+    "comNameFr": "Moucherolle huppé",
+    "speciesCode": "tuffly"
+  },
+  {
+    "sciName": "Contopus cooperi",
+    "comName": "Olive-sided Flycatcher",
+    "comNameFr": "Moucherolle à côtés olive",
+    "speciesCode": "olsfly"
+  },
+  {
+    "sciName": "Contopus pertinax",
+    "comName": "Greater Pewee",
+    "comNameFr": "Moucherolle de Coues",
+    "speciesCode": "grepew"
+  },
+  {
+    "sciName": "Contopus sordidulus",
+    "comName": "Western Wood-Pewee",
+    "comNameFr": "Pioui de l'Ouest",
+    "speciesCode": "wewpew"
+  },
+  {
+    "sciName": "Contopus virens",
+    "comName": "Eastern Wood-Pewee",
+    "comNameFr": "Pioui de l'Est",
+    "speciesCode": "eawpew"
+  },
+  {
+    "sciName": "Contopus sordidulus/virens",
+    "comName": "Western/Eastern Wood-Pewee",
+    "comNameFr": "Pioui de l'Ouest ou P. de l'Est",
+    "speciesCode": "woopew"
+  },
+  {
+    "sciName": "Empidonax flaviventris",
+    "comName": "Yellow-bellied Flycatcher",
+    "comNameFr": "Moucherolle à ventre jaune",
+    "speciesCode": "yebfly"
+  },
+  {
+    "sciName": "Empidonax virescens",
+    "comName": "Acadian Flycatcher",
+    "comNameFr": "Moucherolle vert",
+    "speciesCode": "acafly"
+  },
+  {
+    "sciName": "Empidonax alnorum",
+    "comName": "Alder Flycatcher",
+    "comNameFr": "Moucherolle des aulnes",
+    "speciesCode": "aldfly"
+  },
+  {
+    "sciName": "Empidonax traillii",
+    "comName": "Willow Flycatcher",
+    "comNameFr": "Moucherolle des saules",
+    "speciesCode": "wilfly"
+  },
+  {
+    "sciName": "Empidonax minimus",
+    "comName": "Least Flycatcher",
+    "comNameFr": "Moucherolle tchébec",
+    "speciesCode": "leafly"
+  },
+  {
+    "sciName": "Empidonax hammondii",
+    "comName": "Hammond's Flycatcher",
+    "comNameFr": "Moucherolle de Hammond",
+    "speciesCode": "hamfly"
+  },
+  {
+    "sciName": "Empidonax wrightii",
+    "comName": "Gray Flycatcher",
+    "comNameFr": "Moucherolle gris",
+    "speciesCode": "gryfly"
+  },
+  {
+    "sciName": "Empidonax oberholseri",
+    "comName": "Dusky Flycatcher",
+    "comNameFr": "Moucherolle sombre",
+    "speciesCode": "dusfly"
+  },
+  {
+    "sciName": "Empidonax difficilis",
+    "comName": "Western Flycatcher",
+    "comNameFr": "Moucherolle obscur",
+    "speciesCode": "wesfly"
+  },
+  {
+    "sciName": "Empidonax difficilis [difficilis Group]",
+    "comName": "Western Flycatcher (Pacific-slope)",
+    "comNameFr": "Moucherolle obscur (groupe difficilis)",
+    "speciesCode": "pasfly"
+  },
+  {
+    "sciName": "Empidonax difficilis occidentalis/hellmayri",
+    "comName": "Western Flycatcher (Cordilleran)",
+    "comNameFr": "Moucherolle obscur (occidentalis/hellmayri)",
+    "speciesCode": "corfly"
+  },
+  {
+    "sciName": "Empidonax fulvifrons",
+    "comName": "Buff-breasted Flycatcher",
+    "comNameFr": "Moucherolle beige",
+    "speciesCode": "bubfly"
+  },
+  {
+    "sciName": "Empidonax sp.",
+    "comName": "Empidonax sp.",
+    "comNameFr": "Empidonax sp.",
+    "speciesCode": "empido"
+  },
+  {
+    "sciName": "Sayornis nigricans",
+    "comName": "Black Phoebe",
+    "comNameFr": "Moucherolle noir",
+    "speciesCode": "blkpho"
+  },
+  {
+    "sciName": "Sayornis phoebe",
+    "comName": "Eastern Phoebe",
+    "comNameFr": "Moucherolle phébi",
+    "speciesCode": "easpho"
+  },
+  {
+    "sciName": "Sayornis saya",
+    "comName": "Say's Phoebe",
+    "comNameFr": "Moucherolle à ventre roux",
+    "speciesCode": "saypho"
+  },
+  {
+    "sciName": "Pyrocephalus rubinus",
+    "comName": "Vermilion Flycatcher",
+    "comNameFr": "Moucherolle vermillon",
+    "speciesCode": "verfly"
+  },
+  {
+    "sciName": "Myiarchus tuberculifer",
+    "comName": "Dusky-capped Flycatcher",
+    "comNameFr": "Tyran olivâtre",
+    "speciesCode": "ducfly"
+  },
+  {
+    "sciName": "Myiarchus cinerascens",
+    "comName": "Ash-throated Flycatcher",
+    "comNameFr": "Tyran à gorge cendrée",
+    "speciesCode": "astfly"
+  },
+  {
+    "sciName": "Myiarchus nuttingi",
+    "comName": "Nutting's Flycatcher",
+    "comNameFr": "Tyran de Nutting",
+    "speciesCode": "nutfly"
+  },
+  {
+    "sciName": "Myiarchus crinitus",
+    "comName": "Great Crested Flycatcher",
+    "comNameFr": "Tyran huppé",
+    "speciesCode": "grcfly"
+  },
+  {
+    "sciName": "Myiarchus tyrannulus",
+    "comName": "Brown-crested Flycatcher",
+    "comNameFr": "Tyran de Wied",
+    "speciesCode": "bncfly"
+  },
+  {
+    "sciName": "Myiarchus sagrae",
+    "comName": "La Sagra's Flycatcher",
+    "comNameFr": "Tyran de La Sagra",
+    "speciesCode": "lasfly"
+  },
+  {
+    "sciName": "Myiarchus sp.",
+    "comName": "Myiarchus sp.",
+    "comNameFr": "Myiarchus sp.",
+    "speciesCode": "myiarc"
+  },
+  {
+    "sciName": "Machetornis rixosa",
+    "comName": "Cattle Tyrant",
+    "comNameFr": "Tyran querelleur",
+    "speciesCode": "cattyr"
+  },
+  {
+    "sciName": "Pitangus sulphuratus",
+    "comName": "Great Kiskadee",
+    "comNameFr": "Tyran quiquivi",
+    "speciesCode": "grekis"
+  },
+  {
+    "sciName": "Conopias albovittatus",
+    "comName": "White-ringed Flycatcher",
+    "comNameFr": "Tyran diadème",
+    "speciesCode": "whrfly"
+  },
+  {
+    "sciName": "Myiodynastes luteiventris",
+    "comName": "Sulphur-bellied Flycatcher",
+    "comNameFr": "Tyran tigré",
+    "speciesCode": "subfly"
+  },
+  {
+    "sciName": "Empidonomus varius",
+    "comName": "Variegated Flycatcher",
+    "comNameFr": "Tyran tacheté",
+    "speciesCode": "varfly"
+  },
+  {
+    "sciName": "Tyrannus melancholicus",
+    "comName": "Tropical Kingbird",
+    "comNameFr": "Tyran mélancolique",
+    "speciesCode": "trokin"
+  },
+  {
+    "sciName": "Tyrannus couchii",
+    "comName": "Couch's Kingbird",
+    "comNameFr": "Tyran de Couch",
+    "speciesCode": "coukin"
+  },
+  {
+    "sciName": "Tyrannus vociferans",
+    "comName": "Cassin's Kingbird",
+    "comNameFr": "Tyran de Cassin",
+    "speciesCode": "caskin"
+  },
+  {
+    "sciName": "Tyrannus crassirostris",
+    "comName": "Thick-billed Kingbird",
+    "comNameFr": "Tyran à bec épais",
+    "speciesCode": "thbkin"
+  },
+  {
+    "sciName": "Tyrannus verticalis",
+    "comName": "Western Kingbird",
+    "comNameFr": "Tyran de l'Ouest",
+    "speciesCode": "weskin"
+  },
+  {
+    "sciName": "Tyrannus tyrannus",
+    "comName": "Eastern Kingbird",
+    "comNameFr": "Tyran tritri",
+    "speciesCode": "easkin"
+  },
+  {
+    "sciName": "Tyrannus dominicensis",
+    "comName": "Gray Kingbird",
+    "comNameFr": "Tyran gris",
+    "speciesCode": "grykin"
+  },
+  {
+    "sciName": "Tyrannus caudifasciatus",
+    "comName": "Loggerhead Kingbird",
+    "comNameFr": "Tyran tête-police",
+    "speciesCode": "logkin"
+  },
+  {
+    "sciName": "Tyrannus forficatus",
+    "comName": "Scissor-tailed Flycatcher",
+    "comNameFr": "Tyran à longue queue",
+    "speciesCode": "sctfly"
+  },
+  {
+    "sciName": "Tyrannus savana",
+    "comName": "Fork-tailed Flycatcher",
+    "comNameFr": "Tyran des savanes",
+    "speciesCode": "fotfly"
+  },
+  {
+    "sciName": "Vireo griseus",
+    "comName": "White-eyed Vireo",
+    "comNameFr": "Viréo aux yeux blancs",
+    "speciesCode": "whevir"
+  },
+  {
+    "sciName": "Vireo crassirostris",
+    "comName": "Thick-billed Vireo",
+    "comNameFr": "Viréo à bec fort",
+    "speciesCode": "thbvir"
+  },
+  {
+    "sciName": "Vireo bellii",
+    "comName": "Bell's Vireo",
+    "comNameFr": "Viréo de Bell",
+    "speciesCode": "belvir"
+  },
+  {
+    "sciName": "Vireo vicinior",
+    "comName": "Gray Vireo",
+    "comNameFr": "Viréo gris",
+    "speciesCode": "gryvir"
+  },
+  {
+    "sciName": "Vireo huttoni",
+    "comName": "Hutton's Vireo",
+    "comNameFr": "Viréo de Hutton",
+    "speciesCode": "hutvir"
+  },
+  {
+    "sciName": "Vireo flavifrons",
+    "comName": "Yellow-throated Vireo",
+    "comNameFr": "Viréo à gorge jaune",
+    "speciesCode": "yetvir"
+  },
+  {
+    "sciName": "Vireo cassinii",
+    "comName": "Cassin's Vireo",
+    "comNameFr": "Viréo de Cassin",
+    "speciesCode": "casvir"
+  },
+  {
+    "sciName": "Vireo solitarius",
+    "comName": "Blue-headed Vireo",
+    "comNameFr": "Viréo à tête bleue",
+    "speciesCode": "buhvir"
+  },
+  {
+    "sciName": "Vireo plumbeus",
+    "comName": "Plumbeous Vireo",
+    "comNameFr": "Viréo plombé",
+    "speciesCode": "plsvir"
+  },
+  {
+    "sciName": "Vireo philadelphicus",
+    "comName": "Philadelphia Vireo",
+    "comNameFr": "Viréo de Philadelphie",
+    "speciesCode": "phivir"
+  },
+  {
+    "sciName": "Vireo gilvus",
+    "comName": "Warbling Vireo",
+    "comNameFr": "Viréo mélodieux",
+    "speciesCode": "warvir"
+  },
+  {
+    "sciName": "Vireo olivaceus/chivi",
+    "comName": "Red-eyed/Chivi Vireo",
+    "comNameFr": "Viréo aux yeux rouges ou V. chivi",
+    "speciesCode": "reevir"
+  },
+  {
+    "sciName": "Vireo flavoviridis",
+    "comName": "Yellow-green Vireo",
+    "comNameFr": "Viréo jaune-verdâtre",
+    "speciesCode": "yegvir"
+  },
+  {
+    "sciName": "Vireo altiloquus",
+    "comName": "Black-whiskered Vireo",
+    "comNameFr": "Viréo à moustaches",
+    "speciesCode": "bkwvir"
+  },
+  {
+    "sciName": "Vireo magister",
+    "comName": "Yucatan Vireo",
+    "comNameFr": "Viréo du Yucatan",
+    "speciesCode": "yucvir"
+  },
+  {
+    "sciName": "Chasiempis sandwichensis",
+    "comName": "Hawaii Elepaio",
+    "comNameFr": "Monarque d'Hawaï",
+    "speciesCode": "elepai"
+  },
+  {
+    "sciName": "Lanius cristatus",
+    "comName": "Brown Shrike",
+    "comNameFr": "Pie-grièche brune",
+    "speciesCode": "brnshr"
+  },
+  {
+    "sciName": "Lanius ludovicianus",
+    "comName": "Loggerhead Shrike",
+    "comNameFr": "Pie-grièche migratrice",
+    "speciesCode": "logshr"
+  },
+  {
+    "sciName": "Lanius borealis/excubitor",
+    "comName": "Northern/Great Gray Shrike",
+    "comNameFr": "Pie-grièche boréale ou P.-g. grise",
+    "speciesCode": "norshr"
+  },
+  {
+    "sciName": "Laniidae sp.",
+    "comName": "shrike sp.",
+    "comNameFr": "Laniidés sp.",
+    "speciesCode": "shrike"
+  },
+  {
+    "sciName": "Perisoreus canadensis",
+    "comName": "Canada Jay",
+    "comNameFr": "Mésangeai du Canada",
+    "speciesCode": "gryjay"
+  },
+  {
+    "sciName": "Cyanocorax colliei",
+    "comName": "Black-throated Magpie-Jay",
+    "comNameFr": "Geai à face noire",
+    "speciesCode": "btmjay"
+  },
+  {
+    "sciName": "Cyanocorax morio",
+    "comName": "Brown Jay",
+    "comNameFr": "Geai enfumé",
+    "speciesCode": "brnjay"
+  },
+  {
+    "sciName": "Cyanocorax yncas",
+    "comName": "Green Jay",
+    "comNameFr": "Geai vert",
+    "speciesCode": "grnjay"
+  },
+  {
+    "sciName": "Cyanocorax sanblasianus",
+    "comName": "San Blas Jay",
+    "comNameFr": "Geai de San Blas",
+    "speciesCode": "sabjay"
+  },
+  {
+    "sciName": "Gymnorhinus cyanocephalus",
+    "comName": "Pinyon Jay",
+    "comNameFr": "Geai des pinèdes",
+    "speciesCode": "pinjay"
+  },
+  {
+    "sciName": "Cyanocitta stelleri",
+    "comName": "Steller's Jay",
+    "comNameFr": "Geai de Steller",
+    "speciesCode": "stejay"
+  },
+  {
+    "sciName": "Cyanocitta cristata",
+    "comName": "Blue Jay",
+    "comNameFr": "Geai bleu",
+    "speciesCode": "blujay"
+  },
+  {
+    "sciName": "Aphelocoma coerulescens",
+    "comName": "Florida Scrub-Jay",
+    "comNameFr": "Geai à gorge blanche",
+    "speciesCode": "flsjay"
+  },
+  {
+    "sciName": "Aphelocoma insularis",
+    "comName": "Island Scrub-Jay",
+    "comNameFr": "Geai de Santa Cruz",
+    "speciesCode": "issjay"
+  },
+  {
+    "sciName": "Aphelocoma californica/woodhouseii",
+    "comName": "California/Woodhouse's Scrub-Jay",
+    "comNameFr": "Geai buissonnier ou G. de Woodhouse",
+    "speciesCode": "wesjay"
+  },
+  {
+    "sciName": "Aphelocoma wollweberi/ultramarina",
+    "comName": "Mexican/Transvolcanic Jay",
+    "comNameFr": "Geai du Mexique ou G. des volcans",
+    "speciesCode": "mexjay"
+  },
+  {
+    "sciName": "Aphelocoma sp.",
+    "comName": "Aphelocoma sp.",
+    "comNameFr": "Aphelocoma sp.",
+    "speciesCode": "scrjay"
+  },
+  {
+    "sciName": "Urocissa erythroryncha",
+    "comName": "Red-billed Blue-Magpie",
+    "comNameFr": "Pirolle à bec rouge",
+    "speciesCode": "rbbmag"
+  },
+  {
+    "sciName": "Pica nuttalli",
+    "comName": "Yellow-billed Magpie",
+    "comNameFr": "Pie à bec jaune",
+    "speciesCode": "yebmag"
+  },
+  {
+    "sciName": "Nucifraga columbiana",
+    "comName": "Clark's Nutcracker",
+    "comNameFr": "Cassenoix d'Amérique",
+    "speciesCode": "clanut"
+  },
+  {
+    "sciName": "Coloeus monedula",
+    "comName": "Eurasian Jackdaw",
+    "comNameFr": "Choucas des tours",
+    "speciesCode": "eurjac"
+  },
+  {
+    "sciName": "Corvus brachyrhynchos",
+    "comName": "American Crow",
+    "comNameFr": "Corneille d'Amérique",
+    "speciesCode": "amecro"
+  },
+  {
+    "sciName": "Corvus imparatus",
+    "comName": "Tamaulipas Crow",
+    "comNameFr": "Corneille du Mexique",
+    "speciesCode": "tamcro"
+  },
+  {
+    "sciName": "Corvus ossifragus",
+    "comName": "Fish Crow",
+    "comNameFr": "Corneille de rivage",
+    "speciesCode": "fiscro"
+  },
+  {
+    "sciName": "Corvus hawaiiensis",
+    "comName": "Hawaiian Crow",
+    "comNameFr": "Corneille d'Hawaï",
+    "speciesCode": "hawcro"
+  },
+  {
+    "sciName": "Corvus cryptoleucus",
+    "comName": "Chihuahuan Raven",
+    "comNameFr": "Corbeau à cou blanc",
+    "speciesCode": "chirav"
+  },
+  {
+    "sciName": "Corvus sp. (crow sp.)",
+    "comName": "crow sp.",
+    "comNameFr": "corneille sp.",
+    "speciesCode": "crow"
+  },
+  {
+    "sciName": "Corvus corax",
+    "comName": "Common Raven",
+    "comNameFr": "Grand Corbeau",
+    "speciesCode": "comrav"
+  },
+  {
+    "sciName": "Corvus sp. (raven sp.)",
+    "comName": "raven sp.",
+    "comNameFr": "corbeau sp.",
+    "speciesCode": "raven"
+  },
+  {
+    "sciName": "Poecile carolinensis",
+    "comName": "Carolina Chickadee",
+    "comNameFr": "Mésange de Caroline",
+    "speciesCode": "carchi"
+  },
+  {
+    "sciName": "Poecile atricapillus",
+    "comName": "Black-capped Chickadee",
+    "comNameFr": "Mésange à tête noire",
+    "speciesCode": "bkcchi"
+  },
+  {
+    "sciName": "Poecile gambeli",
+    "comName": "Mountain Chickadee",
+    "comNameFr": "Mésange de Gambel",
+    "speciesCode": "mouchi"
+  },
+  {
+    "sciName": "Poecile sclateri",
+    "comName": "Mexican Chickadee",
+    "comNameFr": "Mésange grise",
+    "speciesCode": "mexchi"
+  },
+  {
+    "sciName": "Poecile rufescens",
+    "comName": "Chestnut-backed Chickadee",
+    "comNameFr": "Mésange à dos marron",
+    "speciesCode": "chbchi"
+  },
+  {
+    "sciName": "Poecile cinctus",
+    "comName": "Gray-headed Chickadee",
+    "comNameFr": "Mésange lapone",
+    "speciesCode": "gyhchi"
+  },
+  {
+    "sciName": "Cyanistes caeruleus",
+    "comName": "Eurasian Blue Tit",
+    "comNameFr": "Mésange bleue",
+    "speciesCode": "blutit"
+  },
+  {
+    "sciName": "Baeolophus wollweberi",
+    "comName": "Bridled Titmouse",
+    "comNameFr": "Mésange arlequin",
+    "speciesCode": "britit"
+  },
+  {
+    "sciName": "Baeolophus inornatus",
+    "comName": "Oak Titmouse",
+    "comNameFr": "Mésange unicolore",
+    "speciesCode": "oaktit"
+  },
+  {
+    "sciName": "Baeolophus bicolor",
+    "comName": "Tufted Titmouse",
+    "comNameFr": "Mésange bicolore",
+    "speciesCode": "tuftit"
+  },
+  {
+    "sciName": "Auriparus flaviceps",
+    "comName": "Verdin",
+    "comNameFr": "Auripare verdin",
+    "speciesCode": "verdin"
+  },
+  {
+    "sciName": "Alauda arvensis",
+    "comName": "Eurasian Skylark",
+    "comNameFr": "Alouette des champs",
+    "speciesCode": "skylar"
+  },
+  {
+    "sciName": "Eremophila alpestris",
+    "comName": "Horned Lark",
+    "comNameFr": "Alouette hausse-col",
+    "speciesCode": "horlar"
+  },
+  {
+    "sciName": "Acrocephalus familiaris",
+    "comName": "Millerbird",
+    "comNameFr": "Rousserolle obscure",
+    "speciesCode": "miller"
+  },
+  {
+    "sciName": "Helopsaltes ochotensis",
+    "comName": "Middendorff's Grasshopper Warbler",
+    "comNameFr": "Locustelle de Middendorff",
+    "speciesCode": "migwar"
+  },
+  {
+    "sciName": "Locustella lanceolata",
+    "comName": "Lanceolated Warbler",
+    "comNameFr": "Locustelle lancéolée",
+    "speciesCode": "lanwar"
+  },
+  {
+    "sciName": "Donacobius atricapilla",
+    "comName": "Black-capped Donacobius",
+    "comNameFr": "Donacobe à miroir",
+    "speciesCode": "bkcdon"
+  },
+  {
+    "sciName": "Riparia riparia",
+    "comName": "Bank Swallow",
+    "comNameFr": "Hirondelle de rivage",
+    "speciesCode": "banswa"
+  },
+  {
+    "sciName": "Tachycineta bicolor",
+    "comName": "Tree Swallow",
+    "comNameFr": "Hirondelle bicolore",
+    "speciesCode": "treswa"
+  },
+  {
+    "sciName": "Tachycineta thalassina",
+    "comName": "Violet-green Swallow",
+    "comNameFr": "Hirondelle à face blanche",
+    "speciesCode": "vigswa"
+  },
+  {
+    "sciName": "Tachycineta cyaneoviridis",
+    "comName": "Bahama Swallow",
+    "comNameFr": "Hirondelle des Bahamas",
+    "speciesCode": "bahswa"
+  },
+  {
+    "sciName": "Progne subis",
+    "comName": "Purple Martin",
+    "comNameFr": "Hirondelle noire",
+    "speciesCode": "purmar"
+  },
+  {
+    "sciName": "Progne cryptoleuca",
+    "comName": "Cuban Martin",
+    "comNameFr": "Hirondelle de Cuba",
+    "speciesCode": "cubmar"
+  },
+  {
+    "sciName": "Progne chalybea",
+    "comName": "Gray-breasted Martin",
+    "comNameFr": "Hirondelle chalybée",
+    "speciesCode": "gybmar"
+  },
+  {
+    "sciName": "Progne elegans",
+    "comName": "Southern Martin",
+    "comNameFr": "Hirondelle gracieuse",
+    "speciesCode": "soumar"
+  },
+  {
+    "sciName": "Stelgidopteryx serripennis",
+    "comName": "Northern Rough-winged Swallow",
+    "comNameFr": "Hirondelle à ailes hérissées",
+    "speciesCode": "nrwswa"
+  },
+  {
+    "sciName": "Hirundo rustica",
+    "comName": "Barn Swallow",
+    "comNameFr": "Hirondelle rustique",
+    "speciesCode": "barswa"
+  },
+  {
+    "sciName": "Petrochelidon pyrrhonota",
+    "comName": "Cliff Swallow",
+    "comNameFr": "Hirondelle à front blanc",
+    "speciesCode": "cliswa"
+  },
+  {
+    "sciName": "Petrochelidon fulva",
+    "comName": "Cave Swallow",
+    "comNameFr": "Hirondelle à front brun",
+    "speciesCode": "cavswa"
+  },
+  {
+    "sciName": "Hirundinidae sp.",
+    "comName": "swallow sp.",
+    "comNameFr": "hirondelle sp.",
+    "speciesCode": "swallo"
+  },
+  {
+    "sciName": "Pycnonotus jocosus",
+    "comName": "Red-whiskered Bulbul",
+    "comNameFr": "Bulbul orphée",
+    "speciesCode": "rewbul"
+  },
+  {
+    "sciName": "Pycnonotus cafer",
+    "comName": "Red-vented Bulbul",
+    "comNameFr": "Bulbul à ventre rouge",
+    "speciesCode": "revbul"
+  },
+  {
+    "sciName": "Phylloscopus sibilatrix",
+    "comName": "Wood Warbler",
+    "comNameFr": "Pouillot siffleur",
+    "speciesCode": "woowar"
+  },
+  {
+    "sciName": "Phylloscopus fuscatus",
+    "comName": "Dusky Warbler",
+    "comNameFr": "Pouillot brun",
+    "speciesCode": "duswar"
+  },
+  {
+    "sciName": "Phylloscopus trochilus",
+    "comName": "Willow Warbler",
+    "comNameFr": "Pouillot fitis",
+    "speciesCode": "wlwwar"
+  },
+  {
+    "sciName": "Phylloscopus xanthodryas/borealis/examinandus",
+    "comName": "Japanese Leaf/Arctic/Kamchatka Leaf Warbler",
+    "comNameFr": "Pouillot de Swinhoe, P. boréal ou P. du Kamtchatka",
+    "speciesCode": "arcwar"
+  },
+  {
+    "sciName": "Horornis diphone",
+    "comName": "Japanese Bush Warbler",
+    "comNameFr": "Bouscarle chanteuse",
+    "speciesCode": "jabwar"
+  },
+  {
+    "sciName": "Psaltriparus minimus",
+    "comName": "Bushtit",
+    "comNameFr": "Orite buissonnière",
+    "speciesCode": "bushti"
+  },
+  {
+    "sciName": "Psaltriparus minimus [melanotis Group]",
+    "comName": "Bushtit (melanotis Group)",
+    "comNameFr": "Orite buissonnière (groupe melanotis)",
+    "speciesCode": "bkebus"
+  },
+  {
+    "sciName": "Chamaea fasciata",
+    "comName": "Wrentit",
+    "comNameFr": "Cama brune",
+    "speciesCode": "wrenti"
+  },
+  {
+    "sciName": "Leiothrix lutea",
+    "comName": "Red-billed Leiothrix",
+    "comNameFr": "Léiothrix jaune",
+    "speciesCode": "reblei"
+  },
+  {
+    "sciName": "Garrulax canorus",
+    "comName": "Chinese Hwamei",
+    "comNameFr": "Garrulaxe hoamy",
+    "speciesCode": "melthr"
+  },
+  {
+    "sciName": "Pterorhinus pectoralis",
+    "comName": "Greater Necklaced Laughingthrush",
+    "comNameFr": "Garrulaxe à plastron",
+    "speciesCode": "gnlthr"
+  },
+  {
+    "sciName": "Pterorhinus caerulatus",
+    "comName": "Gray-sided Laughingthrush",
+    "comNameFr": "Garrulaxe à flancs gris",
+    "speciesCode": "gyslau"
+  },
+  {
+    "sciName": "Corthylio calendula",
+    "comName": "Ruby-crowned Kinglet",
+    "comNameFr": "Roitelet à couronne rubis",
+    "speciesCode": "ruckin"
+  },
+  {
+    "sciName": "Regulus satrapa",
+    "comName": "Golden-crowned Kinglet",
+    "comNameFr": "Roitelet à couronne dorée",
+    "speciesCode": "gockin"
+  },
+  {
+    "sciName": "Sitta carolinensis",
+    "comName": "White-breasted Nuthatch",
+    "comNameFr": "Sittelle à poitrine blanche",
+    "speciesCode": "whbnut"
+  },
+  {
+    "sciName": "Sitta pygmaea",
+    "comName": "Pygmy Nuthatch",
+    "comNameFr": "Sittelle pygmée",
+    "speciesCode": "pygnut"
+  },
+  {
+    "sciName": "Sitta pusilla",
+    "comName": "Brown-headed Nuthatch",
+    "comNameFr": "Sittelle à tête brune",
+    "speciesCode": "bnhnut"
+  },
+  {
+    "sciName": "Sitta canadensis",
+    "comName": "Red-breasted Nuthatch",
+    "comNameFr": "Sittelle à poitrine rousse",
+    "speciesCode": "rebnut"
+  },
+  {
+    "sciName": "Certhia americana",
+    "comName": "Brown Creeper",
+    "comNameFr": "Grimpereau brun",
+    "speciesCode": "brncre"
+  },
+  {
+    "sciName": "Polioptila caerulea",
+    "comName": "Blue-gray Gnatcatcher",
+    "comNameFr": "Gobemoucheron gris-bleu",
+    "speciesCode": "buggna"
+  },
+  {
+    "sciName": "Polioptila melanura",
+    "comName": "Black-tailed Gnatcatcher",
+    "comNameFr": "Gobemoucheron à queue noire",
+    "speciesCode": "bktgna"
+  },
+  {
+    "sciName": "Polioptila californica",
+    "comName": "California Gnatcatcher",
+    "comNameFr": "Gobemoucheron de Californie",
+    "speciesCode": "calgna"
+  },
+  {
+    "sciName": "Polioptila nigriceps",
+    "comName": "Black-capped Gnatcatcher",
+    "comNameFr": "Gobemoucheron à coiffe noire",
+    "speciesCode": "bkcgna"
+  },
+  {
+    "sciName": "Salpinctes obsoletus",
+    "comName": "Rock Wren",
+    "comNameFr": "Troglodyte des rochers",
+    "speciesCode": "rocwre"
+  },
+  {
+    "sciName": "Catherpes mexicanus",
+    "comName": "Canyon Wren",
+    "comNameFr": "Troglodyte des canyons",
+    "speciesCode": "canwre"
+  },
+  {
+    "sciName": "Troglodytes aedon",
+    "comName": "Northern House Wren",
+    "comNameFr": "Troglodyte familier",
+    "speciesCode": "houwre"
+  },
+  {
+    "sciName": "Troglodytes pacificus/hiemalis",
+    "comName": "Pacific/Winter Wren",
+    "comNameFr": "Troglodyte de Baird ou T. des forêts",
+    "speciesCode": "winwre"
+  },
+  {
+    "sciName": "Cistothorus platensis",
+    "comName": "Grass Wren",
+    "comNameFr": "Troglodyte de Latham",
+    "speciesCode": "sedwre"
+  },
+  {
+    "sciName": "Cistothorus palustris",
+    "comName": "Marsh Wren",
+    "comNameFr": "Troglodyte des marais",
+    "speciesCode": "marwre"
+  },
+  {
+    "sciName": "Thryothorus ludovicianus",
+    "comName": "Carolina Wren",
+    "comNameFr": "Troglodyte de Caroline",
+    "speciesCode": "carwre"
+  },
+  {
+    "sciName": "Thryomanes bewickii",
+    "comName": "Bewick's Wren",
+    "comNameFr": "Troglodyte de Bewick",
+    "speciesCode": "bewwre"
+  },
+  {
+    "sciName": "Campylorhynchus brunneicapillus",
+    "comName": "Cactus Wren",
+    "comNameFr": "Troglodyte des cactus",
+    "speciesCode": "cacwre"
+  },
+  {
+    "sciName": "Cinclus mexicanus",
+    "comName": "American Dipper",
+    "comNameFr": "Cincle d'Amérique",
+    "speciesCode": "amedip"
+  },
+  {
+    "sciName": "Gracula religiosa",
+    "comName": "Common Hill Myna",
+    "comNameFr": "Mainate religieux",
+    "speciesCode": "hilmyn"
+  },
+  {
+    "sciName": "Sturnus vulgaris",
+    "comName": "European Starling",
+    "comNameFr": "Étourneau sansonnet",
+    "speciesCode": "eursta"
+  },
+  {
+    "sciName": "Acridotheres tristis",
+    "comName": "Common Myna",
+    "comNameFr": "Martin triste",
+    "speciesCode": "commyn"
+  },
+  {
+    "sciName": "Acridotheres javanicus",
+    "comName": "Javan Myna",
+    "comNameFr": "Martin de Java",
+    "speciesCode": "whvmyn"
+  },
+  {
+    "sciName": "Acridotheres cristatellus",
+    "comName": "Crested Myna",
+    "comNameFr": "Martin huppé",
+    "speciesCode": "cremyn"
+  },
+  {
+    "sciName": "Melanotis caerulescens",
+    "comName": "Blue Mockingbird",
+    "comNameFr": "Moqueur bleu",
+    "speciesCode": "blumoc"
+  },
+  {
+    "sciName": "Dumetella carolinensis",
+    "comName": "Gray Catbird",
+    "comNameFr": "Moqueur chat",
+    "speciesCode": "grycat"
+  },
+  {
+    "sciName": "Allenia fusca",
+    "comName": "Scaly-breasted Thrasher",
+    "comNameFr": "Moqueur grivotte",
+    "speciesCode": "scbthr"
+  },
+  {
+    "sciName": "Toxostoma curvirostre",
+    "comName": "Curve-billed Thrasher",
+    "comNameFr": "Moqueur à bec courbe",
+    "speciesCode": "cubthr"
+  },
+  {
+    "sciName": "Toxostoma rufum",
+    "comName": "Brown Thrasher",
+    "comNameFr": "Moqueur roux",
+    "speciesCode": "brnthr"
+  },
+  {
+    "sciName": "Toxostoma longirostre",
+    "comName": "Long-billed Thrasher",
+    "comNameFr": "Moqueur à long bec",
+    "speciesCode": "lobthr"
+  },
+  {
+    "sciName": "Toxostoma bendirei",
+    "comName": "Bendire's Thrasher",
+    "comNameFr": "Moqueur de Bendire",
+    "speciesCode": "benthr"
+  },
+  {
+    "sciName": "Toxostoma redivivum",
+    "comName": "California Thrasher",
+    "comNameFr": "Moqueur de Californie",
+    "speciesCode": "calthr"
+  },
+  {
+    "sciName": "Toxostoma lecontei",
+    "comName": "LeConte's Thrasher",
+    "comNameFr": "Moqueur de LeConte",
+    "speciesCode": "lecthr"
+  },
+  {
+    "sciName": "Toxostoma crissale",
+    "comName": "Crissal Thrasher",
+    "comNameFr": "Moqueur cul-roux",
+    "speciesCode": "crithr"
+  },
+  {
+    "sciName": "Oreoscoptes montanus",
+    "comName": "Sage Thrasher",
+    "comNameFr": "Moqueur des armoises",
+    "speciesCode": "sagthr"
+  },
+  {
+    "sciName": "Mimus gundlachii",
+    "comName": "Bahama Mockingbird",
+    "comNameFr": "Moqueur des Bahamas",
+    "speciesCode": "bahmoc"
+  },
+  {
+    "sciName": "Mimus gilvus",
+    "comName": "Tropical Mockingbird",
+    "comNameFr": "Moqueur des savanes",
+    "speciesCode": "tromoc"
+  },
+  {
+    "sciName": "Mimus polyglottos",
+    "comName": "Northern Mockingbird",
+    "comNameFr": "Moqueur polyglotte",
+    "speciesCode": "normoc"
+  },
+  {
+    "sciName": "Sialia sialis",
+    "comName": "Eastern Bluebird",
+    "comNameFr": "Merlebleu de l'Est",
+    "speciesCode": "easblu"
+  },
+  {
+    "sciName": "Sialia mexicana",
+    "comName": "Western Bluebird",
+    "comNameFr": "Merlebleu de l'Ouest",
+    "speciesCode": "wesblu"
+  },
+  {
+    "sciName": "Sialia currucoides",
+    "comName": "Mountain Bluebird",
+    "comNameFr": "Merlebleu azuré",
+    "speciesCode": "moublu"
+  },
+  {
+    "sciName": "Sialia sp.",
+    "comName": "bluebird sp.",
+    "comNameFr": "merlebleu sp.",
+    "speciesCode": "bluebi"
+  },
+  {
+    "sciName": "Myadestes townsendi",
+    "comName": "Townsend's Solitaire",
+    "comNameFr": "Solitaire de Townsend",
+    "speciesCode": "towsol"
+  },
+  {
+    "sciName": "Myadestes myadestinus",
+    "comName": "Kamao",
+    "comNameFr": "Solitaire kamao",
+    "speciesCode": "kamao"
+  },
+  {
+    "sciName": "Myadestes woahensis",
+    "comName": "Amaui",
+    "comNameFr": "Solitaire d'Oahu",
+    "speciesCode": "amaui"
+  },
+  {
+    "sciName": "Myadestes lanaiensis",
+    "comName": "Olomao",
+    "comNameFr": "Solitaire de Lanai",
+    "speciesCode": "olomao"
+  },
+  {
+    "sciName": "Myadestes obscurus",
+    "comName": "Omao",
+    "comNameFr": "Solitaire d'Hawaï",
+    "speciesCode": "omao"
+  },
+  {
+    "sciName": "Myadestes palmeri",
+    "comName": "Puaiohi",
+    "comNameFr": "Solitaire puaïohi",
+    "speciesCode": "puaioh"
+  },
+  {
+    "sciName": "Ixoreus naevius",
+    "comName": "Varied Thrush",
+    "comNameFr": "Grive à collier",
+    "speciesCode": "varthr"
+  },
+  {
+    "sciName": "Catharus fuscescens",
+    "comName": "Veery",
+    "comNameFr": "Grive fauve",
+    "speciesCode": "veery"
+  },
+  {
+    "sciName": "Catharus minimus",
+    "comName": "Gray-cheeked Thrush",
+    "comNameFr": "Grive à joues grises",
+    "speciesCode": "gycthr"
+  },
+  {
+    "sciName": "Catharus bicknelli",
+    "comName": "Bicknell's Thrush",
+    "comNameFr": "Grive de Bicknell",
+    "speciesCode": "bicthr"
+  },
+  {
+    "sciName": "Catharus ustulatus",
+    "comName": "Swainson's Thrush",
+    "comNameFr": "Grive à dos olive",
+    "speciesCode": "swathr"
+  },
+  {
+    "sciName": "Catharus guttatus",
+    "comName": "Hermit Thrush",
+    "comNameFr": "Grive solitaire",
+    "speciesCode": "herthr"
+  },
+  {
+    "sciName": "Catharus sp.",
+    "comName": "Catharus sp.",
+    "comNameFr": "Catharus sp.",
+    "speciesCode": "cathus"
+  },
+  {
+    "sciName": "Hylocichla mustelina",
+    "comName": "Wood Thrush",
+    "comNameFr": "Grive des bois",
+    "speciesCode": "woothr"
+  },
+  {
+    "sciName": "Ridgwayia pinicola",
+    "comName": "Aztec Thrush",
+    "comNameFr": "Grive aztèque",
+    "speciesCode": "aztthr"
+  },
+  {
+    "sciName": "Turdus iliacus",
+    "comName": "Redwing",
+    "comNameFr": "Grive mauvis",
+    "speciesCode": "redwin"
+  },
+  {
+    "sciName": "Turdus merula",
+    "comName": "Eurasian Blackbird",
+    "comNameFr": "Merle noir",
+    "speciesCode": "eurbla"
+  },
+  {
+    "sciName": "Turdus grayi",
+    "comName": "Clay-colored Thrush",
+    "comNameFr": "Merle fauve",
+    "speciesCode": "clcrob"
+  },
+  {
+    "sciName": "Turdus migratorius",
+    "comName": "American Robin",
+    "comNameFr": "Merle d'Amérique",
+    "speciesCode": "amerob"
+  },
+  {
+    "sciName": "Turdus rufopalliatus",
+    "comName": "Rufous-backed Robin",
+    "comNameFr": "Merle à dos roux",
+    "speciesCode": "rubrob"
+  },
+  {
+    "sciName": "Turdus obscurus",
+    "comName": "Eyebrowed Thrush",
+    "comNameFr": "Merle obscur",
+    "speciesCode": "eyethr"
+  },
+  {
+    "sciName": "Turdus pilaris",
+    "comName": "Fieldfare",
+    "comNameFr": "Grive litorne",
+    "speciesCode": "fieldf"
+  },
+  {
+    "sciName": "Turdus eunomus/naumanni",
+    "comName": "Dusky/Naumann's Thrush",
+    "comNameFr": "Grive à ailes rousses ou G. de Naumann",
+    "speciesCode": "dusthr"
+  },
+  {
+    "sciName": "Muscicapa sibirica",
+    "comName": "Dark-sided Flycatcher",
+    "comNameFr": "Gobemouche de Sibérie",
+    "speciesCode": "dasfly"
+  },
+  {
+    "sciName": "Muscicapa dauurica",
+    "comName": "Asian Brown Flycatcher",
+    "comNameFr": "Gobemouche brun",
+    "speciesCode": "asbfly"
+  },
+  {
+    "sciName": "Copsychus saularis",
+    "comName": "Oriental Magpie-Robin",
+    "comNameFr": "Shama dayal",
+    "speciesCode": "magrob"
+  },
+  {
+    "sciName": "Copsychus malabaricus",
+    "comName": "White-rumped Shama",
+    "comNameFr": "Shama à croupion blanc",
+    "speciesCode": "whrsha"
+  },
+  {
+    "sciName": "Larvivora cyane",
+    "comName": "Siberian Blue Robin",
+    "comNameFr": "Rossignol bleu",
+    "speciesCode": "sibrob"
+  },
+  {
+    "sciName": "Luscinia svecica",
+    "comName": "Bluethroat",
+    "comNameFr": "Gorgebleue à miroir",
+    "speciesCode": "blueth"
+  },
+  {
+    "sciName": "Calliope calliope",
+    "comName": "Siberian Rubythroat",
+    "comNameFr": "Rossignol calliope",
+    "speciesCode": "sibrub"
+  },
+  {
+    "sciName": "Tarsiger cyanurus/albocoeruleus",
+    "comName": "Red-flanked/Qilian Bluetail",
+    "comNameFr": "Robin à flancs roux ou R. des Qilian",
+    "speciesCode": "refblu"
+  },
+  {
+    "sciName": "Ficedula narcissina/owstoni",
+    "comName": "Narcissus/Ryukyu Flycatcher",
+    "comNameFr": "Gobemouche narcisse ou G. des Ryu Kyu",
+    "speciesCode": "narfly"
+  },
+  {
+    "sciName": "Ficedula mugimaki",
+    "comName": "Mugimaki Flycatcher",
+    "comNameFr": "Gobemouche mugimaki",
+    "speciesCode": "mugfly"
+  },
+  {
+    "sciName": "Ficedula parva",
+    "comName": "Red-breasted Flycatcher",
+    "comNameFr": "Gobemouche nain",
+    "speciesCode": "rebfly"
+  },
+  {
+    "sciName": "Monticola solitarius",
+    "comName": "Blue Rock-Thrush",
+    "comNameFr": "Monticole bleu",
+    "speciesCode": "burthr"
+  },
+  {
+    "sciName": "Oenanthe oenanthe",
+    "comName": "Northern Wheatear",
+    "comNameFr": "Traquet motteux",
+    "speciesCode": "norwhe"
+  },
+  {
+    "sciName": "Bombycilla garrulus",
+    "comName": "Bohemian Waxwing",
+    "comNameFr": "Jaseur boréal",
+    "speciesCode": "bohwax"
+  },
+  {
+    "sciName": "Bombycilla cedrorum",
+    "comName": "Cedar Waxwing",
+    "comNameFr": "Jaseur d'Amérique",
+    "speciesCode": "cedwax"
+  },
+  {
+    "sciName": "Bombycilla garrulus/cedrorum",
+    "comName": "Bohemian/Cedar Waxwing",
+    "comNameFr": "Jaseur boréal ou J. d'Amérique",
+    "speciesCode": "waxwin"
+  },
+  {
+    "sciName": "Moho braccatus",
+    "comName": "Kauai Oo",
+    "comNameFr": "Moho de Kauai",
+    "speciesCode": "kauoo"
+  },
+  {
+    "sciName": "Moho apicalis",
+    "comName": "Oahu Oo",
+    "comNameFr": "Moho d'Oahu",
+    "speciesCode": "oahoo"
+  },
+  {
+    "sciName": "Moho bishopi",
+    "comName": "Bishop's Oo",
+    "comNameFr": "Moho de Bishop",
+    "speciesCode": "bisoo"
+  },
+  {
+    "sciName": "Moho nobilis",
+    "comName": "Hawaii Oo",
+    "comNameFr": "Moho d'Hawaï",
+    "speciesCode": "hawoo"
+  },
+  {
+    "sciName": "Chaetoptila angustipluma",
+    "comName": "Kioea",
+    "comNameFr": "Kioéa d'Hawaï",
+    "speciesCode": "kioea"
+  },
+  {
+    "sciName": "Phainopepla nitens",
+    "comName": "Phainopepla",
+    "comNameFr": "Phénopèple luisant",
+    "speciesCode": "phaino"
+  },
+  {
+    "sciName": "Peucedramus taeniatus",
+    "comName": "Olive Warbler",
+    "comNameFr": "Fauvine des pins",
+    "speciesCode": "oliwar"
+  },
+  {
+    "sciName": "Ploceus velatus",
+    "comName": "Southern Masked-Weaver",
+    "comNameFr": "Tisserin à tête rousse",
+    "speciesCode": "afmwea"
+  },
+  {
+    "sciName": "Euplectes orix",
+    "comName": "Southern Red Bishop",
+    "comNameFr": "Euplecte ignicolore",
+    "speciesCode": "redbis"
+  },
+  {
+    "sciName": "Euplectes afer",
+    "comName": "Yellow-crowned Bishop",
+    "comNameFr": "Euplecte vorabé",
+    "speciesCode": "yecbis"
+  },
+  {
+    "sciName": "Euodice malabarica",
+    "comName": "Indian Silverbill",
+    "comNameFr": "Capucin bec-de-plomb",
+    "speciesCode": "indsil"
+  },
+  {
+    "sciName": "Padda oryzivora",
+    "comName": "Java Sparrow",
+    "comNameFr": "Padda de Java",
+    "speciesCode": "javspa"
+  },
+  {
+    "sciName": "Lonchura punctulata",
+    "comName": "Scaly-breasted Munia",
+    "comNameFr": "Capucin damier",
+    "speciesCode": "nutman"
+  },
+  {
+    "sciName": "Lonchura striata",
+    "comName": "White-rumped Munia",
+    "comNameFr": "Capucin domino",
+    "speciesCode": "whrmun"
+  },
+  {
+    "sciName": "Lonchura malacca",
+    "comName": "Tricolored Munia",
+    "comNameFr": "Capucin à dos marron",
+    "speciesCode": "trimun"
+  },
+  {
+    "sciName": "Lonchura atricapilla",
+    "comName": "Chestnut Munia",
+    "comNameFr": "Capucin à tête noire",
+    "speciesCode": "chemun"
+  },
+  {
+    "sciName": "Glaucestrilda caerulescens",
+    "comName": "Lavender Waxbill",
+    "comNameFr": "Astrild queue-de-vinaigre",
+    "speciesCode": "lavwax"
+  },
+  {
+    "sciName": "Estrilda melpoda",
+    "comName": "Orange-cheeked Waxbill",
+    "comNameFr": "Astrild à joues orange",
+    "speciesCode": "orcwax"
+  },
+  {
+    "sciName": "Estrilda astrild",
+    "comName": "Common Waxbill",
+    "comNameFr": "Astrild ondulé",
+    "speciesCode": "comwax"
+  },
+  {
+    "sciName": "Estrilda troglodytes",
+    "comName": "Black-rumped Waxbill",
+    "comNameFr": "Astrild cendré",
+    "speciesCode": "bkrwax"
+  },
+  {
+    "sciName": "Amandava amandava",
+    "comName": "Red Avadavat",
+    "comNameFr": "Bengali rouge",
+    "speciesCode": "redava"
+  },
+  {
+    "sciName": "Uraeginthus bengalus",
+    "comName": "Red-cheeked Cordonbleu",
+    "comNameFr": "Cordonbleu à joues rouges",
+    "speciesCode": "reccor"
+  },
+  {
+    "sciName": "Lagonosticta rubricata",
+    "comName": "African Firefinch",
+    "comNameFr": "Amarante foncé",
+    "speciesCode": "afffin"
+  },
+  {
+    "sciName": "Vidua macroura",
+    "comName": "Pin-tailed Whydah",
+    "comNameFr": "Veuve dominicaine",
+    "speciesCode": "pitwhy"
+  },
+  {
+    "sciName": "Vidua chalybeata",
+    "comName": "Village Indigobird",
+    "comNameFr": "Combassou du Sénégal",
+    "speciesCode": "vilind"
+  },
+  {
+    "sciName": "Prunella montanella",
+    "comName": "Siberian Accentor",
+    "comNameFr": "Accenteur montanelle",
+    "speciesCode": "sibacc"
+  },
+  {
+    "sciName": "Passer domesticus",
+    "comName": "House Sparrow",
+    "comNameFr": "Moineau domestique",
+    "speciesCode": "houspa"
+  },
+  {
+    "sciName": "Passer montanus",
+    "comName": "Eurasian Tree Sparrow",
+    "comNameFr": "Moineau friquet",
+    "speciesCode": "eutspa"
+  },
+  {
+    "sciName": "Motacilla cinerea",
+    "comName": "Gray Wagtail",
+    "comNameFr": "Bergeronnette des ruisseaux",
+    "speciesCode": "grywag"
+  },
+  {
+    "sciName": "Motacilla tschutschensis",
+    "comName": "Eastern Yellow Wagtail",
+    "comNameFr": "Bergeronnette de Béringie",
+    "speciesCode": "eaywag"
+  },
+  {
+    "sciName": "Motacilla citreola",
+    "comName": "Citrine Wagtail",
+    "comNameFr": "Bergeronnette citrine",
+    "speciesCode": "citwag"
+  },
+  {
+    "sciName": "Motacilla alba",
+    "comName": "White Wagtail",
+    "comNameFr": "Bergeronnette grise",
+    "speciesCode": "whiwag"
+  },
+  {
+    "sciName": "Motacilla alba lugens",
+    "comName": "White Wagtail (Black-backed)",
+    "comNameFr": "Bergeronnette grise (lugens)",
+    "speciesCode": "bkbwag"
+  },
+  {
+    "sciName": "Anthus trivialis",
+    "comName": "Tree Pipit",
+    "comNameFr": "Pipit des arbres",
+    "speciesCode": "trepip"
+  },
+  {
+    "sciName": "Anthus hodgsoni",
+    "comName": "Olive-backed Pipit",
+    "comNameFr": "Pipit à dos olive",
+    "speciesCode": "olbpip"
+  },
+  {
+    "sciName": "Anthus gustavi",
+    "comName": "Pechora Pipit",
+    "comNameFr": "Pipit de la Petchora",
+    "speciesCode": "pecpip"
+  },
+  {
+    "sciName": "Anthus cervinus",
+    "comName": "Red-throated Pipit",
+    "comNameFr": "Pipit à gorge rousse",
+    "speciesCode": "retpip"
+  },
+  {
+    "sciName": "Anthus rubescens",
+    "comName": "American Pipit",
+    "comNameFr": "Pipit d'Amérique",
+    "speciesCode": "amepip"
+  },
+  {
+    "sciName": "Anthus spragueii",
+    "comName": "Sprague's Pipit",
+    "comNameFr": "Pipit de Sprague",
+    "speciesCode": "sprpip"
+  },
+  {
+    "sciName": "Fringilla coelebs",
+    "comName": "Common Chaffinch",
+    "comNameFr": "Pinson des arbres",
+    "speciesCode": "comcha"
+  },
+  {
+    "sciName": "Fringilla montifringilla",
+    "comName": "Brambling",
+    "comNameFr": "Pinson du Nord",
+    "speciesCode": "brambl"
+  },
+  {
+    "sciName": "Coccothraustes vespertinus",
+    "comName": "Evening Grosbeak",
+    "comNameFr": "Gros-bec errant",
+    "speciesCode": "evegro"
+  },
+  {
+    "sciName": "Coccothraustes coccothraustes",
+    "comName": "Hawfinch",
+    "comNameFr": "Gros-bec casse-noyaux",
+    "speciesCode": "hawfin"
+  },
+  {
+    "sciName": "Melamprosops phaeosoma",
+    "comName": "Poo-uli",
+    "comNameFr": "Po-o-uli masqué",
+    "speciesCode": "poouli"
+  },
+  {
+    "sciName": "Oreomystis bairdi",
+    "comName": "Akikiki",
+    "comNameFr": "Akikiki de Kauai",
+    "speciesCode": "akikik"
+  },
+  {
+    "sciName": "Paroreomyza maculata",
+    "comName": "Oahu Alauahio",
+    "comNameFr": "Alauahio d'Oahu",
+    "speciesCode": "oahala"
+  },
+  {
+    "sciName": "Paroreomyza flammea",
+    "comName": "Kakawahie",
+    "comNameFr": "Alauahio de Molokai",
+    "speciesCode": "kakawa"
+  },
+  {
+    "sciName": "Paroreomyza montana",
+    "comName": "Maui Alauahio",
+    "comNameFr": "Alauahio de Maui",
+    "speciesCode": "mauala"
+  },
+  {
+    "sciName": "Loxioides bailleui",
+    "comName": "Palila",
+    "comNameFr": "Psittirostre palila",
+    "speciesCode": "palila"
+  },
+  {
+    "sciName": "Telespiza cantans",
+    "comName": "Laysan Finch",
+    "comNameFr": "Psittirostre de Laysan",
+    "speciesCode": "layfin"
+  },
+  {
+    "sciName": "Telespiza ultima",
+    "comName": "Nihoa Finch",
+    "comNameFr": "Psittirostre de Nihoa",
+    "speciesCode": "nihfin"
+  },
+  {
+    "sciName": "Chloridops kona",
+    "comName": "Kona Grosbeak",
+    "comNameFr": "Psittirostre à gros bec",
+    "speciesCode": "kongro"
+  },
+  {
+    "sciName": "Rhodacanthis flaviceps",
+    "comName": "Lesser Koa-Finch",
+    "comNameFr": "Petit Psittirostre",
+    "speciesCode": "lekfin"
+  },
+  {
+    "sciName": "Rhodacanthis palmeri",
+    "comName": "Greater Koa-Finch",
+    "comNameFr": "Psittirostre de Palmer",
+    "speciesCode": "grkfin"
+  },
+  {
+    "sciName": "Ciridops anna",
+    "comName": "Ula-ai-hawane",
+    "comNameFr": "Ciridopse d'Anna",
+    "speciesCode": "ulahaw"
+  },
+  {
+    "sciName": "Palmeria dolei",
+    "comName": "Akohekohe",
+    "comNameFr": "Palmérie huppée",
+    "speciesCode": "crehon"
+  },
+  {
+    "sciName": "Himatione sanguinea",
+    "comName": "Apapane",
+    "comNameFr": "Picchion cramoisi",
+    "speciesCode": "apapan"
+  },
+  {
+    "sciName": "Drepanis coccinea",
+    "comName": "Iiwi",
+    "comNameFr": "Iiwi rouge",
+    "speciesCode": "iiwi"
+  },
+  {
+    "sciName": "Drepanis funerea",
+    "comName": "Black Mamo",
+    "comNameFr": "Drépanide noir",
+    "speciesCode": "blkmam"
+  },
+  {
+    "sciName": "Psittirostra psittacea",
+    "comName": "Ou",
+    "comNameFr": "Psittirostre psittacin",
+    "speciesCode": "ou"
+  },
+  {
+    "sciName": "Dysmorodrepanis munroi",
+    "comName": "Lanai Hookbill",
+    "comNameFr": "Psittirostre de Munro",
+    "speciesCode": "lanhoo"
+  },
+  {
+    "sciName": "Pseudonestor xanthophrys",
+    "comName": "Maui Parrotbill",
+    "comNameFr": "Pseudonestor de Maui",
+    "speciesCode": "maupar"
+  },
+  {
+    "sciName": "Hemignathus wilsoni",
+    "comName": "Akiapolaau",
+    "comNameFr": "Akiapolaau d'Hawaï",
+    "speciesCode": "akiapo"
+  },
+  {
+    "sciName": "Akialoa obscura",
+    "comName": "Lesser Akialoa",
+    "comNameFr": "Akialoa d'Hawaï",
+    "speciesCode": "lesaki"
+  },
+  {
+    "sciName": "Magumma parva",
+    "comName": "Anianiau",
+    "comNameFr": "Anianiau de Kauai",
+    "speciesCode": "aniani"
+  },
+  {
+    "sciName": "Chlorodrepanis virens",
+    "comName": "Hawaii Amakihi",
+    "comNameFr": "Amakihi familier",
+    "speciesCode": "hawama"
+  },
+  {
+    "sciName": "Chlorodrepanis flava",
+    "comName": "Oahu Amakihi",
+    "comNameFr": "Amakihi d'Oahu",
+    "speciesCode": "oahama"
+  },
+  {
+    "sciName": "Chlorodrepanis stejnegeri",
+    "comName": "Kauai Amakihi",
+    "comNameFr": "Amakihi de Stejneger",
+    "speciesCode": "kauama"
+  },
+  {
+    "sciName": "Viridonia sagittirostris",
+    "comName": "Greater Amakihi",
+    "comNameFr": "Grand Amakihi",
+    "speciesCode": "greama"
+  },
+  {
+    "sciName": "Loxops mana",
+    "comName": "Hawaii Creeper",
+    "comNameFr": "Loxopse mana",
+    "speciesCode": "hawcre"
+  },
+  {
+    "sciName": "Loxops caeruleirostris",
+    "comName": "Akekee",
+    "comNameFr": "Loxopse de Kauai",
+    "speciesCode": "akekee"
+  },
+  {
+    "sciName": "Carpodacus erythrinus",
+    "comName": "Common Rosefinch",
+    "comNameFr": "Roselin cramoisi",
+    "speciesCode": "comros"
+  },
+  {
+    "sciName": "Carpodacus sp.",
+    "comName": "rosefinch sp.",
+    "comNameFr": "Carpodacus sp.",
+    "speciesCode": "carpod"
+  },
+  {
+    "sciName": "Pinicola enucleator",
+    "comName": "Pine Grosbeak",
+    "comNameFr": "Durbec des sapins",
+    "speciesCode": "pingro"
+  },
+  {
+    "sciName": "Pyrrhula pyrrhula",
+    "comName": "Eurasian Bullfinch",
+    "comNameFr": "Bouvreuil pivoine",
+    "speciesCode": "eurbul"
+  },
+  {
+    "sciName": "Leucosticte tephrocotis",
+    "comName": "Gray-crowned Rosy-Finch",
+    "comNameFr": "Roselin à tête grise",
+    "speciesCode": "gcrfin"
+  },
+  {
+    "sciName": "Leucosticte atrata",
+    "comName": "Black Rosy-Finch",
+    "comNameFr": "Roselin noir",
+    "speciesCode": "bkrfin"
+  },
+  {
+    "sciName": "Leucosticte australis",
+    "comName": "Brown-capped Rosy-Finch",
+    "comNameFr": "Roselin à tête brune",
+    "speciesCode": "bcrfin"
+  },
+  {
+    "sciName": "Leucosticte sp.",
+    "comName": "rosy-finch sp.",
+    "comNameFr": "Leucosticte sp.",
+    "speciesCode": "rosfin"
+  },
+  {
+    "sciName": "Haemorhous mexicanus",
+    "comName": "House Finch",
+    "comNameFr": "Roselin familier",
+    "speciesCode": "houfin"
+  },
+  {
+    "sciName": "Haemorhous purpureus",
+    "comName": "Purple Finch",
+    "comNameFr": "Roselin pourpré",
+    "speciesCode": "purfin"
+  },
+  {
+    "sciName": "Haemorhous cassinii",
+    "comName": "Cassin's Finch",
+    "comNameFr": "Roselin de Cassin",
+    "speciesCode": "casfin"
+  },
+  {
+    "sciName": "Chloris sinica",
+    "comName": "Oriental Greenfinch",
+    "comNameFr": "Verdier de Chine",
+    "speciesCode": "origre"
+  },
+  {
+    "sciName": "Crithagra leucopygia",
+    "comName": "White-rumped Seedeater",
+    "comNameFr": "Serin à croupion blanc",
+    "speciesCode": "whrsee"
+  },
+  {
+    "sciName": "Crithagra mozambica",
+    "comName": "Yellow-fronted Canary",
+    "comNameFr": "Serin du Mozambique",
+    "speciesCode": "yefcan"
+  },
+  {
+    "sciName": "Acanthis flammea flammea/rostrata/islandica",
+    "comName": "Redpoll (Common)",
+    "comNameFr": "Sizerin flammé (flammea/rostrata/islandica)",
+    "speciesCode": "comred"
+  },
+  {
+    "sciName": "Acanthis flammea hornemanni/exilipes",
+    "comName": "Redpoll (Hoary)",
+    "comNameFr": "Sizerin flammé (hornemanni/exilipes)",
+    "speciesCode": "hoared"
+  },
+  {
+    "sciName": "Acanthis flammea [flammea Group/hornemanni/exilipes]",
+    "comName": "Redpoll (Common/Hoary)",
+    "comNameFr": "Sizerin flammé (groupe flammea ou hornemanni/exilipes)",
+    "speciesCode": "redpol"
+  },
+  {
+    "sciName": "Loxia curvirostra",
+    "comName": "Red Crossbill",
+    "comNameFr": "Bec-croisé des sapins",
+    "speciesCode": "redcro"
+  },
+  {
+    "sciName": "Loxia megaplaga",
+    "comName": "Hispaniolan Crossbill",
+    "comNameFr": "Bec-croisé d'Hispaniola",
+    "speciesCode": "hiscro"
+  },
+  {
+    "sciName": "Loxia leucoptera",
+    "comName": "White-winged Crossbill",
+    "comNameFr": "Bec-croisé bifascié",
+    "speciesCode": "whwcro"
+  },
+  {
+    "sciName": "Loxia sp.",
+    "comName": "crossbill sp.",
+    "comNameFr": "bec-croisé sp.",
+    "speciesCode": "crossb"
+  },
+  {
+    "sciName": "Carduelis carduelis",
+    "comName": "European Goldfinch",
+    "comNameFr": "Chardonneret élégant",
+    "speciesCode": "eurgol"
+  },
+  {
+    "sciName": "Serinus canaria",
+    "comName": "Island Canary",
+    "comNameFr": "Serin des Canaries",
+    "speciesCode": "comcan"
+  },
+  {
+    "sciName": "Spinus spinus",
+    "comName": "Eurasian Siskin",
+    "comNameFr": "Tarin des aulnes",
+    "speciesCode": "eursis"
+  },
+  {
+    "sciName": "Spinus pinus",
+    "comName": "Pine Siskin",
+    "comNameFr": "Tarin des pins",
+    "speciesCode": "pinsis"
+  },
+  {
+    "sciName": "Spinus psaltria",
+    "comName": "Lesser Goldfinch",
+    "comNameFr": "Chardonneret mineur",
+    "speciesCode": "lesgol"
+  },
+  {
+    "sciName": "Spinus lawrencei",
+    "comName": "Lawrence's Goldfinch",
+    "comNameFr": "Chardonneret gris",
+    "speciesCode": "lawgol"
+  },
+  {
+    "sciName": "Spinus tristis",
+    "comName": "American Goldfinch",
+    "comNameFr": "Chardonneret jaune",
+    "speciesCode": "amegfi"
+  },
+  {
+    "sciName": "Spinus sp. (goldfinch sp.)",
+    "comName": "new world goldfinch sp.",
+    "comNameFr": "chardonneret sp. (Amérique du Nord)",
+    "speciesCode": "goldfi"
+  },
+  {
+    "sciName": "Calcarius lapponicus",
+    "comName": "Lapland Longspur",
+    "comNameFr": "Plectrophane lapon",
+    "speciesCode": "laplon"
+  },
+  {
+    "sciName": "Calcarius ornatus",
+    "comName": "Chestnut-collared Longspur",
+    "comNameFr": "Plectrophane à ventre noir",
+    "speciesCode": "chclon"
+  },
+  {
+    "sciName": "Calcarius pictus",
+    "comName": "Smith's Longspur",
+    "comNameFr": "Plectrophane de Smith",
+    "speciesCode": "smilon"
+  },
+  {
+    "sciName": "Rhynchophanes mccownii",
+    "comName": "Thick-billed Longspur",
+    "comNameFr": "Plectrophane à ventre gris",
+    "speciesCode": "mcclon"
+  },
+  {
+    "sciName": "Plectrophenax nivalis",
+    "comName": "Snow Bunting",
+    "comNameFr": "Plectrophane des neiges",
+    "speciesCode": "snobun"
+  },
+  {
+    "sciName": "Plectrophenax hyperboreus",
+    "comName": "McKay's Bunting",
+    "comNameFr": "Plectrophane blanc",
+    "speciesCode": "mckbun"
+  },
+  {
+    "sciName": "Emberiza leucocephalos",
+    "comName": "Pine Bunting",
+    "comNameFr": "Bruant à calotte blanche",
+    "speciesCode": "pinbun"
+  },
+  {
+    "sciName": "Emberiza pallasi",
+    "comName": "Pallas's Bunting",
+    "comNameFr": "Bruant de Pallas",
+    "speciesCode": "palbun"
+  },
+  {
+    "sciName": "Emberiza schoeniclus",
+    "comName": "Reed Bunting",
+    "comNameFr": "Bruant des roseaux",
+    "speciesCode": "reebun"
+  },
+  {
+    "sciName": "Emberiza aureola",
+    "comName": "Yellow-breasted Bunting",
+    "comNameFr": "Bruant auréole",
+    "speciesCode": "yebbun"
+  },
+  {
+    "sciName": "Emberiza pusilla",
+    "comName": "Little Bunting",
+    "comNameFr": "Bruant nain",
+    "speciesCode": "litbun"
+  },
+  {
+    "sciName": "Emberiza rustica",
+    "comName": "Rustic Bunting",
+    "comNameFr": "Bruant rustique",
+    "speciesCode": "rusbun"
+  },
+  {
+    "sciName": "Emberiza variabilis",
+    "comName": "Gray Bunting",
+    "comNameFr": "Bruant gris",
+    "speciesCode": "grybun"
+  },
+  {
+    "sciName": "Peucaea carpalis",
+    "comName": "Rufous-winged Sparrow",
+    "comNameFr": "Bruant à épaulettes",
+    "speciesCode": "ruwspa"
+  },
+  {
+    "sciName": "Peucaea botterii",
+    "comName": "Botteri's Sparrow",
+    "comNameFr": "Bruant de Botteri",
+    "speciesCode": "botspa"
+  },
+  {
+    "sciName": "Peucaea cassinii",
+    "comName": "Cassin's Sparrow",
+    "comNameFr": "Bruant de Cassin",
+    "speciesCode": "casspa"
+  },
+  {
+    "sciName": "Peucaea aestivalis",
+    "comName": "Bachman's Sparrow",
+    "comNameFr": "Bruant des pinèdes",
+    "speciesCode": "bacspa"
+  },
+  {
+    "sciName": "Ammodramus savannarum",
+    "comName": "Grasshopper Sparrow",
+    "comNameFr": "Bruant sauterelle",
+    "speciesCode": "graspa"
+  },
+  {
+    "sciName": "Arremonops rufivirgatus",
+    "comName": "Olive Sparrow",
+    "comNameFr": "Tohi olive",
+    "speciesCode": "olispa"
+  },
+  {
+    "sciName": "Spizella passerina",
+    "comName": "Chipping Sparrow",
+    "comNameFr": "Bruant familier",
+    "speciesCode": "chispa"
+  },
+  {
+    "sciName": "Spizella pallida",
+    "comName": "Clay-colored Sparrow",
+    "comNameFr": "Bruant des plaines",
+    "speciesCode": "clcspa"
+  },
+  {
+    "sciName": "Spizella atrogularis",
+    "comName": "Black-chinned Sparrow",
+    "comNameFr": "Bruant à menton noir",
+    "speciesCode": "bkcspa"
+  },
+  {
+    "sciName": "Spizella pusilla",
+    "comName": "Field Sparrow",
+    "comNameFr": "Bruant des champs",
+    "speciesCode": "fiespa"
+  },
+  {
+    "sciName": "Spizella breweri",
+    "comName": "Brewer's Sparrow",
+    "comNameFr": "Bruant de Brewer",
+    "speciesCode": "brespa"
+  },
+  {
+    "sciName": "Spizella wortheni",
+    "comName": "Worthen's Sparrow",
+    "comNameFr": "Bruant de Worthen",
+    "speciesCode": "worspa"
+  },
+  {
+    "sciName": "Amphispizopsis quinquestriata",
+    "comName": "Five-striped Sparrow",
+    "comNameFr": "Bruant pentaligne",
+    "speciesCode": "fisspa"
+  },
+  {
+    "sciName": "Amphispiza bilineata",
+    "comName": "Black-throated Sparrow",
+    "comNameFr": "Bruant à gorge noire",
+    "speciesCode": "bktspa"
+  },
+  {
+    "sciName": "Chondestes grammacus",
+    "comName": "Lark Sparrow",
+    "comNameFr": "Bruant à joues marron",
+    "speciesCode": "larspa"
+  },
+  {
+    "sciName": "Calamospiza melanocorys",
+    "comName": "Lark Bunting",
+    "comNameFr": "Bruant noir et blanc",
+    "speciesCode": "larbun"
+  },
+  {
+    "sciName": "Arremon brunneinucha",
+    "comName": "Chestnut-capped Brushfinch",
+    "comNameFr": "Tohi à nuque brune",
+    "speciesCode": "ccbfin"
+  },
+  {
+    "sciName": "Spizelloides arborea",
+    "comName": "American Tree Sparrow",
+    "comNameFr": "Bruant hudsonien",
+    "speciesCode": "amtspa"
+  },
+  {
+    "sciName": "Spizella/Spizelloides sp.",
+    "comName": "Spizella sp./American Tree Sparrow",
+    "comNameFr": "Spizella ou Spizelloides sp.",
+    "speciesCode": "spizel"
+  },
+  {
+    "sciName": "Passerella iliaca",
+    "comName": "Fox Sparrow",
+    "comNameFr": "Bruant fauve",
+    "speciesCode": "foxspa"
+  },
+  {
+    "sciName": "Junco hyemalis",
+    "comName": "Dark-eyed Junco",
+    "comNameFr": "Junco ardoisé",
+    "speciesCode": "daejun"
+  },
+  {
+    "sciName": "Junco hyemalis hyemalis/carolinensis",
+    "comName": "Dark-eyed Junco (Slate-colored)",
+    "comNameFr": "Junco ardoisé (hyemalis/carolinensis)",
+    "speciesCode": "slcjun"
+  },
+  {
+    "sciName": "Junco hyemalis [oreganus Group]",
+    "comName": "Dark-eyed Junco (Oregon)",
+    "comNameFr": "Junco ardoisé (groupe oreganus)",
+    "speciesCode": "orejun"
+  },
+  {
+    "sciName": "Junco hyemalis mearnsi",
+    "comName": "Dark-eyed Junco (Pink-sided)",
+    "comNameFr": "Junco ardoisé (mearnsi)",
+    "speciesCode": "pisjun"
+  },
+  {
+    "sciName": "Junco hyemalis aikeni",
+    "comName": "Dark-eyed Junco (White-winged)",
+    "comNameFr": "Junco ardoisé (aikeni)",
+    "speciesCode": "whwjun"
+  },
+  {
+    "sciName": "Junco hyemalis caniceps",
+    "comName": "Dark-eyed Junco (Gray-headed)",
+    "comNameFr": "Junco ardoisé (caniceps)",
+    "speciesCode": "gyhjun"
+  },
+  {
+    "sciName": "Junco phaeonotus",
+    "comName": "Yellow-eyed Junco",
+    "comNameFr": "Junco aux yeux jaunes",
+    "speciesCode": "yeejun"
+  },
+  {
+    "sciName": "Zonotrichia leucophrys",
+    "comName": "White-crowned Sparrow",
+    "comNameFr": "Bruant à couronne blanche",
+    "speciesCode": "whcspa"
+  },
+  {
+    "sciName": "Zonotrichia leucophrys gambelii",
+    "comName": "White-crowned Sparrow (Gambel's)",
+    "comNameFr": "Bruant à couronne blanche (gambelii)",
+    "speciesCode": "gwcspa"
+  },
+  {
+    "sciName": "Zonotrichia leucophrys nuttalli",
+    "comName": "White-crowned Sparrow (nuttalli)",
+    "comNameFr": "Bruant à couronne blanche (nuttalli)",
+    "speciesCode": "nwcspa"
+  },
+  {
+    "sciName": "Zonotrichia atricapilla",
+    "comName": "Golden-crowned Sparrow",
+    "comNameFr": "Bruant à couronne dorée",
+    "speciesCode": "gocspa"
+  },
+  {
+    "sciName": "Zonotrichia querula",
+    "comName": "Harris's Sparrow",
+    "comNameFr": "Bruant à face noire",
+    "speciesCode": "harspa"
+  },
+  {
+    "sciName": "Zonotrichia albicollis",
+    "comName": "White-throated Sparrow",
+    "comNameFr": "Bruant à gorge blanche",
+    "speciesCode": "whtspa"
+  },
+  {
+    "sciName": "Artemisiospiza nevadensis/belli",
+    "comName": "Sagebrush/Bell's Sparrow (Sage Sparrow)",
+    "comNameFr": "Bruant des armoises ou B. de Bell",
+    "speciesCode": "sagspa"
+  },
+  {
+    "sciName": "Pooecetes gramineus",
+    "comName": "Vesper Sparrow",
+    "comNameFr": "Bruant vespéral",
+    "speciesCode": "vesspa"
+  },
+  {
+    "sciName": "Ammospiza leconteii",
+    "comName": "LeConte's Sparrow",
+    "comNameFr": "Bruant de LeConte",
+    "speciesCode": "lecspa"
+  },
+  {
+    "sciName": "Ammospiza maritima",
+    "comName": "Seaside Sparrow",
+    "comNameFr": "Bruant maritime",
+    "speciesCode": "seaspa"
+  },
+  {
+    "sciName": "Ammospiza nelsoni",
+    "comName": "Nelson's Sparrow",
+    "comNameFr": "Bruant de Nelson",
+    "speciesCode": "nstspa"
+  },
+  {
+    "sciName": "Ammospiza caudacuta",
+    "comName": "Saltmarsh Sparrow",
+    "comNameFr": "Bruant à queue aiguë",
+    "speciesCode": "sstspa"
+  },
+  {
+    "sciName": "Ammospiza nelsoni/caudacuta",
+    "comName": "Nelson's/Saltmarsh Sparrow (Sharp-tailed Sparrow)",
+    "comNameFr": "Bruant de Nelson ou B. à queue aiguë",
+    "speciesCode": "shtspa"
+  },
+  {
+    "sciName": "Passerculus sandwichensis",
+    "comName": "Savannah Sparrow",
+    "comNameFr": "Bruant des prés",
+    "speciesCode": "savspa"
+  },
+  {
+    "sciName": "Passerculus sandwichensis princeps",
+    "comName": "Savannah Sparrow (Ipswich)",
+    "comNameFr": "Bruant des prés (princeps)",
+    "speciesCode": "ipsspa"
+  },
+  {
+    "sciName": "Passerculus sandwichensis [guttatus Group]",
+    "comName": "Savannah Sparrow (Belding's)",
+    "comNameFr": "Bruant des prés (groupe guttatus)",
+    "speciesCode": "bldspa"
+  },
+  {
+    "sciName": "Passerculus sandwichensis rostratus/atratus",
+    "comName": "Savannah Sparrow (Large-billed)",
+    "comNameFr": "Bruant des prés (rostratus/atratus)",
+    "speciesCode": "labspa"
+  },
+  {
+    "sciName": "Centronyx bairdii",
+    "comName": "Baird's Sparrow",
+    "comNameFr": "Bruant de Baird",
+    "speciesCode": "baispa"
+  },
+  {
+    "sciName": "Centronyx henslowii",
+    "comName": "Henslow's Sparrow",
+    "comNameFr": "Bruant de Henslow",
+    "speciesCode": "henspa"
+  },
+  {
+    "sciName": "Melospiza melodia",
+    "comName": "Song Sparrow",
+    "comNameFr": "Bruant chanteur",
+    "speciesCode": "sonspa"
+  },
+  {
+    "sciName": "Melospiza lincolnii",
+    "comName": "Lincoln's Sparrow",
+    "comNameFr": "Bruant de Lincoln",
+    "speciesCode": "linspa"
+  },
+  {
+    "sciName": "Melospiza georgiana",
+    "comName": "Swamp Sparrow",
+    "comNameFr": "Bruant des marais",
+    "speciesCode": "swaspa"
+  },
+  {
+    "sciName": "Melozone fusca",
+    "comName": "Canyon Towhee",
+    "comNameFr": "Tohi des canyons",
+    "speciesCode": "cantow"
+  },
+  {
+    "sciName": "Melozone aberti",
+    "comName": "Abert's Towhee",
+    "comNameFr": "Tohi d'Abert",
+    "speciesCode": "abetow"
+  },
+  {
+    "sciName": "Melozone crissalis",
+    "comName": "California Towhee",
+    "comNameFr": "Tohi de Californie",
+    "speciesCode": "caltow"
+  },
+  {
+    "sciName": "Aimophila ruficeps",
+    "comName": "Rufous-crowned Sparrow",
+    "comNameFr": "Tohi à calotte fauve",
+    "speciesCode": "rucspa"
+  },
+  {
+    "sciName": "Pipilo chlorurus",
+    "comName": "Green-tailed Towhee",
+    "comNameFr": "Tohi à queue verte",
+    "speciesCode": "gnttow"
+  },
+  {
+    "sciName": "Pipilo maculatus",
+    "comName": "Spotted Towhee",
+    "comNameFr": "Tohi tacheté",
+    "speciesCode": "spotow"
+  },
+  {
+    "sciName": "Pipilo erythrophthalmus",
+    "comName": "Eastern Towhee",
+    "comNameFr": "Tohi à flancs roux",
+    "speciesCode": "eastow"
+  },
+  {
+    "sciName": "Spindalis zena",
+    "comName": "Western Spindalis",
+    "comNameFr": "Zéna à tête rayée",
+    "speciesCode": "wesspi"
+  },
+  {
+    "sciName": "Spindalis nigricephala",
+    "comName": "Jamaican Spindalis",
+    "comNameFr": "Zéna de Jamaïque",
+    "speciesCode": "jamspi"
+  },
+  {
+    "sciName": "Spindalis dominicensis",
+    "comName": "Hispaniolan Spindalis",
+    "comNameFr": "Zéna d'Hispaniola",
+    "speciesCode": "hisspi"
+  },
+  {
+    "sciName": "Spindalis portoricensis",
+    "comName": "Puerto Rican Spindalis",
+    "comNameFr": "Zéna de Porto Rico",
+    "speciesCode": "purspi"
+  },
+  {
+    "sciName": "Icteria virens",
+    "comName": "Yellow-breasted Chat",
+    "comNameFr": "Ictérie polyglotte",
+    "speciesCode": "yebcha"
+  },
+  {
+    "sciName": "Xanthocephalus xanthocephalus",
+    "comName": "Yellow-headed Blackbird",
+    "comNameFr": "Carouge à tête jaune",
+    "speciesCode": "yehbla"
+  },
+  {
+    "sciName": "Dolichonyx oryzivorus",
+    "comName": "Bobolink",
+    "comNameFr": "Goglu des prés",
+    "speciesCode": "boboli"
+  },
+  {
+    "sciName": "Sturnella neglecta",
+    "comName": "Western Meadowlark",
+    "comNameFr": "Sturnelle de l'Ouest",
+    "speciesCode": "wesmea"
+  },
+  {
+    "sciName": "Sturnella magna",
+    "comName": "Eastern Meadowlark",
+    "comNameFr": "Sturnelle des prés",
+    "speciesCode": "easmea"
+  },
+  {
+    "sciName": "Sturnella neglecta/magna",
+    "comName": "Western/Eastern Meadowlark",
+    "comNameFr": "Sturnelle de l'Ouest ou S. des prés",
+    "speciesCode": "meadow"
+  },
+  {
+    "sciName": "Icterus wagleri",
+    "comName": "Black-vented Oriole",
+    "comNameFr": "Oriole cul-noir",
+    "speciesCode": "bkvori"
+  },
+  {
+    "sciName": "Icterus prosthemelas",
+    "comName": "Black-cowled Oriole",
+    "comNameFr": "Oriole monacal",
+    "speciesCode": "bkcori"
+  },
+  {
+    "sciName": "Icterus spurius",
+    "comName": "Orchard Oriole",
+    "comNameFr": "Oriole des vergers",
+    "speciesCode": "orcori"
+  },
+  {
+    "sciName": "Icterus cucullatus",
+    "comName": "Hooded Oriole",
+    "comNameFr": "Oriole masqué",
+    "speciesCode": "hooori"
+  },
+  {
+    "sciName": "Icterus pustulatus",
+    "comName": "Streak-backed Oriole",
+    "comNameFr": "Oriole à dos rayé",
+    "speciesCode": "stbori"
+  },
+  {
+    "sciName": "Icterus bullockii",
+    "comName": "Bullock's Oriole",
+    "comNameFr": "Oriole de Bullock",
+    "speciesCode": "bulori"
+  },
+  {
+    "sciName": "Icterus pectoralis",
+    "comName": "Spot-breasted Oriole",
+    "comNameFr": "Oriole maculé",
+    "speciesCode": "spbori"
+  },
+  {
+    "sciName": "Icterus gularis",
+    "comName": "Altamira Oriole",
+    "comNameFr": "Oriole à gros bec",
+    "speciesCode": "altori"
+  },
+  {
+    "sciName": "Icterus graduacauda",
+    "comName": "Audubon's Oriole",
+    "comNameFr": "Oriole d'Audubon",
+    "speciesCode": "audori"
+  },
+  {
+    "sciName": "Icterus galbula",
+    "comName": "Baltimore Oriole",
+    "comNameFr": "Oriole de Baltimore",
+    "speciesCode": "balori"
+  },
+  {
+    "sciName": "Icterus parisorum",
+    "comName": "Scott's Oriole",
+    "comNameFr": "Oriole jaune-verdâtre",
+    "speciesCode": "scoori"
+  },
+  {
+    "sciName": "Icterus sp.",
+    "comName": "new world oriole sp.",
+    "comNameFr": "oriole sp.",
+    "speciesCode": "oriole"
+  },
+  {
+    "sciName": "Agelaius phoeniceus",
+    "comName": "Red-winged Blackbird",
+    "comNameFr": "Carouge à épaulettes",
+    "speciesCode": "rewbla"
+  },
+  {
+    "sciName": "Agelaius tricolor",
+    "comName": "Tricolored Blackbird",
+    "comNameFr": "Carouge de Californie",
+    "speciesCode": "tribla"
+  },
+  {
+    "sciName": "Agelaius humeralis",
+    "comName": "Tawny-shouldered Blackbird",
+    "comNameFr": "Petit Carouge",
+    "speciesCode": "tasbla"
+  },
+  {
+    "sciName": "Molothrus bonariensis",
+    "comName": "Shiny Cowbird",
+    "comNameFr": "Vacher luisant",
+    "speciesCode": "shicow"
+  },
+  {
+    "sciName": "Molothrus aeneus",
+    "comName": "Bronzed Cowbird",
+    "comNameFr": "Vacher bronzé",
+    "speciesCode": "brocow"
+  },
+  {
+    "sciName": "Molothrus ater",
+    "comName": "Brown-headed Cowbird",
+    "comNameFr": "Vacher à tête brune",
+    "speciesCode": "bnhcow"
+  },
+  {
+    "sciName": "Molothrus oryzivorus",
+    "comName": "Giant Cowbird",
+    "comNameFr": "Vacher géant",
+    "speciesCode": "giacow"
+  },
+  {
+    "sciName": "Ptiloxena atroviolacea",
+    "comName": "Cuban Blackbird",
+    "comNameFr": "Quiscale violet",
+    "speciesCode": "cubbla"
+  },
+  {
+    "sciName": "Euphagus carolinus",
+    "comName": "Rusty Blackbird",
+    "comNameFr": "Quiscale rouilleux",
+    "speciesCode": "rusbla"
+  },
+  {
+    "sciName": "Euphagus cyanocephalus",
+    "comName": "Brewer's Blackbird",
+    "comNameFr": "Quiscale de Brewer",
+    "speciesCode": "brebla"
+  },
+  {
+    "sciName": "Quiscalus quiscula",
+    "comName": "Common Grackle",
+    "comNameFr": "Quiscale bronzé",
+    "speciesCode": "comgra"
+  },
+  {
+    "sciName": "Quiscalus major",
+    "comName": "Boat-tailed Grackle",
+    "comNameFr": "Quiscale des marais",
+    "speciesCode": "botgra"
+  },
+  {
+    "sciName": "Quiscalus mexicanus",
+    "comName": "Great-tailed Grackle",
+    "comNameFr": "Quiscale à longue queue",
+    "speciesCode": "grtgra"
+  },
+  {
+    "sciName": "Quiscalus sp.",
+    "comName": "grackle sp.",
+    "comNameFr": "Quiscalus sp.",
+    "speciesCode": "grackl"
+  },
+  {
+    "sciName": "Icteridae sp.",
+    "comName": "blackbird sp.",
+    "comNameFr": "ictéridé sp.",
+    "speciesCode": "blackb"
+  },
+  {
+    "sciName": "Parkesia motacilla",
+    "comName": "Louisiana Waterthrush",
+    "comNameFr": "Paruline hochequeue",
+    "speciesCode": "louwat"
+  },
+  {
+    "sciName": "Parkesia noveboracensis",
+    "comName": "Northern Waterthrush",
+    "comNameFr": "Paruline des ruisseaux",
+    "speciesCode": "norwat"
+  },
+  {
+    "sciName": "Vermivora bachmanii",
+    "comName": "Bachman's Warbler",
+    "comNameFr": "Paruline de Bachman",
+    "speciesCode": "bacwar"
+  },
+  {
+    "sciName": "Vermivora chrysoptera",
+    "comName": "Golden-winged Warbler",
+    "comNameFr": "Paruline à ailes dorées",
+    "speciesCode": "gowwar"
+  },
+  {
+    "sciName": "Vermivora cyanoptera",
+    "comName": "Blue-winged Warbler",
+    "comNameFr": "Paruline à ailes bleues",
+    "speciesCode": "buwwar"
+  },
+  {
+    "sciName": "Vermivora chrysoptera x cyanoptera (F1 hybrid)",
+    "comName": "Brewster's Warbler (hybrid)",
+    "comNameFr": "Paruline de Brewster (hybride F1)",
+    "speciesCode": "brewar"
+  },
+  {
+    "sciName": "Vermivora chrysoptera x cyanoptera (F2 backcross)",
+    "comName": "Lawrence's Warbler (hybrid)",
+    "comNameFr": "Paruline de Lawrence (hybride F2)",
+    "speciesCode": "lawwar"
+  },
+  {
+    "sciName": "Mniotilta varia",
+    "comName": "Black-and-white Warbler",
+    "comNameFr": "Paruline noir et blanc",
+    "speciesCode": "bawwar"
+  },
+  {
+    "sciName": "Protonotaria citrea",
+    "comName": "Prothonotary Warbler",
+    "comNameFr": "Paruline orangée",
+    "speciesCode": "prowar"
+  },
+  {
+    "sciName": "Limnothlypis swainsonii",
+    "comName": "Swainson's Warbler",
+    "comNameFr": "Paruline de Swainson",
+    "speciesCode": "swawar"
+  },
+  {
+    "sciName": "Oreothlypis superciliosa",
+    "comName": "Crescent-chested Warbler",
+    "comNameFr": "Paruline à croissant",
+    "speciesCode": "crcwar"
+  },
+  {
+    "sciName": "Leiothlypis peregrina",
+    "comName": "Tennessee Warbler",
+    "comNameFr": "Paruline obscure",
+    "speciesCode": "tenwar"
+  },
+  {
+    "sciName": "Leiothlypis celata",
+    "comName": "Orange-crowned Warbler",
+    "comNameFr": "Paruline verdâtre",
+    "speciesCode": "orcwar"
+  },
+  {
+    "sciName": "Leiothlypis crissalis",
+    "comName": "Colima Warbler",
+    "comNameFr": "Paruline de Colima",
+    "speciesCode": "colwar"
+  },
+  {
+    "sciName": "Leiothlypis luciae",
+    "comName": "Lucy's Warbler",
+    "comNameFr": "Paruline de Lucy",
+    "speciesCode": "lucwar"
+  },
+  {
+    "sciName": "Leiothlypis ruficapilla",
+    "comName": "Nashville Warbler",
+    "comNameFr": "Paruline à joues grises",
+    "speciesCode": "naswar"
+  },
+  {
+    "sciName": "Leiothlypis virginiae",
+    "comName": "Virginia's Warbler",
+    "comNameFr": "Paruline de Virginia",
+    "speciesCode": "virwar"
+  },
+  {
+    "sciName": "Oporornis agilis",
+    "comName": "Connecticut Warbler",
+    "comNameFr": "Paruline à gorge grise",
+    "speciesCode": "conwar"
+  },
+  {
+    "sciName": "Geothlypis poliocephala",
+    "comName": "Gray-crowned Yellowthroat",
+    "comNameFr": "Paruline à calotte grise",
+    "speciesCode": "gycyel"
+  },
+  {
+    "sciName": "Geothlypis tolmiei",
+    "comName": "MacGillivray's Warbler",
+    "comNameFr": "Paruline des buissons",
+    "speciesCode": "macwar"
+  },
+  {
+    "sciName": "Geothlypis philadelphia",
+    "comName": "Mourning Warbler",
+    "comNameFr": "Paruline triste",
+    "speciesCode": "mouwar"
+  },
+  {
+    "sciName": "Geothlypis formosa",
+    "comName": "Kentucky Warbler",
+    "comNameFr": "Paruline du Kentucky",
+    "speciesCode": "kenwar"
+  },
+  {
+    "sciName": "Geothlypis trichas",
+    "comName": "Common Yellowthroat",
+    "comNameFr": "Paruline masquée",
+    "speciesCode": "comyel"
+  },
+  {
+    "sciName": "Setophaga citrina",
+    "comName": "Hooded Warbler",
+    "comNameFr": "Paruline à capuchon",
+    "speciesCode": "hoowar"
+  },
+  {
+    "sciName": "Setophaga ruticilla",
+    "comName": "American Redstart",
+    "comNameFr": "Paruline flamboyante",
+    "speciesCode": "amered"
+  },
+  {
+    "sciName": "Setophaga kirtlandii",
+    "comName": "Kirtland's Warbler",
+    "comNameFr": "Paruline de Kirtland",
+    "speciesCode": "kirwar"
+  },
+  {
+    "sciName": "Setophaga tigrina",
+    "comName": "Cape May Warbler",
+    "comNameFr": "Paruline tigrée",
+    "speciesCode": "camwar"
+  },
+  {
+    "sciName": "Setophaga cerulea",
+    "comName": "Cerulean Warbler",
+    "comNameFr": "Paruline azurée",
+    "speciesCode": "cerwar"
+  },
+  {
+    "sciName": "Setophaga americana",
+    "comName": "Northern Parula",
+    "comNameFr": "Paruline à collier",
+    "speciesCode": "norpar"
+  },
+  {
+    "sciName": "Setophaga pitiayumi",
+    "comName": "Tropical Parula",
+    "comNameFr": "Paruline à joues noires",
+    "speciesCode": "tropar"
+  },
+  {
+    "sciName": "Setophaga magnolia",
+    "comName": "Magnolia Warbler",
+    "comNameFr": "Paruline à tête cendrée",
+    "speciesCode": "magwar"
+  },
+  {
+    "sciName": "Setophaga castanea",
+    "comName": "Bay-breasted Warbler",
+    "comNameFr": "Paruline à poitrine baie",
+    "speciesCode": "babwar"
+  },
+  {
+    "sciName": "Setophaga fusca",
+    "comName": "Blackburnian Warbler",
+    "comNameFr": "Paruline à gorge orangée",
+    "speciesCode": "bkbwar"
+  },
+  {
+    "sciName": "Setophaga petechia",
+    "comName": "Yellow Warbler",
+    "comNameFr": "Paruline jaune",
+    "speciesCode": "yelwar"
+  },
+  {
+    "sciName": "Setophaga pensylvanica",
+    "comName": "Chestnut-sided Warbler",
+    "comNameFr": "Paruline à flancs marron",
+    "speciesCode": "chswar"
+  },
+  {
+    "sciName": "Setophaga striata",
+    "comName": "Blackpoll Warbler",
+    "comNameFr": "Paruline rayée",
+    "speciesCode": "bkpwar"
+  },
+  {
+    "sciName": "Setophaga caerulescens",
+    "comName": "Black-throated Blue Warbler",
+    "comNameFr": "Paruline bleue",
+    "speciesCode": "btbwar"
+  },
+  {
+    "sciName": "Setophaga palmarum",
+    "comName": "Palm Warbler",
+    "comNameFr": "Paruline à couronne rousse",
+    "speciesCode": "palwar"
+  },
+  {
+    "sciName": "Setophaga pinus",
+    "comName": "Pine Warbler",
+    "comNameFr": "Paruline des pins",
+    "speciesCode": "pinwar"
+  },
+  {
+    "sciName": "Setophaga coronata",
+    "comName": "Yellow-rumped Warbler",
+    "comNameFr": "Paruline à croupion jaune",
+    "speciesCode": "yerwar"
+  },
+  {
+    "sciName": "Setophaga coronata coronata",
+    "comName": "Yellow-rumped Warbler (Myrtle)",
+    "comNameFr": "Paruline à croupion jaune (coronata)",
+    "speciesCode": "myrwar"
+  },
+  {
+    "sciName": "Setophaga coronata auduboni",
+    "comName": "Yellow-rumped Warbler (Audubon's)",
+    "comNameFr": "Paruline à croupion jaune (auduboni)",
+    "speciesCode": "audwar"
+  },
+  {
+    "sciName": "Setophaga dominica",
+    "comName": "Yellow-throated Warbler",
+    "comNameFr": "Paruline à gorge jaune",
+    "speciesCode": "yetwar"
+  },
+  {
+    "sciName": "Setophaga americana x dominica",
+    "comName": "Northern Parula x Yellow-throated Warbler (hybrid)",
+    "comNameFr": "Hybride Paruline à collier x P. à gorge jaune",
+    "speciesCode": "sutwar"
+  },
+  {
+    "sciName": "Setophaga discolor",
+    "comName": "Prairie Warbler",
+    "comNameFr": "Paruline des prés",
+    "speciesCode": "prawar"
+  },
+  {
+    "sciName": "Setophaga subita",
+    "comName": "Barbuda Warbler",
+    "comNameFr": "Paruline de Barbuda",
+    "speciesCode": "barwar"
+  },
+  {
+    "sciName": "Setophaga delicata",
+    "comName": "St. Lucia Warbler",
+    "comNameFr": "Paruline de Sainte-Lucie",
+    "speciesCode": "stlwar"
+  },
+  {
+    "sciName": "Setophaga graciae",
+    "comName": "Grace's Warbler",
+    "comNameFr": "Paruline de Grace",
+    "speciesCode": "grawar"
+  },
+  {
+    "sciName": "Setophaga nigrescens",
+    "comName": "Black-throated Gray Warbler",
+    "comNameFr": "Paruline grise",
+    "speciesCode": "btywar"
+  },
+  {
+    "sciName": "Setophaga townsendi",
+    "comName": "Townsend's Warbler",
+    "comNameFr": "Paruline de Townsend",
+    "speciesCode": "towwar"
+  },
+  {
+    "sciName": "Setophaga occidentalis",
+    "comName": "Hermit Warbler",
+    "comNameFr": "Paruline à tête jaune",
+    "speciesCode": "herwar"
+  },
+  {
+    "sciName": "Setophaga chrysoparia",
+    "comName": "Golden-cheeked Warbler",
+    "comNameFr": "Paruline à dos noir",
+    "speciesCode": "gchwar"
+  },
+  {
+    "sciName": "Setophaga virens",
+    "comName": "Black-throated Green Warbler",
+    "comNameFr": "Paruline à gorge noire",
+    "speciesCode": "btnwar"
+  },
+  {
+    "sciName": "Basileuterus lachrymosus",
+    "comName": "Fan-tailed Warbler",
+    "comNameFr": "Paruline des rochers",
+    "speciesCode": "fatwar"
+  },
+  {
+    "sciName": "Basileuterus rufifrons",
+    "comName": "Rufous-capped Warbler",
+    "comNameFr": "Paruline à calotte rousse",
+    "speciesCode": "rucwar"
+  },
+  {
+    "sciName": "Basileuterus culicivorus",
+    "comName": "Golden-crowned Warbler",
+    "comNameFr": "Paruline à couronne dorée",
+    "speciesCode": "gcrwar"
+  },
+  {
+    "sciName": "Cardellina canadensis",
+    "comName": "Canada Warbler",
+    "comNameFr": "Paruline du Canada",
+    "speciesCode": "canwar"
+  },
+  {
+    "sciName": "Cardellina pusilla",
+    "comName": "Wilson's Warbler",
+    "comNameFr": "Paruline à calotte noire",
+    "speciesCode": "wlswar"
+  },
+  {
+    "sciName": "Cardellina rubrifrons",
+    "comName": "Red-faced Warbler",
+    "comNameFr": "Paruline à face rouge",
+    "speciesCode": "refwar"
+  },
+  {
+    "sciName": "Myioborus pictus",
+    "comName": "Painted Redstart",
+    "comNameFr": "Paruline à ailes blanches",
+    "speciesCode": "paired"
+  },
+  {
+    "sciName": "Myioborus miniatus",
+    "comName": "Slate-throated Redstart",
+    "comNameFr": "Paruline ardoisée",
+    "speciesCode": "sltred"
+  },
+  {
+    "sciName": "Parulidae sp.",
+    "comName": "new world warbler sp.",
+    "comNameFr": "paruline sp.",
+    "speciesCode": "warble"
+  },
+  {
+    "sciName": "Piranga flava",
+    "comName": "Hepatic Tanager",
+    "comNameFr": "Piranga orangé",
+    "speciesCode": "heptan"
+  },
+  {
+    "sciName": "Piranga rubra",
+    "comName": "Summer Tanager",
+    "comNameFr": "Piranga vermillon",
+    "speciesCode": "sumtan"
+  },
+  {
+    "sciName": "Piranga olivacea",
+    "comName": "Scarlet Tanager",
+    "comNameFr": "Piranga écarlate",
+    "speciesCode": "scatan"
+  },
+  {
+    "sciName": "Piranga ludoviciana",
+    "comName": "Western Tanager",
+    "comNameFr": "Piranga à tête rouge",
+    "speciesCode": "westan"
+  },
+  {
+    "sciName": "Piranga bidentata",
+    "comName": "Flame-colored Tanager",
+    "comNameFr": "Piranga à dos rayé",
+    "speciesCode": "flctan"
+  },
+  {
+    "sciName": "Chlorothraupis olivacea",
+    "comName": "Lemon-spectacled Tanager",
+    "comNameFr": "Habia à lunettes",
+    "speciesCode": "lestan"
+  },
+  {
+    "sciName": "Periporphyrus celaeno",
+    "comName": "Crimson-collared Grosbeak",
+    "comNameFr": "Cardinal à collier",
+    "speciesCode": "crcgro"
+  },
+  {
+    "sciName": "Cardinalis cardinalis",
+    "comName": "Northern Cardinal",
+    "comNameFr": "Cardinal rouge",
+    "speciesCode": "norcar"
+  },
+  {
+    "sciName": "Cardinalis sinuatus",
+    "comName": "Pyrrhuloxia",
+    "comNameFr": "Cardinal pyrrhuloxia",
+    "speciesCode": "pyrrhu"
+  },
+  {
+    "sciName": "Pheucticus chrysopeplus",
+    "comName": "Yellow Grosbeak",
+    "comNameFr": "Cardinal jaune",
+    "speciesCode": "yelgro"
+  },
+  {
+    "sciName": "Pheucticus ludovicianus",
+    "comName": "Rose-breasted Grosbeak",
+    "comNameFr": "Cardinal à poitrine rose",
+    "speciesCode": "robgro"
+  },
+  {
+    "sciName": "Pheucticus melanocephalus",
+    "comName": "Black-headed Grosbeak",
+    "comNameFr": "Cardinal à tête noire",
+    "speciesCode": "bkhgro"
+  },
+  {
+    "sciName": "Cyanocompsa parellina",
+    "comName": "Blue Bunting",
+    "comNameFr": "Évêque paré",
+    "speciesCode": "blubun"
+  },
+  {
+    "sciName": "Passerina amoena",
+    "comName": "Lazuli Bunting",
+    "comNameFr": "Passerin azuré",
+    "speciesCode": "lazbun"
+  },
+  {
+    "sciName": "Passerina cyanea",
+    "comName": "Indigo Bunting",
+    "comNameFr": "Passerin indigo",
+    "speciesCode": "indbun"
+  },
+  {
+    "sciName": "Passerina amoena x cyanea",
+    "comName": "Lazuli x Indigo Bunting (hybrid)",
+    "comNameFr": "Hybride Passerin azuré x P. indigo",
+    "speciesCode": "ixlbun"
+  },
+  {
+    "sciName": "Passerina versicolor",
+    "comName": "Varied Bunting",
+    "comNameFr": "Passerin varié",
+    "speciesCode": "varbun"
+  },
+  {
+    "sciName": "Passerina ciris",
+    "comName": "Painted Bunting",
+    "comNameFr": "Passerin nonpareil",
+    "speciesCode": "paibun"
+  },
+  {
+    "sciName": "Passerina sp.",
+    "comName": "Passerina sp.",
+    "comNameFr": "guiraca ou passerin sp.",
+    "speciesCode": "buntin"
+  },
+  {
+    "sciName": "Spiza americana",
+    "comName": "Dickcissel",
+    "comNameFr": "Dickcissel d'Amérique",
+    "speciesCode": "dickci"
+  },
+  {
+    "sciName": "Paroaria coronata",
+    "comName": "Red-crested Cardinal",
+    "comNameFr": "Paroare huppé",
+    "speciesCode": "reccar"
+  },
+  {
+    "sciName": "Paroaria capitata",
+    "comName": "Yellow-billed Cardinal",
+    "comNameFr": "Paroare à bec jaune",
+    "speciesCode": "yebcar"
+  },
+  {
+    "sciName": "Thraupis episcopus",
+    "comName": "Blue-gray Tanager",
+    "comNameFr": "Tangara évêque",
+    "speciesCode": "bugtan"
+  },
+  {
+    "sciName": "Thraupidae sp. (tanager sp.)",
+    "comName": "tanager sp. (Thraupidae sp.)",
+    "comNameFr": "tangara ou calliste sp.",
+    "speciesCode": "tanage"
+  },
+  {
+    "sciName": "Sicalis flaveola",
+    "comName": "Saffron Finch",
+    "comNameFr": "Sicale bouton-d'or",
+    "speciesCode": "saffin"
+  },
+  {
+    "sciName": "Sporophila angolensis",
+    "comName": "Chestnut-bellied Seed-Finch",
+    "comNameFr": "Sporophile curio",
+    "speciesCode": "cbsfin"
+  },
+  {
+    "sciName": "Sporophila morelleti/torqueola",
+    "comName": "Morelet's/Cinnamon-rumped Seedeater",
+    "comNameFr": "Sporophile de Morelet ou S. à col blanc",
+    "speciesCode": "whcsee"
+  },
+  {
+    "sciName": "Coereba flaveola",
+    "comName": "Bananaquit",
+    "comNameFr": "Sucrier à ventre jaune",
+    "speciesCode": "banana"
+  },
+  {
+    "sciName": "Phonipara canora",
+    "comName": "Cuban Grassquit",
+    "comNameFr": "Petit-chanteur de Cuba",
+    "speciesCode": "cubgra"
+  },
+  {
+    "sciName": "Melanospiza bicolor",
+    "comName": "Black-faced Grassquit",
+    "comNameFr": "Cici verdinère",
+    "speciesCode": "bkfgra"
+  }
+]
