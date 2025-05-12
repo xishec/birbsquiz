@@ -6,8 +6,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext } from "../App";
-import { AudioType, fetchAudio, fetchImage } from "../macaulay/Helper";
-import { set } from "firebase/database";
+import {
+  AudioType,
+  fetchAudioForOne,
+  fetchImageForOne,
+  Sex,
+} from "../macaulay/Helper";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -31,8 +35,8 @@ function Quiz() {
     gameMode,
   } = quizContext;
 
-  const [audioSource, setAudioSource] = React.useState<string[]>();
-  const [imageSource, setImageSource] = React.useState<string>();
+  const [audioSources, setAudioSources] = React.useState<string[]>();
+  const [imageSources, setImageSources] = React.useState<string[]>();
   const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
@@ -73,39 +77,48 @@ function Quiz() {
   }, [counter, selectedBirbIds, sequence]);
 
   useEffect(() => {
-    setAudioSource([]);
-    fetchAudio(birbId, AudioType.SONG).then((audioList) => {
-      if (!audioList) return;
+    setAudioSources([]);
+    fetchAudioForOne(birbId).then((birdAudio) => {
+      if (!birdAudio) return;
+      const audioList = birdAudio[AudioType.SONG];
       const candidateCount = Math.min(audioList.length, 5);
       const randomIndex = Math.floor(randomSeed * candidateCount);
       // console.log(`audio ${randomIndex} in ${audioList.length}`);
       const audioSrc = audioList?.[randomIndex];
-      setAudioSource([audioSrc]);
+      setAudioSources([audioSrc]);
     });
 
-    setImageSource("");
-    fetchImage(birbId).then((imageList) => {
-      if (!imageList) return;
-      const candidateCount = imageList.length;
-      const randomIndex = Math.floor(randomSeed * candidateCount);
-      const imageSrc = imageList?.[randomIndex];
-      setImageSource(imageSrc);
+    setImageSources([]);
+    fetchImageForOne(birbId).then((birdImage) => {
+      if (!birdImage) return;
+
+      const imageListMale = birdImage[Sex.MALE];
+      const candidateCountMale = imageListMale.length;
+      const randomIndexMale = Math.floor(randomSeed * candidateCountMale);
+      const imageSrcMale = imageListMale?.[randomIndexMale];
+
+      const imageListFemale = birdImage[Sex.FEMALE];
+      const candidateCountFemale = imageListFemale.length;
+      const randomIndexFemale = Math.floor(randomSeed * candidateCountFemale);
+      const imageSrcFemale = imageListFemale?.[randomIndexFemale];
+
+      setImageSources([imageSrcMale, imageSrcFemale]);
     });
   }, [birbId, randomSeed]);
 
-  const getAudioSource = () => {
+  const getAudioSources = () => {
     return (
       <>
-        {audioSource &&
-          audioSource.length > 0 &&
-          audioSource.map((audioSource: string, i: number) => (
+        {audioSources &&
+          audioSources.length > 0 &&
+          audioSources.map((audioSources: string, i: number) => (
             <Box key={`audio-${counter}-${i}`}>
               <audio
                 autoPlay={i === 0 && !shouldReveal}
                 id={`audio-${counter}-${i}`}
                 style={{ width: "100%" }}
                 controls
-                src={audioSource}
+                src={audioSources}
                 onPlay={handleAudioPlay}
               >
                 Your browser does not support the
@@ -135,8 +148,8 @@ function Quiz() {
             </Box>
           ))}
 
-        {audioSource && audioSource.length === 0 && (
-          <Typography variant="body1">Cet oiseau ne change pas.</Typography>
+        {audioSources && audioSources.length === 0 && (
+          <Typography variant="body1">Cet oiseau ne change pas?</Typography>
         )}
       </>
     );
@@ -151,39 +164,44 @@ function Quiz() {
         justifyContent: "center",
       }}
     >
-      <Box sx={{ overflow: "hidden", borderRadius: "0.1rem" }}>
-        <img
-          style={{
-            height: "100%",
-            width: "100%",
-            maxWidth: "400px",
-            maxHeight: "400px",
-          }}
-          src={imageSource}
-          loading="lazy"
-          alt={"dataMap[birbId].photoCredits[0]"}
-        />
-      </Box>
-      <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
-        <Typography
-          sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
-          variant="caption"
-        >
-          <HtmlTooltip
-            title={
-              <React.Fragment>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: "dataMap[birbId].photoCredits[0]",
-                  }}
-                />
-              </React.Fragment>
-            }
-          >
-            <Box>source</Box>
-          </HtmlTooltip>
-        </Typography>
-      </Box>
+      {imageSources &&
+        imageSources.map((imageSource: string) => (
+          <Box>
+            <Box sx={{ overflow: "hidden", borderRadius: "0.1rem" }}>
+              <img
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  maxWidth: "400px",
+                  maxHeight: "400px",
+                }}
+                src={imageSource}
+                loading="lazy"
+                alt={"dataMap[birbId].photoCredits[0]"}
+              />
+            </Box>
+            <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+              <Typography
+                sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+                variant="caption"
+              >
+                <HtmlTooltip
+                  title={
+                    <React.Fragment>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: "dataMap[birbId].photoCredits[0]",
+                        }}
+                      />
+                    </React.Fragment>
+                  }
+                >
+                  <Box>source</Box>
+                </HtmlTooltip>
+              </Typography>
+            </Box>
+          </Box>
+        ))}
     </Box>
   );
 
@@ -288,7 +306,7 @@ function Quiz() {
                 gridTemplateColumns: "repeat(auto-fill, 1fr)",
               }}
             >
-              {getAudioSource()}
+              {getAudioSources()}
             </Box>
             {(previewing || shouldReveal) && birbImage}
           </Box>

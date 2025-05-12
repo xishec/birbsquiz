@@ -26,7 +26,7 @@ import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
-import { AudioType, fetchAudio } from "../macaulay/Helper";
+import { AudioType, fetchAudioForOne } from "../macaulay/Helper";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -151,8 +151,9 @@ function Lobby() {
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const playAudioForBirb = (birbId: string, audioType: AudioType) => {
-    fetchAudio(birbId, audioType).then((audioList) => {
-      if (!audioList) return;
+    fetchAudioForOne(birbId).then((birdAudio) => {
+      if (!birdAudio) return;
+      const audioList = birdAudio[audioType];
 
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
