@@ -82,7 +82,6 @@ function Quiz() {
   useEffect(() => {
     setAudioSources([]);
     fetchAudioForOne(birbId).then((birdAudio) => {
-      console.log(birdAudio);
       if (!birdAudio) return;
       let newAudioType = AudioType.CAll;
       if (callCheckbox) newAudioType = AudioType.CAll;
@@ -94,7 +93,6 @@ function Quiz() {
       const audioList = birdAudio[newAudioType];
       const candidateCount = Math.min(audioList.length, 5);
       const randomIndex = Math.floor(randomSeed * candidateCount);
-      console.log(`audio ${randomIndex} in ${audioList.length}`);
       const audioSrc = audioList?.[randomIndex];
       setAudioSources([audioSrc]);
     });

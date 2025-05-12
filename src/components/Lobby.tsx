@@ -161,9 +161,7 @@ function Lobby() {
       }
 
       const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
-      console.log(audioList, randomIndex);
       const songSrc = audioList?.[randomIndex];
-      console.log("songSrc", songSrc);
 
       if (songSrc) {
         const audio = new Audio(songSrc);

@@ -1,3 +1,6 @@
+import { get, ref, set } from "firebase/database";
+import { database } from "../firebaseDatabaseConfig";
+
 export enum AudioType {
   CAll = "call",
   SONG = "song",
@@ -9,49 +12,65 @@ type BirdAudio = {
 };
 
 export const fetchAudioForOne = async (id: string) => {
+  const dbRef = ref(database, `v2/birds/${id}/audio`);
+  try {
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      console.log("Audio data found in Firebase for id:", id);
+      return snapshot.val() as BirdAudio;
+    }
+  } catch (error) {
+    console.error("Error reading from Firebase:", error);
+  }
+
   const birdAudio: BirdAudio = {
     [AudioType.CAll]: [],
     [AudioType.SONG]: [],
   };
 
   try {
-    const response = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=na&mediaType=audio&sort=rating_rank_desc&limit=1`
+    const responseCall = await fetch(
+      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=call&regionCode=na&mediaType=audio&sort=rating_rank_desc&limit=10`
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    if (!responseCall.ok) {
+      throw new Error(`HTTP error! status: ${responseCall.status}`);
     }
-    const data = await response.json();
-    console.log(data?.results?.content);
-    data?.results?.content?.forEach((item: any) => {
+    const dataCall = await responseCall.json();
+    dataCall?.results?.content?.forEach((item: any) => {
       if (item.mediaUrl) {
-        if (String(item?.behaviors).toLowerCase() === AudioType.CAll) {
+        if (
+          String(item?.behaviors).toLowerCase() === AudioType.CAll &&
+          birdAudio[AudioType.CAll].length < 10
+        ) {
           birdAudio[AudioType.CAll].push(item.mediaUrl);
         }
-        if (String(item?.behaviors).toLowerCase() === AudioType.SONG) {
+      }
+    });
+
+    const responseSong = await fetch(
+      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=song&regionCode=na&mediaType=audio&sort=rating_rank_desc&limit=10`
+    );
+    if (!responseSong.ok) {
+      throw new Error(`HTTP error! status: ${responseSong.status}`);
+    }
+    const dataSong = await responseSong.json();
+    dataSong?.results?.content?.forEach((item: any) => {
+      if (item.mediaUrl) {
+        if (
+          String(item?.behaviors).toLowerCase() === AudioType.SONG &&
+          birdAudio[AudioType.SONG].length < 10
+        ) {
           birdAudio[AudioType.SONG].push(item.mediaUrl);
         }
       }
     });
 
-    if (birdAudio[AudioType.CAll].length === 0) {
-      data?.results?.content?.forEach((item: any) => {
-        if (item.mediaUrl) {
-          if (String(item?.behaviors).toLowerCase().includes(AudioType.CAll)) {
-            birdAudio[AudioType.CAll].push(item.mediaUrl);
-          }
-        }
-      });
-    }
-
-    if (birdAudio[AudioType.SONG].length === 0) {
-      data?.results?.content?.forEach((item: any) => {
-        if (item.mediaUrl) {
-          if (String(item?.behaviors).toLowerCase().includes(AudioType.SONG)) {
-            birdAudio[AudioType.SONG].push(item.mediaUrl);
-          }
-        }
-      });
+    // Save the result to Firebase RTDB for future use.
+    try {
+      await set(dbRef, birdAudio);
+      console.log("Saved audio data to Firebase for id:", id);
+    } catch (error) {
+      console.error("Error saving to Firebase:", error);
     }
 
     return birdAudio;
@@ -78,30 +97,65 @@ type BirdImage = {
 };
 
 export const fetchImageForOne = async (id: string) => {
+  const dbRef = ref(database, `v2/birds/${id}/image`);
+  try {
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      console.log("Image data found in Firebase for id:", id);
+      return snapshot.val() as BirdImage;
+    }
+  } catch (error) {
+    console.error("Error reading from Firebase:", error);
+  }
+
   const birdImage: BirdImage = {
     [Sex.MALE]: [],
     [Sex.FEMALE]: [],
   };
 
   try {
-    const response = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=na&mediaType=photo&sort=rating_rank_desc&limit=1`
+    const responseMale = await fetch(
+      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=na&sex=male&mediaType=photo&sort=rating_rank_desc&limit=10`
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    if (!responseMale.ok) {
+      throw new Error(`HTTP error! status: ${responseMale.status}`);
     }
-    const data = await response.json();
-
-    data?.results?.content?.forEach((item: any) => {
+    const dataMale = await responseMale.json();
+    dataMale?.results?.content?.forEach((item: any) => {
       if (item.previewUrl) {
-        if (String(item?.sex).toLowerCase() === Sex.MALE) {
+        if (
+          String(item?.sex).toLowerCase() === Sex.MALE &&
+          birdImage[Sex.MALE].length < 10
+        ) {
           birdImage[Sex.MALE].push(item.previewUrl);
         }
-        if (String(item?.sex).toLowerCase() === Sex.FEMALE) {
+      }
+    });
+    const responseFemale = await fetch(
+      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=na&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`
+    );
+    if (!responseFemale.ok) {
+      throw new Error(`HTTP error! status: ${responseFemale.status}`);
+    }
+    const dataFemale = await responseFemale.json();
+    dataFemale?.results?.content?.forEach((item: any) => {
+      if (item.previewUrl) {
+        if (
+          String(item?.sex).toLowerCase() === Sex.FEMALE &&
+          birdImage[Sex.FEMALE].length < 10
+        ) {
           birdImage[Sex.FEMALE].push(item.previewUrl);
         }
       }
     });
+
+    // Save the result to Firebase RTDB for future use.
+    try {
+      await set(dbRef, birdImage);
+      console.log("Saved image data to Firebase for id:", id);
+    } catch (error) {
+      console.error("Error saving to Firebase:", error);
+    }
 
     return birdImage;
   } catch (err) {
