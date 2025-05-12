@@ -231,98 +231,98 @@ function App() {
   }, []);
 
   return (
-    <Box sx={{ height: css_height_90 }}>
-      <Box
-        sx={{
-          height: css_height_90,
-          padding: "2rem",
-          paddingBottom: "0",
-          display: "grid",
-          justifyContent: "center",
-          gridTemplateColumns: "minmax(min-content, 800px)",
-          alignContent: "flex-start",
-          gap: "0rem",
-        }}
-      >
-        <QuizContext.Provider
-          value={{
-            dataMap,
-            birbsMapFr,
-            sequence,
-            counter,
-            birbEmoji,
-            selectedBirbIds,
-            answers,
-            showAnswers,
-            endQuiz,
-            setCounter,
-            setAnswers,
-            setShowAnswers,
-            css_height_90,
-            gameMode,
-            setSelectedBirbIds,
-            setOpenStartQuizDialog,
-            setOpenSnake,
-            setSnakeMessage,
-            currentList,
-            setCurrentList,
-            customList,
-            setCustomList,
-            setQuizStarted,
-            setGameMode,
-            openStartQuizDialog,
-            startQuiz,
-            openEndQuizDialog,
-            setOpenEndQuizDialog,
+    <QuizContext.Provider
+      value={{
+        dataMap,
+        birbsMapFr,
+        sequence,
+        counter,
+        birbEmoji,
+        selectedBirbIds,
+        answers,
+        showAnswers,
+        endQuiz,
+        setCounter,
+        setAnswers,
+        setShowAnswers,
+        css_height_90,
+        gameMode,
+        setSelectedBirbIds,
+        setOpenStartQuizDialog,
+        setOpenSnake,
+        setSnakeMessage,
+        currentList,
+        setCurrentList,
+        customList,
+        setCustomList,
+        setQuizStarted,
+        setGameMode,
+        openStartQuizDialog,
+        startQuiz,
+        openEndQuizDialog,
+        setOpenEndQuizDialog,
+      }}
+    >
+      <Box sx={{ height: css_height_90 }}>
+        <Box
+          sx={{
+            height: css_height_90,
+            padding: "2rem",
+            paddingBottom: "0",
+            display: "grid",
+            justifyContent: "center",
+            gridTemplateColumns: "minmax(min-content, 800px)",
+            alignContent: "flex-start",
+            gap: "0rem",
           }}
         >
           {!quizStarted && <Lobby />}
           {quizStarted && <Quiz />}
-        </QuizContext.Provider>
+        </Box>
+
+        <Box sx={{ position: "absolute", bottom: 0, left: "2rem" }}>
+          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+            <Link
+              sx={{ color: "#dcdcdc" }}
+              target="_blank"
+              rel="noopener"
+              underline="hover"
+              href="https://www.natureinstruct.org/dendroica/"
+            >
+              DENDROICA
+            </Link>
+          </Typography>
+        </Box>
+
+        <Box sx={{ position: "absolute", bottom: 0, right: "2rem" }}>
+          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
+            <Link
+              sx={{ color: "#dcdcdc" }}
+              target="_blank"
+              rel="noopener"
+              underline="hover"
+              href="https://www.linkedin.com/in/xishec/"
+            >
+              Xi Chen
+            </Link>
+          </Typography>
+        </Box>
+
+        <StartQuizDialog />
+        <EndQuizDialog />
+
+        <Snackbar
+          open={openSnake}
+          autoHideDuration={5000}
+          onClose={() => {
+            setOpenSnake(false);
+            setSnakeMessage("");
+          }}
+          message={snakeMessage}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        />
       </Box>
-
-      <Box sx={{ position: "absolute", bottom: 0, left: "2rem" }}>
-        <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-          <Link
-            sx={{ color: "#dcdcdc" }}
-            target="_blank"
-            rel="noopener"
-            underline="hover"
-            href="https://www.natureinstruct.org/dendroica/"
-          >
-            DENDROICA
-          </Link>
-        </Typography>
-      </Box>
-
-      <Box sx={{ position: "absolute", bottom: 0, right: "2rem" }}>
-        <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-          <Link
-            sx={{ color: "#dcdcdc" }}
-            target="_blank"
-            rel="noopener"
-            underline="hover"
-            href="https://www.linkedin.com/in/xishec/"
-          >
-            Xi Chen
-          </Link>
-        </Typography>
-      </Box>
-
-      <StartQuizDialog />
-      <EndQuizDialog />
-
-      <Snackbar
-        open={openSnake}
-        autoHideDuration={5000}
-        onClose={() => {
-          setOpenSnake(false);
-          setSnakeMessage("");
-        }}
-        message={snakeMessage}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      />
-    </Box>
+    </QuizContext.Provider>
   );
 }
 
