@@ -37,8 +37,12 @@ function Quiz() {
     songCheckbox,
   } = quizContext;
 
-  const [audioSources, setAudioSources] = React.useState<string[]>();
-  const [imageSources, setImageSources] = React.useState<string[]>();
+  const [audioSources, setAudioSources] = React.useState("");
+  const [audioSourcesList, setAudioSourcesList] = React.useState<string[]>([]);
+  const [imageSources, setImageSources] = React.useState({
+    [Sex.MALE]: "",
+    [Sex.FEMALE]: "",
+  });
   const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
@@ -80,13 +84,16 @@ function Quiz() {
   }, [counter, selectedBirbIds, sequence]);
 
   useEffect(() => {
-    setAudioSources([]);
-    const currentId = birbId;
+    fetchAndSetAudioSources();
+    fetchAndSetImageSources();
+  }, [birbId]);
 
+  const fetchAndSetAudioSources = () => {
+    const currentId = birbId;
     fetchAudioForOne(birbId).then((birdAudio) => {
       if (birbId !== currentId) return;
       if (!birdAudio) return;
-      
+
       let newAudioType = AudioType.CAll;
       if (callCheckbox) newAudioType = AudioType.CAll;
       if (songCheckbox) newAudioType = AudioType.SONG;
@@ -98,35 +105,56 @@ function Quiz() {
       const candidateCount = Math.min(audioList.length, 5);
       const randomIndex = Math.floor(randomSeed * candidateCount);
       const audioSrc = audioList?.[randomIndex];
-      setAudioSources([audioSrc]);
+      setAudioSources(audioSrc);
+      setAudioSourcesList(audioList);
     });
+  };
 
-    setImageSources([]);
+  const fetchAndSetImageSources = (sex?: Sex) => {
+    const currentId = birbId;
     fetchImageForOne(birbId).then((birdImage) => {
       if (!birdImage) return;
       if (birbId !== currentId) return;
+      let newImageSrcMale = imageSources[Sex.MALE];
+      let newImageSrcFemale = imageSources[Sex.FEMALE];
 
-      const imageListMale = birdImage[Sex.MALE];
-      const candidateCountMale = imageListMale.length;
-      const randomIndexMale = Math.floor(randomSeed * candidateCountMale);
-      const imageSrcMale = imageListMale?.[randomIndexMale];
+      if (!sex || sex === Sex.MALE) {
+        const imageListMale = birdImage[Sex.MALE];
+        const candidateCountMale = imageListMale.length;
+        do {
+          const randomIndexMale = Math.floor(
+            Math.random() * candidateCountMale
+          );
+          newImageSrcMale = imageListMale?.[randomIndexMale];
+        } while (imageSources[Sex.MALE] === newImageSrcMale);
+      }
 
-      const imageListFemale = birdImage[Sex.FEMALE];
-      const candidateCountFemale = imageListFemale.length;
-      const randomIndexFemale = Math.floor(randomSeed * candidateCountFemale);
-      const imageSrcFemale = imageListFemale?.[randomIndexFemale];
+      if (!sex || sex === Sex.FEMALE) {
+        const imageListFemale = birdImage[Sex.FEMALE];
+        const candidateCountFemale = imageListFemale.length;
+        do {
+          const randomIndexFemale = Math.floor(
+            Math.random() * candidateCountFemale
+          );
+          newImageSrcFemale = imageListFemale?.[randomIndexFemale];
+        } while (imageSources[Sex.FEMALE] === newImageSrcFemale);
+      }
 
-      setImageSources([imageSrcMale, imageSrcFemale]);
+      setImageSources({
+        [Sex.MALE]: newImageSrcMale,
+        [Sex.FEMALE]: newImageSrcFemale,
+      });
     });
-  }, [birbId, callCheckbox, randomSeed, songCheckbox]);
+  };
 
   const getAudioSources = () => {
     const shouldShowAudioType = shouldReveal && callCheckbox && songCheckbox;
+    const list = shouldReveal ? audioSourcesList.slice(0, 5) : [audioSources];
+
     return (
       <>
-        {audioSources &&
-          audioSources.length > 0 &&
-          audioSources.map((audioSources: string, i: number) => (
+        {list.length > 0 &&
+          list.map((audioSources: string, i: number) => (
             <Box
               key={`audio-${counter}-${i}`}
               sx={{
@@ -204,9 +232,14 @@ function Quiz() {
       }}
     >
       {imageSources &&
-        imageSources.map((imageSource: string) => (
+        Object.entries(imageSources).map(([sex, src]) => (
           <Box>
-            <Box sx={{ overflow: "hidden", borderRadius: "0.1rem" }}>
+            <Box
+              sx={{ overflow: "hidden", borderRadius: "0.1rem" }}
+              onClick={() => {
+                fetchAndSetImageSources(sex as Sex);
+              }}
+            >
               <img
                 style={{
                   height: "100%",
@@ -214,7 +247,7 @@ function Quiz() {
                   maxWidth: "400px",
                   maxHeight: "400px",
                 }}
-                src={imageSource}
+                src={src}
                 loading="lazy"
                 alt={"dataMap[birbId].photoCredits[0]"}
               />
