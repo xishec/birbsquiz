@@ -40,6 +40,7 @@ export const fetchAudioForOne = async (id: string) => {
       if (item.mediaUrl) {
         if (
           String(item?.behaviors).toLowerCase() === AudioType.CAll &&
+          item?.source === "ebird" &&
           birdAudio[AudioType.CAll].length < 10
         ) {
           birdAudio[AudioType.CAll].push(item.mediaUrl);
@@ -58,6 +59,7 @@ export const fetchAudioForOne = async (id: string) => {
       if (item.mediaUrl) {
         if (
           String(item?.behaviors).toLowerCase() === AudioType.SONG &&
+          item?.source === "ebird" &&
           birdAudio[AudioType.SONG].length < 10
         ) {
           birdAudio[AudioType.SONG].push(item.mediaUrl);

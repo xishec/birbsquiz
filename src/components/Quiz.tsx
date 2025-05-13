@@ -1,11 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { Box, IconButton, Switch, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  Switch,
+  Typography,
+} from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HtmlTooltip from "./HtmlTooltip";
 import CloseIcon from "@mui/icons-material/Close";
-import { GameMode, QuizContext } from "../App";
+import { GameMode, QuizContext, shuffleArray } from "../App";
 import {
   AudioType,
   fetchAudioForOne,
@@ -37,15 +43,18 @@ function Quiz() {
     songCheckbox,
   } = quizContext;
 
-  const [audioSources, setAudioSources] = React.useState("");
-  const [audioSourcesList, setAudioSourcesList] = React.useState<string[]>([]);
+  const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
+  const [audioSources, setAudioSources] = React.useState<string[]>([]);
+  const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
+  const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [imageSources, setImageSources] = React.useState({
-    [Sex.MALE]: "",
-    [Sex.FEMALE]: "",
+    [Sex.MALE]: [] as string[],
+    [Sex.FEMALE]: [] as string[],
   });
   const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [currentAudioType, setCurrentAudioType] = React.useState<AudioType>();
 
   const pauseAllAudio = () => {
@@ -84,6 +93,11 @@ function Quiz() {
   }, [counter, selectedBirbIds, sequence]);
 
   useEffect(() => {
+    setAudioSources([]);
+    setImageSources({
+      [Sex.MALE]: [],
+      [Sex.FEMALE]: [],
+    });
     fetchAndSetAudioSources();
     fetchAndSetImageSources();
   }, [birbId]);
@@ -94,51 +108,36 @@ function Quiz() {
       if (birbId !== currentId) return;
       if (!birdAudio) return;
 
+      const birdRandomSeed = (randomSeed * (birbId.charCodeAt(0) % 10)) % 1;
+
       let newAudioType = AudioType.CAll;
       if (callCheckbox) newAudioType = AudioType.CAll;
       if (songCheckbox) newAudioType = AudioType.SONG;
       if (callCheckbox && songCheckbox) {
-        newAudioType = randomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
+        newAudioType = birdRandomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
       }
       setCurrentAudioType(newAudioType);
       const audioList = birdAudio[newAudioType];
       const candidateCount = Math.min(audioList.length, 5);
-      const randomIndex = Math.floor(randomSeed * candidateCount);
-      const audioSrc = audioList?.[randomIndex];
-      setAudioSources(audioSrc);
-      setAudioSourcesList(audioList);
+      const randomIndex = Math.floor(birdRandomSeed * candidateCount);
+      setAudioRandomIndex(randomIndex);
+      setAudioSources(audioList);
     });
   };
 
-  const fetchAndSetImageSources = (sex?: Sex) => {
+  const fetchAndSetImageSources = () => {
     const currentId = birbId;
     fetchImageForOne(birbId).then((birdImage) => {
       if (!birdImage) return;
       if (birbId !== currentId) return;
-      let newImageSrcMale = imageSources[Sex.MALE];
-      let newImageSrcFemale = imageSources[Sex.FEMALE];
 
-      if (!sex || sex === Sex.MALE) {
-        const imageListMale = birdImage[Sex.MALE];
-        const candidateCountMale = imageListMale.length;
-        do {
-          const randomIndexMale = Math.floor(
-            Math.random() * candidateCountMale
-          );
-          newImageSrcMale = imageListMale?.[randomIndexMale];
-        } while (imageSources[Sex.MALE] === newImageSrcMale);
-      }
+      setImageMaleRandomIndex(0);
+      const newImageSrcMale = [...birdImage[Sex.MALE]];
+      shuffleArray(newImageSrcMale);
 
-      if (!sex || sex === Sex.FEMALE) {
-        const imageListFemale = birdImage[Sex.FEMALE];
-        const candidateCountFemale = imageListFemale.length;
-        do {
-          const randomIndexFemale = Math.floor(
-            Math.random() * candidateCountFemale
-          );
-          newImageSrcFemale = imageListFemale?.[randomIndexFemale];
-        } while (imageSources[Sex.FEMALE] === newImageSrcFemale);
-      }
+      setImageFemaleRandomIndex(0);
+      const newImageSrcFemale = [...birdImage[Sex.FEMALE]];
+      shuffleArray(newImageSrcFemale);
 
       setImageSources({
         [Sex.MALE]: newImageSrcMale,
@@ -147,13 +146,31 @@ function Quiz() {
     });
   };
 
+  useEffect(() => {
+    if (
+      !audioSources ||
+      audioSources.length === 0 ||
+      !audioSources[0] ||
+      !imageSources ||
+      imageSources[Sex.MALE].length === 0 ||
+      imageSources[Sex.FEMALE].length === 0
+    ) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [audioSources, imageSources]);
+
   const getAudioSources = () => {
     const shouldShowAudioType = shouldReveal;
-    const list = shouldReveal ? audioSourcesList.slice(0, 5) : [audioSources];
+    const list = shouldReveal
+      ? audioSources.slice(0, 5)
+      : [audioSources[audioRandomIndex]];
 
     return (
       <>
         {list.length > 0 &&
+          list[0] &&
           list.map((audioSources: string, i: number) => (
             <Box
               key={`audio-${counter}-${i}`}
@@ -167,7 +184,11 @@ function Quiz() {
               }}
             >
               {shouldShowAudioType && (
-                <Typography>
+                <Typography
+                  sx={{
+                    fontWeight: i === audioRandomIndex ? "bold" : "normal",
+                  }}
+                >
                   {`${
                     currentAudioType
                       ? currentAudioType.charAt(0).toUpperCase() +
@@ -185,7 +206,7 @@ function Quiz() {
                 src={audioSources}
                 onPlay={handleAudioPlay}
                 onLoadedMetadata={(e) => {
-                  e.currentTarget.currentTime = 4 + randomSeed * 4;
+                  // e.currentTarget.currentTime = 4 + randomSeed * 4;
                 }}
               >
                 Your browser does not support the
@@ -214,10 +235,6 @@ function Quiz() {
               </Box> */}
             </Box>
           ))}
-
-        {audioSources && audioSources.length === 0 && (
-          <Typography variant="body1">Cet oiseau ne change pas?</Typography>
-        )}
       </>
     );
   };
@@ -229,32 +246,74 @@ function Quiz() {
         padding: "0 0.5rem",
         display: "grid",
         justifyContent: "center",
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        rowGap: "0.5rem",
       }}
     >
       {imageSources &&
-        Object.entries(imageSources).map(([sex, src]) => (
-          <Box>
+        Object.entries(imageSources).map(([sex, images]) => (
+          <Box
+            sx={{
+              justifySelf: "center",
+              maxWidth: "300px",
+              maxHeight: "300px",
+            }}
+          >
+            <Typography
+              sx={{ alignSelf: "flex-end", color: "#123123" }}
+              variant="body1"
+              padding={"0.5rem 0"}
+            >
+              {sex.charAt(0).toUpperCase() + sex.slice(1) + " :"}
+            </Typography>
             <Box
-              sx={{ overflow: "hidden", borderRadius: "0.1rem" }}
+              sx={{
+                cursor: "pointer",
+                overflow: "hidden",
+                borderRadius: "0.1rem",
+              }}
               onClick={() => {
-                fetchAndSetImageSources(sex as Sex);
+                if (sex === Sex.MALE) {
+                  setImageMaleRandomIndex(
+                    (prevIndex) => (prevIndex + 1) % images.length
+                  );
+                } else {
+                  setImageFemaleRandomIndex(
+                    (prevIndex) => (prevIndex + 1) % images.length
+                  );
+                }
               }}
             >
               <img
                 style={{
                   height: "100%",
                   width: "100%",
-                  maxWidth: "400px",
-                  maxHeight: "400px",
+                  objectFit: "contain",
                 }}
-                src={src}
+                src={
+                  images[
+                    sex === Sex.MALE
+                      ? imageMaleRandomIndex
+                      : imageFemaleRandomIndex
+                  ]
+                }
                 loading="lazy"
                 alt={"dataMap[birbId].photoCredits[0]"}
               />
             </Box>
-            <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+
+            <Box
+              sx={{
+                display: "grid",
+                justifyContent: "flex-end",
+              }}
+            >
               <Typography
-                sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+                sx={{
+                  alignSelf: "flex-end",
+                  color: "#123123",
+                  cursor: "default",
+                }}
                 variant="caption"
               >
                 <HtmlTooltip
@@ -355,48 +414,61 @@ function Quiz() {
       </Box>
 
       {/* Tabs for songs and photo */}
-      <Box
-        sx={{
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "start",
-        }}
-      >
-        {gameMode === GameMode.CHANTS && (
-          <Box
-            sx={{
-              marginTop: "1.5rem",
-              overflow: "auto",
-              padding: "0rem 0.5rem",
-            }}
-          >
+      {!loading && (
+        <Box
+          sx={{
+            overflow: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+          }}
+        >
+          {gameMode === GameMode.CHANTS && (
             <Box
               sx={{
-                display: "grid",
-                gap: "0.5rem",
-                gridTemplateColumns: "repeat(auto-fill, 1fr)",
+                marginTop: "1.5rem",
+                overflow: "auto",
+                padding: "0rem 0.5rem",
               }}
             >
-              {getAudioSources()}
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "repeat(auto-fill, 1fr)",
+                }}
+              >
+                {getAudioSources()}
+              </Box>
+              {(previewing || shouldReveal) && birbImage}
             </Box>
-            {(previewing || shouldReveal) && birbImage}
-          </Box>
-        )}
-        {gameMode === GameMode.IMAGES && (
-          <Box
-            sx={{
-              marginTop: "1rem",
-              padding: "0rem",
-              overflow: "auto",
-              display: "grid",
-              justifyContent: "center",
-            }}
-          >
-            {birbImage}
-          </Box>
-        )}
-      </Box>
+          )}
+          {gameMode === GameMode.IMAGES && (
+            <Box
+              sx={{
+                marginTop: "1rem",
+                padding: "0rem",
+                overflow: "auto",
+                display: "grid",
+                justifyContent: "center",
+              }}
+            >
+              {birbImage}
+            </Box>
+          )}
+        </Box>
+      )}
+      {loading && (
+        <Box
+          sx={{
+            display: "grid",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size="5rem" />
+        </Box>
+      )}
 
       {/* Reveal and answer buttons */}
       <Box

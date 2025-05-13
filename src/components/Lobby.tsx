@@ -249,6 +249,23 @@ function Lobby() {
             isOptionEqualToValue={(birbId, input) =>
               eBird[birbId].comNameFr === input
             }
+            filterOptions={(options, { inputValue }) => {
+              const normalize = (str: string) =>
+                str
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/['-]/g, ""); // ignore apostrophes and hyphens
+              const searchTerms = normalize(inputValue)
+                .toLowerCase()
+                .split(" ")
+                .filter((term) => term);
+              return options.filter((option) => {
+                const optionLabel = normalize(
+                  eBird[option].comNameFr
+                ).toLowerCase();
+                return searchTerms.every((term) => optionLabel.includes(term));
+              });
+            }}
             renderInput={(params) => (
               <TextField {...params} label="Find brib ..." variant="outlined" />
             )}

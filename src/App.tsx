@@ -195,15 +195,6 @@ function App() {
     setRandomSeed(Math.random());
   };
 
-  const shuffleArray = (array: Array<any>) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  };
-
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
     const progress = {
@@ -353,3 +344,12 @@ function App() {
 }
 
 export default App;
+
+export const shuffleArray = (array: Array<any>) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+};
