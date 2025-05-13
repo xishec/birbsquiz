@@ -78,12 +78,6 @@ export const fetchAudioForOne = async (id: string) => {
   }
 };
 
-export const fetchAudioForMultiple = async (birdIds: string[]) => {
-  const audioPromises = birdIds.map((id) => fetchAudioForOne(id));
-  const audios = await Promise.all(audioPromises);
-  return audios;
-};
-
 type BirdImage = {
   [Sex.MALE]: string[];
   [Sex.FEMALE]: string[];
@@ -157,8 +151,29 @@ export const fetchImageForOne = async (id: string) => {
   }
 };
 
-export const fetchImageForMultiple = async (birdIds: string[]) => {
-  const imagePromises = birdIds.map((id) => fetchImageForOne(id));
-  const images = await Promise.all(imagePromises);
-  return images;
+export const fetchImageAndAudioForMultiple = async (
+  birdIds: string[],
+  onProgress?: (progress: number) => void
+) => {
+  const BATCH_SIZE = 10;
+  const results: { id: string; image: any; audio: any }[] = [];
+  let completed = 0;
+  for (let i = 0; i < birdIds.length; i += BATCH_SIZE) {
+    const batch = birdIds.slice(i, i + BATCH_SIZE);
+    const batchResults = await Promise.all(
+      batch.map(async (id) => {
+        const [image, audio] = await Promise.all([
+          fetchImageForOne(id),
+          fetchAudioForOne(id),
+        ]);
+        return { id, image, audio };
+      })
+    );
+    results.push(...batchResults);
+    completed += batchResults.length;
+    if (onProgress) {
+      onProgress((completed / birdIds.length) * 100);
+    }
+  }
+  return results;
 };

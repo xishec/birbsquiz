@@ -202,9 +202,10 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto auto 1fr auto auto",
+        gridTemplateRows: "auto auto 1fr auto auto auto",
       }}
     >
+      {/* title */}
       <Box
         sx={{
           display: "grid",
@@ -234,6 +235,7 @@ function Lobby() {
         </Typography>
       </Box>
 
+      {/* autocomplete */}
       <Box
         sx={{
           marginTop: "1rem",
@@ -287,6 +289,7 @@ function Lobby() {
         )}
       </Box>
 
+      {/* StyledChip */}
       <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
         <Box
           sx={{
@@ -315,6 +318,7 @@ function Lobby() {
         </Box>
       </Box>
 
+      {/* List */}
       <Box
         sx={{
           marginTop: "1rem",
@@ -358,6 +362,7 @@ function Lobby() {
         </Box>
       </Box>
 
+      {/* admin Save list */}
       <Box>
         {user && (
           <Box
@@ -394,6 +399,7 @@ function Lobby() {
         )}
       </Box>
 
+      {/* Language and Quiz button */}
       <Box
         sx={{
           marginTop: "1.5rem",

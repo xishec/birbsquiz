@@ -8,12 +8,15 @@ import {
   DialogTitle,
   FormControlLabel,
   FormGroup,
+  LinearProgress,
+  LinearProgressProps,
   Slider,
   TextField,
   Typography,
 } from "@mui/material";
 import { GameMode } from "../../App";
 import { QuizContext } from "../../App";
+import { fetchImageAndAudioForMultiple } from "../../tools/tools";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -39,6 +42,8 @@ function StartQuizDialog() {
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
     selectedBirbIds.length
   );
+  const [loading, setLoading] = React.useState(false);
+  const [progress, setProgress] = React.useState<number>(0);
 
   const handleSliderChange = (
     event: Event,
@@ -68,6 +73,22 @@ function StartQuizDialog() {
     setMaxSliderValue(selectedBirbIds.length);
   }, [selectedBirbIds]);
 
+  const loadQuiz = (gameMode: GameMode) => {
+    setLoading(true);
+    setProgress(0);
+    fetchImageAndAudioForMultiple(selectedBirbIds, (prog) =>
+      setProgress(prog)
+    ).then(() => {
+      setGameMode(gameMode);
+      setQuizStarted(true);
+      setOpenStartQuizDialog(false);
+      startQuiz(sliderValue);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    });
+  };
+
   return (
     <Dialog
       onClose={() => setOpenStartQuizDialog(false)}
@@ -77,103 +98,123 @@ function StartQuizDialog() {
       fullWidth
     >
       <DialogTitle sx={{ padding: "2rem", paddingBottom: "1rem" }}>
-        Configurations
+        {!loading && <Typography variant="h5">Start a quiz</Typography>}
+        {loading && <Typography variant="h5">Loading...</Typography>}
       </DialogTitle>
       <DialogContent sx={{ padding: "2rem" }}>
-        <Box
-          sx={{
-            display: "grid",
-            gap: "1rem",
-            gridTemplateRows: "min-content 1fr 1fr 1fr 1fr",
-          }}
-        >
-          <Box>
-            <Typography variant="body1" gutterBottom>
-              Number of birbs to quiz :
-            </Typography>
-            <Box
-              sx={{
-                display: "grid",
-                gap: "1rem",
-                gridTemplateColumns: "1fr 75px",
-                alignItems: "center",
-              }}
-            >
-              <Box>
-                <Slider
-                  value={sliderValue}
-                  min={0}
-                  max={maxSliderValue}
-                  onChange={handleSliderChange}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  fullWidth
-                  size="small"
-                  value={sliderValue}
-                  onChange={handleInputChange}
-                  onBlur={handleBlur}
-                  inputProps={{
-                    min: 0,
-                    max: maxSliderValue,
-                    type: "number",
-                  }}
-                />
-              </Box>
-            </Box>
-          </Box>
-
-          <FormGroup
+        {!loading && (
+          <Box
             sx={{
               display: "grid",
               gap: "1rem",
-              gridTemplateColumns: "1fr 1fr",
+              gridTemplateRows: "min-content 1fr 1fr 1fr",
             }}
           >
-            <FormControlLabel
-              control={<Checkbox />}
-              checked={callCheckbox}
-              onChange={(event, checked) => setCallCheckbox(checked)}
-              label="Calls"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              checked={songCheckbox}
-              onChange={(event, checked) => setSongCheckbox(checked)}
-              label="Songs"
-            />
-          </FormGroup>
+            <Box>
+              <Typography variant="body1" gutterBottom>
+                Number of birbs to quiz :
+              </Typography>
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "1fr 75px",
+                  alignItems: "center",
+                }}
+              >
+                <Box>
+                  <Slider
+                    value={sliderValue}
+                    min={0}
+                    max={maxSliderValue}
+                    onChange={handleSliderChange}
+                  />
+                </Box>
+                <Box>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    value={sliderValue}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    inputProps={{
+                      min: 0,
+                      max: maxSliderValue,
+                      type: "number",
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Box>
 
-          <Button
-            variant="outlined"
-            disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
-            onClick={() => {
-              setGameMode(GameMode.CHANTS);
-              setQuizStarted(true);
-              setOpenStartQuizDialog(false);
-              startQuiz(sliderValue);
-            }}
-          >
-            Audio
-          </Button>
+            <FormGroup
+              sx={{
+                display: "grid",
+                gap: "1rem",
+                gridTemplateColumns: "1fr 1fr",
+              }}
+            >
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={callCheckbox}
+                onChange={(event, checked) => setCallCheckbox(checked)}
+                label="Calls"
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={songCheckbox}
+                onChange={(event, checked) => setSongCheckbox(checked)}
+                label="Songs"
+              />
+            </FormGroup>
 
-          <Button
-            variant="outlined"
-            disabled={sliderValue <= 0}
-            onClick={() => {
-              setGameMode(GameMode.IMAGES);
-              setQuizStarted(true);
-              setOpenStartQuizDialog(false);
-              startQuiz(sliderValue);
-            }}
-          >
-            Image
-          </Button>
-        </Box>
+            <Button
+              variant="outlined"
+              disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
+              onClick={() => {
+                loadQuiz(GameMode.CHANTS);
+              }}
+            >
+              Audio
+            </Button>
+
+            <Button
+              variant="outlined"
+              disabled={sliderValue <= 0}
+              onClick={() => {
+                loadQuiz(GameMode.IMAGES);
+              }}
+            >
+              Image
+            </Button>
+          </Box>
+        )}
+        {loading && (
+          <Box sx={{ width: "100%", margin: "1rem 0" }}>
+            <LinearProgressWithLabel value={progress} />
+          </Box>
+        )}
       </DialogContent>
     </Dialog>
   );
 }
 
 export default StartQuizDialog;
+
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: "text.secondary" }}
+        >{`${Math.round(props.value)}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
