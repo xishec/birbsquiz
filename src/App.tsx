@@ -6,6 +6,7 @@ import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
 import StartQuizDialog from "./components/Dialog/StartQuizDialog";
 import EndQuizDialog from "./components/Dialog/EndQuizDialog";
+import { EBirdNameProperty, Language } from "./tools/constants";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -61,6 +62,9 @@ export type QuizContextType = {
   setSongCheckbox: React.Dispatch<any>;
   callCheckbox: boolean;
   setCallCheckbox: React.Dispatch<any>;
+  language: Language;
+  setLanguage: React.Dispatch<any>;
+  eBirdNameProperty: EBirdNameProperty;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -175,6 +179,14 @@ function App() {
     () => savedProgress.callCheckbox
   );
 
+  const [language, setLanguage] = React.useState(
+    () => savedProgress.language || Language.FR
+  );
+
+  const [eBirdNameProperty, setEBridNameProperty] = React.useState(
+    () => savedProgress.eBirdNameProperty || EBirdNameProperty.COMMON_NAME_FR
+  );
+
   const startQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
@@ -195,6 +207,16 @@ function App() {
     setRandomSeed(Math.random());
   };
 
+  useEffect(() => {
+    if (language === Language.FR) {
+      setEBridNameProperty(EBirdNameProperty.COMMON_NAME_FR);
+    } else if (language === Language.EN) {
+      setEBridNameProperty(EBirdNameProperty.COMMON_NAME);
+    } else if (language === Language.LATIN) {
+      setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
+    }
+  }, [language]);
+
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
     const progress = {
@@ -212,6 +234,9 @@ function App() {
       customList,
       songCheckbox,
       callCheckbox,
+      language,
+      setLanguage,
+      eBirdNameProperty,
     };
     localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
   }, [
@@ -229,6 +254,9 @@ function App() {
     customList,
     songCheckbox,
     callCheckbox,
+    language,
+    setLanguage,
+    eBirdNameProperty,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -278,6 +306,9 @@ function App() {
         setSongCheckbox,
         callCheckbox,
         setCallCheckbox,
+        language,
+        setLanguage,
+        eBirdNameProperty,
       }}
     >
       <Box sx={{ height: css_height_90 }}>

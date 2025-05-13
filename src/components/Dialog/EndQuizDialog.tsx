@@ -9,8 +9,14 @@ function EndQuizDialog() {
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { eBird, openEndQuizDialog, setOpenEndQuizDialog, sequence, answers } =
-    quizContext;
+  const {
+    eBird,
+    openEndQuizDialog,
+    setOpenEndQuizDialog,
+    sequence,
+    answers,
+    eBirdNameProperty,
+  } = quizContext;
 
   const nbGood = answers.filter((answer) => answer).length;
   const nbTotal = answers.length;
@@ -40,7 +46,7 @@ function EndQuizDialog() {
           {sequence.map((birbId, i) => (
             <StyledChip
               key={`chip-${i}`}
-              label={eBird[birbId].comNameFr}
+              label={eBird[birbId][eBirdNameProperty]}
               variant="outlined"
               color={answers[i] ? "success" : "error"}
             />

@@ -26,7 +26,8 @@ import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
-import { AudioType, fetchAudioForOne } from "../macaulay/Helper";
+import { fetchAudioForOne } from "../tools/tools";
+import { AudioType, Language } from "../tools/constants";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -46,6 +47,9 @@ function Lobby() {
     setCurrentList,
     customList,
     setCustomList,
+    language,
+    setLanguage,
+    eBirdNameProperty,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -198,30 +202,37 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto 1fr auto auto auto",
+        gridTemplateRows: "auto auto auto 1fr auto auto",
       }}
     >
-      <Typography
-        variant="h2"
-        onClick={() => window.location.reload()}
+      <Box
         sx={{
-          justifySelf: "center",
-          cursor: "pointer",
+          display: "grid",
+          alignItems: "center",
         }}
       >
-        Birbsquiz
-        <Box
-          component="span"
+        <Typography
+          variant="h2"
+          onClick={() => window.location.reload()}
           sx={{
-            marginLeft: "0.5rem",
-            display: "inline-block",
-            transition: "transform 0.1s ease",
-            "&:hover": { transform: "scale(1.1)" },
+            justifySelf: "center",
+            cursor: "pointer",
           }}
         >
-          {user ? "🦖" : birbEmoji}
-        </Box>
-      </Typography>
+          Birbsquiz
+          <Box
+            component="span"
+            sx={{
+              marginLeft: "0.5rem",
+              display: "inline-block",
+              transition: "transform 0.1s ease",
+              "&:hover": { transform: "scale(1.1)" },
+            }}
+          >
+            {user ? "🦖" : birbEmoji}
+          </Box>
+        </Typography>
+      </Box>
 
       <Box
         sx={{
@@ -240,14 +251,16 @@ function Lobby() {
             value={selectedBirbId}
             onChange={(e, v) => setSelectedBirbId(v!)}
             options={Object.keys(eBird).sort((a, b) =>
-              eBird[a].comNameFr.localeCompare(eBird[b].comNameFr)
+              eBird[a][eBirdNameProperty].localeCompare(
+                eBird[b][eBirdNameProperty]
+              )
             )}
             getOptionLabel={(birbId) =>
-              eBird[birbId] ? eBird[birbId].comNameFr : ""
+              eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
             }
             freeSolo
             isOptionEqualToValue={(birbId, input) =>
-              eBird[birbId].comNameFr === input
+              eBird[birbId][eBirdNameProperty] === input
             }
             filterOptions={(options, { inputValue }) => {
               const normalize = (str: string) =>
@@ -261,7 +274,7 @@ function Lobby() {
                 .filter((term) => term);
               return options.filter((option) => {
                 const optionLabel = normalize(
-                  eBird[option].comNameFr
+                  eBird[option][eBirdNameProperty]
                 ).toLowerCase();
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
@@ -274,7 +287,7 @@ function Lobby() {
         )}
       </Box>
 
-      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
+      <Box sx={{ marginTop: "1.5rem"}}>
         <Box
           sx={{
             display: "grid",
@@ -293,7 +306,7 @@ function Lobby() {
                   "&:active": { transform: "scale(1.02)", boxShadow: 0 },
                 }}
                 key={`chip-${i}`}
-                label={eBird[birbId].comNameFr}
+                label={eBird[birbId][eBirdNameProperty]}
                 variant="outlined"
                 onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
                 onDelete={() => deleteBirb(birbId)}
@@ -391,35 +404,29 @@ function Lobby() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "min-content min-content 1fr",
+            gridTemplateColumns:
+              shareClickCount > 5
+                ? "100px 1fr min-content min-content"
+                : "100px 1fr min-content",
             gap: "0.5rem",
           }}
         >
-          <IconButton
-            color="primary"
-            onClick={copyUrl}
-            disabled={selectedBirbIds.length <= 0}
-          >
-            <ShareIcon />
-          </IconButton>
-          <Box>
-            {!user && shareClickCount > 5 && (
-              <IconButton color="primary" onClick={signInWithGoogle}>
-                <LoginIcon />
-              </IconButton>
-            )}
-            {user && (
-              <IconButton
-                color="error"
-                onClick={() => {
-                  setShareClickCount(0);
-                  signOut(auth);
-                }}
-              >
-                <LogoutIcon />
-              </IconButton>
-            )}
-          </Box>
+          <FormControl fullWidth size="small">
+            <InputLabel id="demo-simple-select-label">Language</InputLabel>
+            <Select
+              value={language}
+              label="Language"
+              onChange={(event: SelectChangeEvent) =>
+                setLanguage(event.target.value)
+              }
+            >
+              {Object.entries(Language).map(([key, value]) => (
+                <MenuItem key={key} value={value}>
+                  {key}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <Button
             variant="contained"
@@ -430,6 +437,35 @@ function Lobby() {
               selectedBirbIds.length === 1 ? "" : "s"
             }`}
           </Button>
+
+          <IconButton
+            color="primary"
+            onClick={copyUrl}
+            disabled={selectedBirbIds.length <= 0}
+          >
+            <ShareIcon />
+          </IconButton>
+
+          {shareClickCount > 5 && (
+            <Box>
+              {!user && (
+                <IconButton color="primary" onClick={signInWithGoogle}>
+                  <LoginIcon />
+                </IconButton>
+              )}
+              {user && (
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    setShareClickCount(0);
+                    signOut(auth);
+                  }}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              )}
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>

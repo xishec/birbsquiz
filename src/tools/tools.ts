@@ -1,10 +1,6 @@
 import { get, ref, set } from "firebase/database";
 import { database } from "../firebaseDatabaseConfig";
-
-export enum AudioType {
-  CAll = "call",
-  SONG = "song",
-}
+import { AudioType, Sex } from "./constants";
 
 type BirdAudio = {
   [AudioType.CAll]: string[];
@@ -87,11 +83,6 @@ export const fetchAudioForMultiple = async (birdIds: string[]) => {
   const audios = await Promise.all(audioPromises);
   return audios;
 };
-
-export enum Sex {
-  MALE = "male",
-  FEMALE = "female",
-}
 
 type BirdImage = {
   [Sex.MALE]: string[];

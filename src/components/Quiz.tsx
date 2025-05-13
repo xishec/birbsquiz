@@ -14,10 +14,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import {
   AudioType,
-  fetchAudioForOne,
-  fetchImageForOne,
+  EBirdNameProperty,
+  Language,
   Sex,
-} from "../macaulay/Helper";
+} from "../tools/constants";
+import { fetchAudioForOne, fetchImageForOne } from "../tools/tools";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -41,6 +42,7 @@ function Quiz() {
     gameMode,
     callCheckbox,
     songCheckbox,
+    eBirdNameProperty,
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
@@ -56,6 +58,8 @@ function Quiz() {
   const [audioPlayed, setAudioPlayed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [currentAudioType, setCurrentAudioType] = React.useState<AudioType>();
+  const [shouldRevealMoreNames, setShouldRevealMoreNames] =
+    React.useState(false);
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
@@ -111,11 +115,23 @@ function Quiz() {
       const birdRandomSeed = (randomSeed * (birbId.charCodeAt(0) % 10)) % 1;
 
       let newAudioType = AudioType.CAll;
-      if (callCheckbox) newAudioType = AudioType.CAll;
-      if (songCheckbox) newAudioType = AudioType.SONG;
-      if (callCheckbox && songCheckbox) {
-        newAudioType = birdRandomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
+
+      if (!birdAudio[AudioType.SONG]) {
+        newAudioType = AudioType.CAll;
+      } else if (!birdAudio[AudioType.CAll]) {
+        newAudioType = AudioType.SONG;
+      } else {
+        if (callCheckbox) {
+          newAudioType = AudioType.CAll;
+        }
+        if (songCheckbox) {
+          newAudioType = AudioType.SONG;
+        }
+        if (callCheckbox && songCheckbox) {
+          newAudioType = birdRandomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
+        }
       }
+
       setCurrentAudioType(newAudioType);
       const audioList = birdAudio[newAudioType];
       const candidateCount = Math.min(audioList.length, 5);
@@ -519,6 +535,57 @@ function Quiz() {
           )}
 
           {/* Show answer */}
+          {shouldRevealMoreNames && (
+            <Box
+              sx={{
+                marginTop: "1rem",
+                display: "grid",
+                justifyContent: "center",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "1rem",
+              }}
+            >
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  pointerEvents: "none",
+                  color: "#555555",
+                  borderColor: "#555555",
+                }}
+              >
+                {`${Language.EN.toUpperCase()} : ${
+                  eBird[birbId][EBirdNameProperty.COMMON_NAME]
+                }`}
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  pointerEvents: "none",
+                  color: "#555555",
+                  borderColor: "#555555",
+                }}
+              >
+                {`${Language.FR} : ${
+                  eBird[birbId][EBirdNameProperty.COMMON_NAME_FR]
+                }`}
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  pointerEvents: "none",
+                  color: "#555555",
+                  borderColor: "#555555",
+                }}
+              >
+                {`${Language.LATIN} : ${
+                  eBird[birbId][EBirdNameProperty.SCIENTIFIC_NAME]
+                }`}
+              </Button>
+            </Box>
+          )}
           {shouldReveal && (
             <Box
               sx={{
@@ -531,10 +598,14 @@ function Quiz() {
             >
               <Button
                 variant="outlined"
-                sx={{ pointerEvents: "none" }}
                 color={answers[counter] ? "success" : "error"}
+                onMouseDown={() => setShouldRevealMoreNames(true)}
+                onMouseUp={() => setShouldRevealMoreNames(false)}
+                onMouseLeave={() => setShouldRevealMoreNames(false)}
+                onTouchStart={() => setShouldRevealMoreNames(true)}
+                onTouchEnd={() => setShouldRevealMoreNames(false)}
               >
-                {eBird[birbId].comNameFr}
+                {eBird[birbId][eBirdNameProperty]}
               </Button>
               <Box
                 sx={{
