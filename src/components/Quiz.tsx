@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import {
   Box,
@@ -96,16 +96,6 @@ function Quiz() {
     setBirbId(sequence[counter]);
   }, [counter, selectedBirbIds, sequence]);
 
-  useEffect(() => {
-    setAudioSources([]);
-    setImageSources({
-      [Sex.MALE]: [],
-      [Sex.FEMALE]: [],
-    });
-    fetchAndSetAudioSources();
-    fetchAndSetImageSources();
-  }, [birbId]);
-
   const fetchAndSetAudioSources = () => {
     const currentId = birbId;
     fetchAudioForOne(birbId).then((birdAudio) => {
@@ -141,12 +131,24 @@ function Quiz() {
     });
   };
 
-  const fetchAndSetImageSources = () => {
-    const currentId = birbId;
-    fetchImageForOne(birbId).then((birdImage) => {
-      if (!birdImage) return;
-      if (birbId !== currentId) return;
+  // Create a ref to always store the latest birbId.
+  const birbIdRef = useRef(birbId);
+  useEffect(() => {
+    birbIdRef.current = birbId;
+  }, [birbId]);
 
+  const fetchAndSetImageSources = () => {
+    const currentId = birbIdRef.current;
+    console.log("fetching image for", currentId);
+    fetchImageForOne(currentId).then((birdImage) => {
+      if (!birdImage) return;
+      console.log(
+        "fetched image for",
+        currentId,
+        "and current birbId is",
+        birbIdRef.current
+      );
+      if (birbIdRef.current !== currentId) return;
       setImageMaleRandomIndex(0);
       const newImageSrcMale = [...birdImage[Sex.MALE]];
       shuffleArray(newImageSrcMale);
@@ -161,6 +163,16 @@ function Quiz() {
       });
     });
   };
+
+  useEffect(() => {
+    setAudioSources([]);
+    setImageSources({
+      [Sex.MALE]: [],
+      [Sex.FEMALE]: [],
+    });
+    fetchAndSetAudioSources();
+    fetchAndSetImageSources();
+  }, [birbId]);
 
   useEffect(() => {
     if (
@@ -192,7 +204,7 @@ function Quiz() {
               key={`audio-${counter}-${i}`}
               sx={{
                 display: "grid",
-                gap: "0.5rem",
+                gap: "1rem",
                 gridTemplateColumns: shouldShowAudioType
                   ? "max-content 1fr"
                   : "1fr",
@@ -258,7 +270,7 @@ function Quiz() {
   const birbImage = (
     <Box
       sx={{
-        marginTop: "2rem",
+        marginTop: "1rem",
         padding: "0 0.5rem",
         display: "grid",
         justifyContent: "center",
@@ -271,8 +283,6 @@ function Quiz() {
           <Box
             sx={{
               justifySelf: "center",
-              maxWidth: "300px",
-              maxHeight: "300px",
             }}
           >
             <Typography
@@ -286,6 +296,8 @@ function Quiz() {
               sx={{
                 cursor: "pointer",
                 overflow: "hidden",
+                maxWidth: "300px",
+                maxHeight: "300px",
                 borderRadius: "0.1rem",
               }}
               onClick={() => {
@@ -450,7 +462,7 @@ function Quiz() {
               <Box
                 sx={{
                   display: "grid",
-                  gap: "0.5rem",
+                  gap: "1rem",
                   gridTemplateColumns: "repeat(auto-fill, 1fr)",
                 }}
               >

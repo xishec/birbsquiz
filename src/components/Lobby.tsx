@@ -287,7 +287,7 @@ function Lobby() {
         )}
       </Box>
 
-      <Box sx={{ marginTop: "1.5rem"}}>
+      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
         <Box
           sx={{
             display: "grid",
