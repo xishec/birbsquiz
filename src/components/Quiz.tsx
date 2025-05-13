@@ -148,7 +148,7 @@ function Quiz() {
   };
 
   const getAudioSources = () => {
-    const shouldShowAudioType = shouldReveal && callCheckbox && songCheckbox;
+    const shouldShowAudioType = shouldReveal;
     const list = shouldReveal ? audioSourcesList.slice(0, 5) : [audioSources];
 
     return (
@@ -173,7 +173,7 @@ function Quiz() {
                       ? currentAudioType.charAt(0).toUpperCase() +
                         currentAudioType.slice(1)
                       : ""
-                  } :`}
+                  } ${i + 1} :`}
                 </Typography>
               )}
 
