@@ -69,7 +69,7 @@ function StartQuizDialog() {
 
   React.useEffect(() => {
     setMaxSliderValue(selectedBirbIds.length);
-    if (sliderValue > selectedBirbIds.length) {
+    if (sliderValue > selectedBirbIds.length && selectedBirbIds.length > 0) {
       setSliderValue(selectedBirbIds.length);
     }
   }, [selectedBirbIds, sliderValue]);

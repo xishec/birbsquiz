@@ -34,9 +34,29 @@ def download_and_merge_taxonomy():
             }
 
     # Save merged dictionary to JSON file
-    with open("ebird_taxonomy_merged_minimal.json", "w", encoding="utf-8") as f_out:
+    with open("src/macaulay/ebird_taxonomy_merged_minimal.json", "w", encoding="utf-8") as f_out:
         json.dump(merged_data, f_out, ensure_ascii=False, indent=2)
+
+
+def download_species_lists():
+    api_token = "7lqpp8tk53jh"
+    regions = ["US-CA", "CA-QC", "US-FL", "CA-BC"]
+    base_url = "https://api.ebird.org/v2/product/spplist/{}"
+    species_lists = {}
+
+    for region in regions:
+        url = base_url.format(region)
+        region_data_raw = subprocess.check_output(
+            f'curl -s -H "X-eBirdApiToken: {api_token}" "{url}"', shell=True
+        )
+        region_data = json.loads(region_data_raw)
+        species_lists[region] = region_data
+
+    # Save species lists to JSON file
+    with open("src/macaulay/ebird_species_list.json", "w", encoding="utf-8") as f_out:
+        json.dump(species_lists, f_out, ensure_ascii=False, indent=2)
 
 
 if __name__ == "__main__":
     download_and_merge_taxonomy()
+    download_species_lists()

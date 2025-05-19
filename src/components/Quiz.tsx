@@ -234,6 +234,7 @@ function Quiz() {
               {shouldShowAudioType && (
                 <Typography
                   sx={{
+                    marginRight: "0.5rem",
                     fontWeight: i === audioRandomIndex ? "bold" : "normal",
                   }}
                 >
@@ -242,7 +243,7 @@ function Quiz() {
                       ? currentAudioType.charAt(0).toUpperCase() +
                         currentAudioType.slice(1)
                       : ""
-                  } ${i + 1} :`}
+                  } ${i + 1}`}
                 </Typography>
               )}
 
