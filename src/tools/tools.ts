@@ -229,13 +229,15 @@ export const fetchImageForOne = async (id: string) => {
     });
     // backup
     if (birdImage[Sex.FEMALE].length < 10) {
+      console.log("birdImage[Sex.FEMALE]", birdImage[Sex.FEMALE]);
       const responseFemaleB = await fetch(
-        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=CA-QC&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`
+        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`
       );
       if (!responseFemaleB.ok) {
         throw new Error(`HTTP error! status: ${responseFemaleB.status}`);
       }
       const dataFemaleB = await responseFemaleB.json();
+      console.log("dataFemaleB", dataFemaleB);
       dataFemaleB?.results?.content?.forEach((item: any) => {
         if (item.previewUrl) {
           if (
@@ -250,6 +252,7 @@ export const fetchImageForOne = async (id: string) => {
           }
         }
       });
+      console.log("birdImage[Sex.FEMALE]", birdImage[Sex.FEMALE]);
     }
 
     // Save the result to Firebase RTDB for future use.
