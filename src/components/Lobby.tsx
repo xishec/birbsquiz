@@ -120,7 +120,27 @@ function Lobby() {
   }, [loadBirbList]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      if (u) {
+        get(ref(database, `admin/${u.uid}`))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              console.log("User is an admin");
+              setUser(u);
+              setShareClickCount(5);
+            } else {
+              console.log("User is not an admin");
+              setUser(null);
+            }
+          })
+          .catch((error) => {
+            console.error("Error verifying admin rights:", error);
+            setUser(null);
+          });
+      } else {
+        setUser(null);
+      }
+    });
     return () => unsubscribe();
   }, []);
 
@@ -172,10 +192,10 @@ function Lobby() {
       }
 
       const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
-      const songSrc = audioList?.[randomIndex];
+      const urlWithMetadata = audioList?.[randomIndex];
 
-      if (songSrc) {
-        const audio = new Audio(songSrc);
+      if (urlWithMetadata!.url) {
+        const audio = new Audio(urlWithMetadata.url);
         currentAudioRef.current = audio;
         audio.currentTime = 4 + Math.random() * 4;
         audio
@@ -410,10 +430,7 @@ function Lobby() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns:
-              shareClickCount > 5
-                ? "100px 1fr min-content min-content"
-                : "100px 1fr min-content",
+            gridTemplateColumns: "100px 1fr min-content",
             gap: "0.5rem",
           }}
         >
@@ -444,15 +461,17 @@ function Lobby() {
             }`}
           </Button>
 
-          <IconButton
-            color="primary"
-            onClick={copyUrl}
-            disabled={selectedBirbIds.length <= 0}
-          >
-            <ShareIcon />
-          </IconButton>
+          {shareClickCount < 5 && (
+            <IconButton
+              color="primary"
+              onClick={copyUrl}
+              disabled={selectedBirbIds.length <= 0}
+            >
+              <ShareIcon />
+            </IconButton>
+          )}
 
-          {shareClickCount > 5 && (
+          {shareClickCount >= 5 && (
             <Box>
               {!user && (
                 <IconButton color="primary" onClick={signInWithGoogle}>

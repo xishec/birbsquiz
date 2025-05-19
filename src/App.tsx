@@ -65,6 +65,8 @@ export type QuizContextType = {
   language: Language;
   setLanguage: React.Dispatch<any>;
   eBirdNameProperty: EBirdNameProperty;
+  sliderValue: number;
+  setSliderValue: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -72,6 +74,8 @@ export const QuizContext = createContext<QuizContextType | undefined>(
 );
 
 function App() {
+  const buildDate = process.env.REACT_APP_BUILD_DATE;
+
   const eBird = raw_eBird as any;
 
   // Helper to load progress from localStorage
@@ -187,6 +191,10 @@ function App() {
     () => savedProgress.eBirdNameProperty || EBirdNameProperty.COMMON_NAME_FR
   );
 
+  const [sliderValue, setSliderValue] = React.useState<number>(
+    () => savedProgress.sliderValue || selectedBirbIds.length
+  );
+
   const startQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
@@ -237,6 +245,8 @@ function App() {
       language,
       setLanguage,
       eBirdNameProperty,
+      sliderValue,
+      setSliderValue,
     };
     localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
   }, [
@@ -257,6 +267,8 @@ function App() {
     language,
     setLanguage,
     eBirdNameProperty,
+    sliderValue,
+    setSliderValue,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -309,6 +321,8 @@ function App() {
         language,
         setLanguage,
         eBirdNameProperty,
+        sliderValue,
+        setSliderValue,
       }}
     >
       <Box sx={{ height: css_height_90 }}>
@@ -328,32 +342,55 @@ function App() {
           {quizStarted && <Quiz />}
         </Box>
 
-        <Box sx={{ position: "absolute", bottom: 0, left: "2rem" }}>
-          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-            <Link
-              sx={{ color: "#dcdcdc" }}
-              target="_blank"
-              rel="noopener"
-              underline="hover"
-              href="https://www.natureinstruct.org/dendroica/"
-            >
-              DENDROICA
-            </Link>
-          </Typography>
-        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            margin: "0 2rem",
+            display: "flex",
+            justifyContent: "space-between",
+            width: "calc(100% - 4rem)",
+            alignItems: "center",
+          }}
+        >
+          <Box>
+            <Typography variant="caption">
+              <Link
+                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                target="_blank"
+                rel="noopener"
+                underline="hover"
+                href="https://www.macaulaylibrary.org/"
+              >
+                Macaulay Library
+              </Link>
+            </Typography>
+          </Box>
 
-        <Box sx={{ position: "absolute", bottom: 0, right: "2rem" }}>
-          <Typography sx={{ color: "#dcdcdc" }} variant="caption">
-            <Link
-              sx={{ color: "#dcdcdc" }}
-              target="_blank"
-              rel="noopener"
-              underline="hover"
-              href="https://www.linkedin.com/in/xishec/"
-            >
-              Xi Chen
-            </Link>
-          </Typography>
+          {buildDate && (
+            <Box>
+              <Typography
+                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                variant="caption"
+              >
+                Build on {buildDate}
+              </Typography>
+            </Box>
+          )}
+
+          <Box>
+            <Typography variant="caption">
+              <Link
+                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                target="_blank"
+                rel="noopener"
+                underline="hover"
+                href="https://www.linkedin.com/in/xishec/"
+              >
+                Xi Chen
+              </Link>
+            </Typography>
+          </Box>
         </Box>
 
         <StartQuizDialog />

@@ -34,11 +34,10 @@ function StartQuizDialog() {
     setCallCheckbox,
     songCheckbox,
     setSongCheckbox,
+    sliderValue,
+    setSliderValue,
   } = quizContext;
 
-  const [sliderValue, setSliderValue] = React.useState<number>(
-    selectedBirbIds.length
-  );
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
     selectedBirbIds.length
   );
@@ -69,9 +68,11 @@ function StartQuizDialog() {
   };
 
   React.useEffect(() => {
-    setSliderValue(selectedBirbIds.length);
     setMaxSliderValue(selectedBirbIds.length);
-  }, [selectedBirbIds]);
+    if (sliderValue > selectedBirbIds.length) {
+      setSliderValue(selectedBirbIds.length);
+    }
+  }, [selectedBirbIds, sliderValue]);
 
   const loadQuiz = (gameMode: GameMode) => {
     setLoading(true);

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import {
   Box,
@@ -18,7 +18,13 @@ import {
   Language,
   Sex,
 } from "../tools/constants";
-import { fetchAudioForOne, fetchImageForOne } from "../tools/tools";
+import {
+  BirdAudio,
+  BirdImage,
+  fetchAudioForOne,
+  fetchImageForOne,
+  UrlWithMetadata,
+} from "../tools/tools";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -46,13 +52,10 @@ function Quiz() {
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
-  const [audioSources, setAudioSources] = React.useState<string[]>([]);
+  const [audioSources, setAudioSources] = React.useState<UrlWithMetadata[]>([]);
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
-  const [imageSources, setImageSources] = React.useState({
-    [Sex.MALE]: [] as string[],
-    [Sex.FEMALE]: [] as string[],
-  });
+  const [imageSources, setImageSources] = React.useState<BirdImage>();
   const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
@@ -123,11 +126,11 @@ function Quiz() {
       }
 
       setCurrentAudioType(newAudioType);
-      const audioList = birdAudio[newAudioType];
-      const candidateCount = Math.min(audioList.length, 5);
+      const urlWithMetadata = birdAudio[newAudioType];
+      const candidateCount = Math.min(urlWithMetadata.length, 5);
       const randomIndex = Math.floor(birdRandomSeed * candidateCount);
       setAudioRandomIndex(randomIndex);
-      setAudioSources(audioList);
+      setAudioSources(urlWithMetadata);
     });
   };
 
@@ -160,7 +163,7 @@ function Quiz() {
       setImageSources({
         [Sex.MALE]: newImageSrcMale,
         [Sex.FEMALE]: newImageSrcFemale,
-      });
+      } as BirdImage);
     });
   };
 
@@ -189,6 +192,22 @@ function Quiz() {
     }
   }, [audioSources, imageSources]);
 
+  useEffect(() => {
+    if (
+      imageSources &&
+      imageSources[Sex.MALE].length > 0 &&
+      imageSources[Sex.FEMALE].length > 0
+    ) {
+      // Preload both male and female images
+      [imageSources[Sex.MALE][0], imageSources[Sex.FEMALE][0]].forEach(
+        (urlWithMetadata) => {
+          const img = new Image();
+          img.src = urlWithMetadata.url;
+        }
+      );
+    }
+  }, [imageSources]);
+
   const getAudioSources = () => {
     const shouldShowAudioType = shouldReveal;
     const list = shouldReveal
@@ -199,7 +218,7 @@ function Quiz() {
       <>
         {list.length > 0 &&
           list[0] &&
-          list.map((audioSources: string, i: number) => (
+          list.map((urlWithMetadata: UrlWithMetadata, i: number) => (
             <Box
               key={`audio-${counter}-${i}`}
               sx={{
@@ -227,11 +246,11 @@ function Quiz() {
               )}
 
               <audio
-                autoPlay={i === 0 && !shouldReveal}
+                autoPlay={!shouldReveal}
                 id={`audio-${counter}-${i}`}
                 style={{ width: "100%" }}
                 controls
-                src={audioSources}
+                src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
                 onLoadedMetadata={(e) => {
                   // e.currentTarget.currentTime = 4 + randomSeed * 4;
@@ -240,10 +259,14 @@ function Quiz() {
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
-              {/* todo : add credits */}
-              {/* <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
+
+              <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
                 <Typography
-                  sx={{ alignSelf: "flex-end", color: "#dcdcdc" }}
+                  sx={{
+                    alignSelf: "flex-end",
+                    color: "#123123",
+                    cursor: "default",
+                  }}
                   variant="caption"
                 >
                   <HtmlTooltip
@@ -251,7 +274,7 @@ function Quiz() {
                       <React.Fragment>
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: dataMap[birbId].songCredits[i],
+                            __html: `${urlWithMetadata.author} - ${urlWithMetadata.location}`,
                           }}
                         />
                       </React.Fragment>
@@ -260,7 +283,7 @@ function Quiz() {
                     <Box>source</Box>
                   </HtmlTooltip>
                 </Typography>
-              </Box> */}
+              </Box>
             </Box>
           ))}
       </>
@@ -279,88 +302,89 @@ function Quiz() {
       }}
     >
       {imageSources &&
-        Object.entries(imageSources).map(([sex, images]) => (
-          <Box
-            sx={{
-              justifySelf: "center",
-            }}
-          >
-            <Typography
-              sx={{ alignSelf: "flex-end", color: "#123123" }}
-              variant="body1"
-              padding={"0.5rem 0"}
-            >
-              {sex.charAt(0).toUpperCase() + sex.slice(1) + " :"}
-            </Typography>
-            <Box
-              sx={{
-                cursor: "pointer",
-                overflow: "hidden",
-                maxWidth: "300px",
-                maxHeight: "300px",
-                borderRadius: "0.1rem",
-              }}
-              onClick={() => {
-                if (sex === Sex.MALE) {
-                  setImageMaleRandomIndex(
-                    (prevIndex) => (prevIndex + 1) % images.length
-                  );
-                } else {
-                  setImageFemaleRandomIndex(
-                    (prevIndex) => (prevIndex + 1) % images.length
-                  );
-                }
-              }}
-            >
-              <img
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "contain",
-                }}
-                src={
-                  images[
-                    sex === Sex.MALE
-                      ? imageMaleRandomIndex
-                      : imageFemaleRandomIndex
-                  ]
-                }
-                loading="lazy"
-                alt={"dataMap[birbId].photoCredits[0]"}
-              />
-            </Box>
+        Object.entries(imageSources).map(([sex, images]) => {
+          if (!images || images.length === 0) return null;
 
+          const randomIndex =
+            sex === Sex.MALE ? imageMaleRandomIndex : imageFemaleRandomIndex;
+
+          return (
             <Box
               sx={{
-                display: "grid",
-                justifyContent: "flex-end",
+                justifySelf: "center",
               }}
             >
               <Typography
-                sx={{
-                  alignSelf: "flex-end",
-                  color: "#123123",
-                  cursor: "default",
-                }}
-                variant="caption"
+                sx={{ alignSelf: "flex-end", color: "#123123" }}
+                variant="body1"
+                padding={"0.5rem 0"}
               >
-                <HtmlTooltip
-                  title={
-                    <React.Fragment>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: "dataMap[birbId].photoCredits[0]",
-                        }}
-                      />
-                    </React.Fragment>
-                  }
-                >
-                  <Box>source</Box>
-                </HtmlTooltip>
+                {sex.charAt(0).toUpperCase() + sex.slice(1) + " :"}
               </Typography>
+              <Box
+                sx={{
+                  cursor: "pointer",
+                  overflow: "hidden",
+                  maxWidth: "300px",
+                  maxHeight: "300px",
+                  borderRadius: "0.1rem",
+                }}
+                onClick={() => {
+                  if (sex === Sex.MALE) {
+                    setImageMaleRandomIndex(
+                      (prevIndex) => (prevIndex + 1) % images.length
+                    );
+                  } else {
+                    setImageFemaleRandomIndex(
+                      (prevIndex) => (prevIndex + 1) % images.length
+                    );
+                  }
+                }}
+              >
+                <img
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "contain",
+                  }}
+                  src={images[randomIndex].url}
+                  loading="lazy"
+                  alt={eBird[birbId][eBirdNameProperty]}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  display: "grid",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Typography
+                  sx={{
+                    alignSelf: "flex-end",
+                    color: "#123123",
+                    cursor: "default",
+                  }}
+                  variant="caption"
+                >
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: `${images[randomIndex].author} - ${images[randomIndex].location}`,
+                          }}
+                        />
+                      </React.Fragment>
+                    }
+                  >
+                    <Box>source</Box>
+                  </HtmlTooltip>
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          );
+        })}
     </Box>
   );
 
@@ -526,6 +550,7 @@ function Quiz() {
 
                   const newAnswers: any = Array.from(answers);
                   newAnswers[counter] = true;
+                  pauseAllAudio();
                   setAnswers(newAnswers);
                 }}
               >
