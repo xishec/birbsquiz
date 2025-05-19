@@ -5,6 +5,7 @@ import {
   CircularProgress,
   IconButton,
   Switch,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -19,12 +20,12 @@ import {
   Sex,
 } from "../tools/constants";
 import {
-  BirdAudio,
   BirdImage,
   fetchAudioForOne,
   fetchImageForOne,
   UrlWithMetadata,
 } from "../tools/tools";
+import InfoIcon from "@mui/icons-material/Info";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -223,10 +224,10 @@ function Quiz() {
               key={`audio-${counter}-${i}`}
               sx={{
                 display: "grid",
-                gap: "1rem",
+                gap: "0.5rem",
                 gridTemplateColumns: shouldShowAudioType
-                  ? "max-content 1fr"
-                  : "1fr",
+                  ? "max-content 1fr min-content"
+                  : "1fr min-content",
                 alignItems: "center",
               }}
             >
@@ -260,28 +261,15 @@ function Quiz() {
                 <code>audio</code> element.
               </audio>
 
-              <Box sx={{ display: "grid", justifyContent: "flex-end" }}>
-                <Typography
-                  sx={{
-                    alignSelf: "flex-end",
-                    color: "#123123",
-                    cursor: "default",
-                  }}
-                  variant="caption"
-                >
-                  <HtmlTooltip
-                    title={
-                      <React.Fragment>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: `${urlWithMetadata.author} - ${urlWithMetadata.location}`,
-                          }}
-                        />
-                      </React.Fragment>
-                    }
+              <Box>
+                <Typography>
+                  <Tooltip
+                    title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
                   >
-                    <Box>source</Box>
-                  </HtmlTooltip>
+                    <IconButton>
+                      <InfoIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
                 </Typography>
               </Box>
             </Box>
@@ -315,19 +303,30 @@ function Quiz() {
               }}
             >
               <Typography
-                sx={{ alignSelf: "flex-end", color: "#123123" }}
+                sx={{
+                  color: "#123123",
+                  display: "grid",
+                  alignItems: "center",
+                  gridTemplateColumns: "min-content min-content",
+                }}
                 variant="body1"
                 padding={"0.5rem 0"}
               >
-                {sex.charAt(0).toUpperCase() + sex.slice(1) + " :"}
+                {sex.charAt(0).toUpperCase() + sex.slice(1)}
+                <Tooltip
+                  title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
+                >
+                  <IconButton>
+                    <InfoIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
               </Typography>
               <Box
                 sx={{
                   cursor: "pointer",
                   overflow: "hidden",
                   maxWidth: "300px",
-                  maxHeight: "300px",
-                  borderRadius: "0.1rem",
+                  // maxHeight: "300px",
                 }}
                 onClick={() => {
                   if (sex === Sex.MALE) {
@@ -346,41 +345,12 @@ function Quiz() {
                     height: "100%",
                     width: "100%",
                     objectFit: "contain",
+                    borderRadius: "0.25rem",
                   }}
                   src={images[randomIndex].url}
                   loading="lazy"
                   alt={eBird[birbId][eBirdNameProperty]}
                 />
-              </Box>
-
-              <Box
-                sx={{
-                  display: "grid",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Typography
-                  sx={{
-                    alignSelf: "flex-end",
-                    color: "#123123",
-                    cursor: "default",
-                  }}
-                  variant="caption"
-                >
-                  <HtmlTooltip
-                    title={
-                      <React.Fragment>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: `${images[randomIndex].author} - ${images[randomIndex].location}`,
-                          }}
-                        />
-                      </React.Fragment>
-                    }
-                  >
-                    <Box>source</Box>
-                  </HtmlTooltip>
-                </Typography>
               </Box>
             </Box>
           );
@@ -587,8 +557,8 @@ function Quiz() {
                 variant="outlined"
                 sx={{
                   pointerEvents: "none",
-                  color: "#555555",
-                  borderColor: "#555555",
+                  color: "#222222",
+                  borderColor: "#222222",
                 }}
               >
                 {`${Language.EN.toUpperCase()} : ${
@@ -600,8 +570,8 @@ function Quiz() {
                 variant="outlined"
                 sx={{
                   pointerEvents: "none",
-                  color: "#555555",
-                  borderColor: "#555555",
+                  color: "#222222",
+                  borderColor: "#222222",
                 }}
               >
                 {`${Language.FR} : ${
@@ -613,8 +583,8 @@ function Quiz() {
                 variant="outlined"
                 sx={{
                   pointerEvents: "none",
-                  color: "#555555",
-                  borderColor: "#555555",
+                  color: "#222222",
+                  borderColor: "#222222",
                 }}
               >
                 {`${Language.LATIN} : ${
