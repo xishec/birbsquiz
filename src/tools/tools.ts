@@ -44,9 +44,10 @@ const fetchMedia = async (
 };
 
 export const fetchAudioForOne = async (
-  id: string
+  id: string,
+  region: string
 ): Promise<BirdAudio | null> => {
-  const dbRef = ref(database, `v2/birds/${id}/audio`);
+  const dbRef = ref(database, `v2/birds/${id}/${region}/audio`);
   try {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) return snapshot.val() as BirdAudio;
@@ -62,7 +63,7 @@ export const fetchAudioForOne = async (
   try {
     // Fetch call audio
     const callBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=call&mediaType=audio&sort=rating_rank_desc&limit=10`;
-    const callRegionUrl = callBaseUrl + `&regionCode=CA-QC`;
+    const callRegionUrl = callBaseUrl + `&regionCode=${region}`;
     await fetchMedia(
       callRegionUrl,
       birdAudio[AudioType.CAll],
@@ -84,7 +85,7 @@ export const fetchAudioForOne = async (
 
     // Fetch song audio
     const songBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=song&mediaType=audio&sort=rating_rank_desc&limit=10`;
-    const songRegionUrl = songBaseUrl + `&regionCode=CA-QC`;
+    const songRegionUrl = songBaseUrl + `&regionCode=${region}`;
     await fetchMedia(
       songRegionUrl,
       birdAudio[AudioType.SONG],
@@ -120,9 +121,10 @@ export const fetchAudioForOne = async (
 };
 
 export const fetchImageForOne = async (
-  id: string
+  id: string,
+  region: string
 ): Promise<BirdImage | null> => {
-  const dbRef = ref(database, `v2/birds/${id}/image`);
+  const dbRef = ref(database, `v2/birds/${id}/${region}/image`);
   try {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) return snapshot.val() as BirdImage;
@@ -138,7 +140,7 @@ export const fetchImageForOne = async (
   try {
     // Fetch male images
     const maleBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=male&mediaType=photo&sort=rating_rank_desc&limit=10`;
-    const maleRegionUrl = maleBaseUrl + `&regionCode=CA-QC`;
+    const maleRegionUrl = maleBaseUrl + `&regionCode=${region}`;
     await fetchMedia(
       maleRegionUrl,
       birdImage[Sex.MALE],
@@ -156,7 +158,7 @@ export const fetchImageForOne = async (
 
     // Fetch female images
     const femaleBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`;
-    const femaleRegionUrl = femaleBaseUrl + `&regionCode=CA-QC`;
+    const femaleRegionUrl = femaleBaseUrl + `&regionCode=${region}`;
     await fetchMedia(
       femaleRegionUrl,
       birdImage[Sex.FEMALE],
@@ -189,6 +191,7 @@ export const fetchImageForOne = async (
 
 export const fetchImageAndAudioForMultiple = async (
   birdIds: string[],
+  region: string,
   onProgress?: (progress: number) => void
 ) => {
   const BATCH_SIZE = 10;
@@ -199,8 +202,8 @@ export const fetchImageAndAudioForMultiple = async (
     const batchResults = await Promise.all(
       batch.map(async (id) => {
         const [image, audio] = await Promise.all([
-          fetchImageForOne(id),
-          fetchAudioForOne(id),
+          fetchImageForOne(id, region),
+          fetchAudioForOne(id, region),
         ]);
         return { id, image, audio };
       })

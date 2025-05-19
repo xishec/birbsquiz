@@ -36,6 +36,7 @@ function Lobby() {
   }
   const {
     eBird,
+    regionList,
     birbEmoji,
     selectedBirbIds,
     setSelectedBirbIds,
@@ -50,6 +51,8 @@ function Lobby() {
     language,
     setLanguage,
     eBirdNameProperty,
+    region,
+    setRegion,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -58,16 +61,6 @@ function Lobby() {
   const [shareClickCount, setShareClickCount] = useState<number>(0);
   const [listName, setListName] = useState(currentList);
   const [dbListsData, setDbListsData] = useState<any>({});
-
-  const handleChange = (event: SelectChangeEvent) => {
-    const key = event.target.value;
-    if (key === "Custom") {
-      setSelectedBirbIds(customList ? customList : []);
-    } else {
-      setSelectedBirbIds(dbListsData[key]);
-    }
-    setCurrentList(key);
-  };
 
   useEffect(() => {
     if (currentList === "Custom") {
@@ -182,7 +175,7 @@ function Lobby() {
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const playAudioForBirb = (birbId: string, audioType: AudioType) => {
-    fetchAudioForOne(birbId).then((birdAudio) => {
+    fetchAudioForOne(birbId, region).then((birdAudio) => {
       if (!birdAudio) return;
       const audioList = birdAudio[audioType];
 
@@ -223,6 +216,7 @@ function Lobby() {
         height: css_height_90,
         minHeight: 0,
         gridTemplateRows: "auto auto 1fr auto auto auto",
+        gap: "1rem",
       }}
     >
       {/* title */}
@@ -255,24 +249,72 @@ function Lobby() {
         </Typography>
       </Box>
 
-      {/* autocomplete */}
+      {/* region and language */}
       <Box
-        sx={{
-          marginTop: "1rem",
-          display: "grid",
-          alignItems: "center",
-          gap: "0.5rem",
-          gridTemplateColumns: "1fr auto",
-        }}
+        sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}
       >
-        {(user || currentList === "Custom") && (
+        <FormControl fullWidth>
+          <InputLabel>Region</InputLabel>
+          <Select
+            label="Region"
+            value={region}
+            onChange={(event: SelectChangeEvent) => {
+              const key = event.target.value;
+              setRegion(key);
+            }}
+            size="small"
+          >
+            <MenuItem value="EARTH">EARTH</MenuItem>
+            {regionList &&
+              Object.keys(regionList)
+                .filter((key) => key !== "EARTH")
+                .sort()
+                .map((key) => {
+                  return (
+                    <MenuItem key={key} value={key}>
+                      {key}
+                    </MenuItem>
+                  );
+                })}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Language</InputLabel>
+          <Select
+            value={language}
+            label="Language"
+            onChange={(event: SelectChangeEvent) =>
+              setLanguage(event.target.value)
+            }
+            size="small"
+          >
+            {Object.entries(Language).map(([key, value]) => (
+              <MenuItem key={key} value={value}>
+                {key}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+
+      {/* autocomplete */}
+      <Box>
+        <Box
+          sx={{
+            display: "grid",
+            alignItems: "center",
+            gap: "0.5rem",
+            gridTemplateColumns: "1fr",
+          }}
+        >
           <Autocomplete
+            disabled={user || currentList !== "Custom"}
             size="small"
             inputValue={birbInput}
             onInputChange={(e, v) => setBirbInput(v)}
             value={selectedBirbId}
             onChange={(e, v) => setSelectedBirbId(v!)}
-            options={Object.keys(eBird).sort((a, b) =>
+            options={regionList[region].sort((a, b) =>
               eBird[a][eBirdNameProperty].localeCompare(
                 eBird[b][eBirdNameProperty]
               )
@@ -306,11 +348,15 @@ function Lobby() {
             )}
             getOptionDisabled={(option) => selectedBirbIds.includes(option)}
           />
-        )}
+        </Box>
       </Box>
 
       {/* StyledChip */}
-      <Box sx={{ marginTop: "1.5rem", overflow: "auto" }}>
+      <Box
+        sx={{
+          overflow: "auto",
+        }}
+      >
         <Box
           sx={{
             display: "grid",
@@ -338,12 +384,8 @@ function Lobby() {
         </Box>
       </Box>
 
-      {/* List */}
-      <Box
-        sx={{
-          marginTop: "1rem",
-        }}
-      >
+      {/* DB List */}
+      <Box sx={{}}>
         <Box
           sx={{
             marginTop: "0.5rem",
@@ -354,13 +396,19 @@ function Lobby() {
           }}
         >
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">List</InputLabel>
+            <InputLabel>List</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Birb list"
+              label="List"
               value={currentList}
-              onChange={handleChange}
+              onChange={(event: SelectChangeEvent) => {
+                const key = event.target.value;
+                if (key === "Custom") {
+                  setSelectedBirbIds(customList ? customList : []);
+                } else {
+                  setSelectedBirbIds(dbListsData[key]);
+                }
+                setCurrentList(key);
+              }}
               size="small"
             >
               <MenuItem value="Custom">Custom</MenuItem>
@@ -378,6 +426,15 @@ function Lobby() {
             >
               Clear
             </Button>
+          )}
+          {shareClickCount < 5 && (
+            <IconButton
+              color="primary"
+              onClick={copyUrl}
+              disabled={selectedBirbIds.length <= 0}
+            >
+              <ShareIcon />
+            </IconButton>
           )}
         </Box>
       </Box>
@@ -434,23 +491,6 @@ function Lobby() {
             gap: "0.5rem",
           }}
         >
-          <FormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">Language</InputLabel>
-            <Select
-              value={language}
-              label="Language"
-              onChange={(event: SelectChangeEvent) =>
-                setLanguage(event.target.value)
-              }
-            >
-              {Object.entries(Language).map(([key, value]) => (
-                <MenuItem key={key} value={value}>
-                  {key}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
           <Button
             variant="contained"
             onClick={() => setOpenStartQuizDialog(true)}
@@ -460,16 +500,6 @@ function Lobby() {
               selectedBirbIds.length === 1 ? "" : "s"
             }`}
           </Button>
-
-          {shareClickCount < 5 && (
-            <IconButton
-              color="primary"
-              onClick={copyUrl}
-              disabled={selectedBirbIds.length <= 0}
-            >
-              <ShareIcon />
-            </IconButton>
-          )}
 
           {shareClickCount >= 5 && (
             <Box>

@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { createContext, useEffect, useMemo } from "react";
 import raw_eBird from "./macaulay/ebird_taxonomy_merged_minimal.json";
+import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
@@ -30,7 +31,15 @@ export enum GameMode {
 }
 
 export type QuizContextType = {
-  eBird: any;
+  eBird: Record<
+    string,
+    {
+      sciName: string;
+      comName: string;
+      comNameFr: string;
+    }
+  >;
+  regionList: Record<string, string[]>;
   sequence: Array<string>;
   randomSeed: number;
   counter: number;
@@ -67,6 +76,8 @@ export type QuizContextType = {
   eBirdNameProperty: EBirdNameProperty;
   sliderValue: number;
   setSliderValue: React.Dispatch<any>;
+  region: string;
+  setRegion: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -77,6 +88,7 @@ function App() {
   const buildDate = process.env.REACT_APP_BUILD_DATE;
 
   const eBird = raw_eBird as any;
+  const regionList = raw_region_list as any;
 
   // Helper to load progress from localStorage
   const loadProgress = () => {
@@ -195,6 +207,10 @@ function App() {
     () => savedProgress.sliderValue || selectedBirbIds.length
   );
 
+  const [region, setRegion] = React.useState<string>(
+    () => savedProgress.region || "EARTH"
+  );
+
   const startQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
@@ -247,6 +263,8 @@ function App() {
       eBirdNameProperty,
       sliderValue,
       setSliderValue,
+      region,
+      setRegion,
     };
     localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
   }, [
@@ -269,6 +287,8 @@ function App() {
     eBirdNameProperty,
     sliderValue,
     setSliderValue,
+    region,
+    setRegion,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -287,6 +307,7 @@ function App() {
     <QuizContext.Provider
       value={{
         eBird,
+        regionList,
         sequence,
         randomSeed,
         counter,
@@ -323,9 +344,22 @@ function App() {
         eBirdNameProperty,
         sliderValue,
         setSliderValue,
+        region,
+        setRegion,
       }}
     >
-      <Box sx={{ height: css_height_90 }}>
+      <Box
+        sx={{
+          height: css_height_90,
+          "*": {
+            WebkitUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+            userSelect: "none",
+            WebkitTouchCallout: "none",
+          },
+        }}
+      >
         <Box
           sx={{
             height: css_height_90,

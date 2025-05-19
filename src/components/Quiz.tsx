@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import HtmlTooltip from "./HtmlTooltip";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import {
@@ -50,6 +49,7 @@ function Quiz() {
     callCheckbox,
     songCheckbox,
     eBirdNameProperty,
+    region,
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
@@ -102,7 +102,7 @@ function Quiz() {
 
   const fetchAndSetAudioSources = () => {
     const currentId = birbId;
-    fetchAudioForOne(birbId).then((birdAudio) => {
+    fetchAudioForOne(birbId, region).then((birdAudio) => {
       if (birbId !== currentId) return;
       if (!birdAudio) return;
 
@@ -144,7 +144,7 @@ function Quiz() {
   const fetchAndSetImageSources = () => {
     const currentId = birbIdRef.current;
     console.log("fetching image for", currentId);
-    fetchImageForOne(currentId).then((birdImage) => {
+    fetchImageForOne(currentId, region).then((birdImage) => {
       if (!birdImage) return;
       console.log(
         "fetched image for",
@@ -265,6 +265,10 @@ function Quiz() {
               <Box>
                 <Typography>
                   <Tooltip
+                    enterDelay={0}
+                    leaveDelay={0}
+                    enterTouchDelay={0}
+                    leaveTouchDelay={0}
                     title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
                   >
                     <IconButton>
@@ -315,6 +319,10 @@ function Quiz() {
               >
                 {sex.charAt(0).toUpperCase() + sex.slice(1)}
                 <Tooltip
+                  enterDelay={0}
+                  leaveDelay={0}
+                  enterTouchDelay={0}
+                  leaveTouchDelay={0}
                   title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
                 >
                   <IconButton>

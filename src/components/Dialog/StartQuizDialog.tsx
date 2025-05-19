@@ -6,10 +6,15 @@ import {
   Checkbox,
   DialogContent,
   DialogTitle,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  InputLabel,
   LinearProgress,
   LinearProgressProps,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Slider,
   TextField,
   Typography,
@@ -24,6 +29,7 @@ function StartQuizDialog() {
     throw new Error("Must be used within a QuizContext.Provider");
   }
   const {
+    regionList,
     openStartQuizDialog,
     setOpenStartQuizDialog,
     selectedBirbIds,
@@ -36,6 +42,8 @@ function StartQuizDialog() {
     setSongCheckbox,
     sliderValue,
     setSliderValue,
+    region,
+    setRegion,
   } = quizContext;
 
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
@@ -77,7 +85,7 @@ function StartQuizDialog() {
   const loadQuiz = (gameMode: GameMode) => {
     setLoading(true);
     setProgress(0);
-    fetchImageAndAudioForMultiple(selectedBirbIds, (prog) =>
+    fetchImageAndAudioForMultiple(selectedBirbIds, region, (prog) =>
       setProgress(prog)
     ).then(() => {
       setGameMode(gameMode);
@@ -106,11 +114,39 @@ function StartQuizDialog() {
         {!loading && (
           <Box
             sx={{
+              marginTop: "1rem",
               display: "grid",
               gap: "1rem",
-              gridTemplateRows: "min-content 1fr 1fr 1fr",
+              gridTemplateRows: "auto auto auto auto auto",
             }}
           >
+            <FormControl fullWidth>
+              <InputLabel>Region</InputLabel>
+              <Select
+                label="Region"
+                value={region}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setRegion(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="EARTH">EARTH</MenuItem>
+                {regionList &&
+                  Object.keys(regionList)
+                    .filter((key) => key !== "EARTH")
+                    .sort()
+                    .map((key) => {
+                    if(key === "EARTH") return null;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          {key}
+                        </MenuItem>
+                      );
+                    })}
+              </Select>
+            </FormControl>
+
             <Box>
               <Typography variant="body1" gutterBottom>
                 Number of birbs to quiz :
