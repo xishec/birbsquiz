@@ -9,14 +9,47 @@ export type BirdAudio = {
   [AudioType.SONG]: UrlWithMetadata[];
 };
 
-export const fetchAudioForOne = async (id: string) => {
+export type BirdImage = {
+  [Sex.MALE]: UrlWithMetadata[];
+  [Sex.FEMALE]: UrlWithMetadata[];
+};
+
+/**
+ * Helper function to fetch media data and push to results array.
+ * @param url - endpoint to fetch data from.
+ * @param results - array to push formatted media items.
+ * @param urlField - key holding the URL in the response item.
+ * @param predicate - function to verify whether the item should be included.
+ * @param maxCount - maximum items allowed.
+ */
+const fetchMedia = async (
+  url: string,
+  results: UrlWithMetadata[],
+  urlField: string,
+  predicate: (item: any) => boolean,
+  maxCount: number = 10
+) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  const data = await response.json();
+  data?.results?.content?.forEach((item: any) => {
+    if (item[urlField] && predicate(item) && results.length < maxCount) {
+      results.push({
+        url: item[urlField],
+        location: item.location || "Unknown",
+        author: item.userDisplayName || "Unknown",
+      });
+    }
+  });
+};
+
+export const fetchAudioForOne = async (
+  id: string
+): Promise<BirdAudio | null> => {
   const dbRef = ref(database, `v2/birds/${id}/audio`);
   try {
     const snapshot = await get(dbRef);
-    if (snapshot.exists()) {
-      // console.log("Audio data found in Firebase for id:", id);
-      return snapshot.val() as BirdAudio;
-    }
+    if (snapshot.exists()) return snapshot.val() as BirdAudio;
   } catch (error) {
     console.error("Error reading from Firebase:", error);
   }
@@ -27,102 +60,51 @@ export const fetchAudioForOne = async (id: string) => {
   };
 
   try {
-    const responseCall = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=call&regionCode=CA-QC&mediaType=audio&sort=rating_rank_desc&limit=10`
+    // Fetch call audio
+    const callBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=call&mediaType=audio&sort=rating_rank_desc&limit=10`;
+    const callRegionUrl = callBaseUrl + `&regionCode=CA-QC`;
+    await fetchMedia(
+      callRegionUrl,
+      birdAudio[AudioType.CAll],
+      "mediaUrl",
+      (item) =>
+        String(item.behaviors).toLowerCase() === AudioType.CAll &&
+        item?.source === "ebird"
     );
-    if (!responseCall.ok) {
-      throw new Error(`HTTP error! status: ${responseCall.status}`);
-    }
-    const dataCall = await responseCall.json();
-    dataCall?.results?.content?.forEach((item: any) => {
-      if (item.mediaUrl) {
-        if (
-          String(item?.behaviors).toLowerCase() === AudioType.CAll &&
-          item?.source === "ebird" &&
-          birdAudio[AudioType.CAll].length < 10
-        ) {
-          birdAudio[AudioType.CAll].push({
-            url: item.mediaUrl,
-            location: item.location || "Unknown",
-            author: item.userDisplayName || "Unknown",
-          });
-        }
-      }
-    });
-    // backup
     if (birdAudio[AudioType.CAll].length < 10) {
-      const responseCallB = await fetch(
-        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=call&mediaType=audio&sort=rating_rank_desc&limit=10`
+      await fetchMedia(
+        callBaseUrl,
+        birdAudio[AudioType.CAll],
+        "mediaUrl",
+        (item) =>
+          String(item.behaviors).toLowerCase().includes(AudioType.CAll) &&
+          item?.source === "ebird"
       );
-      if (!responseCallB.ok) {
-        throw new Error(`HTTP error! status: ${responseCallB.status}`);
-      }
-      const dataCallB = await responseCallB.json();
-      dataCallB?.results?.content?.forEach((item: any) => {
-        if (item.mediaUrl) {
-          if (
-            String(item?.behaviors).toLowerCase() === AudioType.CAll &&
-            item?.source === "ebird" &&
-            birdAudio[AudioType.CAll].length < 10
-          ) {
-            birdAudio[AudioType.CAll].push({
-              url: item.mediaUrl,
-              location: item.location || "Unknown",
-              author: item.userDisplayName || "Unknown",
-            });
-          }
-        }
-      });
     }
 
-    const responseSong = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=song&regionCode=CA-QC&mediaType=audio&sort=rating_rank_desc&limit=10`
+    // Fetch song audio
+    const songBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=song&mediaType=audio&sort=rating_rank_desc&limit=10`;
+    const songRegionUrl = songBaseUrl + `&regionCode=CA-QC`;
+    await fetchMedia(
+      songRegionUrl,
+      birdAudio[AudioType.SONG],
+      "mediaUrl",
+      (item) =>
+        String(item.behaviors).toLowerCase() === AudioType.SONG &&
+        item?.source === "ebird"
     );
-    if (!responseSong.ok) {
-      throw new Error(`HTTP error! status: ${responseSong.status}`);
-    }
-    const dataSong = await responseSong.json();
-    dataSong?.results?.content?.forEach((item: any) => {
-      if (item.mediaUrl) {
-        if (
-          String(item?.behaviors).toLowerCase() === AudioType.SONG &&
-          item?.source === "ebird" &&
-          birdAudio[AudioType.SONG].length < 10
-        ) {
-          birdAudio[AudioType.SONG].push({
-            url: item.mediaUrl,
-            location: item.location || "Unknown",
-            author: item.userDisplayName || "Unknown",
-          });
-        }
-      }
-    });
     if (birdAudio[AudioType.SONG].length < 10) {
-      const responseSongB = await fetch(
-        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&tag=song&mediaType=audio&sort=rating_rank_desc&limit=10`
+      await fetchMedia(
+        songBaseUrl,
+        birdAudio[AudioType.SONG],
+        "mediaUrl",
+        (item) =>
+          String(item.behaviors).toLowerCase().includes(AudioType.SONG) &&
+          item?.source === "ebird"
       );
-      if (!responseSongB.ok) {
-        throw new Error(`HTTP error! status: ${responseSongB.status}`);
-      }
-      const dataSongB = await responseSongB.json();
-      dataSongB?.results?.content?.forEach((item: any) => {
-        if (item.mediaUrl) {
-          if (
-            String(item?.behaviors).toLowerCase() === AudioType.SONG &&
-            item?.source === "ebird" &&
-            birdAudio[AudioType.SONG].length < 10
-          ) {
-            birdAudio[AudioType.SONG].push({
-              url: item.mediaUrl,
-              location: item.location || "Unknown",
-              author: item.userDisplayName || "Unknown",
-            });
-          }
-        }
-      });
     }
 
-    // Save the result to Firebase RTDB for future use.
+    // Save to Firebase
     try {
       await set(dbRef, birdAudio);
       console.log("Saved audio data to Firebase for id:", id);
@@ -132,24 +114,18 @@ export const fetchAudioForOne = async (id: string) => {
 
     return birdAudio;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return null;
   }
 };
 
-export type BirdImage = {
-  [Sex.MALE]: UrlWithMetadata[];
-  [Sex.FEMALE]: UrlWithMetadata[];
-};
-
-export const fetchImageForOne = async (id: string) => {
+export const fetchImageForOne = async (
+  id: string
+): Promise<BirdImage | null> => {
   const dbRef = ref(database, `v2/birds/${id}/image`);
   try {
     const snapshot = await get(dbRef);
-    if (snapshot.exists()) {
-      // console.log("Image data found in Firebase for id:", id);
-      return snapshot.val() as BirdImage;
-    }
+    if (snapshot.exists()) return snapshot.val() as BirdImage;
   } catch (error) {
     console.error("Error reading from Firebase:", error);
   }
@@ -160,102 +136,43 @@ export const fetchImageForOne = async (id: string) => {
   };
 
   try {
-    const responseMale = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=CA-QC&sex=male&mediaType=photo&sort=rating_rank_desc&limit=10`
+    // Fetch male images
+    const maleBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=male&mediaType=photo&sort=rating_rank_desc&limit=10`;
+    const maleRegionUrl = maleBaseUrl + `&regionCode=CA-QC`;
+    await fetchMedia(
+      maleRegionUrl,
+      birdImage[Sex.MALE],
+      "previewUrl",
+      (item) => String(item.sex).toLowerCase() === Sex.MALE
     );
-    if (!responseMale.ok) {
-      throw new Error(`HTTP error! status: ${responseMale.status}`);
-    }
-    const dataMale = await responseMale.json();
-    dataMale?.results?.content?.forEach((item: any) => {
-      if (item.previewUrl) {
-        if (
-          String(item?.sex).toLowerCase() === Sex.MALE &&
-          birdImage[Sex.MALE].length < 10
-        ) {
-          birdImage[Sex.MALE].push({
-            url: item.previewUrl,
-            location: item.location || "Unknown",
-            author: item.userDisplayName || "Unknown",
-          });
-        }
-      }
-    });
-    // backup
     if (birdImage[Sex.MALE].length < 10) {
-      const responseMaleB = await fetch(
-        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=male&mediaType=photo&sort=rating_rank_desc&limit=10`
+      await fetchMedia(
+        maleBaseUrl,
+        birdImage[Sex.MALE],
+        "previewUrl",
+        (item) => String(item.sex).toLowerCase() === Sex.MALE
       );
-      if (!responseMaleB.ok) {
-        throw new Error(`HTTP error! status: ${responseMaleB.status}`);
-      }
-      const dataMaleB = await responseMaleB.json();
-      dataMaleB?.results?.content?.forEach((item: any) => {
-        if (item.previewUrl) {
-          if (
-            String(item?.sex).toLowerCase() === Sex.MALE &&
-            birdImage[Sex.MALE].length < 10
-          ) {
-            birdImage[Sex.MALE].push({
-              url: item.previewUrl,
-              location: item.location || "Unknown",
-              author: item.userDisplayName || "Unknown",
-            });
-          }
-        }
-      });
     }
 
-    const responseFemale = await fetch(
-      `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&regionCode=CA-QC&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`
+    // Fetch female images
+    const femaleBaseUrl = `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`;
+    const femaleRegionUrl = femaleBaseUrl + `&regionCode=CA-QC`;
+    await fetchMedia(
+      femaleRegionUrl,
+      birdImage[Sex.FEMALE],
+      "previewUrl",
+      (item) => String(item.sex).toLowerCase() === Sex.FEMALE
     );
-    if (!responseFemale.ok) {
-      throw new Error(`HTTP error! status: ${responseFemale.status}`);
-    }
-    const dataFemale = await responseFemale.json();
-    dataFemale?.results?.content?.forEach((item: any) => {
-      if (item.previewUrl) {
-        if (
-          String(item?.sex).toLowerCase() === Sex.FEMALE &&
-          birdImage[Sex.FEMALE].length < 10
-        ) {
-          birdImage[Sex.FEMALE].push({
-            url: item.previewUrl,
-            location: item.location || "Unknown",
-            author: item.userDisplayName || "Unknown",
-          });
-        }
-      }
-    });
-    // backup
     if (birdImage[Sex.FEMALE].length < 10) {
-      console.log("birdImage[Sex.FEMALE]", birdImage[Sex.FEMALE]);
-      const responseFemaleB = await fetch(
-        `https://search.macaulaylibrary.org/api/v1/search?taxonCode=${id}&sex=female&mediaType=photo&sort=rating_rank_desc&limit=10`
+      await fetchMedia(
+        femaleBaseUrl,
+        birdImage[Sex.FEMALE],
+        "previewUrl",
+        (item) => String(item.sex).toLowerCase() === Sex.FEMALE
       );
-      if (!responseFemaleB.ok) {
-        throw new Error(`HTTP error! status: ${responseFemaleB.status}`);
-      }
-      const dataFemaleB = await responseFemaleB.json();
-      console.log("dataFemaleB", dataFemaleB);
-      dataFemaleB?.results?.content?.forEach((item: any) => {
-        if (item.previewUrl) {
-          if (
-            String(item?.sex).toLowerCase() === Sex.FEMALE &&
-            birdImage[Sex.FEMALE].length < 10
-          ) {
-            birdImage[Sex.FEMALE].push({
-              url: item.previewUrl,
-              location: item.location || "Unknown",
-              author: item.userDisplayName || "Unknown",
-            });
-          }
-        }
-      });
-      console.log("birdImage[Sex.FEMALE]", birdImage[Sex.FEMALE]);
     }
 
-    // Save the result to Firebase RTDB for future use.
+    // Save to Firebase
     try {
       await set(dbRef, birdImage);
       console.log("Saved image data to Firebase for id:", id);
@@ -265,7 +182,7 @@ export const fetchImageForOne = async (id: string) => {
 
     return birdImage;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return null;
   }
 };
