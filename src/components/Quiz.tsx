@@ -404,6 +404,7 @@ function Quiz() {
             {birbEmoji}
           </Typography>
         </Box>
+        
         <Box
           sx={{
             display: "flex",

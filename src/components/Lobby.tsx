@@ -15,6 +15,7 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
   SelectChangeEvent,
   Typography,
@@ -22,6 +23,8 @@ import {
 import StyledChip from "./StyledChip";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
@@ -208,6 +211,23 @@ function Lobby() {
     });
   };
 
+  const [notScrolledToBottom, setNotScrolledToBottom] = useState(false);
+  const styledChipPaperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = styledChipPaperRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      if (el.scrollTop + el.clientHeight < el.scrollHeight) {
+        setNotScrolledToBottom(true);
+      } else {
+        setNotScrolledToBottom(false);
+      }
+    };
+    el.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -215,7 +235,7 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto 1fr auto auto auto",
+        gridTemplateRows: "auto auto 1fr auto auto",
         gap: "1rem",
       }}
     >
@@ -224,13 +244,14 @@ function Lobby() {
         sx={{
           display: "grid",
           alignItems: "center",
+          gridTemplateColumns: "auto auto",
         }}
       >
         <Typography
-          variant="h2"
+          variant="h4"
           onClick={() => window.location.reload()}
           sx={{
-            justifySelf: "center",
+            justifySelf: "start",
             cursor: "pointer",
           }}
         >
@@ -247,6 +268,37 @@ function Lobby() {
             {user ? "🦖" : birbEmoji}
           </Box>
         </Typography>
+
+        <Box
+          sx={{
+            justifySelf: "end",
+            display: "grid",
+            gridTemplateColumns: "auto auto",
+          }}
+        >
+          <Box sx={{ justifySelf: "end" }}>
+            <IconButton color="primary">
+              <MoreVertIcon />
+            </IconButton>
+          </Box>
+
+          {!user && (
+            <IconButton color="primary" onClick={signInWithGoogle}>
+              <LoginIcon />
+            </IconButton>
+          )}
+          {user && (
+            <IconButton
+              color="error"
+              onClick={() => {
+                setShareClickCount(0);
+                signOut(auth);
+              }}
+            >
+              <LogoutIcon />
+            </IconButton>
+          )}
+        </Box>
       </Box>
 
       {/* region and language */}
@@ -352,37 +404,52 @@ function Lobby() {
       </Box>
 
       {/* StyledChip */}
-      <Box
+      <Paper
         sx={{
           overflow: "auto",
+          margin: "0.1rem",
+          display: "grid",
+          gap: "0.5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          padding: "0.5rem",
         }}
+        elevation={1}
       >
-        <Box
-          sx={{
-            display: "grid",
-            gap: "0.5rem",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          }}
-        >
-          {selectedBirbIds.length > 0 &&
-            selectedBirbIds.map((birbId, i) => (
-              <StyledChip
-                sx={{
-                  margin: "0.2rem",
-                  cursor: "pointer",
-                  transition: "transform 0.1s ease",
-                  "&:hover": {},
-                  "&:active": { transform: "scale(1.02)", boxShadow: 0 },
-                }}
-                key={`chip-${i}`}
-                label={eBird[birbId][eBirdNameProperty]}
-                variant="outlined"
-                onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-                onDelete={() => deleteBirb(birbId)}
-              />
-            ))}
-        </Box>
-      </Box>
+        {selectedBirbIds.length > 0 &&
+          selectedBirbIds.map((birbId, i) => (
+            <StyledChip
+              sx={{
+                margin: "0.2rem",
+                cursor: "pointer",
+                transition: "transform 0.1s ease",
+                "&:hover": {},
+                "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+              }}
+              key={`chip-${i}`}
+              label={eBird[birbId][eBirdNameProperty]}
+              variant="outlined"
+              onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
+              onDelete={() => deleteBirb(birbId)}
+            />
+          ))}
+        {notScrolledToBottom && (
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: "4px",
+              right: "4px",
+              background: "rgba(0,0,0,0.5)",
+              color: "white",
+              px: 1,
+              py: 0.5,
+              borderRadius: "4px",
+              fontSize: "0.8rem",
+            }}
+          >
+            Scroll for more...
+          </Box>
+        )}
+      </Paper>
 
       {/* DB List */}
       <Box sx={{}}>
@@ -427,7 +494,7 @@ function Lobby() {
               Clear
             </Button>
           )}
-          {shareClickCount < 5 && (
+          {/* {shareClickCount < 5 && (
             <IconButton
               color="primary"
               onClick={copyUrl}
@@ -435,12 +502,12 @@ function Lobby() {
             >
               <ShareIcon />
             </IconButton>
-          )}
+          )} */}
         </Box>
       </Box>
 
       {/* admin Save list */}
-      <Box>
+      {/* <Box>
         {user && (
           <Box
             sx={{
@@ -474,12 +541,11 @@ function Lobby() {
             </Button>
           </Box>
         )}
-      </Box>
+      </Box> */}
 
       {/* Language and Quiz button */}
       <Box
         sx={{
-          marginTop: "1.5rem",
           display: "grid",
           gridTemplateColumns: "1fr",
         }}
@@ -487,8 +553,8 @@ function Lobby() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "100px 1fr min-content",
-            gap: "0.5rem",
+            gridTemplateColumns: "1fr",
+            // gap: "0.5rem",
           }}
         >
           <Button
@@ -501,7 +567,7 @@ function Lobby() {
             }`}
           </Button>
 
-          {shareClickCount >= 5 && (
+          {/* {shareClickCount >= 5 && (
             <Box>
               {!user && (
                 <IconButton color="primary" onClick={signInWithGoogle}>
@@ -520,7 +586,7 @@ function Lobby() {
                 </IconButton>
               )}
             </Box>
-          )}
+          )} */}
         </Box>
       </Box>
     </Box>
