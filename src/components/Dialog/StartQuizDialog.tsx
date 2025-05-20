@@ -9,6 +9,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  IconButton,
   InputLabel,
   LinearProgress,
   MenuItem,
@@ -16,9 +17,11 @@ import {
   SelectChangeEvent,
   Slider,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { GameMode } from "../../App";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
 
@@ -119,32 +122,55 @@ function StartQuizDialog() {
               gridTemplateRows: "auto auto auto auto auto",
             }}
           >
-            <FormControl fullWidth>
-              <InputLabel>Region</InputLabel>
-              <Select
-                label="Region"
-                value={region}
-                onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value;
-                  setRegion(key);
-                }}
-                size="small"
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr auto",
+                gap: "0.5rem",
+              }}
+            >
+              <FormControl fullWidth>
+                <InputLabel>Region</InputLabel>
+                <Select
+                  label="Region"
+                  value={region}
+                  onChange={(event: SelectChangeEvent) => {
+                    const key = event.target.value;
+                    setRegion(key);
+                  }}
+                  size="small"
+                >
+                  <MenuItem value="EARTH">EARTH</MenuItem>
+                  {regionList &&
+                    Object.keys(regionList)
+                      .filter((key) => key !== "EARTH")
+                      .sort()
+                      .map((key) => {
+                        if (key === "EARTH") return null;
+                        return (
+                          <MenuItem key={key} value={key}>
+                            {key}
+                          </MenuItem>
+                        );
+                      })}
+                </Select>
+              </FormControl>
+
+              <Tooltip
+                placement="top"
+                enterDelay={0}
+                leaveDelay={0}
+                enterTouchDelay={0}
+                leaveTouchDelay={0}
+                title={
+                  "Show your local birbs (if a selected birb isn't available in your region, we will default back to a EARTH version)"
+                }
               >
-                <MenuItem value="EARTH">EARTH</MenuItem>
-                {regionList &&
-                  Object.keys(regionList)
-                    .filter((key) => key !== "EARTH")
-                    .sort()
-                    .map((key) => {
-                      if (key === "EARTH") return null;
-                      return (
-                        <MenuItem key={key} value={key}>
-                          {key}
-                        </MenuItem>
-                      );
-                    })}
-              </Select>
-            </FormControl>
+                <IconButton>
+                  <InfoOutlinedIcon sx={{ color: "black" }} fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </Box>
 
             <Box>
               <Typography variant="body1" gutterBottom>
