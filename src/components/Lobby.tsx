@@ -7,8 +7,8 @@ import React, {
 } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
+import LanguageIcon from "@mui/icons-material/Language";
 import {
   Box,
   Button,
@@ -16,7 +16,6 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
   Typography,
@@ -24,14 +23,12 @@ import {
 import StyledChip from "./StyledChip";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import { AudioType, Language } from "../tools/constants";
+import { AudioType } from "../tools/constants";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -52,11 +49,10 @@ function Lobby() {
     setCurrentList,
     customList,
     setCustomList,
-    language,
-    setLanguage,
     eBirdNameProperty,
     region,
-    setRegion,
+    openLocalizationDialog,
+    setOpenLocalizationDialog,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -279,8 +275,11 @@ function Lobby() {
           }}
         >
           <Box sx={{ justifySelf: "end" }}>
-            <IconButton color="primary">
-              <MoreVertIcon />
+            <IconButton
+              color="primary"
+              onClick={() => setOpenLocalizationDialog(true)}
+            >
+              <LanguageIcon />
             </IconButton>
           </Box>
 
@@ -393,7 +392,9 @@ function Lobby() {
             <TextField
               {...params}
               label={
-                !user && currentList !== "Custom" ? "Disabled" : "Find brib ..."
+                !user && currentList !== "Custom"
+                  ? "Disabled"
+                  : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}}`
               }
               variant="outlined"
             />

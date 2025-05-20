@@ -11,7 +11,6 @@ import {
   FormGroup,
   InputLabel,
   LinearProgress,
-  LinearProgressProps,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -106,11 +105,11 @@ function StartQuizDialog() {
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle sx={{ padding: "2rem", paddingBottom: "1rem" }}>
+      <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1rem" }}>
         {!loading && <Typography variant="h5">Start a quiz</Typography>}
         {loading && <Typography variant="h5">Loading...</Typography>}
       </DialogTitle>
-      <DialogContent sx={{ padding: "2rem" }}>
+      <DialogContent sx={{ padding: "1.5rem" }}>
         {!loading && (
           <Box
             sx={{
@@ -230,7 +229,17 @@ function StartQuizDialog() {
         )}
         {loading && (
           <Box sx={{ width: "100%", margin: "1rem 0" }}>
-            <LinearProgressWithLabel value={progress} />
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ width: "100%", mr: 1 }}>
+                <LinearProgress variant="determinate" value={progress} />
+              </Box>
+              <Box sx={{ minWidth: 35 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                >{`${Math.round(progress)}%`}</Typography>
+              </Box>
+            </Box>
           </Box>
         )}
       </DialogContent>
@@ -239,21 +248,3 @@ function StartQuizDialog() {
 }
 
 export default StartQuizDialog;
-
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
-) {
-  return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography
-          variant="body2"
-          sx={{ color: "text.secondary" }}
-        >{`${Math.round(props.value)}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}

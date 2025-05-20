@@ -29,12 +29,12 @@ function EndQuizDialog() {
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle sx={{ padding: "2rem", paddingBottom: "1.5rem" }}>
+      <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1.5rem" }}>
         {`Résultats : ${((nbGood / nbTotal) * 100).toFixed(
           2
         )}% (${nbGood}/${nbTotal})`}
       </DialogTitle>
-      <DialogContent sx={{ padding: "2rem" }}>
+      <DialogContent sx={{ padding: "1.5rem" }}>
         <Box
           sx={{
             display: "grid",

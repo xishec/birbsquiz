@@ -8,6 +8,7 @@ import Quiz from "./components/Quiz";
 import StartQuizDialog from "./components/Dialog/StartQuizDialog";
 import EndQuizDialog from "./components/Dialog/EndQuizDialog";
 import { EBirdNameProperty, Language } from "./tools/constants";
+import LocalizationDialog from "./components/Dialog/LocalizationDialog";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -79,6 +80,8 @@ export type QuizContextType = {
   region: string;
   setRegion: React.Dispatch<any>;
   isMobileDevice: boolean;
+  openLocalizationDialog: boolean;
+  setOpenLocalizationDialog: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -176,6 +179,10 @@ function App() {
     () => savedProgress.openStartQuizDialog
   );
 
+  const [openLocalizationDialog, setOpenLocalizationDialog] = React.useState(
+    () => savedProgress.openLocalizationDialog
+  );
+
   const [gameMode, setGameMode] = React.useState<GameMode>(
     () => savedProgress.gameMode || GameMode.CHANTS
   );
@@ -256,18 +263,16 @@ function App() {
       quizStarted,
       openEndQuizDialog,
       openStartQuizDialog,
+      openLocalizationDialog,
       gameMode,
       currentList,
       customList,
       songCheckbox,
       callCheckbox,
       language,
-      setLanguage,
       eBirdNameProperty,
       sliderValue,
-      setSliderValue,
       region,
-      setRegion,
       isMobileDevice,
     };
     localStorage.setItem("birbsquiz-1905", JSON.stringify(progress));
@@ -281,18 +286,16 @@ function App() {
     quizStarted,
     openEndQuizDialog,
     openStartQuizDialog,
+    openLocalizationDialog,
     gameMode,
     currentList,
     customList,
     songCheckbox,
     callCheckbox,
     language,
-    setLanguage,
     eBirdNameProperty,
     sliderValue,
-    setSliderValue,
     region,
-    setRegion,
     isMobileDevice,
   ]);
 
@@ -354,6 +357,8 @@ function App() {
         region,
         setRegion,
         isMobileDevice,
+        openLocalizationDialog,
+        setOpenLocalizationDialog,
       }}
     >
       <Box
@@ -436,6 +441,7 @@ function App() {
 
         <StartQuizDialog />
         <EndQuizDialog />
+        <LocalizationDialog />
 
         <Snackbar
           open={openSnake}

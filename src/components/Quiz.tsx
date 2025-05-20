@@ -269,6 +269,7 @@ function Quiz() {
               <Box>
                 <Typography>
                   <Tooltip
+                    placement="top"
                     enterDelay={0}
                     leaveDelay={0}
                     enterTouchDelay={0}
@@ -325,6 +326,7 @@ function Quiz() {
               >
                 {sex.charAt(0).toUpperCase() + sex.slice(1)}
                 <Tooltip
+                  placement="top"
                   enterDelay={0}
                   leaveDelay={0}
                   enterTouchDelay={0}
