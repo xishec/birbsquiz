@@ -407,9 +407,10 @@ function Lobby() {
       {selectedBirbIds.length > 0 && (
         <Box
           sx={{
+            marginTop: "0.25rem",
             display: "grid",
             gridAutoFlow: "column",
-            gridTemplateRows: "repeat(auto-fill, minmax(41px, max-content))",
+            gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
             gridAutoColumns: "calc(100% - 0rem)",
             height: "100%",
             overflowX: "auto",
@@ -421,21 +422,24 @@ function Lobby() {
         >
           {selectedBirbIds.length > 0 &&
             selectedBirbIds.map((birbId, i) => (
-              <StyledChip
-                sx={{
-                  height: "40px",
-                  cursor: "pointer",
-                  transition: "transform 0.1s ease",
-                  "&:hover": {},
-                  "&:active": { transform: "scale(1.02)", boxShadow: 0 },
-                  borderRadius: "100px",
-                }}
-                key={`chip-${i}`}
-                label={eBird[birbId][eBirdNameProperty]}
-                variant="outlined"
-                onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-                onDelete={() => deleteBirb(birbId)}
-              />
+              <Box sx={{ height: "100%", width: "100%" }}>
+                <StyledChip
+                  sx={{
+                    width: "100%",
+                    height: "40px",
+                    cursor: "pointer",
+                    transition: "transform 0.1s ease",
+                    "&:hover": {},
+                    "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+                    borderRadius: "100px",
+                  }}
+                  key={`chip-${i}`}
+                  label={eBird[birbId][eBirdNameProperty]}
+                  variant="outlined"
+                  onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
+                  onDelete={() => deleteBirb(birbId)}
+                />
+              </Box>
             ))}
         </Box>
       )}

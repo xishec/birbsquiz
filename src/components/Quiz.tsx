@@ -266,25 +266,23 @@ function Quiz() {
                 <code>audio</code> element.
               </audio>
 
-              <Box>
-                <Typography>
-                  <Tooltip
-                    placement="top"
-                    enterDelay={0}
-                    leaveDelay={0}
-                    enterTouchDelay={0}
-                    leaveTouchDelay={0}
-                    title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
-                  >
-                    <IconButton>
-                      <InfoOutlinedIcon
-                        sx={{ color: "black" }}
-                        fontSize="small"
-                      />
-                    </IconButton>
-                  </Tooltip>
-                </Typography>
-              </Box>
+              {shouldReveal && (
+                <Tooltip
+                  placement="top"
+                  enterDelay={0}
+                  leaveDelay={0}
+                  enterTouchDelay={0}
+                  leaveTouchDelay={0}
+                  title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
+                >
+                  <IconButton>
+                    <InfoOutlinedIcon
+                      sx={{ color: "black" }}
+                      fontSize="small"
+                    />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Box>
           ))}
       </>
