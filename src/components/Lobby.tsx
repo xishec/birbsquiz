@@ -51,7 +51,6 @@ function Lobby() {
     setCustomList,
     eBirdNameProperty,
     region,
-    openLocalizationDialog,
     setOpenLocalizationDialog,
   } = quizContext;
 
@@ -331,7 +330,7 @@ function Lobby() {
                 })}
           </Select>
         </FormControl>
-        
+
         <FormControl fullWidth>
           <InputLabel>Language</InputLabel>
           <Select

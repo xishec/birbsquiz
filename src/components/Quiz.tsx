@@ -176,6 +176,7 @@ function Quiz() {
     });
     fetchAndSetAudioSources();
     fetchAndSetImageSources();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birbId]);
 
   useEffect(() => {
@@ -630,6 +631,7 @@ function Quiz() {
               }}
             >
               <Button
+                sx={{ height: "40px" }}
                 variant="outlined"
                 color={answers[counter] ? "success" : "error"}
                 onMouseDown={() => setShouldRevealMoreNames(true)}
