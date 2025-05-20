@@ -255,7 +255,7 @@ function Lobby() {
             cursor: "pointer",
           }}
         >
-          Birbsquiz
+          Work in progress...
           <Box
             component="span"
             sx={{
