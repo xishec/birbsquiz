@@ -8,6 +8,7 @@ import React, {
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ShareIcon from "@mui/icons-material/Share";
+import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
   Button,
@@ -29,7 +30,7 @@ import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
-import { fetchAudioForOne } from "../tools/tools";
+// import { fetchAudioForOne } from "../tools/tools";
 import { AudioType, Language } from "../tools/constants";
 
 function Lobby() {
@@ -178,55 +179,35 @@ function Lobby() {
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const playAudioForBirb = (birbId: string, audioType: AudioType) => {
-    fetchAudioForOne(birbId, region).then((birdAudio) => {
-      if (!birdAudio) return;
-      const audioList = birdAudio[audioType];
-
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-        currentAudioRef.current = null;
-      }
-
-      const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
-      const urlWithMetadata = audioList?.[randomIndex];
-
-      if (urlWithMetadata!.url) {
-        const audio = new Audio(urlWithMetadata.url);
-        currentAudioRef.current = audio;
-        audio.currentTime = 4 + Math.random() * 4;
-        audio
-          .play()
-          .then(() => {
-            setTimeout(() => {
-              audio.pause();
-              if (currentAudioRef.current === audio) {
-                currentAudioRef.current = null;
-              }
-            }, 3000);
-          })
-          .catch((error) => {
-            console.error("Error playing audio", error);
-          });
-      }
-    });
+    // fetchAudioForOne(birbId, region).then((birdAudio) => {
+    //   if (!birdAudio) return;
+    //   const audioList = birdAudio[audioType];
+    //   if (currentAudioRef.current) {
+    //     currentAudioRef.current.pause();
+    //     currentAudioRef.current = null;
+    //   }
+    //   const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
+    //   const urlWithMetadata = audioList?.[randomIndex];
+    //   if (urlWithMetadata!.url) {
+    //     const audio = new Audio(urlWithMetadata.url);
+    //     currentAudioRef.current = audio;
+    //     audio.currentTime = 4 + Math.random() * 4;
+    //     audio
+    //       .play()
+    //       .then(() => {
+    //         setTimeout(() => {
+    //           audio.pause();
+    //           if (currentAudioRef.current === audio) {
+    //             currentAudioRef.current = null;
+    //           }
+    //         }, 3000);
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error playing audio", error);
+    //       });
+    //   }
+    // });
   };
-
-  const [notScrolledToBottom, setNotScrolledToBottom] = useState(false);
-  const styledChipPaperRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = styledChipPaperRef.current;
-    if (!el) return;
-    const handleScroll = () => {
-      if (el.scrollTop + el.clientHeight < el.scrollHeight) {
-        setNotScrolledToBottom(true);
-      } else {
-        setNotScrolledToBottom(false);
-      }
-    };
-    el.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <Box
@@ -235,31 +216,34 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
-        gridTemplateRows: "auto auto 1fr auto auto",
+        gridTemplateRows: "auto auto 1fr auto",
         gap: "1rem",
+        marginTop: "1.5rem",
       }}
     >
       {/* title */}
       <Box
         sx={{
+          margin: "0 1.5rem",
           display: "grid",
           alignItems: "center",
           gridTemplateColumns: "auto auto",
         }}
       >
         <Typography
-          variant="h4"
           onClick={() => window.location.reload()}
           sx={{
+            fontSize: "2.5rem",
+            fontWeight: "200",
             justifySelf: "start",
             cursor: "pointer",
           }}
         >
-          Work in progress...
+          Birbsquiz
           <Box
             component="span"
             sx={{
-              marginLeft: "0.5rem",
+              marginLeft: "1rem",
               display: "inline-block",
               transition: "transform 0.1s ease",
               "&:hover": { transform: "scale(1.1)" },
@@ -302,7 +286,7 @@ function Lobby() {
       </Box>
 
       {/* region and language */}
-      <Box
+      {/* <Box
         sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}
       >
         <FormControl fullWidth>
@@ -347,154 +331,158 @@ function Lobby() {
             ))}
           </Select>
         </FormControl>
-      </Box>
+      </Box> */}
 
       {/* autocomplete */}
-      <Box>
-        <Box
-          sx={{
-            display: "grid",
-            alignItems: "center",
-            gap: "0.5rem",
-            gridTemplateColumns: "1fr",
+      <Box sx={{ margin: "0 1.5rem" }}>
+        <Autocomplete
+          disabled={!user && currentList !== "Custom"}
+          size="small"
+          inputValue={birbInput}
+          onInputChange={(e, v) => setBirbInput(v)}
+          value={selectedBirbId}
+          onChange={(e, v) => setSelectedBirbId(v!)}
+          options={regionList[region].sort((a, b) =>
+            eBird[a][eBirdNameProperty].localeCompare(
+              eBird[b][eBirdNameProperty]
+            )
+          )}
+          getOptionLabel={(birbId) =>
+            eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
+          }
+          freeSolo
+          isOptionEqualToValue={(birbId, input) =>
+            eBird[birbId][eBirdNameProperty] === input
+          }
+          filterOptions={(options, { inputValue }) => {
+            const normalize = (str: string) =>
+              str
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/['-]/g, ""); // ignore apostrophes and hyphens
+            const searchTerms = normalize(inputValue)
+              .toLowerCase()
+              .split(" ")
+              .filter((term) => term);
+            return options.filter((option) => {
+              const optionLabel = normalize(
+                eBird[option][eBirdNameProperty]
+              ).toLowerCase();
+              return searchTerms.every((term) => optionLabel.includes(term));
+            });
           }}
-        >
-          <Autocomplete
-            disabled={user || currentList !== "Custom"}
-            size="small"
-            inputValue={birbInput}
-            onInputChange={(e, v) => setBirbInput(v)}
-            value={selectedBirbId}
-            onChange={(e, v) => setSelectedBirbId(v!)}
-            options={regionList[region].sort((a, b) =>
-              eBird[a][eBirdNameProperty].localeCompare(
-                eBird[b][eBirdNameProperty]
-              )
-            )}
-            getOptionLabel={(birbId) =>
-              eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
-            }
-            freeSolo
-            isOptionEqualToValue={(birbId, input) =>
-              eBird[birbId][eBirdNameProperty] === input
-            }
-            filterOptions={(options, { inputValue }) => {
-              const normalize = (str: string) =>
-                str
-                  .normalize("NFD")
-                  .replace(/[\u0300-\u036f]/g, "")
-                  .replace(/['-]/g, ""); // ignore apostrophes and hyphens
-              const searchTerms = normalize(inputValue)
-                .toLowerCase()
-                .split(" ")
-                .filter((term) => term);
-              return options.filter((option) => {
-                const optionLabel = normalize(
-                  eBird[option][eBirdNameProperty]
-                ).toLowerCase();
-                return searchTerms.every((term) => optionLabel.includes(term));
-              });
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Find brib ..." variant="outlined" />
-            )}
-            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
-          />
-        </Box>
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                !user && currentList !== "Custom" ? "Disabled" : "Find brib ..."
+              }
+              variant="outlined"
+            />
+          )}
+          getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+        />
       </Box>
 
       {/* StyledChip */}
-      <Paper
-        sx={{
-          overflow: "auto",
-          margin: "0.1rem",
-          display: "grid",
-          gap: "0.5rem",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          padding: "0.5rem",
-        }}
-        elevation={1}
-      >
-        {selectedBirbIds.length > 0 &&
-          selectedBirbIds.map((birbId, i) => (
-            <StyledChip
-              sx={{
-                margin: "0.2rem",
-                cursor: "pointer",
-                transition: "transform 0.1s ease",
-                "&:hover": {},
-                "&:active": { transform: "scale(1.02)", boxShadow: 0 },
-              }}
-              key={`chip-${i}`}
-              label={eBird[birbId][eBirdNameProperty]}
-              variant="outlined"
-              onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-              onDelete={() => deleteBirb(birbId)}
-            />
-          ))}
-        {notScrolledToBottom && (
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: "4px",
-              right: "4px",
-              background: "rgba(0,0,0,0.5)",
-              color: "white",
-              px: 1,
-              py: 0.5,
-              borderRadius: "4px",
-              fontSize: "0.8rem",
-            }}
-          >
-            Scroll for more...
-          </Box>
-        )}
-      </Paper>
-
-      {/* DB List */}
-      <Box sx={{}}>
+      {selectedBirbIds.length > 0 && (
         <Box
           sx={{
-            marginTop: "0.5rem",
             display: "grid",
+            gridAutoFlow: "column",
+            gridTemplateRows: "repeat(auto-fill, minmax(41px, max-content))",
+            gridAutoColumns: "calc(100% - 0rem)",
+            height: "100%",
+            overflowX: "auto",
+            overflowY: "hidden",
             gap: "0.5rem",
-            gridTemplateColumns:
-              user || currentList === "Custom" ? "1fr 125px" : "1fr",
+            position: "relative",
+            padding: "0 1.5rem",
           }}
         >
-          <FormControl fullWidth>
-            <InputLabel>List</InputLabel>
-            <Select
-              label="List"
-              value={currentList}
-              onChange={(event: SelectChangeEvent) => {
-                const key = event.target.value;
-                if (key === "Custom") {
-                  setSelectedBirbIds(customList ? customList : []);
-                } else {
-                  setSelectedBirbIds(dbListsData[key]);
-                }
-                setCurrentList(key);
-              }}
-              size="small"
-            >
-              <MenuItem value="Custom">Custom</MenuItem>
-              {dbListsData &&
-                Object.entries(dbListsData).map(([key, value]) => {
-                  return <MenuItem value={key}>{key}</MenuItem>;
-                })}
-            </Select>
-          </FormControl>
-          {(user || currentList === "Custom") && (
-            <Button
-              onClick={() => setSelectedBirbIds([])}
-              color="error"
-              variant="outlined"
-            >
-              Clear
-            </Button>
-          )}
-          {/* {shareClickCount < 5 && (
+          {selectedBirbIds.length > 0 &&
+            selectedBirbIds.map((birbId, i) => (
+              <StyledChip
+                sx={{
+                  height: "40px",
+                  cursor: "pointer",
+                  transition: "transform 0.1s ease",
+                  "&:hover": {},
+                  "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+                  borderRadius: "100px",
+                }}
+                key={`chip-${i}`}
+                label={eBird[birbId][eBirdNameProperty]}
+                variant="outlined"
+                onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
+                onDelete={() => deleteBirb(birbId)}
+              />
+            ))}
+        </Box>
+      )}
+      {selectedBirbIds.length === 0 && (
+        <Box
+          sx={{
+            margin: "0 1.5rem",
+            height: "100%",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            display: "grid",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <IconButton size="large" disabled>
+            <AddIcon sx={{ color: "#ccc" }} />
+          </IconButton>
+        </Box>
+      )}
+
+      {/* DB List */}
+      <Box
+        sx={{
+          margin: "0 1.5rem",
+          marginTop: "0.5rem",
+          display: "grid",
+          gap: "0.5rem",
+          gridTemplateColumns:
+            user || currentList === "Custom" ? "1fr 125px" : "1fr",
+        }}
+      >
+        <FormControl fullWidth>
+          <InputLabel>List</InputLabel>
+          <Select
+            label="List"
+            value={currentList}
+            onChange={(event: SelectChangeEvent) => {
+              const key = event.target.value;
+              if (key === "Custom") {
+                setSelectedBirbIds(customList ? customList : []);
+              } else {
+                setSelectedBirbIds(dbListsData[key]);
+              }
+              setCurrentList(key);
+            }}
+            size="small"
+          >
+            <MenuItem value="Custom">Custom</MenuItem>
+            {dbListsData &&
+              Object.entries(dbListsData).map(([key, value]) => {
+                return <MenuItem value={key}>{key}</MenuItem>;
+              })}
+          </Select>
+        </FormControl>
+        {(user || currentList === "Custom") && (
+          <Button
+            sx={{ height: "40px" }}
+            onClick={() => setSelectedBirbIds([])}
+            color="error"
+            variant="outlined"
+          >
+            Clear
+          </Button>
+        )}
+        {/* {shareClickCount < 5 && (
             <IconButton
               color="primary"
               onClick={copyUrl}
@@ -503,7 +491,6 @@ function Lobby() {
               <ShareIcon />
             </IconButton>
           )} */}
-        </Box>
       </Box>
 
       {/* admin Save list */}
@@ -546,6 +533,7 @@ function Lobby() {
       {/* Language and Quiz button */}
       <Box
         sx={{
+          margin: "0 1.5rem",
           display: "grid",
           gridTemplateColumns: "1fr",
         }}
@@ -558,6 +546,7 @@ function Lobby() {
           }}
         >
           <Button
+            sx={{ height: "40px" }}
             variant="contained"
             onClick={() => setOpenStartQuizDialog(true)}
             disabled={selectedBirbIds.length <= 0}

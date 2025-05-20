@@ -78,6 +78,7 @@ export type QuizContextType = {
   setSliderValue: React.Dispatch<any>;
   region: string;
   setRegion: React.Dispatch<any>;
+  isMobileDevice: boolean;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -92,7 +93,7 @@ function App() {
 
   // Helper to load progress from localStorage
   const loadProgress = () => {
-    const saved = localStorage.getItem("birbsQuizV2");
+    const saved = localStorage.getItem("birbsquiz-1905");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -211,6 +212,8 @@ function App() {
     () => savedProgress.region || "EARTH"
   );
 
+  const [isMobileDevice, setIsMobileDevice] = React.useState(false);
+
   const startQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
@@ -265,8 +268,9 @@ function App() {
       setSliderValue,
       region,
       setRegion,
+      isMobileDevice,
     };
-    localStorage.setItem("birbsQuizV2", JSON.stringify(progress));
+    localStorage.setItem("birbsquiz-1905", JSON.stringify(progress));
   }, [
     selectedBirbIds,
     counter,
@@ -289,11 +293,14 @@ function App() {
     setSliderValue,
     region,
     setRegion,
+    isMobileDevice,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
 
   useEffect(() => {
+    setIsMobileDevice(window.innerWidth <= 800);
+    console.log("isMobileDevice", window.innerWidth <= 800);
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -346,6 +353,7 @@ function App() {
         setSliderValue,
         region,
         setRegion,
+        isMobileDevice,
       }}
     >
       <Box
@@ -358,24 +366,23 @@ function App() {
             userSelect: "none",
             WebkitTouchCallout: "none",
           },
+          // button: {
+          //   height: "40px",
+          // },
         }}
       >
         <Box
           sx={{
-            height: css_height_90,
-            padding: "2rem",
-            paddingBottom: "0",
             display: "grid",
             justifyContent: "center",
             gridTemplateColumns: "minmax(min-content, 800px)",
-            alignContent: "flex-start",
-            gap: "0rem",
           }}
         >
           {!quizStarted && <Lobby />}
           {quizStarted && <Quiz />}
         </Box>
 
+        {/* Footer */}
         <Box
           sx={{
             position: "absolute",

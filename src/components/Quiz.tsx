@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
@@ -24,7 +25,6 @@ import {
   fetchImageForOne,
   UrlWithMetadata,
 } from "../tools/tools";
-import InfoIcon from "@mui/icons-material/Info";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -250,11 +250,15 @@ function Quiz() {
               <audio
                 autoPlay={!shouldReveal}
                 id={`audio-${counter}-${i}`}
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                }}
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
-                onLoadedMetadata={(e) => {
+                onLoadedMetadata={(
+                  e: React.SyntheticEvent<HTMLAudioElement, Event>
+                ) => {
                   // e.currentTarget.currentTime = 4 + randomSeed * 4;
                 }}
               >
@@ -272,7 +276,10 @@ function Quiz() {
                     title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
                   >
                     <IconButton>
-                      <InfoIcon fontSize="small" />
+                      <InfoOutlinedIcon
+                        sx={{ color: "black" }}
+                        fontSize="small"
+                      />
                     </IconButton>
                   </Tooltip>
                 </Typography>
@@ -309,10 +316,9 @@ function Quiz() {
             >
               <Typography
                 sx={{
-                  color: "#123123",
                   display: "grid",
                   alignItems: "center",
-                  gridTemplateColumns: "min-content min-content",
+                  gridTemplateColumns: "1fr min-content",
                 }}
                 variant="body1"
                 padding={"0.5rem 0"}
@@ -324,9 +330,13 @@ function Quiz() {
                   enterTouchDelay={0}
                   leaveTouchDelay={0}
                   title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
+                  sx={{ marginRight: "-0.5rem" }}
                 >
                   <IconButton>
-                    <InfoIcon fontSize="small" />
+                    <InfoOutlinedIcon
+                      sx={{ color: "black" }}
+                      fontSize="small"
+                    />
                   </IconButton>
                 </Tooltip>
               </Typography>
@@ -354,7 +364,7 @@ function Quiz() {
                     height: "100%",
                     width: "100%",
                     objectFit: "contain",
-                    borderRadius: "0.25rem",
+                    borderRadius: "4px",
                   }}
                   src={images[randomIndex].url}
                   loading="lazy"
@@ -372,6 +382,7 @@ function Quiz() {
   return (
     <Box
       sx={{
+        margin: "1.5rem",
         overflow: "auto",
         display: "grid",
         height: css_height_90,
@@ -404,7 +415,7 @@ function Quiz() {
             {birbEmoji}
           </Typography>
         </Box>
-        
+
         <Box
           sx={{
             display: "flex",
@@ -520,6 +531,7 @@ function Quiz() {
               }}
             >
               <Button
+                sx={{ height: "40px" }}
                 variant="outlined"
                 disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                 onClick={() => {
@@ -538,6 +550,7 @@ function Quiz() {
               </Button>
               {gameMode === GameMode.CHANTS && (
                 <Button
+                  sx={{ height: "40px" }}
                   variant="outlined"
                   onMouseDown={() => setPreviewing(true)}
                   onMouseUp={() => setPreviewing(false)}
@@ -566,6 +579,7 @@ function Quiz() {
                 size="small"
                 variant="outlined"
                 sx={{
+                  height: "40px",
                   pointerEvents: "none",
                   color: "#222222",
                   borderColor: "#222222",
@@ -579,6 +593,7 @@ function Quiz() {
                 size="small"
                 variant="outlined"
                 sx={{
+                  height: "40px",
                   pointerEvents: "none",
                   color: "#222222",
                   borderColor: "#222222",
@@ -592,6 +607,7 @@ function Quiz() {
                 size="small"
                 variant="outlined"
                 sx={{
+                  height: "40px",
                   pointerEvents: "none",
                   color: "#222222",
                   borderColor: "#222222",
@@ -676,6 +692,7 @@ function Quiz() {
               }}
             >
               <Button
+                sx={{ height: "40px" }}
                 disabled={!shouldReveal}
                 variant="contained"
                 onClick={nextQuestion}
@@ -696,6 +713,7 @@ function Quiz() {
 
           {counter === sequence.length - 1 && (
             <Button
+              sx={{ height: "40px" }}
               disabled={!shouldReveal}
               variant="contained"
               onClick={endQuiz}

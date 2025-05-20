@@ -137,7 +137,7 @@ function StartQuizDialog() {
                     .filter((key) => key !== "EARTH")
                     .sort()
                     .map((key) => {
-                    if(key === "EARTH") return null;
+                      if (key === "EARTH") return null;
                       return (
                         <MenuItem key={key} value={key}>
                           {key}
@@ -206,6 +206,7 @@ function StartQuizDialog() {
             </FormGroup>
 
             <Button
+              sx={{ height: "40px" }}
               variant="outlined"
               disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
               onClick={() => {
@@ -216,6 +217,7 @@ function StartQuizDialog() {
             </Button>
 
             <Button
+              sx={{ height: "40px" }}
               variant="outlined"
               disabled={sliderValue <= 0}
               onClick={() => {
