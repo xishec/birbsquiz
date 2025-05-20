@@ -216,11 +216,29 @@ function Lobby() {
         display: "grid",
         height: css_height_90,
         minHeight: 0,
+        gridTemplateColumns: "1fr",
         gridTemplateRows: "auto auto 1fr auto",
         gap: "1rem",
         marginTop: "1.5rem",
       }}
     >
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          top: "0.1rem",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "1rem",
+            fontWeight: "200",
+          }}
+        >
+          Work in progress, not stable yet!
+        </Typography>
+      </Box>
+
       {/* title */}
       <Box
         sx={{
