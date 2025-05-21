@@ -14,7 +14,7 @@ import { ref, set } from "firebase/database";
 import { database } from "../../firebaseDatabaseConfig";
 import { User } from "firebase/auth";
 
-function PublishDialog({
+function EditDialog({
   dbListsData,
   loadBirbList,
   setCurrentList,
@@ -33,8 +33,7 @@ function PublishDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openPublishDialog, setOpenPublishDialog, selectedBirbIds } =
-    quizContext;
+  const { openEditDialog, setOpenEditDialog, selectedBirbIds } = quizContext;
 
   const saveBirbList = () => {
     const listRef = ref(database, `v2/lists/${newListName}`);
@@ -55,14 +54,14 @@ function PublishDialog({
 
   return (
     <Dialog
-      onClose={() => setOpenPublishDialog(false)}
-      open={openPublishDialog}
+      onClose={() => setOpenEditDialog(false)}
+      open={openEditDialog}
       scroll="paper"
       maxWidth="sm"
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
-        <Typography variant="h5">Publish</Typography>
+        <Typography variant="h5">Edit</Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>
@@ -94,10 +93,10 @@ function PublishDialog({
             onClick={() => {
               saveBirbList();
               setCurrentList(newListName!);
-              setOpenPublishDialog(false);
+              setOpenEditDialog(false);
             }}
           >
-            Publish
+            Edit
           </Button>
         </Box>
       </DialogContent>
@@ -105,4 +104,4 @@ function PublishDialog({
   );
 }
 
-export default PublishDialog;
+export default EditDialog;

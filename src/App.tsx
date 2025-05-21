@@ -81,6 +81,8 @@ export type QuizContextType = {
   setOpenLocalizationDialog: React.Dispatch<any>;
   openPublishDialog: boolean;
   setOpenPublishDialog: React.Dispatch<any>;
+  openEditDialog: boolean;
+  setOpenEditDialog: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -186,6 +188,10 @@ function App() {
     () => savedProgress.openPublishDialog
   );
 
+  const [openEditDialog, setOpenEditDialog] = React.useState(
+    () => savedProgress.openEditDialog
+  );
+
   const [gameMode, setGameMode] = React.useState<GameMode>(
     () => savedProgress.gameMode || GameMode.CHANTS
   );
@@ -268,6 +274,7 @@ function App() {
       openStartQuizDialog,
       openLocalizationDialog,
       openPublishDialog,
+      openEditDialog,
       gameMode,
       currentList,
       customList,
@@ -292,6 +299,7 @@ function App() {
     openStartQuizDialog,
     openLocalizationDialog,
     openPublishDialog,
+    openEditDialog,
     gameMode,
     currentList,
     customList,
@@ -366,6 +374,8 @@ function App() {
         setOpenLocalizationDialog,
         openPublishDialog,
         setOpenPublishDialog,
+        openEditDialog,
+        setOpenEditDialog,
       }}
     >
       <Box

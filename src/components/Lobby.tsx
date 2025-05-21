@@ -34,6 +34,7 @@ import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
 import PublishDialog from "./Dialog/PublishDialog";
 import { DB_LISTS } from "../tools/tools";
+import EditDialog from "./Dialog/EditDialog";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -58,6 +59,7 @@ function Lobby() {
     region,
     setOpenLocalizationDialog,
     setOpenPublishDialog,
+    setOpenEditDialog,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -213,6 +215,13 @@ function Lobby() {
       <StartQuizDialog />
       <LocalizationDialog />
       <PublishDialog
+        dbListsData={dbListsData}
+        loadBirbList={loadBirbList}
+        setCurrentList={setCurrentList}
+        user={user!}
+        region={region}
+      />
+      <EditDialog
         dbListsData={dbListsData}
         loadBirbList={loadBirbList}
         setCurrentList={setCurrentList}
@@ -498,53 +507,43 @@ function Lobby() {
                 })}
             </Select>
           </FormControl>
+
           {currentList === "Custom" && (
-            <Button
-              sx={{ height: "40px" }}
-              onClick={() => setSelectedBirbIds([])}
-              color="error"
-              variant="outlined"
-            >
-              Clear
-            </Button>
+            <>
+              <Button
+                sx={{ height: "40px" }}
+                onClick={() => setSelectedBirbIds([])}
+                color="error"
+                variant="outlined"
+              >
+                Clear
+              </Button>
+              <Button
+                disabled={selectedBirbIds.length <= 0 || !user}
+                sx={{ height: "40px" }}
+                onClick={() => {
+                  setOpenPublishDialog(true);
+                }}
+                color="success"
+                variant="outlined"
+              >
+                Save
+              </Button>
+            </>
           )}
 
-          {currentList !== "Custom" && !isUserList && (
+          {currentList !== "Custom" && (
             <Button
               sx={{ height: "40px" }}
-              onClick={() => {
-                setCurrentList("Custom");
-                setCustomList(selectedBirbIds);
-              }}
+              onClick={() =>
+                isUserList
+                  ? setOpenEditDialog(true)
+                  : (setCurrentList("Custom"), setCustomList(selectedBirbIds))
+              }
               color="primary"
               variant="outlined"
             >
-              Save as Custom
-            </Button>
-          )}
-          {currentList !== "Custom" && isUserList && (
-            <Button
-              sx={{ height: "40px" }}
-              onClick={() => {
-                setOpenPublishDialog(true);
-              }}
-              color="primary"
-              variant="outlined"
-            >
-              Edit
-            </Button>
-          )}
-          {currentList === "Custom" && (
-            <Button
-              disabled={selectedBirbIds.length <= 0 || !user}
-              sx={{ height: "40px" }}
-              onClick={() => {
-                setOpenPublishDialog(true);
-              }}
-              color="success"
-              variant="outlined"
-            >
-              Save
+              {isUserList ? "Edit" : "Save as Custom"}
             </Button>
           )}
         </Box>
