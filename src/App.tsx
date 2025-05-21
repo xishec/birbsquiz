@@ -5,11 +5,7 @@ import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import StartQuizDialog from "./components/Dialog/StartQuizDialog";
-import EndQuizDialog from "./components/Dialog/EndQuizDialog";
 import { EBirdNameProperty, Language } from "./tools/constants";
-import LocalizationDialog from "./components/Dialog/LocalizationDialog";
-import PublishDialog from "./components/Dialog/PublishDialog";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -449,11 +445,6 @@ function App() {
             </Typography>
           </Box>
         </Box>
-
-        <StartQuizDialog />
-        <EndQuizDialog />
-        <LocalizationDialog />
-        <PublishDialog />
 
         <Snackbar
           open={openSnake}

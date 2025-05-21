@@ -216,3 +216,13 @@ export const fetchImageAndAudioForMultiple = async (
   }
   return results;
 };
+
+export type DB_LISTS = Record<string, DB_LIST>;
+
+export type DB_LIST = {
+  name: string;
+  creator: string;
+  favorite: boolean;
+  ids: string[];
+  region: string;
+};

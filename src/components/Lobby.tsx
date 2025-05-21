@@ -29,6 +29,11 @@ import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
 import { AudioType } from "../tools/constants";
+import EndQuizDialog from "./Dialog/EndQuizDialog";
+import StartQuizDialog from "./Dialog/StartQuizDialog";
+import LocalizationDialog from "./Dialog/LocalizationDialog";
+import PublishDialog from "./Dialog/PublishDialog";
+import { DB_LISTS } from "../tools/tools";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -59,17 +64,7 @@ function Lobby() {
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<any>(null);
   const [listName, setListName] = useState(currentList);
-  const [dbListsData, setDbListsData] = useState<
-    Record<
-      string,
-      {
-        creator: string;
-        favorite: string;
-        ids: string[];
-        region: string;
-      }
-    >
-  >({});
+  const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
 
   useEffect(() => {
     if (currentList === "Custom") {
@@ -78,22 +73,14 @@ function Lobby() {
     setListName(currentList);
   }, [currentList, selectedBirbIds, setCustomList]);
 
-  const saveBirbList = () => {
-    if (!user) return;
-    // Directly reference the path without a push
-    const listRef = ref(database, `v2/lists/${listName}`);
-    set(listRef, selectedBirbIds)
-      .then(() => {
-        loadBirbList();
-        setSnakeMessage("Liste sauvegardée avec succès!");
-        setOpenSnake(true);
-      })
-      .catch((error) => {
-        console.error("Error saving birb list:", error);
-        setSnakeMessage("Erreur lors de la sauvegarde!");
-        setOpenSnake(true);
-      });
-  };
+  useEffect(() => {
+    if (currentList === "Custom") {
+      setSelectedBirbIds(customList ? customList : []);
+    } else {
+      if (dbListsData[currentList])
+        setSelectedBirbIds(dbListsData[currentList].ids);
+    }
+  }, [currentList]);
 
   const loadBirbList = useCallback(() => {
     const listRef = ref(database, `v2/lists`);
@@ -211,97 +198,107 @@ function Lobby() {
   };
 
   return (
-    <Box
-      sx={{
-        overflow: "auto",
-        display: "grid",
-        height: css_height_90,
-        minHeight: 0,
-        gridTemplateColumns: "1fr",
-        gridTemplateRows: "auto auto 1fr auto",
-        gap: "1rem",
-        marginTop: "1.5rem",
-      }}
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "0.1rem",
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: "1rem",
-            fontWeight: "200",
-          }}
-        >
-          Work in progress, not stable yet!
-        </Typography>
-      </Box>
+    <Box>
+      <EndQuizDialog />
+      <StartQuizDialog />
+      <LocalizationDialog />
+      <PublishDialog
+        dbListsData={dbListsData}
+        loadBirbList={loadBirbList}
+        setCurrentList={setCurrentList}
+      />
 
-      {/* title */}
       <Box
         sx={{
-          margin: "0 1.5rem",
+          overflow: "auto",
           display: "grid",
-          alignItems: "center",
-          gridTemplateColumns: "auto auto",
+          height: css_height_90,
+          minHeight: 0,
+          gridTemplateColumns: "1fr",
+          gridTemplateRows: "auto auto 1fr auto",
+          gap: "1rem",
+          marginTop: "1.5rem",
         }}
       >
-        <Typography
-          onClick={() => window.location.reload()}
-          sx={{
-            fontSize: "2.5rem",
-            fontWeight: "200",
-            justifySelf: "start",
-            cursor: "pointer",
-          }}
-        >
-          Birbsquiz
-          <Box
-            component="span"
-            sx={{
-              marginLeft: "1rem",
-              display: "inline-block",
-              transition: "transform 0.1s ease",
-              "&:hover": { transform: "scale(1.1)" },
-            }}
-          >
-            {birbEmoji}
-          </Box>
-        </Typography>
-
         <Box
           sx={{
-            justifySelf: "end",
+            position: "absolute",
+            top: "0.1rem",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              fontWeight: "200",
+            }}
+          >
+            Work in progress, not stable yet!
+          </Typography>
+        </Box>
+
+        {/* title */}
+        <Box
+          sx={{
+            margin: "0 1.5rem",
             display: "grid",
+            alignItems: "center",
             gridTemplateColumns: "auto auto",
           }}
         >
-          <Box sx={{ justifySelf: "end" }}>
-            <IconButton
-              color="primary"
-              onClick={() => setOpenLocalizationDialog(true)}
+          <Typography
+            onClick={() => window.location.reload()}
+            sx={{
+              fontSize: "2.5rem",
+              fontWeight: "200",
+              justifySelf: "start",
+              cursor: "pointer",
+            }}
+          >
+            Birbsquiz
+            <Box
+              component="span"
+              sx={{
+                marginLeft: "1rem",
+                display: "inline-block",
+                transition: "transform 0.1s ease",
+                "&:hover": { transform: "scale(1.1)" },
+              }}
             >
-              <LanguageIcon />
-            </IconButton>
+              {birbEmoji}
+            </Box>
+          </Typography>
+
+          <Box
+            sx={{
+              justifySelf: "end",
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+            }}
+          >
+            <Box sx={{ justifySelf: "end" }}>
+              <IconButton
+                color="primary"
+                onClick={() => setOpenLocalizationDialog(true)}
+              >
+                <LanguageIcon />
+              </IconButton>
+            </Box>
+
+            {!user && (
+              <IconButton color="primary" onClick={signInWithGoogle}>
+                <LoginIcon />
+              </IconButton>
+            )}
+            {user && (
+              <IconButton color="error" onClick={() => signOut(auth)}>
+                <LogoutIcon />
+              </IconButton>
+            )}
           </Box>
-
-          {!user && (
-            <IconButton color="primary" onClick={signInWithGoogle}>
-              <LoginIcon />
-            </IconButton>
-          )}
-          {user && (
-            <IconButton color="error" onClick={() => signOut(auth)}>
-              <LogoutIcon />
-            </IconButton>
-          )}
         </Box>
-      </Box>
 
-      {/* region and language */}
-      {/* <Box
+        {/* region and language */}
+        {/* <Box
         sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}
       >
         <FormControl fullWidth>
@@ -349,190 +346,186 @@ function Lobby() {
         </FormControl>
       </Box> */}
 
-      {/* autocomplete */}
-      <Box sx={{ margin: "0 1.5rem" }}>
-        <Autocomplete
-          disabled={!user && currentList !== "Custom"}
-          size="small"
-          inputValue={birbInput}
-          onInputChange={(e, v) => setBirbInput(v)}
-          value={selectedBirbId}
-          onChange={(e, v) => setSelectedBirbId(v!)}
-          options={regionList[region].sort((a, b) =>
-            eBird[a][eBirdNameProperty].localeCompare(
-              eBird[b][eBirdNameProperty]
-            )
-          )}
-          getOptionLabel={(birbId) =>
-            eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
-          }
-          freeSolo
-          isOptionEqualToValue={(birbId, input) =>
-            eBird[birbId][eBirdNameProperty] === input
-          }
-          filterOptions={(options, { inputValue }) => {
-            const normalize = (str: string) =>
-              str
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/['-]/g, ""); // ignore apostrophes and hyphens
-            const searchTerms = normalize(inputValue)
-              .toLowerCase()
-              .split(" ")
-              .filter((term) => term);
-            return options.filter((option) => {
-              const optionLabel = normalize(
-                eBird[option][eBirdNameProperty]
-              ).toLowerCase();
-              return searchTerms.every((term) => optionLabel.includes(term));
-            });
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={
-                !user && currentList !== "Custom"
-                  ? "Disabled"
-                  : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}`
-              }
-              variant="outlined"
-            />
-          )}
-          getOptionDisabled={(option) => selectedBirbIds.includes(option)}
-        />
-      </Box>
-
-      {/* StyledChip */}
-      {selectedBirbIds.length > 0 && (
-        <Box
-          sx={{
-            marginTop: "0.25rem",
-            display: "grid",
-            gridAutoFlow: "column",
-            gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
-            gridAutoColumns: "calc(100% - 0rem)",
-            height: "100%",
-            overflowX: "auto",
-            overflowY: "hidden",
-            gap: "0.5rem",
-            position: "relative",
-            padding: "0 1.5rem",
-          }}
-        >
-          {selectedBirbIds.length > 0 &&
-            selectedBirbIds.map((birbId, i) => (
-              <Box sx={{ height: "100%", width: "100%" }}>
-                <StyledChip
-                  sx={{
-                    width: "100%",
-                    height: "40px",
-                    cursor: "pointer",
-                    transition: "transform 0.1s ease",
-                    "&:hover": {},
-                    "&:active": { transform: "scale(1.02)", boxShadow: 0 },
-                    borderRadius: "100px",
-                  }}
-                  key={`chip-${i}`}
-                  label={eBird[birbId][eBirdNameProperty]}
-                  variant="outlined"
-                  onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-                  onDelete={() => deleteBirb(birbId)}
-                />
-              </Box>
-            ))}
+        {/* autocomplete */}
+        <Box sx={{ margin: "0 1.5rem" }}>
+          <Autocomplete
+            disabled={!user && currentList !== "Custom"}
+            size="small"
+            inputValue={birbInput}
+            onInputChange={(e, v) => setBirbInput(v)}
+            value={selectedBirbId}
+            onChange={(e, v) => setSelectedBirbId(v!)}
+            options={regionList[region].sort((a, b) =>
+              eBird[a][eBirdNameProperty].localeCompare(
+                eBird[b][eBirdNameProperty]
+              )
+            )}
+            getOptionLabel={(birbId) =>
+              eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
+            }
+            freeSolo
+            isOptionEqualToValue={(birbId, input) =>
+              eBird[birbId][eBirdNameProperty] === input
+            }
+            filterOptions={(options, { inputValue }) => {
+              const normalize = (str: string) =>
+                str
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/['-]/g, ""); // ignore apostrophes and hyphens
+              const searchTerms = normalize(inputValue)
+                .toLowerCase()
+                .split(" ")
+                .filter((term) => term);
+              return options.filter((option) => {
+                const optionLabel = normalize(
+                  eBird[option][eBirdNameProperty]
+                ).toLowerCase();
+                return searchTerms.every((term) => optionLabel.includes(term));
+              });
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={
+                  !user && currentList !== "Custom"
+                    ? "Disabled"
+                    : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}`
+                }
+                variant="outlined"
+              />
+            )}
+            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+          />
         </Box>
-      )}
-      {selectedBirbIds.length === 0 && (
+
+        {/* StyledChip */}
+        {selectedBirbIds.length > 0 && (
+          <Box
+            sx={{
+              marginTop: "0.25rem",
+              display: "grid",
+              gridAutoFlow: "column",
+              gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
+              gridAutoColumns: "calc(100% - 0rem)",
+              height: "100%",
+              overflowX: "auto",
+              overflowY: "hidden",
+              gap: "0.5rem",
+              position: "relative",
+              padding: "0 1.5rem",
+            }}
+          >
+            {selectedBirbIds.length > 0 &&
+              selectedBirbIds.map((birbId, i) => (
+                <Box sx={{ height: "100%", width: "100%" }}>
+                  <StyledChip
+                    sx={{
+                      width: "100%",
+                      height: "40px",
+                      cursor: "pointer",
+                      transition: "transform 0.1s ease",
+                      "&:hover": {},
+                      "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+                      borderRadius: "100px",
+                    }}
+                    key={`chip-${i}`}
+                    label={eBird[birbId][eBirdNameProperty]}
+                    variant="outlined"
+                    onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
+                    onDelete={() => deleteBirb(birbId)}
+                  />
+                </Box>
+              ))}
+          </Box>
+        )}
+        {selectedBirbIds.length === 0 && (
+          <Box
+            sx={{
+              margin: "0 1.5rem",
+              height: "100%",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              display: "grid",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconButton size="large" disabled>
+              <AddIcon sx={{ color: "#ccc" }} />
+            </IconButton>
+          </Box>
+        )}
+
+        {/* DB List */}
         <Box
           sx={{
             margin: "0 1.5rem",
-            height: "100%",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
+            marginTop: "0.5rem",
             display: "grid",
-            justifyContent: "center",
-            alignItems: "center",
+            gap: "0.5rem",
+            gridTemplateColumns:
+              currentList === "Custom" ? "1fr 175px 175px" : "1fr 175px",
           }}
         >
-          <IconButton size="large" disabled>
-            <AddIcon sx={{ color: "#ccc" }} />
-          </IconButton>
+          <FormControl fullWidth>
+            <InputLabel>List</InputLabel>
+            <Select
+              label="List"
+              value={currentList}
+              onChange={(event: SelectChangeEvent) => {
+                const key = event.target.value;
+                setCurrentList(key);
+              }}
+              size="small"
+            >
+              <MenuItem value="Custom">Custom</MenuItem>
+              {dbListsData &&
+                Object.entries(dbListsData).map(([key, value]) => {
+                  return <MenuItem value={key}>{key}</MenuItem>;
+                })}
+            </Select>
+          </FormControl>
+          {currentList === "Custom" && (
+            <Button
+              sx={{ height: "40px" }}
+              onClick={() => setSelectedBirbIds([])}
+              color="error"
+              variant="outlined"
+            >
+              Clear
+            </Button>
+          )}
+          {currentList !== "Custom" && (
+            <Button
+              sx={{ height: "40px" }}
+              onClick={() => {
+                setCurrentList("Custom");
+                setCustomList(selectedBirbIds);
+              }}
+              color="primary"
+              variant="outlined"
+            >
+              Save as Custom
+            </Button>
+          )}
+          {currentList === "Custom" && (
+            <Button
+              disabled={selectedBirbIds.length <= 0}
+              sx={{ height: "40px" }}
+              onClick={() => {
+                setOpenPublishDialog(true);
+              }}
+              color="success"
+              variant="outlined"
+            >
+              Save
+            </Button>
+          )}
         </Box>
-      )}
 
-      {/* DB List */}
-      <Box
-        sx={{
-          margin: "0 1.5rem",
-          marginTop: "0.5rem",
-          display: "grid",
-          gap: "0.5rem",
-          gridTemplateColumns:
-            currentList === "Custom" ? "1fr 175px 175px" : "1fr 175px",
-        }}
-      >
-        <FormControl fullWidth>
-          <InputLabel>List</InputLabel>
-          <Select
-            label="List"
-            value={currentList}
-            onChange={(event: SelectChangeEvent) => {
-              const key = event.target.value;
-              if (key === "Custom") {
-                setSelectedBirbIds(customList ? customList : []);
-              } else {
-                setSelectedBirbIds(dbListsData[key].ids);
-              }
-              setCurrentList(key);
-            }}
-            size="small"
-          >
-            <MenuItem value="Custom">Custom</MenuItem>
-            {dbListsData &&
-              Object.entries(dbListsData).map(([key, value]) => {
-                return <MenuItem value={key}>{key}</MenuItem>;
-              })}
-          </Select>
-        </FormControl>
-        {currentList === "Custom" && (
-          <Button
-            sx={{ height: "40px" }}
-            onClick={() => setSelectedBirbIds([])}
-            color="error"
-            variant="outlined"
-          >
-            Clear
-          </Button>
-        )}
-        {currentList !== "Custom" && (
-          <Button
-            sx={{ height: "40px" }}
-            onClick={() => {
-              setCurrentList("Custom");
-              setCustomList(selectedBirbIds);
-            }}
-            color="primary"
-            variant="outlined"
-          >
-            Save as Custom
-          </Button>
-        )}
-        {currentList === "Custom" && (
-          <Button
-            sx={{ height: "40px" }}
-            onClick={() => {
-              setOpenPublishDialog(true);
-            }}
-            color="success"
-            variant="outlined"
-          >
-            Publish
-          </Button>
-        )}
-      </Box>
-
-      {/* admin Save list */}
-      {/* <Box>
+        {/* admin Save list */}
+        {/* <Box>
         {user && (
           <Box
             sx={{
@@ -568,33 +561,33 @@ function Lobby() {
         )}
       </Box> */}
 
-      {/* Language and Quiz button */}
-      <Box
-        sx={{
-          margin: "0 1.5rem",
-          display: "grid",
-          gridTemplateColumns: "1fr",
-        }}
-      >
+        {/* Language and Quiz button */}
         <Box
           sx={{
+            margin: "0 1.5rem",
             display: "grid",
             gridTemplateColumns: "1fr",
-            // gap: "0.5rem",
           }}
         >
-          <Button
-            sx={{ height: "40px" }}
-            variant="contained"
-            onClick={() => setOpenStartQuizDialog(true)}
-            disabled={selectedBirbIds.length <= 0}
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr",
+              // gap: "0.5rem",
+            }}
           >
-            {`Quiz ${selectedBirbIds.length} birb${
-              selectedBirbIds.length === 1 ? "" : "s"
-            }`}
-          </Button>
+            <Button
+              sx={{ height: "40px" }}
+              variant="contained"
+              onClick={() => setOpenStartQuizDialog(true)}
+              disabled={selectedBirbIds.length <= 0}
+            >
+              {`Quiz ${selectedBirbIds.length} birb${
+                selectedBirbIds.length === 1 ? "" : "s"
+              }`}
+            </Button>
 
-          {/* {shareClickCount >= 5 && (
+            {/* {shareClickCount >= 5 && (
             <Box>
               {!user && (
                 <IconButton color="primary" onClick={signInWithGoogle}>
@@ -614,6 +607,7 @@ function Lobby() {
               )}
             </Box>
           )} */}
+          </Box>
         </Box>
       </Box>
     </Box>
