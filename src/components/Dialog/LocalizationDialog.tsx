@@ -37,7 +37,7 @@ function LocalizationDialog() {
       onClose={() => setOpenLocalizationDialog(false)}
       open={openLocalizationDialog}
       scroll="paper"
-      maxWidth="md"
+      maxWidth="sm"
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>

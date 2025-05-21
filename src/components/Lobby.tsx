@@ -52,14 +52,24 @@ function Lobby() {
     eBirdNameProperty,
     region,
     setOpenLocalizationDialog,
+    setOpenPublishDialog,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<any>(null);
-  const [shareClickCount, setShareClickCount] = useState<number>(0);
   const [listName, setListName] = useState(currentList);
-  const [dbListsData, setDbListsData] = useState<any>({});
+  const [dbListsData, setDbListsData] = useState<
+    Record<
+      string,
+      {
+        creator: string;
+        favorite: string;
+        ids: string[];
+        region: string;
+      }
+    >
+  >({});
 
   useEffect(() => {
     if (currentList === "Custom") {
@@ -114,20 +124,17 @@ function Lobby() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       if (u) {
+        setUser(u);
         get(ref(database, `admin/${u.uid}`))
           .then((snapshot) => {
             if (snapshot.exists()) {
               console.log("User is an admin");
-              setUser(u);
-              setShareClickCount(5);
             } else {
               console.log("User is not an admin");
-              setUser(null);
             }
           })
           .catch((error) => {
             console.error("Error verifying admin rights:", error);
-            setUser(null);
           });
       } else {
         setUser(null);
@@ -157,7 +164,6 @@ function Lobby() {
   );
 
   const copyUrl = () => {
-    setShareClickCount((prev) => prev + 1);
     const url = new URL(window.location.href);
     const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
     url.searchParams.set("birbs", encodedBirbs);
@@ -219,7 +225,6 @@ function Lobby() {
     >
       <Box
         sx={{
-          width: "100%",
           position: "absolute",
           top: "0.1rem",
         }}
@@ -262,7 +267,7 @@ function Lobby() {
               "&:hover": { transform: "scale(1.1)" },
             }}
           >
-            {user ? "🦖" : birbEmoji}
+            {birbEmoji}
           </Box>
         </Typography>
 
@@ -288,13 +293,7 @@ function Lobby() {
             </IconButton>
           )}
           {user && (
-            <IconButton
-              color="error"
-              onClick={() => {
-                setShareClickCount(0);
-                signOut(auth);
-              }}
-            >
+            <IconButton color="error" onClick={() => signOut(auth)}>
               <LogoutIcon />
             </IconButton>
           )}
@@ -394,7 +393,7 @@ function Lobby() {
               label={
                 !user && currentList !== "Custom"
                   ? "Disabled"
-                  : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}}`
+                  : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}`
               }
               variant="outlined"
             />
@@ -469,7 +468,7 @@ function Lobby() {
           display: "grid",
           gap: "0.5rem",
           gridTemplateColumns:
-            user || currentList === "Custom" ? "1fr 125px" : "1fr",
+            currentList === "Custom" ? "1fr 175px 175px" : "1fr 175px",
         }}
       >
         <FormControl fullWidth>
@@ -482,7 +481,7 @@ function Lobby() {
               if (key === "Custom") {
                 setSelectedBirbIds(customList ? customList : []);
               } else {
-                setSelectedBirbIds(dbListsData[key]);
+                setSelectedBirbIds(dbListsData[key].ids);
               }
               setCurrentList(key);
             }}
@@ -495,7 +494,7 @@ function Lobby() {
               })}
           </Select>
         </FormControl>
-        {(user || currentList === "Custom") && (
+        {currentList === "Custom" && (
           <Button
             sx={{ height: "40px" }}
             onClick={() => setSelectedBirbIds([])}
@@ -505,15 +504,31 @@ function Lobby() {
             Clear
           </Button>
         )}
-        {/* {shareClickCount < 5 && (
-            <IconButton
-              color="primary"
-              onClick={copyUrl}
-              disabled={selectedBirbIds.length <= 0}
-            >
-              <ShareIcon />
-            </IconButton>
-          )} */}
+        {currentList !== "Custom" && (
+          <Button
+            sx={{ height: "40px" }}
+            onClick={() => {
+              setCurrentList("Custom");
+              setCustomList(selectedBirbIds);
+            }}
+            color="primary"
+            variant="outlined"
+          >
+            Save as Custom
+          </Button>
+        )}
+        {currentList === "Custom" && (
+          <Button
+            sx={{ height: "40px" }}
+            onClick={() => {
+              setOpenPublishDialog(true);
+            }}
+            color="success"
+            variant="outlined"
+          >
+            Publish
+          </Button>
+        )}
       </Box>
 
       {/* admin Save list */}

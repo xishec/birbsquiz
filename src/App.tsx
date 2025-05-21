@@ -9,6 +9,7 @@ import StartQuizDialog from "./components/Dialog/StartQuizDialog";
 import EndQuizDialog from "./components/Dialog/EndQuizDialog";
 import { EBirdNameProperty, Language } from "./tools/constants";
 import LocalizationDialog from "./components/Dialog/LocalizationDialog";
+import PublishDialog from "./components/Dialog/PublishDialog";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -82,6 +83,8 @@ export type QuizContextType = {
   isMobileDevice: boolean;
   openLocalizationDialog: boolean;
   setOpenLocalizationDialog: React.Dispatch<any>;
+  openPublishDialog: boolean;
+  setOpenPublishDialog: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -183,6 +186,10 @@ function App() {
     () => savedProgress.openLocalizationDialog
   );
 
+  const [openPublishDialog, setOpenPublishDialog] = React.useState(
+    () => savedProgress.openPublishDialog
+  );
+
   const [gameMode, setGameMode] = React.useState<GameMode>(
     () => savedProgress.gameMode || GameMode.CHANTS
   );
@@ -264,6 +271,7 @@ function App() {
       openEndQuizDialog,
       openStartQuizDialog,
       openLocalizationDialog,
+      openPublishDialog,
       gameMode,
       currentList,
       customList,
@@ -287,6 +295,7 @@ function App() {
     openEndQuizDialog,
     openStartQuizDialog,
     openLocalizationDialog,
+    openPublishDialog,
     gameMode,
     currentList,
     customList,
@@ -303,7 +312,7 @@ function App() {
 
   useEffect(() => {
     setIsMobileDevice(window.innerWidth <= 800);
-    console.log("isMobileDevice", window.innerWidth <= 800);
+    // console.log("isMobileDevice", window.innerWidth <= 800);
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -359,6 +368,8 @@ function App() {
         isMobileDevice,
         openLocalizationDialog,
         setOpenLocalizationDialog,
+        openPublishDialog,
+        setOpenPublishDialog,
       }}
     >
       <Box
@@ -442,6 +453,7 @@ function App() {
         <StartQuizDialog />
         <EndQuizDialog />
         <LocalizationDialog />
+        <PublishDialog />
 
         <Snackbar
           open={openSnake}

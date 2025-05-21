@@ -105,7 +105,7 @@ function StartQuizDialog() {
       onClose={() => setOpenStartQuizDialog(false)}
       open={openStartQuizDialog}
       scroll="paper"
-      maxWidth="md"
+      maxWidth="sm"
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1rem" }}>

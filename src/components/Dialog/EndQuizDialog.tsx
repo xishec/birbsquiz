@@ -26,7 +26,7 @@ function EndQuizDialog() {
       onClose={() => setOpenEndQuizDialog(false)}
       open={openEndQuizDialog}
       scroll="paper"
-      maxWidth="md"
+      maxWidth="sm"
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1.5rem" }}>
