@@ -66,11 +66,7 @@ function EditDialog({
             onChange={(e) => setNewListName(e.target.value)}
           />
           <Button
-            disabled={
-              !newListName ||
-              newListName === "Custom" ||
-              Object.keys(dbListsData).includes(newListName)
-            }
+            disabled={true}
             variant="outlined"
             onClick={() => {
               saveBirbList(newListName);
