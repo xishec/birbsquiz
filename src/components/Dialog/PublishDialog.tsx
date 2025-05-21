@@ -12,15 +12,20 @@ import { QuizContext } from "../../App";
 import { DB_LIST, DB_LISTS } from "../../tools/tools";
 import { ref, set } from "firebase/database";
 import { database } from "../../firebaseDatabaseConfig";
+import { User } from "firebase/auth";
 
 function PublishDialog({
   dbListsData,
   loadBirbList,
   setCurrentList,
+  user,
+  region,
 }: {
   dbListsData: DB_LISTS;
   loadBirbList: () => void;
   setCurrentList: (listName: string) => void;
+  user: User;
+  region: string;
 }) {
   const [newListName, setNewListName] = React.useState<string>();
 
@@ -35,10 +40,10 @@ function PublishDialog({
     const listRef = ref(database, `v2/lists/${newListName}`);
     set(listRef, {
       name: newListName,
-      creator: "user",
+      creator: user.uid,
       favorite: false,
       ids: selectedBirbIds,
-      region: "region",
+      region: region,
     } as DB_LIST)
       .then(() => {
         loadBirbList();

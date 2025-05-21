@@ -24,7 +24,7 @@ import StyledChip from "./StyledChip";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
@@ -62,16 +62,26 @@ function Lobby() {
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | undefined>();
   const [listName, setListName] = useState(currentList);
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
+  const [isUserList, setIsUserList] = useState(false);
 
   useEffect(() => {
     if (currentList === "Custom") {
       setCustomList(selectedBirbIds);
     }
     setListName(currentList);
-  }, [currentList, selectedBirbIds, setCustomList]);
+  }, [currentList, selectedBirbIds]);
+
+  useEffect(() => {
+    if (!currentList || !dbListsData || !user || !dbListsData[currentList])
+      return;
+
+    if (currentList !== "Custom") {
+      setIsUserList(dbListsData[currentList].creator === user?.uid);
+    }
+  }, [currentList, dbListsData, user]);
 
   useEffect(() => {
     if (currentList === "Custom") {
@@ -124,7 +134,7 @@ function Lobby() {
             console.error("Error verifying admin rights:", error);
           });
       } else {
-        setUser(null);
+        setUser(undefined);
       }
     });
     return () => unsubscribe();
@@ -206,6 +216,8 @@ function Lobby() {
         dbListsData={dbListsData}
         loadBirbList={loadBirbList}
         setCurrentList={setCurrentList}
+        user={user!}
+        region={region}
       />
 
       <Box
@@ -496,7 +508,8 @@ function Lobby() {
               Clear
             </Button>
           )}
-          {currentList !== "Custom" && (
+
+          {currentList !== "Custom" && !isUserList && (
             <Button
               sx={{ height: "40px" }}
               onClick={() => {
@@ -509,9 +522,21 @@ function Lobby() {
               Save as Custom
             </Button>
           )}
+          {currentList !== "Custom" && isUserList && (
+            <Button
+              sx={{ height: "40px" }}
+              onClick={() => {
+                setOpenPublishDialog(true);
+              }}
+              color="primary"
+              variant="outlined"
+            >
+              Edit
+            </Button>
+          )}
           {currentList === "Custom" && (
             <Button
-              disabled={selectedBirbIds.length <= 0}
+              disabled={selectedBirbIds.length <= 0 || !user}
               sx={{ height: "40px" }}
               onClick={() => {
                 setOpenPublishDialog(true);
