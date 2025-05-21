@@ -486,7 +486,9 @@ function Lobby() {
             display: "grid",
             gap: "0.5rem",
             gridTemplateColumns:
-              currentList === "Custom" ? "1fr 175px 175px" : "1fr 175px",
+              currentList === "Custom" && user
+                ? "1fr 175px 175px"
+                : "1fr 175px",
           }}
         >
           <FormControl fullWidth>
@@ -518,17 +520,19 @@ function Lobby() {
               >
                 Clear
               </Button>
-              <Button
-                disabled={selectedBirbIds.length <= 0 || !user}
-                sx={{ height: "40px" }}
-                onClick={() => {
-                  setOpenPublishDialog(true);
-                }}
-                color="success"
-                variant="outlined"
-              >
-                Save
-              </Button>
+              {user && (
+                <Button
+                  disabled={selectedBirbIds.length <= 0}
+                  sx={{ height: "40px" }}
+                  onClick={() => {
+                    setOpenPublishDialog(true);
+                  }}
+                  color="success"
+                  variant="outlined"
+                >
+                  Save
+                </Button>
+              )}
             </>
           )}
 
