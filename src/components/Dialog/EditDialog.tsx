@@ -9,48 +9,30 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import { DB_LIST, DB_LISTS } from "../../tools/tools";
-import { ref, set } from "firebase/database";
-import { database } from "../../firebaseDatabaseConfig";
-import { User } from "firebase/auth";
+import { DB_LISTS } from "../../tools/tools";
 
 function EditDialog({
+  currentList,
   dbListsData,
-  loadBirbList,
   setCurrentList,
-  user,
-  region,
+  saveBirbList,
 }: {
+  currentList: string;
   dbListsData: DB_LISTS;
-  loadBirbList: () => void;
   setCurrentList: (listName: string) => void;
-  user: User;
-  region: string;
+  saveBirbList: (listName: string) => void;
 }) {
-  const [newListName, setNewListName] = React.useState<string>("");
+  const [newListName, setNewListName] = React.useState<string>(currentList);
+
+  React.useEffect(() => {
+    setNewListName(currentList);
+  }, [currentList]);
 
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openEditDialog, setOpenEditDialog, selectedBirbIds } = quizContext;
-
-  const saveBirbList = () => {
-    const listRef = ref(database, `v2/lists/${newListName}`);
-    set(listRef, {
-      name: newListName,
-      creator: user.uid,
-      favorite: false,
-      ids: selectedBirbIds,
-      region: region,
-    } as DB_LIST)
-      .then(() => {
-        loadBirbList();
-      })
-      .catch((error) => {
-        console.error("Error saving birb list:", error);
-      });
-  };
+  const { openEditDialog, setOpenEditDialog } = quizContext;
 
   return (
     <Dialog
@@ -91,7 +73,7 @@ function EditDialog({
             }
             variant="outlined"
             onClick={() => {
-              saveBirbList();
+              saveBirbList(newListName);
               setCurrentList(newListName!);
               setOpenEditDialog(false);
             }}

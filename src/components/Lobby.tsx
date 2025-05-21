@@ -33,7 +33,7 @@ import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
 import PublishDialog from "./Dialog/PublishDialog";
-import { DB_LISTS } from "../tools/tools";
+import { arraysEqual, DB_LIST, DB_LISTS } from "../tools/tools";
 import EditDialog from "./Dialog/EditDialog";
 
 function Lobby() {
@@ -64,8 +64,7 @@ function Lobby() {
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
-  const [user, setUser] = useState<User | undefined>();
-  const [listName, setListName] = useState(currentList);
+  const [user, setUser] = useState<User | null | undefined>();
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
 
@@ -73,15 +72,16 @@ function Lobby() {
     if (currentList === "Custom") {
       setCustomList(selectedBirbIds);
     }
-    setListName(currentList);
   }, [currentList, selectedBirbIds]);
 
   useEffect(() => {
-    if (!currentList || !dbListsData || !user || !dbListsData[currentList])
-      return;
-
-    if (currentList !== "Custom") {
-      setIsUserList(dbListsData[currentList].creator === user?.uid);
+    if (
+      user?.uid !== undefined &&
+      dbListsData[currentList]?.creator === user?.uid
+    ) {
+      setIsUserList(true);
+    } else {
+      setIsUserList(false);
     }
   }, [currentList, dbListsData, user]);
 
@@ -136,7 +136,7 @@ function Lobby() {
             console.error("Error verifying admin rights:", error);
           });
       } else {
-        setUser(undefined);
+        setUser(null);
       }
     });
     return () => unsubscribe();
@@ -209,6 +209,23 @@ function Lobby() {
     // });
   };
 
+  const saveBirbList = (newListName: string, user: User) => {
+    const listRef = ref(database, `v2/lists/${newListName}`);
+    set(listRef, {
+      name: newListName,
+      creator: user.uid,
+      favorite: false,
+      ids: selectedBirbIds,
+      region: region,
+    } as DB_LIST)
+      .then(() => {
+        loadBirbList();
+      })
+      .catch((error) => {
+        console.error("Error saving birb list:", error);
+      });
+  };
+
   return (
     <Box>
       <EndQuizDialog />
@@ -216,17 +233,14 @@ function Lobby() {
       <LocalizationDialog />
       <PublishDialog
         dbListsData={dbListsData}
-        loadBirbList={loadBirbList}
         setCurrentList={setCurrentList}
-        user={user!}
-        region={region}
+        saveBirbList={(listName: string) => saveBirbList(listName, user!)}
       />
       <EditDialog
+        currentList={currentList}
         dbListsData={dbListsData}
-        loadBirbList={loadBirbList}
         setCurrentList={setCurrentList}
-        user={user!}
-        region={region}
+        saveBirbList={(listName: string) => saveBirbList(listName, user!)}
       />
 
       <Box
@@ -479,78 +493,99 @@ function Lobby() {
         )}
 
         {/* DB List */}
-        <Box
-          sx={{
-            margin: "0 1.5rem",
-            marginTop: "0.5rem",
-            display: "grid",
-            gap: "0.5rem",
-            gridTemplateColumns:
-              currentList === "Custom" && user
-                ? "1fr 175px 175px"
-                : "1fr 175px",
-          }}
-        >
-          <FormControl fullWidth>
-            <InputLabel>List</InputLabel>
-            <Select
-              label="List"
-              value={currentList}
-              onChange={(event: SelectChangeEvent) => {
-                const key = event.target.value;
-                setCurrentList(key);
-              }}
-              size="small"
-            >
-              <MenuItem value="Custom">Custom</MenuItem>
-              {dbListsData &&
-                Object.entries(dbListsData).map(([key, value]) => {
-                  return <MenuItem value={key}>{key}</MenuItem>;
-                })}
-            </Select>
-          </FormControl>
-
-          {currentList === "Custom" && (
-            <>
-              <Button
-                sx={{ height: "40px" }}
-                onClick={() => setSelectedBirbIds([])}
-                color="error"
-                variant="outlined"
+        {true && (
+          <Box
+            sx={{
+              margin: "0 1.5rem",
+              marginTop: "0.5rem",
+              display: "grid",
+              gap: "0.5rem",
+              gridTemplateColumns:
+                (currentList === "Custom" && user) || isUserList
+                  ? "1fr 125px 125px"
+                  : "1fr 125px",
+            }}
+          >
+            <FormControl fullWidth>
+              <InputLabel>List</InputLabel>
+              <Select
+                label="List"
+                value={currentList}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setCurrentList(key);
+                }}
+                size="small"
               >
-                Clear
-              </Button>
-              {user && (
+                <MenuItem value="Custom">Custom</MenuItem>
+                {dbListsData &&
+                  Object.entries(dbListsData).map(([key, value]) => {
+                    return <MenuItem value={key}>{key}</MenuItem>;
+                  })}
+              </Select>
+            </FormControl>
+
+            {currentList === "Custom" && (
+              <>
                 <Button
-                  disabled={selectedBirbIds.length <= 0}
                   sx={{ height: "40px" }}
-                  onClick={() => {
-                    setOpenPublishDialog(true);
-                  }}
-                  color="success"
+                  onClick={() => setSelectedBirbIds([])}
+                  color="error"
                   variant="outlined"
                 >
-                  Save
+                  Clear
                 </Button>
-              )}
-            </>
-          )}
+                {user && (
+                  <Button
+                    disabled={selectedBirbIds.length <= 0}
+                    sx={{ height: "40px" }}
+                    onClick={() => {
+                      setOpenPublishDialog(true);
+                    }}
+                    color="primary"
+                    variant="outlined"
+                  >
+                    Create
+                  </Button>
+                )}
+              </>
+            )}
 
-          {currentList !== "Custom" && (
-            <Button
-              sx={{ height: "40px" }}
-              onClick={() =>
-                isUserList
-                  ? setOpenEditDialog(true)
-                  : (setCurrentList("Custom"), setCustomList(selectedBirbIds))
-              }
-              color="primary"
-              variant="outlined"
-            >
-              {isUserList ? "Edit" : "Save as Custom"}
-            </Button>
-          )}
-        </Box>
+            {currentList !== "Custom" && (
+              <>
+                <Button
+                  sx={{ height: "40px" }}
+                  onClick={() =>
+                    isUserList
+                      ? setOpenEditDialog(true)
+                      : (setCurrentList("Custom"),
+                        setCustomList(selectedBirbIds))
+                  }
+                  color="primary"
+                  variant="outlined"
+                >
+                  {isUserList ? "Edit" : "Copy"}
+                </Button>
+                {isUserList && (
+                  <Button
+                    disabled={arraysEqual(
+                      selectedBirbIds,
+                      dbListsData[currentList]?.ids
+                    )}
+                    sx={{ height: "40px" }}
+                    onClick={() => {
+                      saveBirbList(currentList, user!);
+                    }}
+                    color="success"
+                    variant="outlined"
+                  >
+                    Save
+                  </Button>
+                )}
+              </>
+            )}
+          </Box>
+        )}
 
         {/* admin Save list */}
         {/* <Box>

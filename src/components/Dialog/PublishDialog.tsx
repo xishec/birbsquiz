@@ -9,23 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import { DB_LIST, DB_LISTS } from "../../tools/tools";
-import { ref, set } from "firebase/database";
-import { database } from "../../firebaseDatabaseConfig";
-import { User } from "firebase/auth";
+import { DB_LISTS } from "../../tools/tools";
 
 function PublishDialog({
   dbListsData,
-  loadBirbList,
   setCurrentList,
-  user,
-  region,
+  saveBirbList,
 }: {
   dbListsData: DB_LISTS;
-  loadBirbList: () => void;
   setCurrentList: (listName: string) => void;
-  user: User;
-  region: string;
+  saveBirbList: (listName: string) => void;
 }) {
   const [newListName, setNewListName] = React.useState<string>("");
 
@@ -33,29 +26,14 @@ function PublishDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openPublishDialog, setOpenPublishDialog, selectedBirbIds } =
-    quizContext;
-
-  const saveBirbList = () => {
-    const listRef = ref(database, `v2/lists/${newListName}`);
-    set(listRef, {
-      name: newListName,
-      creator: user.uid,
-      favorite: false,
-      ids: selectedBirbIds,
-      region: region,
-    } as DB_LIST)
-      .then(() => {
-        loadBirbList();
-      })
-      .catch((error) => {
-        console.error("Error saving birb list:", error);
-      });
-  };
+  const { openPublishDialog, setOpenPublishDialog } = quizContext;
 
   return (
     <Dialog
-      onClose={() => setOpenPublishDialog(false)}
+      onClose={() => {
+        setOpenPublishDialog(false);
+        setNewListName("");
+      }}
       open={openPublishDialog}
       scroll="paper"
       maxWidth="sm"
@@ -83,16 +61,27 @@ function PublishDialog({
             size="small"
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
+            error={
+              newListName === "Custom" ||
+              Object.keys(dbListsData).includes(newListName)
+            }
+            helperText={
+              newListName === "Custom"
+                ? "List name cannot be 'Custom'"
+                : Object.keys(dbListsData).includes(newListName)
+                ? "List name already exists"
+                : ""
+            }
           />
           <Button
             disabled={
               !newListName ||
-              newListName === "Custom" ||
+              newListName.toLowerCase() === "custom" ||
               Object.keys(dbListsData).includes(newListName)
             }
             variant="outlined"
             onClick={() => {
-              saveBirbList();
+              saveBirbList(newListName);
               setCurrentList(newListName!);
               setOpenPublishDialog(false);
             }}

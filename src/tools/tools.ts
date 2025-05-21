@@ -226,3 +226,8 @@ export type DB_LIST = {
   ids: string[];
   region: string;
 };
+
+export const arraysEqual = (a: string[], b: string[] = []) => {
+  if (a.length !== b.length) return false;
+  return a.every((item, index) => item === b[index]);
+};
