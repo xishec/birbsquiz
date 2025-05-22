@@ -212,84 +212,99 @@ function Quiz() {
     }
   }, [imageSources]);
 
-  const getAudioSources = () => {
-    const shouldShowAudioType = shouldReveal;
-    const list = shouldReveal
-      ? audioSources.slice(0, 5)
-      : [audioSources[audioRandomIndex]];
-
-    return (
-      <>
-        {list.length > 0 &&
-          list[0] &&
-          list.map((urlWithMetadata: UrlWithMetadata, i: number) => (
+  const audioComponents = (
+    <>
+      {audioSources.slice(0, 5).length > 0 &&
+        audioSources.slice(0, 5)[0] &&
+        audioSources
+          .slice(0, 5)
+          .map((urlWithMetadata: UrlWithMetadata, i: number) => (
             <Box
-              key={`audio-${counter}-${i}`}
+              key={`audio-box-${birbId}-after-reveal-${i}`}
               sx={{
                 display: "grid",
                 gap: "0.5rem",
-                gridTemplateColumns: shouldShowAudioType
-                  ? "max-content 1fr min-content"
-                  : "1fr min-content",
+                gridTemplateColumns: "max-content 1fr min-content",
                 alignItems: "center",
               }}
             >
-              {shouldShowAudioType && (
-                <Typography
-                  sx={{
-                    marginRight: "0.5rem",
-                    fontWeight: i === audioRandomIndex ? "bold" : "normal",
-                  }}
-                >
-                  {`${
-                    currentAudioType
-                      ? currentAudioType.charAt(0).toUpperCase() +
-                        currentAudioType.slice(1)
-                      : ""
-                  } ${i + 1}`}
-                </Typography>
-              )}
+              <Typography
+                sx={{
+                  marginRight: "0.5rem",
+                  fontWeight: i === audioRandomIndex ? "bold" : "normal",
+                }}
+              >
+                {`${
+                  currentAudioType
+                    ? currentAudioType.charAt(0).toUpperCase() +
+                      currentAudioType.slice(1)
+                    : ""
+                } ${i + 1}`}
+              </Typography>
 
               <audio
-                id={`audio-${birbId}-${shouldReveal}-${i}`}
+                id={`audio-${birbId}-after-reveal-${i}`}
                 style={{
                   width: "100%",
                 }}
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
-                onLoadedMetadata={(
-                  e: React.SyntheticEvent<HTMLAudioElement, Event>
-                ) => {
-                  if (!shouldReveal) e.currentTarget.play();
-                }}
               >
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
 
-              {shouldReveal && (
-                <Tooltip
-                  placement="top"
-                  enterDelay={0}
-                  leaveDelay={0}
-                  enterTouchDelay={0}
-                  leaveTouchDelay={0}
-                  title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
-                >
-                  <IconButton>
-                    <InfoOutlinedIcon
-                      sx={{ color: "black" }}
-                      fontSize="small"
-                    />
-                  </IconButton>
-                </Tooltip>
-              )}
+              <Tooltip
+                placement="top"
+                enterDelay={0}
+                leaveDelay={0}
+                enterTouchDelay={0}
+                leaveTouchDelay={0}
+                title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
+              >
+                <IconButton>
+                  <InfoOutlinedIcon sx={{ color: "black" }} fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </Box>
           ))}
-      </>
-    );
-  };
+    </>
+  );
+
+  const audioComponent = (
+    <>
+      {audioSources[audioRandomIndex] && (
+        <Box
+          key={`audio-box-${birbId}-before-reveal`}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            alignItems: "center",
+          }}
+        >
+          <audio
+            id={`audio-${birbId}-before-reveal`}
+            style={{
+              width: "100%",
+            }}
+            controls
+            preload="auto"
+            autoPlay
+            src={audioSources[audioRandomIndex].url}
+            onPlay={handleAudioPlay}
+            onCanPlay={(e) => {
+              const audio = e.currentTarget;
+              audio.play();
+            }}
+          >
+            Your browser does not support the
+            <code>audio</code> element.
+          </audio>
+        </Box>
+      )}
+    </>
+  );
 
   const birbImage = (
     <Box
@@ -483,7 +498,8 @@ function Quiz() {
                   gridTemplateColumns: "repeat(auto-fill, 1fr)",
                 }}
               >
-                {getAudioSources()}
+                {!shouldReveal && audioComponent}
+                {shouldReveal && audioComponents}
               </Box>
               {(previewing || shouldReveal) && birbImage}
             </Box>

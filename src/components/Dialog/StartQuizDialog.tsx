@@ -24,6 +24,7 @@ import { GameMode } from "../../App";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
+import { LoadingState } from "../../tools/constants";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -35,6 +36,7 @@ function StartQuizDialog() {
     openStartQuizDialog,
     setOpenStartQuizDialog,
     selectedBirbIds,
+    gameMode,
     setGameMode,
     setQuizStarted,
     startQuiz,
@@ -51,7 +53,9 @@ function StartQuizDialog() {
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
     selectedBirbIds.length
   );
-  const [loading, setLoading] = React.useState(false);
+  const [loadingState, setLoadingState] = React.useState<LoadingState>(
+    LoadingState.UNLOADED
+  );
   const [progress, setProgress] = React.useState<number>(0);
 
   const handleSliderChange = (
@@ -82,23 +86,44 @@ function StartQuizDialog() {
     if (sliderValue > selectedBirbIds.length && selectedBirbIds.length > 0) {
       setSliderValue(selectedBirbIds.length);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBirbIds, sliderValue]);
 
-  const loadQuiz = (gameMode: GameMode) => {
-    setLoading(true);
+  const loadQuiz = () => {
+    setLoadingState(LoadingState.LOADING);
     setProgress(0);
+    console.log("Loading quiz...");
     fetchImageAndAudioForMultiple(selectedBirbIds, region, (prog) =>
       setProgress(prog)
     ).then(() => {
-      setGameMode(gameMode);
-      setQuizStarted(true);
-      setOpenStartQuizDialog(false);
-      startQuiz(sliderValue);
       setTimeout(() => {
-        setLoading(false);
+        setLoadingState(LoadingState.DONE);
+        console.log("Quiz loaded");
       }, 500);
     });
   };
+
+  const officiallyStartQuiz = () => {
+    setQuizStarted(true);
+    setOpenStartQuizDialog(false);
+    startQuiz(sliderValue);
+  };
+
+  React.useEffect(() => {
+    if (loadingState === LoadingState.DONE && gameMode !== null) {
+      officiallyStartQuiz();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingState, gameMode]);
+
+  React.useEffect(() => {
+    if (openStartQuizDialog && loadingState === LoadingState.UNLOADED)
+      loadQuiz();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openStartQuizDialog, loadingState]);
+
+  const shouldShowLoading =
+    loadingState === LoadingState.LOADING && gameMode !== null;
 
   return (
     <Dialog
@@ -109,11 +134,13 @@ function StartQuizDialog() {
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1rem" }}>
-        {!loading && <Typography variant="h5">Start a quiz</Typography>}
-        {loading && <Typography variant="h5">Loading...</Typography>}
+        {!shouldShowLoading && (
+          <Typography variant="h5">Start a quiz</Typography>
+        )}
+        {shouldShowLoading && <Typography variant="h5">Loading...</Typography>}
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
-        {!loading && (
+        {!shouldShowLoading && (
           <Box
             sx={{
               marginTop: "1rem",
@@ -234,9 +261,7 @@ function StartQuizDialog() {
               sx={{ height: "40px" }}
               variant="outlined"
               disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
-              onClick={() => {
-                loadQuiz(GameMode.CHANTS);
-              }}
+              onClick={() => setGameMode(GameMode.CHANTS)}
             >
               Audio
             </Button>
@@ -245,15 +270,13 @@ function StartQuizDialog() {
               sx={{ height: "40px" }}
               variant="outlined"
               disabled={sliderValue <= 0}
-              onClick={() => {
-                loadQuiz(GameMode.IMAGES);
-              }}
+              onClick={() => setGameMode(GameMode.IMAGES)}
             >
               Image
             </Button>
           </Box>
         )}
-        {loading && (
+        {shouldShowLoading && (
           <Box sx={{ width: "100%", margin: "1rem 0" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ width: "100%", mr: 1 }}>

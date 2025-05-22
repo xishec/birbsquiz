@@ -19,3 +19,9 @@ export enum EBirdNameProperty {
   COMMON_NAME = "comName",
   COMMON_NAME_FR = "comNameFr",
 }
+
+export enum LoadingState {
+  UNLOADED = "sciName",
+  LOADING = "1",
+  DONE = "2",
+}

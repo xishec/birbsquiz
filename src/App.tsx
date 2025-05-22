@@ -50,7 +50,7 @@ export type QuizContextType = {
   setAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
   setShowAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
   css_height_90: string;
-  gameMode: string;
+  gameMode: GameMode | null;
   setSelectedBirbIds: React.Dispatch<any>;
   setOpenStartQuizDialog: React.Dispatch<any>;
   setOpenSnake: React.Dispatch<any>;
@@ -97,7 +97,7 @@ function App() {
 
   // Helper to load progress from localStorage
   const loadProgress = () => {
-    const saved = localStorage.getItem("birbsquiz-1905");
+    const saved = localStorage.getItem("birbsquiz-2205");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -192,8 +192,8 @@ function App() {
     () => savedProgress.openEditDialog
   );
 
-  const [gameMode, setGameMode] = React.useState<GameMode>(
-    () => savedProgress.gameMode || GameMode.CHANTS
+  const [gameMode, setGameMode] = React.useState<GameMode | null>(
+    () => savedProgress.gameMode || null
   );
 
   const [currentList, setCurrentList] = React.useState<string>(
@@ -239,6 +239,7 @@ function App() {
 
   const endQuiz = () => {
     if (counter === sequence.length - 1) setOpenEndQuizDialog(true);
+    setGameMode(null);
     setCounter(0);
     setQuizStarted(false);
   };
@@ -286,7 +287,10 @@ function App() {
       region,
       isMobileDevice,
     };
-    localStorage.setItem("birbsquiz-1905", JSON.stringify(progress));
+    localStorage.removeItem("birbsquizProgress");
+    localStorage.removeItem("birbsquizV2");
+    localStorage.removeItem("birbsquiz-1905");
+    localStorage.setItem("birbsquiz-2205", JSON.stringify(progress));
   }, [
     selectedBirbIds,
     counter,
