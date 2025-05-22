@@ -67,17 +67,19 @@ function Quiz() {
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
-    audioElements.forEach((audio) => audio.pause());
+    audioElements.forEach((audio) => {
+      console.log("pausing audio", audio);
+      audio.play();
+      audio.pause();
+    });
   };
 
   const nextQuestion = () => {
-    pauseAllAudio();
     setCounter(counter + 1);
     setAudioPlayed(false);
   };
 
   const previousQuestion = () => {
-    pauseAllAudio();
     setCounter(counter - 1);
     setAudioPlayed(false);
   };
@@ -249,8 +251,7 @@ function Quiz() {
               )}
 
               <audio
-                autoPlay={!shouldReveal}
-                id={`audio-${counter}-${i}`}
+                id={`audio-${birbId}-${shouldReveal}-${i}`}
                 style={{
                   width: "100%",
                 }}
@@ -260,7 +261,7 @@ function Quiz() {
                 onLoadedMetadata={(
                   e: React.SyntheticEvent<HTMLAudioElement, Event>
                 ) => {
-                  // e.currentTarget.currentTime = 4 + randomSeed * 4;
+                  if (!shouldReveal) e.currentTarget.play();
                 }}
               >
                 Your browser does not support the
@@ -536,14 +537,14 @@ function Quiz() {
                 variant="outlined"
                 disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                 onClick={() => {
+                  pauseAllAudio();
+
                   const newShowAnswers: any = Array.from(showAnswers);
                   newShowAnswers[counter] = !newShowAnswers[counter];
                   setShowAnswers(newShowAnswers);
-                  pauseAllAudio();
 
                   const newAnswers: any = Array.from(answers);
                   newAnswers[counter] = true;
-                  pauseAllAudio();
                   setAnswers(newAnswers);
                 }}
               >
