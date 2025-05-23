@@ -317,12 +317,14 @@ function Quiz() {
   const birbImage = (
     <Box
       sx={{
-        marginTop: "0.5rem",
+        height: "100%",
         display: "grid",
-        justifyContent: "center",
-        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        overflowX: "auto",
+        gridTemplateColumns: "80% 80%",
+        border: "1px solid red",
+        margin: "0 1.5rem",
+        marginTop: "1rem",
         gap: "2rem",
-        rowGap: "0.5rem",
       }}
     >
       {imageSources &&
@@ -335,7 +337,7 @@ function Quiz() {
           return (
             <Box
               sx={{
-                justifySelf: "center",
+                maxHeight: "100%",
               }}
             >
               <Typography
@@ -355,7 +357,7 @@ function Quiz() {
                   enterTouchDelay={0}
                   leaveTouchDelay={0}
                   title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                  sx={{ marginBottom: "0.1rem" }}
+                  sx={{ marginBottom: "0.1rem", marginRight: "-0.5rem" }}
                 >
                   <IconButton>
                     <InfoOutlinedIcon
@@ -385,7 +387,6 @@ function Quiz() {
               >
                 <img
                   style={{
-                    height: "100%",
                     width: "100%",
                     objectFit: "contain",
                     borderRadius: "4px",
@@ -487,23 +488,19 @@ function Quiz() {
       {!loading && (
         <Box
           sx={{
-            overflow: "auto",
+            marginTop: "0.5rem",
+            overflow: "hidden",
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
+            height: "100%",
           }}
         >
           {gameMode === GameMode.CHANTS && (
-            <Box
-              sx={{
-                marginTop: "1rem",
-                padding: "0 1.5rem",
-                overflow: "auto",
-                paddingBottom : "1rem",
-              }}
-            >
+            <>
               <Box
                 sx={{
+                  margin: "0 1.5rem",
                   display: "grid",
                   gap: "0.5rem",
                   gridTemplateColumns: "repeat(auto-fill, 1fr)",
@@ -513,7 +510,7 @@ function Quiz() {
                 {shouldReveal && audioComponents}
               </Box>
               {(previewing || shouldReveal) && birbImage}
-            </Box>
+            </>
           )}
           {gameMode === GameMode.IMAGES && (
             <Box
