@@ -108,8 +108,8 @@ function Quiz() {
       if (birbId !== currentId) return;
       if (!birdAudio) return;
 
-      const birdRandomSeed = (randomSeed * (birbId.charCodeAt(0) % 10)) % 1;
-
+      const birdRandomSeed = (randomSeed * ((counter % 10) + 1)) % 1;
+      
       let newAudioType = AudioType.CAll;
 
       if (!birdAudio[AudioType.SONG]) {
@@ -132,6 +132,14 @@ function Quiz() {
       const urlWithMetadata = birdAudio[newAudioType];
       const candidateCount = Math.min(urlWithMetadata.length, 5);
       const randomIndex = Math.floor(birdRandomSeed * candidateCount);
+      console.log(
+        "birdRandomSeed",
+        birdRandomSeed,
+        "candidateCount",
+        candidateCount,
+        "randomIndex",
+        randomIndex
+      );
       setAudioRandomIndex(randomIndex);
       setAudioSources(urlWithMetadata);
     });
