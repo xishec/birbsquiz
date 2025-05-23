@@ -30,39 +30,41 @@ function EditDialog({
   saveBirbList: (listName: string, favorite: string) => void;
   deleteBirbList: (listName: string) => void;
 }) {
-  const [newListName, setNewListName] = React.useState<string>(currentList);
-  const [favorite, setFavorite] = React.useState(
-    dbListsData[currentList]?.favorite || "Normal list"
-  );
-  const confirm = useConfirm();
-  const handleDelete = async () => {
-    const { confirmed, reason } = await confirm({
-      title: "Delete list",
-      description: `Are you sure you want to delete this list "${currentList}" ?`,
-      confirmationText: "Confirm",
-    });
-
-    if (confirmed) {
-      // deleteBirbList(currentList);
-      // setCurrentList("Custom");
-      // setOpenEditDialog(false);
-      console.log('"confirm");');
-    }
-
-    console.log(reason);
-    //=> "confirm" | "cancel" | "natural" | "unmount"
-  };
-
-  React.useEffect(() => {
-    setNewListName(currentList);
-  }, [currentList]);
-
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
   const { openEditDialog, setOpenEditDialog, region, setRegion, regionList } =
     quizContext;
+
+  const [newListName, setNewListName] = React.useState<string>(currentList);
+
+  const [favorite, setFavorite] = React.useState(
+    dbListsData[currentList]?.favorite || "Normal list"
+  );
+  const confirm = useConfirm();
+  const handleDelete = async () => {
+    const { confirmed } = await confirm({
+      title: "Delete list",
+      description: `Are you sure you want to delete this list "${currentList}" ?`,
+      confirmationText: "Confirm",
+    });
+
+    if (confirmed) {
+      deleteBirbList(currentList);
+      setCurrentList("Custom");
+      setOpenEditDialog(false);
+    }
+  };
+
+  React.useEffect(() => {
+    setFavorite(dbListsData[currentList]?.favorite || "Normal list");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openEditDialog]);
+
+  React.useEffect(() => {
+    setNewListName(currentList);
+  }, [currentList]);
 
   return (
     <Dialog
@@ -165,7 +167,8 @@ function EditDialog({
                 (Object.keys(dbListsData).includes(newListName) &&
                   newListName !== currentList)
               }
-              variant="contained"
+              variant="outlined"
+              color="success"
               onClick={() => {
                 deleteBirbList(currentList);
                 saveBirbList(newListName, favorite);
@@ -173,7 +176,7 @@ function EditDialog({
                 setOpenEditDialog(false);
               }}
             >
-              Confirm Edit
+              Save
             </Button>
           </Box>
         </Box>

@@ -35,6 +35,7 @@ import LocalizationDialog from "./Dialog/LocalizationDialog";
 import PublishDialog from "./Dialog/PublishDialog";
 import { arraysEqual, DB_LIST, DB_LISTS } from "../tools/tools";
 import EditDialog from "./Dialog/EditDialog";
+import { useConfirm } from "material-ui-confirm";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -72,6 +73,7 @@ function Lobby() {
     if (currentList === "Custom") {
       setCustomList(selectedBirbIds);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentList, selectedBirbIds]);
 
   useEffect(() => {
@@ -162,21 +164,21 @@ function Lobby() {
     [selectedBirbIds, setSelectedBirbIds]
   );
 
-  const copyUrl = () => {
-    const url = new URL(window.location.href);
-    const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
-    url.searchParams.set("birbs", encodedBirbs);
-    navigator.clipboard.writeText(url.toString());
-    url.searchParams.delete("birbs");
-    setSnakeMessage(`Lien copié!`);
-    setOpenSnake(true);
-  };
+  // const copyUrl = () => {
+  //   const url = new URL(window.location.href);
+  //   const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
+  //   url.searchParams.set("birbs", encodedBirbs);
+  //   navigator.clipboard.writeText(url.toString());
+  //   url.searchParams.delete("birbs");
+  //   setSnakeMessage(`Lien copié!`);
+  //   setOpenSnake(true);
+  // };
 
   useEffect(() => {
     if (selectedBirbId) addBirb(selectedBirbId);
   }, [selectedBirbId, addBirb]);
 
-  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  // const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const playAudioForBirb = (birbId: string, audioType: AudioType) => {
     // fetchAudioForOne(birbId, region).then((birdAudio) => {
@@ -235,6 +237,20 @@ function Lobby() {
       .catch((error) => {
         console.error("Error saving birb list:", error);
       });
+  };
+
+  const confirm = useConfirm();
+  const handleCopyToCustom = async () => {
+    const { confirmed } = await confirm({
+      title: "Copy to Custom",
+      description: `This might overwrite your current Custom list, make sure to save your birbs`,
+      confirmationText: "Confirm",
+    });
+
+    if (confirmed) {
+      setCurrentList("Custom");
+      setCustomList(selectedBirbIds);
+    }
   };
 
   return (
@@ -515,34 +531,39 @@ function Lobby() {
               margin: "0 1.5rem",
               marginTop: "0.5rem",
               display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns:
-                (currentList === "Custom" && user) || isUserList
-                  ? "1fr 125px 125px"
-                  : "1fr 125px",
+              gap: "1rem",
+              gridTemplateColumns: "1fr",
             }}
           >
-            <FormControl fullWidth>
-              <InputLabel>List</InputLabel>
-              <Select
-                label="List"
-                value={currentList}
-                onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value;
-                  setCurrentList(key);
-                }}
-                size="small"
-              >
-                <MenuItem value="Custom">Custom</MenuItem>
-                {dbListsData &&
-                  Object.entries(dbListsData).map(([key, value]) => {
-                    return <MenuItem value={key}>{key}</MenuItem>;
-                  })}
-              </Select>
-            </FormControl>
+            <Box>
+              <FormControl fullWidth>
+                <InputLabel>List</InputLabel>
+                <Select
+                  label="List"
+                  value={currentList}
+                  onChange={(event: SelectChangeEvent) => {
+                    const key = event.target.value;
+                    setCurrentList(key);
+                  }}
+                  size="small"
+                >
+                  <MenuItem value="Custom">Custom</MenuItem>
+                  {dbListsData &&
+                    Object.entries(dbListsData).map(([key, value]) => {
+                      return <MenuItem value={key}>{key}</MenuItem>;
+                    })}
+                </Select>
+              </FormControl>
+            </Box>
 
             {currentList === "Custom" && (
-              <>
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                }}
+              >
                 <Button
                   sx={{ height: "40px" }}
                   onClick={() => setSelectedBirbIds([])}
@@ -564,39 +585,53 @@ function Lobby() {
                     Create
                   </Button>
                 )}
-              </>
+              </Box>
             )}
 
             {currentList !== "Custom" && (
-              <>
-                <Button
-                  sx={{ height: "40px" }}
-                  onClick={() =>
-                    isUserList
-                      ? setOpenEditDialog(true)
-                      : (setCurrentList("Custom"),
-                        setCustomList(selectedBirbIds))
-                  }
-                  color="primary"
-                  variant="outlined"
-                >
-                  {isUserList ? "Edit" : "Copy"}
-                </Button>
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                }}
+              >
                 {isUserList && (
                   <Button
-                    disabled={arraysEqual(
-                      selectedBirbIds,
-                      dbListsData[currentList]?.ids
-                    )}
                     sx={{ height: "40px" }}
-                    onClick={() => saveBirbList(currentList, user!)}
-                    color="success"
+                    onClick={() => setOpenEditDialog(true)}
+                    color="primary"
                     variant="outlined"
                   >
-                    Save
+                    Edit
                   </Button>
                 )}
-              </>
+                {!isUserList && (
+                  <Button
+                    sx={{ height: "40px" }}
+                    onClick={() => handleCopyToCustom()}
+                    color="primary"
+                    variant="outlined"
+                  >
+                    "Copy to Custom"
+                  </Button>
+                )}
+
+                {isUserList &&
+                  !arraysEqual(
+                    selectedBirbIds,
+                    dbListsData[currentList]?.ids
+                  ) && (
+                    <Button
+                      sx={{ height: "40px" }}
+                      onClick={() => saveBirbList(currentList, user!)}
+                      color="success"
+                      variant="outlined"
+                    >
+                      Save new birbs
+                    </Button>
+                  )}
+              </Box>
             )}
           </Box>
         )}
@@ -650,7 +685,6 @@ function Lobby() {
             sx={{
               display: "grid",
               gridTemplateColumns: "1fr",
-              // gap: "0.5rem",
             }}
           >
             <Button
