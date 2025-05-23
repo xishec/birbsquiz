@@ -48,6 +48,7 @@ function StartQuizDialog() {
     setSliderValue,
     region,
     setRegion,
+    setDbBirbs,
   } = quizContext;
 
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
@@ -97,7 +98,9 @@ function StartQuizDialog() {
     console.log("Loading quiz...");
     fetchImageAndAudioForMultiple(selectedBirbIds, region, (prog) =>
       setProgress(prog)
-    ).then(() => {
+    ).then((newDbBirbs) => {
+      setDbBirbs(newDbBirbs);
+      console.log("dbBirbs loaded", newDbBirbs, Object.keys(newDbBirbs).length);
       setTimeout(() => {
         setLoadingState(LoadingState.DONE);
         console.log("Quiz loaded");
@@ -129,7 +132,10 @@ function StartQuizDialog() {
 
   return (
     <Dialog
-      onClose={() => setOpenStartQuizDialog(false)}
+      onClose={() => {
+        setOpenStartQuizDialog(false);
+        setLoadingState(LoadingState.UNLOADED);
+      }}
       open={openStartQuizDialog}
       scroll="paper"
       maxWidth="sm"

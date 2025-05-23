@@ -7,6 +7,7 @@ import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
 import { EBirdNameProperty, Language } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
+import { DB_BIRBS } from "./tools/tools";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -84,6 +85,8 @@ export type QuizContextType = {
   setOpenPublishDialog: React.Dispatch<any>;
   openEditDialog: boolean;
   setOpenEditDialog: React.Dispatch<any>;
+  dbBirbs: DB_BIRBS;
+  setDbBirbs: React.Dispatch<any>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -231,6 +234,10 @@ function App() {
 
   const [isMobileDevice, setIsMobileDevice] = React.useState(false);
 
+  const [dbBirbs, setDbBirbs] = React.useState<DB_BIRBS>(
+    () => savedProgress.dbBirbs || {}
+  );
+
   const startQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
@@ -287,6 +294,7 @@ function App() {
       sliderValue,
       region,
       isMobileDevice,
+      dbBirbs,
     };
     localStorage.removeItem("birbsQuizProgress");
     localStorage.removeItem("birbsQuizV2");
@@ -315,6 +323,7 @@ function App() {
     sliderValue,
     region,
     isMobileDevice,
+    dbBirbs,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
@@ -382,6 +391,8 @@ function App() {
           setOpenPublishDialog,
           openEditDialog,
           setOpenEditDialog,
+          dbBirbs,
+          setDbBirbs,
         }}
       >
         <Box

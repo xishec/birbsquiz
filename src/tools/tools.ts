@@ -193,9 +193,9 @@ export const fetchImageAndAudioForMultiple = async (
   birdIds: string[],
   region: string,
   onProgress?: (progress: number) => void
-) => {
+): Promise<DB_BIRBS> => {
   const BATCH_SIZE = 10;
-  const results: { id: string; image: any; audio: any }[] = [];
+  const results: DB_BIRBS = {};
   let completed = 0;
   for (let i = 0; i < birdIds.length; i += BATCH_SIZE) {
     const batch = birdIds.slice(i, i + BATCH_SIZE);
@@ -208,7 +208,9 @@ export const fetchImageAndAudioForMultiple = async (
         return { id, image, audio };
       })
     );
-    results.push(...batchResults);
+    batchResults.forEach(({ id, image, audio }) => {
+      results[id] = { image, audio };
+    });
     completed += batchResults.length;
     if (onProgress) {
       onProgress((completed / birdIds.length) * 100);
@@ -216,6 +218,14 @@ export const fetchImageAndAudioForMultiple = async (
   }
   return results;
 };
+
+export type DB_BIRBS = Record<
+  string,
+  {
+    image: BirdImage | null;
+    audio: BirdAudio | null;
+  }
+>;
 
 export type DB_LISTS = Record<string, DB_LIST>;
 

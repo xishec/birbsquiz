@@ -19,12 +19,7 @@ import {
   Language,
   Sex,
 } from "../tools/constants";
-import {
-  BirdImage,
-  fetchAudioForOne,
-  fetchImageForOne,
-  UrlWithMetadata,
-} from "../tools/tools";
+import { BirdImage, UrlWithMetadata } from "../tools/tools";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -49,7 +44,7 @@ function Quiz() {
     callCheckbox,
     songCheckbox,
     eBirdNameProperty,
-    region,
+    dbBirbs,
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
@@ -103,79 +98,67 @@ function Quiz() {
   }, [counter, selectedBirbIds, sequence]);
 
   const fetchAndSetAudioSources = () => {
-    const currentId = birbId;
-    fetchAudioForOne(birbId, region).then((birdAudio) => {
-      if (birbId !== currentId) return;
-      if (!birdAudio) return;
+    const birdAudio = dbBirbs[birbId]?.audio;
+    if (!birdAudio) return;
 
-      const birdRandomSeed = (randomSeed * ((counter % 10) + 1)) % 1;
+    const birdRandomSeed = (randomSeed * ((counter % 10) + 1)) % 1;
 
-      let newAudioType = AudioType.CAll;
+    let newAudioType = AudioType.CAll;
 
-      if (!birdAudio[AudioType.SONG]) {
+    if (!birdAudio[AudioType.SONG]) {
+      newAudioType = AudioType.CAll;
+    } else if (!birdAudio[AudioType.CAll]) {
+      newAudioType = AudioType.SONG;
+    } else {
+      if (callCheckbox) {
         newAudioType = AudioType.CAll;
-      } else if (!birdAudio[AudioType.CAll]) {
-        newAudioType = AudioType.SONG;
-      } else {
-        if (callCheckbox) {
-          newAudioType = AudioType.CAll;
-        }
-        if (songCheckbox) {
-          newAudioType = AudioType.SONG;
-        }
-        if (callCheckbox && songCheckbox) {
-          newAudioType = birdRandomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
-        }
       }
+      if (songCheckbox) {
+        newAudioType = AudioType.SONG;
+      }
+      if (callCheckbox && songCheckbox) {
+        newAudioType = birdRandomSeed < 0.5 ? AudioType.CAll : AudioType.SONG;
+      }
+    }
 
-      setCurrentAudioType(newAudioType);
-      const urlWithMetadata = birdAudio[newAudioType];
-      const candidateCount = Math.min(urlWithMetadata.length, 5);
-      const randomIndex = Math.floor(birdRandomSeed * candidateCount);
-      console.log(
-        "birdRandomSeed",
-        birdRandomSeed,
-        "candidateCount",
-        candidateCount,
-        "randomIndex",
-        randomIndex
-      );
-      setAudioRandomIndex(randomIndex);
-      setAudioSources(urlWithMetadata);
-    });
+    setCurrentAudioType(newAudioType);
+    const urlWithMetadata = birdAudio[newAudioType];
+    const candidateCount = Math.min(urlWithMetadata.length, 5);
+    const randomIndex = Math.floor(birdRandomSeed * candidateCount);
+    console.log(
+      "birdRandomSeed",
+      birdRandomSeed,
+      "candidateCount",
+      candidateCount,
+      "randomIndex",
+      randomIndex
+    );
+    setAudioRandomIndex(randomIndex);
+    setAudioSources(urlWithMetadata);
   };
 
-  // Create a ref to always store the latest birbId.
-  const birbIdRef = useRef(birbId);
-  useEffect(() => {
-    birbIdRef.current = birbId;
-  }, [birbId]);
+  // // Create a ref to always store the latest birbId.
+  // const birbIdRef = useRef(birbId);
+  // useEffect(() => {
+  //   birbIdRef.current = birbId;
+  // }, [birbId]);
 
   const fetchAndSetImageSources = () => {
-    const currentId = birbIdRef.current;
-    console.log("fetching image for", currentId);
-    fetchImageForOne(currentId, region).then((birdImage) => {
-      if (!birdImage) return;
-      console.log(
-        "fetched image for",
-        currentId,
-        "and current birbId is",
-        birbIdRef.current
-      );
-      if (birbIdRef.current !== currentId) return;
-      setImageMaleRandomIndex(0);
-      const newImageSrcMale = [...birdImage[Sex.MALE]];
-      shuffleArray(newImageSrcMale);
+    const birdImage = dbBirbs[birbId]?.image;
+    if (!birdImage) return;
 
-      setImageFemaleRandomIndex(0);
-      const newImageSrcFemale = [...birdImage[Sex.FEMALE]];
-      shuffleArray(newImageSrcFemale);
+    setImageMaleRandomIndex(0);
+    const newImageSrcMale = [...birdImage[Sex.MALE]];
+    shuffleArray(newImageSrcMale);
 
-      setImageSources({
-        [Sex.MALE]: newImageSrcMale,
-        [Sex.FEMALE]: newImageSrcFemale,
-      } as BirdImage);
-    });
+    setImageFemaleRandomIndex(0);
+    const newImageSrcFemale = [...birdImage[Sex.FEMALE]];
+    shuffleArray(newImageSrcFemale);
+
+    setImageSources({
+      [Sex.MALE]: newImageSrcMale,
+      [Sex.FEMALE]: newImageSrcFemale,
+    } as BirdImage);
   };
 
   useEffect(() => {
