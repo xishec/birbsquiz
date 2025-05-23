@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -69,13 +63,15 @@ function Lobby() {
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
 
+  // update custom list content when birbs change
   useEffect(() => {
     if (currentList === "Custom") {
       setCustomList(selectedBirbIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentList, selectedBirbIds]);
+  }, [selectedBirbIds]);
 
+  // update isUserList when currentList or dbListsData or user change
   useEffect(() => {
     if (
       user?.uid !== undefined &&
@@ -87,6 +83,7 @@ function Lobby() {
     }
   }, [currentList, dbListsData, user]);
 
+  // update birbs when currentList changes
   useEffect(() => {
     if (currentList === "Custom") {
       setSelectedBirbIds(customList ? customList : []);
@@ -94,6 +91,7 @@ function Lobby() {
       if (dbListsData[currentList])
         setSelectedBirbIds(dbListsData[currentList].ids);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentList]);
 
   const loadBirbList = useCallback(() => {
@@ -242,7 +240,7 @@ function Lobby() {
   const confirm = useConfirm();
   const handleCopyToCustom = async () => {
     const { confirmed } = await confirm({
-      title: "Copy to Custom",
+      title: "Copy to Custom list",
       description: `This might overwrite your current Custom list, make sure to save your birbs`,
       confirmationText: "Confirm",
     });
@@ -250,6 +248,17 @@ function Lobby() {
     if (confirmed) {
       setCurrentList("Custom");
       setCustomList(selectedBirbIds);
+    }
+  };
+  const handleClear = async () => {
+    const { confirmed } = await confirm({
+      title: "Clear Custom list",
+      description: `Are you sure you want to clear your Custom list?`,
+      confirmationText: "Confirm",
+    });
+
+    if (confirmed) {
+      setSelectedBirbIds([]);
     }
   };
 
@@ -566,7 +575,7 @@ function Lobby() {
               >
                 <Button
                   sx={{ height: "40px" }}
-                  onClick={() => setSelectedBirbIds([])}
+                  onClick={() => handleClear()}
                   color="error"
                   variant="outlined"
                 >
