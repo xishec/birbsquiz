@@ -6,6 +6,7 @@ import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
 import { EBirdNameProperty, Language } from "./tools/constants";
+import { ConfirmProvider } from "material-ui-confirm";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -287,8 +288,8 @@ function App() {
       region,
       isMobileDevice,
     };
-    localStorage.removeItem("birbsquizProgress");
-    localStorage.removeItem("birbsquizV2");
+    localStorage.removeItem("birbsQuizProgress");
+    localStorage.removeItem("birbsQuizV2");
     localStorage.removeItem("birbsquiz-1905");
     localStorage.setItem("birbsquiz-2205", JSON.stringify(progress));
   }, [
@@ -331,147 +332,149 @@ function App() {
   }, []);
 
   return (
-    <QuizContext.Provider
-      value={{
-        eBird,
-        regionList,
-        sequence,
-        randomSeed,
-        counter,
-        birbEmoji,
-        selectedBirbIds,
-        answers,
-        showAnswers,
-        endQuiz,
-        setCounter,
-        setAnswers,
-        setShowAnswers,
-        css_height_90,
-        gameMode,
-        setSelectedBirbIds,
-        setOpenStartQuizDialog,
-        setOpenSnake,
-        setSnakeMessage,
-        currentList,
-        setCurrentList,
-        customList,
-        setCustomList,
-        setQuizStarted,
-        setGameMode,
-        openStartQuizDialog,
-        startQuiz,
-        openEndQuizDialog,
-        setOpenEndQuizDialog,
-        songCheckbox,
-        setSongCheckbox,
-        callCheckbox,
-        setCallCheckbox,
-        language,
-        setLanguage,
-        eBirdNameProperty,
-        sliderValue,
-        setSliderValue,
-        region,
-        setRegion,
-        isMobileDevice,
-        openLocalizationDialog,
-        setOpenLocalizationDialog,
-        openPublishDialog,
-        setOpenPublishDialog,
-        openEditDialog,
-        setOpenEditDialog,
-      }}
-    >
-      <Box
-        sx={{
-          height: css_height_90,
-          "*": {
-            WebkitUserSelect: "none",
-            MozUserSelect: "none",
-            msUserSelect: "none",
-            userSelect: "none",
-            WebkitTouchCallout: "none",
-          },
-          // button: {
-          //   height: "40px",
-          // },
+    <ConfirmProvider>
+      <QuizContext.Provider
+        value={{
+          eBird,
+          regionList,
+          sequence,
+          randomSeed,
+          counter,
+          birbEmoji,
+          selectedBirbIds,
+          answers,
+          showAnswers,
+          endQuiz,
+          setCounter,
+          setAnswers,
+          setShowAnswers,
+          css_height_90,
+          gameMode,
+          setSelectedBirbIds,
+          setOpenStartQuizDialog,
+          setOpenSnake,
+          setSnakeMessage,
+          currentList,
+          setCurrentList,
+          customList,
+          setCustomList,
+          setQuizStarted,
+          setGameMode,
+          openStartQuizDialog,
+          startQuiz,
+          openEndQuizDialog,
+          setOpenEndQuizDialog,
+          songCheckbox,
+          setSongCheckbox,
+          callCheckbox,
+          setCallCheckbox,
+          language,
+          setLanguage,
+          eBirdNameProperty,
+          sliderValue,
+          setSliderValue,
+          region,
+          setRegion,
+          isMobileDevice,
+          openLocalizationDialog,
+          setOpenLocalizationDialog,
+          openPublishDialog,
+          setOpenPublishDialog,
+          openEditDialog,
+          setOpenEditDialog,
         }}
       >
         <Box
           sx={{
-            display: "grid",
-            justifyContent: "center",
-            gridTemplateColumns: "minmax(min-content, 800px)",
+            height: css_height_90,
+            "*": {
+              WebkitUserSelect: "none",
+              MozUserSelect: "none",
+              msUserSelect: "none",
+              userSelect: "none",
+              WebkitTouchCallout: "none",
+            },
+            // button: {
+            //   height: "40px",
+            // },
           }}
         >
-          {!quizStarted && <Lobby />}
-          {quizStarted && <Quiz />}
-        </Box>
-
-        {/* Footer */}
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 0,
-            margin: "0 2rem",
-            display: "flex",
-            justifyContent: "space-between",
-            width: "calc(100% - 4rem)",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <Typography variant="caption">
-              <Link
-                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
-                target="_blank"
-                rel="noopener"
-                underline="hover"
-                href="https://www.macaulaylibrary.org/"
-              >
-                Macaulay Library
-              </Link>
-            </Typography>
+          <Box
+            sx={{
+              display: "grid",
+              justifyContent: "center",
+              gridTemplateColumns: "minmax(min-content, 800px)",
+            }}
+          >
+            {!quizStarted && <Lobby />}
+            {quizStarted && <Quiz />}
           </Box>
 
-          {buildDate && (
+          {/* Footer */}
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              margin: "0 2rem",
+              display: "flex",
+              justifyContent: "space-between",
+              width: "calc(100% - 4rem)",
+              alignItems: "center",
+            }}
+          >
             <Box>
-              <Typography
-                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
-                variant="caption"
-              >
-                Build on {buildDate}
+              <Typography variant="caption">
+                <Link
+                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  target="_blank"
+                  rel="noopener"
+                  underline="hover"
+                  href="https://www.macaulaylibrary.org/"
+                >
+                  Macaulay Library
+                </Link>
               </Typography>
             </Box>
-          )}
 
-          <Box>
-            <Typography variant="caption">
-              <Link
-                sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
-                target="_blank"
-                rel="noopener"
-                underline="hover"
-                href="https://www.linkedin.com/in/xishec/"
-              >
-                Xi Chen
-              </Link>
-            </Typography>
+            {buildDate && (
+              <Box>
+                <Typography
+                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  variant="caption"
+                >
+                  Build on {buildDate}
+                </Typography>
+              </Box>
+            )}
+
+            <Box>
+              <Typography variant="caption">
+                <Link
+                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  target="_blank"
+                  rel="noopener"
+                  underline="hover"
+                  href="https://www.linkedin.com/in/xishec/"
+                >
+                  Xi Chen
+                </Link>
+              </Typography>
+            </Box>
           </Box>
-        </Box>
 
-        <Snackbar
-          open={openSnake}
-          autoHideDuration={5000}
-          onClose={() => {
-            setOpenSnake(false);
-            setSnakeMessage("");
-          }}
-          message={snakeMessage}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        />
-      </Box>
-    </QuizContext.Provider>
+          <Snackbar
+            open={openSnake}
+            autoHideDuration={5000}
+            onClose={() => {
+              setOpenSnake(false);
+              setSnakeMessage("");
+            }}
+            message={snakeMessage}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          />
+        </Box>
+      </QuizContext.Provider>
+    </ConfirmProvider>
   );
 }
 

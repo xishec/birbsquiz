@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
+import { useConfirm } from "material-ui-confirm";
 
 function EditDialog({
   currentList,
@@ -29,11 +30,28 @@ function EditDialog({
   saveBirbList: (listName: string, favorite: string) => void;
   deleteBirbList: (listName: string) => void;
 }) {
-  console.log(dbListsData[currentList], currentList);
   const [newListName, setNewListName] = React.useState<string>(currentList);
   const [favorite, setFavorite] = React.useState(
     dbListsData[currentList]?.favorite || "Normal list"
   );
+  const confirm = useConfirm();
+  const handleDelete = async () => {
+    const { confirmed, reason } = await confirm({
+      title: "Delete list",
+      description: `Are you sure you want to delete this list "${currentList}" ?`,
+      confirmationText: "Confirm",
+    });
+
+    if (confirmed) {
+      // deleteBirbList(currentList);
+      // setCurrentList("Custom");
+      // setOpenEditDialog(false);
+      console.log('"confirm");');
+    }
+
+    console.log(reason);
+    //=> "confirm" | "cancel" | "natural" | "unmount"
+  };
 
   React.useEffect(() => {
     setNewListName(currentList);
@@ -125,23 +143,39 @@ function EditDialog({
             </FormControl>
           </Box>
 
-          <Button
-            disabled={
-              !newListName ||
-              newListName.toLowerCase() === "custom" ||
-              (Object.keys(dbListsData).includes(newListName) &&
-                newListName !== currentList)
-            }
-            variant="outlined"
-            onClick={() => {
-              deleteBirbList(currentList);
-              saveBirbList(newListName, favorite);
-              setCurrentList(newListName!);
-              setOpenEditDialog(false);
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "1rem",
             }}
           >
-            Edit
-          </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => handleDelete()}
+            >
+              Delete
+            </Button>
+
+            <Button
+              disabled={
+                !newListName ||
+                newListName.toLowerCase() === "custom" ||
+                (Object.keys(dbListsData).includes(newListName) &&
+                  newListName !== currentList)
+              }
+              variant="contained"
+              onClick={() => {
+                deleteBirbList(currentList);
+                saveBirbList(newListName, favorite);
+                setCurrentList(newListName!);
+                setOpenEditDialog(false);
+              }}
+            >
+              Confirm Edit
+            </Button>
+          </Box>
         </Box>
       </DialogContent>
     </Dialog>
