@@ -318,10 +318,11 @@ function Quiz() {
     <Box
       sx={{
         marginTop: "1rem",
-        padding: "0 0.5rem",
+        // padding: "0 0.5rem",
         display: "grid",
         justifyContent: "center",
         gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        gap: "2rem",
         rowGap: "0.5rem",
       }}
     >
@@ -355,7 +356,7 @@ function Quiz() {
                   enterTouchDelay={0}
                   leaveTouchDelay={0}
                   title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                  sx={{ marginRight: "-0.5rem", marginBottom: "0.1rem" }}
+                  sx={{ marginBottom: "0.1rem" }}
                 >
                   <IconButton>
                     <InfoOutlinedIcon
@@ -369,8 +370,6 @@ function Quiz() {
                 sx={{
                   cursor: "pointer",
                   overflow: "hidden",
-                  maxWidth: "300px",
-                  // maxHeight: "300px",
                 }}
                 onClick={() => {
                   if (sex === Sex.MALE) {
@@ -494,9 +493,8 @@ function Quiz() {
           {gameMode === GameMode.CHANTS && (
             <Box
               sx={{
-                marginTop: "1.5rem",
+                marginTop: "1rem",
                 overflow: "auto",
-                padding: "0rem 0.5rem",
               }}
             >
               <Box
@@ -515,9 +513,8 @@ function Quiz() {
           {gameMode === GameMode.IMAGES && (
             <Box
               sx={{
-                marginTop: "1.5rem",
+                marginTop: "1rem",
                 overflow: "auto",
-                padding: "0rem 0.5rem",
                 display: "grid",
                 justifyContent: "center",
               }}
