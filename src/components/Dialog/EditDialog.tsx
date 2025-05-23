@@ -19,12 +19,14 @@ import { useConfirm } from "material-ui-confirm";
 import { FavoriteList } from "../../tools/constants";
 
 function EditDialog({
+  isAdmin,
   currentList,
   dbListsData,
   setCurrentList,
   saveBirbList,
   deleteBirbList,
 }: {
+  isAdmin: boolean;
   currentList: string;
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
@@ -87,7 +89,7 @@ function EditDialog({
             marginTop: "1rem",
             display: "grid",
             gap: "1rem",
-            gridTemplateRows: "auto auto auto auto",
+            gridTemplateRows: "repeat(auto-fill, auto)",
           }}
         >
           <TextField
@@ -97,6 +99,19 @@ function EditDialog({
             size="small"
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
+            error={
+              newListName.toLowerCase() === "custom" ||
+              (Object.keys(dbListsData).includes(newListName) &&
+                newListName !== currentList)
+            }
+            helperText={
+              newListName.toLowerCase() === "custom"
+                ? "List name cannot be 'Custom'"
+                : Object.keys(dbListsData).includes(newListName) &&
+                  newListName !== currentList
+                ? "List name already exists"
+                : ""
+            }
           />
 
           <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
@@ -128,27 +143,29 @@ function EditDialog({
             </FormControl>
           </Box>
 
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
-            <FormControl fullWidth>
-              <InputLabel>Favorite control (admin)</InputLabel>{" "}
-              <Select
-                label="Favorite control (admin)"
-                value={favorite}
-                onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value;
-                  setFavorite(key as FavoriteList);
-                }}
-                size="small"
-              >
-                <MenuItem value={FavoriteList.FAVORITE}>
-                  {FavoriteList.FAVORITE}
-                </MenuItem>
-                <MenuItem value={FavoriteList.NORMAL}>
-                  {FavoriteList.NORMAL}
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+          {isAdmin && (
+            <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+              <FormControl fullWidth>
+                <InputLabel>Favorite control (admin)</InputLabel>{" "}
+                <Select
+                  label="Favorite control (admin)"
+                  value={favorite}
+                  onChange={(event: SelectChangeEvent) => {
+                    const key = event.target.value;
+                    setFavorite(key as FavoriteList);
+                  }}
+                  size="small"
+                >
+                  <MenuItem value={FavoriteList.FAVORITE}>
+                    {FavoriteList.FAVORITE}
+                  </MenuItem>
+                  <MenuItem value={FavoriteList.NORMAL}>
+                    {FavoriteList.NORMAL}
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          )}
 
           <Box
             sx={{

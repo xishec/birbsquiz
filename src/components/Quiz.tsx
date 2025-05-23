@@ -317,7 +317,7 @@ function Quiz() {
   const birbImage = (
     <Box
       sx={{
-        marginTop: "0.5rem",
+        marginTop: "1rem",
         display: "grid",
         justifyContent: "center",
         gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -388,7 +388,8 @@ function Quiz() {
                     height: "100%",
                     width: "100%",
                     objectFit: "contain",
-                    borderRadius: "4px",
+                    // borderRadius: "4px",
+                    borderRadius: "15px",
                   }}
                   src={images[randomIndex].url}
                   loading="lazy"
@@ -499,7 +500,7 @@ function Quiz() {
                 marginTop: "1rem",
                 padding: "0 1.5rem",
                 overflow: "auto",
-                paddingBottom : "1rem",
+                paddingBottom: "1rem",
               }}
             >
               <Box

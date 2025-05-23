@@ -131,7 +131,7 @@ function App() {
         return savedProgress.selectedBirbIds;
       }
       return [];
-      return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
+      // return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
     }
   );
 
@@ -182,7 +182,7 @@ function App() {
   );
 
   const [openLocalizationDialog, setOpenLocalizationDialog] = React.useState(
-    () => savedProgress.openLocalizationDialog
+    () => savedProgress?.openLocalizationDialog ?? true
   );
 
   const [openPublishDialog, setOpenPublishDialog] = React.useState(

@@ -262,6 +262,7 @@ function Lobby() {
       <StartQuizDialog />
       <LocalizationDialog />
       <PublishDialog
+        isAdmin={isAdmin}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
         saveBirbList={(listName: string, favorite: string) =>
@@ -269,6 +270,7 @@ function Lobby() {
         }
       />
       <EditDialog
+        isAdmin={isAdmin}
         currentList={currentList}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
@@ -334,7 +336,7 @@ function Lobby() {
                 "&:hover": { transform: "scale(1.1)" },
               }}
             >
-              {birbEmoji}
+              {isAdmin ? "🦖" : birbEmoji}
             </Box>
           </Typography>
 
@@ -366,55 +368,6 @@ function Lobby() {
             )}
           </Box>
         </Box>
-
-        {/* region and language */}
-        {/* <Box
-        sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}
-      >
-        <FormControl fullWidth>
-          <InputLabel>Region</InputLabel>
-          <Select
-            label="Region"
-            value={region}
-            onChange={(event: SelectChangeEvent) => {
-              const key = event.target.value;
-              setRegion(key);
-            }}
-            size="small"
-          >
-            <MenuItem value="EARTH">EARTH</MenuItem>
-            {regionList &&
-              Object.keys(regionList)
-                .filter((key) => key !== "EARTH")
-                .sort()
-                .map((key) => {
-                  return (
-                    <MenuItem key={key} value={key}>
-                      {key}
-                    </MenuItem>
-                  );
-                })}
-          </Select>
-        </FormControl>
-
-        <FormControl fullWidth>
-          <InputLabel>Language</InputLabel>
-          <Select
-            value={language}
-            label="Language"
-            onChange={(event: SelectChangeEvent) =>
-              setLanguage(event.target.value)
-            }
-            size="small"
-          >
-            {Object.entries(Language).map(([key, value]) => (
-              <MenuItem key={key} value={value}>
-                {key}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box> */}
 
         {/* autocomplete */}
         <Box sx={{ margin: "0 1.5rem" }}>
@@ -564,7 +517,18 @@ function Lobby() {
                     Object.entries(dbListsData)
                       .filter(
                         ([key, value]) =>
-                          value.favorite !== FavoriteList.FAVORITE
+                          value.favorite !== FavoriteList.FAVORITE &&
+                          value.creator === user?.uid
+                      )
+                      .map(([key, value]) => {
+                        return <MenuItem value={key}>✏️ {key}</MenuItem>;
+                      })}
+                  {dbListsData &&
+                    Object.entries(dbListsData)
+                      .filter(
+                        ([key, value]) =>
+                          value.favorite !== FavoriteList.FAVORITE &&
+                          value.creator !== user?.uid
                       )
                       .map(([key, value]) => {
                         return <MenuItem value={key}>{key}</MenuItem>;

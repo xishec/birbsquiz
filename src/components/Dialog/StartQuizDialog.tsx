@@ -63,17 +63,18 @@ function StartQuizDialog() {
     newValue: number | number[],
     activeThumb: number
   ) => {
-    setSliderValue(newValue as number);
+    if (openStartQuizDialog) setSliderValue(newValue as number);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
     if (!isNaN(value)) {
-      setSliderValue(value);
+      if (openStartQuizDialog) setSliderValue(value as number);
     }
   };
 
   const handleBlur = () => {
+    if (!openStartQuizDialog) return;
     if (sliderValue < 0) {
       setSliderValue(0);
     } else if (sliderValue > maxSliderValue) {
@@ -82,12 +83,13 @@ function StartQuizDialog() {
   };
 
   React.useEffect(() => {
+    if (!openStartQuizDialog) return;
     setMaxSliderValue(selectedBirbIds.length);
     if (sliderValue > selectedBirbIds.length && selectedBirbIds.length > 0) {
       setSliderValue(selectedBirbIds.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBirbIds, sliderValue]);
+  }, [selectedBirbIds, sliderValue, openStartQuizDialog]);
 
   const loadQuiz = () => {
     setLoadingState(LoadingState.LOADING);
