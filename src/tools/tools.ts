@@ -1,6 +1,6 @@
 import { get, ref, set } from "firebase/database";
 import { database } from "../firebaseDatabaseConfig";
-import { AudioType, Sex } from "./constants";
+import { AudioType, FavoriteList, Sex } from "./constants";
 
 export type UrlWithMetadata = { url: string; location: string; author: string };
 
@@ -222,7 +222,7 @@ export type DB_LISTS = Record<string, DB_LIST>;
 export type DB_LIST = {
   name: string;
   creator: string;
-  favorite: string;
+  favorite: FavoriteList;
   ids: string[];
   region: string;
 };

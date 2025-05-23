@@ -109,7 +109,7 @@ function Quiz() {
       if (!birdAudio) return;
 
       const birdRandomSeed = (randomSeed * ((counter % 10) + 1)) % 1;
-      
+
       let newAudioType = AudioType.CAll;
 
       if (!birdAudio[AudioType.SONG]) {
@@ -343,9 +343,9 @@ function Quiz() {
                   display: "grid",
                   alignItems: "center",
                   gridTemplateColumns: "1fr min-content",
+                  paddingBottom: "0.2rem",
                 }}
                 variant="body1"
-                padding={"0.5rem 0"}
               >
                 {sex.charAt(0).toUpperCase() + sex.slice(1)}
                 <Tooltip
@@ -355,7 +355,7 @@ function Quiz() {
                   enterTouchDelay={0}
                   leaveTouchDelay={0}
                   title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                  sx={{ marginRight: "-0.5rem" }}
+                  sx={{ marginRight: "-0.5rem", marginBottom: "0.1rem" }}
                 >
                   <IconButton>
                     <InfoOutlinedIcon
@@ -502,7 +502,7 @@ function Quiz() {
               <Box
                 sx={{
                   display: "grid",
-                  gap: "1rem",
+                  gap: "0.5rem",
                   gridTemplateColumns: "repeat(auto-fill, 1fr)",
                 }}
               >
@@ -515,9 +515,9 @@ function Quiz() {
           {gameMode === GameMode.IMAGES && (
             <Box
               sx={{
-                marginTop: "1rem",
-                padding: "0rem",
+                marginTop: "1.5rem",
                 overflow: "auto",
+                padding: "0rem 0.5rem",
                 display: "grid",
                 justifyContent: "center",
               }}
@@ -553,7 +553,7 @@ function Quiz() {
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
-                gap: "1rem",
+                gap: "0.5rem",
               }}
             >
               <Button
@@ -598,7 +598,7 @@ function Quiz() {
                 display: "grid",
                 justifyContent: "center",
                 gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                gap: "1rem",
+                gap: "0.5rem",
               }}
             >
               <Button
@@ -652,7 +652,7 @@ function Quiz() {
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr auto",
-                gap: "1rem",
+                gap: "0.5rem",
               }}
             >
               <Button
@@ -669,7 +669,6 @@ function Quiz() {
               </Button>
               <Box
                 sx={{
-                  width: "64px",
                   display: "grid",
                   justifyContent: "center",
                 }}
@@ -705,7 +704,7 @@ function Quiz() {
         {/* Next question button */}
         <Box
           sx={{
-            marginTop: "1rem",
+            marginTop: "0.5rem",
             display: "grid",
             alignItems: "center",
           }}

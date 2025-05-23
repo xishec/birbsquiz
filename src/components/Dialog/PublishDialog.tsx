@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
+import { FavoriteList } from "../../tools/constants";
 
 function PublishDialog({
   dbListsData,
@@ -26,7 +27,9 @@ function PublishDialog({
   saveBirbList: (listName: string, favorite: string) => void;
 }) {
   const [newListName, setNewListName] = React.useState<string>("");
-  const [favorite, setFavorite] = React.useState("Normal list");
+  const [favorite, setFavorite] = React.useState<FavoriteList>(
+    FavoriteList.NORMAL
+  );
 
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
@@ -123,12 +126,16 @@ function PublishDialog({
                 value={favorite}
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
-                  setFavorite(key);
+                  setFavorite(key as FavoriteList);
                 }}
                 size="small"
               >
-                <MenuItem value="Favorite list">Favorite list</MenuItem>
-                <MenuItem value="Normal list">Normal list</MenuItem>
+                <MenuItem value={FavoriteList.FAVORITE}>
+                  {FavoriteList.FAVORITE}
+                </MenuItem>
+                <MenuItem value={FavoriteList.NORMAL}>
+                  {FavoriteList.NORMAL}
+                </MenuItem>
               </Select>
             </FormControl>
           </Box>

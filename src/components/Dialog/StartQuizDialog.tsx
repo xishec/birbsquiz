@@ -145,7 +145,7 @@ function StartQuizDialog() {
             sx={{
               marginTop: "1rem",
               display: "grid",
-              gap: "1rem",
+              gap: "0.5rem",
               gridTemplateRows: "auto auto auto auto auto",
             }}
           >
@@ -199,7 +199,7 @@ function StartQuizDialog() {
               </Tooltip>
             </Box>
 
-            <Box>
+            <Box sx={{ marginTop: "0.5rem" }}>
               <Typography variant="body1" gutterBottom>
                 Number of birbs to quiz :
               </Typography>

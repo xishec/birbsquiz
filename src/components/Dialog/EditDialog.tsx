@@ -16,6 +16,7 @@ import {
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { useConfirm } from "material-ui-confirm";
+import { FavoriteList } from "../../tools/constants";
 
 function EditDialog({
   currentList,
@@ -39,8 +40,8 @@ function EditDialog({
 
   const [newListName, setNewListName] = React.useState<string>(currentList);
 
-  const [favorite, setFavorite] = React.useState(
-    dbListsData[currentList]?.favorite || "Normal list"
+  const [favorite, setFavorite] = React.useState<FavoriteList>(
+    dbListsData[currentList]?.favorite || FavoriteList.NORMAL
   );
   const confirm = useConfirm();
   const handleDelete = async () => {
@@ -58,7 +59,7 @@ function EditDialog({
   };
 
   React.useEffect(() => {
-    setFavorite(dbListsData[currentList]?.favorite || "Normal list");
+    setFavorite(dbListsData[currentList]?.favorite || FavoriteList.NORMAL);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openEditDialog]);
 
@@ -135,12 +136,16 @@ function EditDialog({
                 value={favorite}
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
-                  setFavorite(key);
+                  setFavorite(key as FavoriteList);
                 }}
                 size="small"
               >
-                <MenuItem value="Favorite list">Favorite list</MenuItem>
-                <MenuItem value="Normal list">Normal list</MenuItem>
+                <MenuItem value={FavoriteList.FAVORITE}>
+                  {FavoriteList.FAVORITE}
+                </MenuItem>
+                <MenuItem value={FavoriteList.NORMAL}>
+                  {FavoriteList.NORMAL}
+                </MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -149,7 +154,7 @@ function EditDialog({
             sx={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "1rem",
+              gap: "0.5rem",
             }}
           >
             <Button

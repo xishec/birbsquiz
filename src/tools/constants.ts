@@ -25,3 +25,8 @@ export enum LoadingState {
   LOADING = "1",
   DONE = "2",
 }
+
+export enum FavoriteList {
+  NORMAL = "Normal list",
+  FAVORITE = "Favorite list",
+}
