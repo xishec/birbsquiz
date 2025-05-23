@@ -17,6 +17,7 @@ import {
   AudioType,
   EBirdNameProperty,
   Language,
+  Region,
   Sex,
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
@@ -45,6 +46,8 @@ function Quiz() {
     songCheckbox,
     eBirdNameProperty,
     dbBirbs,
+    regionList,
+    region,
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
@@ -659,7 +662,12 @@ function Quiz() {
                 onTouchStart={() => setShouldRevealMoreNames(true)}
                 onTouchEnd={() => setShouldRevealMoreNames(false)}
               >
-                {eBird[birbId][eBirdNameProperty]}
+                {`${eBird[birbId][eBirdNameProperty]} 
+                      ${
+                        regionList[region].includes(birbId)
+                          ? ""
+                          : `(not found in ${region}, audio came from ${Region.EARTH})`
+                      }`}
               </Button>
               <Box
                 sx={{

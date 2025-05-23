@@ -22,7 +22,7 @@ import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import { AudioType, FavoriteList } from "../tools/constants";
+import { AudioType, FavoriteList, Region } from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
@@ -413,7 +413,9 @@ function Lobby() {
                 label={
                   !user && currentList !== "Custom"
                     ? "Disabled"
-                    : `Find bribs ${region === "EARTH" ? "on" : "in"} ${region}`
+                    : `Find bribs ${
+                        region === Region.EARTH ? "on" : "in"
+                      } ${region}`
                 }
                 variant="outlined"
               />
@@ -452,8 +454,18 @@ function Lobby() {
                       "&:active": { transform: "scale(1.02)", boxShadow: 0 },
                       borderRadius: "100px",
                     }}
+                    color={
+                      regionList[region].includes(birbId)
+                        ? "default"
+                        : "warning"
+                    }
                     key={`chip-${i}`}
-                    label={eBird[birbId][eBirdNameProperty]}
+                    label={`${eBird[birbId][eBirdNameProperty]} 
+                      ${
+                        regionList[region].includes(birbId)
+                          ? ""
+                          : `(not found in ${region})`
+                      }`}
                     variant="outlined"
                     onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
                     onDelete={() => deleteBirb(birbId)}

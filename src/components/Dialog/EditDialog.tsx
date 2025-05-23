@@ -16,7 +16,7 @@ import {
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { useConfirm } from "material-ui-confirm";
-import { FavoriteList } from "../../tools/constants";
+import { FavoriteList, Region } from "../../tools/constants";
 
 function EditDialog({
   isAdmin,
@@ -126,13 +126,13 @@ function EditDialog({
                 }}
                 size="small"
               >
-                <MenuItem value="EARTH">EARTH</MenuItem>
+                <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
                 {regionList &&
                   Object.keys(regionList)
-                    .filter((key) => key !== "EARTH")
+                    .filter((key) => key !== Region.EARTH)
                     .sort()
                     .map((key) => {
-                      if (key === "EARTH") return null;
+                      if (key === Region.EARTH) return null;
                       return (
                         <MenuItem key={key} value={key}>
                           {key}

@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import { Language } from "../../tools/constants";
+import { Language, Region } from "../../tools/constants";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -64,13 +64,13 @@ function LocalizationDialog() {
                 }}
                 size="small"
               >
-                <MenuItem value="EARTH">EARTH</MenuItem>
+                <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
                 {regionList &&
                   Object.keys(regionList)
-                    .filter((key) => key !== "EARTH")
+                    .filter((key) => key !== Region.EARTH)
                     .sort()
                     .map((key) => {
-                      if (key === "EARTH") return null;
+                      if (key === Region.EARTH) return null;
                       return (
                         <MenuItem key={key} value={key}>
                           {key}

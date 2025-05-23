@@ -5,7 +5,7 @@ import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import { EBirdNameProperty, Language } from "./tools/constants";
+import { EBirdNameProperty, Language, Region } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS } from "./tools/tools";
 
@@ -229,7 +229,7 @@ function App() {
   );
 
   const [region, setRegion] = React.useState<string>(
-    () => savedProgress.region || "EARTH"
+    () => savedProgress.region || Region.EARTH
   );
 
   const [isMobileDevice, setIsMobileDevice] = React.useState(false);

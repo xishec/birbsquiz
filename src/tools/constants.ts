@@ -30,3 +30,11 @@ export enum FavoriteList {
   NORMAL = "Normal list",
   FAVORITE = "Favorite list",
 }
+
+export enum Region {
+  US_CA = "US-CA",
+  CA_QC = "CA-QC",
+  US_FL = "US-FL",
+  CA_BC = "CA-BC",
+  EARTH = "EARTH",
+}

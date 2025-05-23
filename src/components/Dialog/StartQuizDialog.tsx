@@ -24,7 +24,7 @@ import { GameMode } from "../../App";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
-import { LoadingState } from "../../tools/constants";
+import { LoadingState, Region } from "../../tools/constants";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -175,13 +175,13 @@ function StartQuizDialog() {
                   }}
                   size="small"
                 >
-                  <MenuItem value="EARTH">EARTH</MenuItem>
+                  <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
                   {regionList &&
                     Object.keys(regionList)
-                      .filter((key) => key !== "EARTH")
+                      .filter((key) => key !== Region.EARTH)
                       .sort()
                       .map((key) => {
-                        if (key === "EARTH") return null;
+                        if (key === Region.EARTH) return null;
                         return (
                           <MenuItem key={key} value={key}>
                             {key}
