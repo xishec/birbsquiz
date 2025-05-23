@@ -287,10 +287,10 @@ function Lobby() {
           gridTemplateColumns: "1fr",
           gridTemplateRows: "auto auto 1fr auto",
           gap: "0.5rem",
-          marginTop: "1.5rem",
+          marginTop: "1rem",
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             position: "absolute",
             top: "0rem",
@@ -304,7 +304,7 @@ function Lobby() {
           >
             Work in progress, not stable yet!
           </Typography>
-        </Box>
+        </Box> */}
 
         {/* title */}
         <Box
@@ -699,43 +699,6 @@ function Lobby() {
               )}
           </Box>
         )}
-
-        {/* admin Save list */}
-        {/* <Box>
-        {user && (
-          <Box
-            sx={{
-              marginTop: "0.5rem",
-              display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns: "1fr 125px",
-            }}
-          >
-            <TextField
-              fullWidth
-              label="Save current list as ..."
-              variant="outlined"
-              size="small"
-              value={listName}
-              onChange={(e) => setListName(e.target.value)}
-            />
-            <Button
-              disabled={!listName || listName === "Custom"}
-              onClick={saveBirbList}
-              color={
-                Object.keys(dbListsData).includes(listName)
-                  ? "warning"
-                  : "success"
-              }
-              variant="outlined"
-            >
-              {Object.keys(dbListsData).includes(listName)
-                ? "Overwrite"
-                : "Save As"}
-            </Button>
-          </Box>
-        )}
-      </Box> */}
 
         {/* Language and Quiz button */}
         <Box

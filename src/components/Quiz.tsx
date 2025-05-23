@@ -317,8 +317,7 @@ function Quiz() {
   const birbImage = (
     <Box
       sx={{
-        marginTop: "1rem",
-        // padding: "0 0.5rem",
+        marginTop: "0.5rem",
         display: "grid",
         justifyContent: "center",
         gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -370,6 +369,7 @@ function Quiz() {
                 sx={{
                   cursor: "pointer",
                   overflow: "hidden",
+                  padding: "0 0rem",
                 }}
                 onClick={() => {
                   if (sex === Sex.MALE) {
@@ -406,7 +406,7 @@ function Quiz() {
   return (
     <Box
       sx={{
-        margin: "1.5rem",
+        marginTop: "1.5rem",
         overflow: "auto",
         display: "grid",
         height: css_height_90,
@@ -420,6 +420,7 @@ function Quiz() {
           display: "grid",
           justifyContent: "space-between",
           gridTemplateColumns: "1fr 1fr 1fr",
+          margin: "0 1.5rem",
         }}
       >
         <Box>
@@ -445,6 +446,7 @@ function Quiz() {
             display: "flex",
             justifyContent: "space-between",
             alignContent: "center",
+            margin: "0 1.5rem",
           }}
         >
           <IconButton
@@ -467,6 +469,7 @@ function Quiz() {
             <ArrowForwardIcon />
           </IconButton>
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -494,7 +497,9 @@ function Quiz() {
             <Box
               sx={{
                 marginTop: "1rem",
+                padding: "0 1.5rem",
                 overflow: "auto",
+                paddingBottom : "1rem",
               }}
             >
               <Box
@@ -516,6 +521,7 @@ function Quiz() {
                 marginTop: "1rem",
                 overflow: "auto",
                 display: "grid",
+                padding: "0 1.5rem",
                 justifyContent: "center",
               }}
             >
@@ -539,7 +545,7 @@ function Quiz() {
       {/* Reveal and answer buttons */}
       <Box
         sx={{
-          marginTop: "0rem",
+          padding: "0 1.5rem",
         }}
       >
         <Box>
