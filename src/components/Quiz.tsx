@@ -301,9 +301,16 @@ function Quiz() {
             autoPlay
             src={audioSources[audioRandomIndex].url}
             onPlay={handleAudioPlay}
+            onLoadedData={(e) => {
+              const audio = e.currentTarget;
+              audio.play();
+            }}
             onCanPlay={(e) => {
               const audio = e.currentTarget;
               audio.play();
+            }}
+            onError={(e) => {
+              window.location.reload();
             }}
           >
             Your browser does not support the
