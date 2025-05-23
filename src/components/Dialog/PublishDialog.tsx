@@ -5,6 +5,11 @@ import {
   Button,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -18,15 +23,22 @@ function PublishDialog({
 }: {
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
-  saveBirbList: (listName: string) => void;
+  saveBirbList: (listName: string, favorite: string) => void;
 }) {
   const [newListName, setNewListName] = React.useState<string>("");
+  const [favorite, setFavorite] = React.useState("Normal list");
 
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openPublishDialog, setOpenPublishDialog } = quizContext;
+  const {
+    openPublishDialog,
+    setOpenPublishDialog,
+    region,
+    setRegion,
+    regionList,
+  } = quizContext;
 
   return (
     <Dialog
@@ -51,7 +63,7 @@ function PublishDialog({
             marginTop: "1rem",
             display: "grid",
             gap: "1rem",
-            gridTemplateRows: "auto auto",
+            gridTemplateRows: "auto auto auto",
           }}
         >
           <TextField
@@ -73,6 +85,54 @@ function PublishDialog({
                 : ""
             }
           />
+
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+            <FormControl fullWidth>
+              <InputLabel>Region</InputLabel>{" "}
+              <Select
+                label="Region"
+                value={region}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setRegion(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="EARTH">EARTH</MenuItem>
+                {regionList &&
+                  Object.keys(regionList)
+                    .filter((key) => key !== "EARTH")
+                    .sort()
+                    .map((key) => {
+                      if (key === "EARTH") return null;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          {key}
+                        </MenuItem>
+                      );
+                    })}
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+            <FormControl fullWidth>
+              <InputLabel>Favorite control (admin)</InputLabel>{" "}
+              <Select
+                label="Favorite control (admin)"
+                value={favorite}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setFavorite(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="Favorite list">Favorite list</MenuItem>
+                <MenuItem value="Normal list">Normal list</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
           <Button
             disabled={
               !newListName ||
@@ -81,7 +141,7 @@ function PublishDialog({
             }
             variant="outlined"
             onClick={() => {
-              saveBirbList(newListName);
+              saveBirbList(newListName, favorite);
               setCurrentList(newListName!);
               setOpenPublishDialog(false);
             }}

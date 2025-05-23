@@ -5,6 +5,11 @@ import {
   Button,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -16,13 +21,19 @@ function EditDialog({
   dbListsData,
   setCurrentList,
   saveBirbList,
+  deleteBirbList,
 }: {
   currentList: string;
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
-  saveBirbList: (listName: string) => void;
+  saveBirbList: (listName: string, favorite: string) => void;
+  deleteBirbList: (listName: string) => void;
 }) {
+  console.log(dbListsData[currentList], currentList);
   const [newListName, setNewListName] = React.useState<string>(currentList);
+  const [favorite, setFavorite] = React.useState(
+    dbListsData[currentList]?.favorite || "Normal list"
+  );
 
   React.useEffect(() => {
     setNewListName(currentList);
@@ -32,7 +43,8 @@ function EditDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openEditDialog, setOpenEditDialog } = quizContext;
+  const { openEditDialog, setOpenEditDialog, region, setRegion, regionList } =
+    quizContext;
 
   return (
     <Dialog
@@ -54,7 +66,7 @@ function EditDialog({
             marginTop: "1rem",
             display: "grid",
             gap: "1rem",
-            gridTemplateRows: "auto auto",
+            gridTemplateRows: "auto auto auto auto",
           }}
         >
           <TextField
@@ -65,11 +77,65 @@ function EditDialog({
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
           />
+
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+            <FormControl fullWidth>
+              <InputLabel>Region</InputLabel>{" "}
+              <Select
+                label="Region"
+                value={region}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setRegion(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="EARTH">EARTH</MenuItem>
+                {regionList &&
+                  Object.keys(regionList)
+                    .filter((key) => key !== "EARTH")
+                    .sort()
+                    .map((key) => {
+                      if (key === "EARTH") return null;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          {key}
+                        </MenuItem>
+                      );
+                    })}
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+            <FormControl fullWidth>
+              <InputLabel>Favorite control (admin)</InputLabel>{" "}
+              <Select
+                label="Favorite control (admin)"
+                value={favorite}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setFavorite(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="Favorite list">Favorite list</MenuItem>
+                <MenuItem value="Normal list">Normal list</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
           <Button
-            disabled={true}
+            disabled={
+              !newListName ||
+              newListName.toLowerCase() === "custom" ||
+              (Object.keys(dbListsData).includes(newListName) &&
+                newListName !== currentList)
+            }
             variant="outlined"
             onClick={() => {
-              saveBirbList(newListName);
+              deleteBirbList(currentList);
+              saveBirbList(newListName, favorite);
               setCurrentList(newListName!);
               setOpenEditDialog(false);
             }}

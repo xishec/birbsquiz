@@ -5,17 +5,14 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { Language } from "../../tools/constants";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);

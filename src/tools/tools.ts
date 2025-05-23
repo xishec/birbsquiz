@@ -222,7 +222,7 @@ export type DB_LISTS = Record<string, DB_LIST>;
 export type DB_LIST = {
   name: string;
   creator: string;
-  favorite: boolean;
+  favorite: string;
   ids: string[];
   region: string;
 };

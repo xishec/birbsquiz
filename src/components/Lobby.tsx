@@ -25,7 +25,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { ref, set, get } from "firebase/database";
+import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
 import { AudioType } from "../tools/constants";
@@ -209,15 +209,26 @@ function Lobby() {
     // });
   };
 
-  const saveBirbList = (newListName: string, user: User) => {
+  const saveBirbList = (newListName: string, user: User, favorite?: string) => {
     const listRef = ref(database, `v2/lists/${newListName}`);
     set(listRef, {
       name: newListName,
       creator: user.uid,
-      favorite: false,
       ids: selectedBirbIds,
       region: region,
+      ...(favorite !== undefined ? { favorite } : {}),
     } as DB_LIST)
+      .then(() => {
+        loadBirbList();
+      })
+      .catch((error) => {
+        console.error("Error saving birb list:", error);
+      });
+  };
+
+  const deleteBirbList = (listName: string) => {
+    const listRef = ref(database, `v2/lists/${listName}`);
+    remove(listRef)
       .then(() => {
         loadBirbList();
       })
@@ -234,13 +245,18 @@ function Lobby() {
       <PublishDialog
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
-        saveBirbList={(listName: string) => saveBirbList(listName, user!)}
+        saveBirbList={(listName: string, favorite: string) =>
+          saveBirbList(listName, user!, favorite)
+        }
       />
       <EditDialog
         currentList={currentList}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
-        saveBirbList={(listName: string) => saveBirbList(listName, user!)}
+        saveBirbList={(listName: string, favorite: string) =>
+          saveBirbList(listName, user!, favorite)
+        }
+        deleteBirbList={deleteBirbList}
       />
 
       <Box
@@ -573,9 +589,7 @@ function Lobby() {
                       dbListsData[currentList]?.ids
                     )}
                     sx={{ height: "40px" }}
-                    onClick={() => {
-                      saveBirbList(currentList, user!);
-                    }}
+                    onClick={() => saveBirbList(currentList, user!)}
                     color="success"
                     variant="outlined"
                   >
