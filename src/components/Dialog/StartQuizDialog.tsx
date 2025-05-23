@@ -103,7 +103,7 @@ function StartQuizDialog() {
       console.log("dbBirbs loaded", newDbBirbs, Object.keys(newDbBirbs).length);
       setTimeout(() => {
         setLoadingState(LoadingState.DONE);
-        console.log("Quiz loaded");
+        // console.log("Quiz loaded");
       }, 500);
     });
   };

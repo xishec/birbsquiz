@@ -131,7 +131,6 @@ function Lobby() {
           .then((snapshot) => {
             if (snapshot.exists()) {
               setIsAdmin(true);
-              console.log("User is an admin");
             }
           })
           .catch((error) => {

@@ -108,7 +108,7 @@ export const fetchAudioForOne = async (
     // Save to Firebase
     try {
       await set(dbRef, birdAudio);
-      console.log("Saved audio data to Firebase for id:", id);
+      // console.log("Saved audio data to Firebase for id:", id);
     } catch (error) {
       console.error("Error saving to Firebase:", error);
     }
@@ -177,7 +177,7 @@ export const fetchImageForOne = async (
     // Save to Firebase
     try {
       await set(dbRef, birdImage);
-      console.log("Saved image data to Firebase for id:", id);
+      // console.log("Saved image data to Firebase for id:", id);
     } catch (error) {
       console.error("Error saving to Firebase:", error);
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
 import {
   Box,
@@ -66,7 +66,6 @@ function Quiz() {
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
     audioElements.forEach((audio) => {
-      console.log("pausing audio", audio);
       audio.play();
       audio.pause();
     });
@@ -98,6 +97,7 @@ function Quiz() {
 
   useEffect(() => {
     setBirbId(sequence[counter]);
+    console.log("birbId", sequence[counter]);
   }, [counter, selectedBirbIds, sequence]);
 
   const fetchAndSetAudioSources = () => {
@@ -128,14 +128,14 @@ function Quiz() {
     const urlWithMetadata = birdAudio[newAudioType];
     const candidateCount = Math.min(urlWithMetadata.length, 5);
     const randomIndex = Math.floor(birdRandomSeed * candidateCount);
-    console.log(
-      "birdRandomSeed",
-      birdRandomSeed,
-      "candidateCount",
-      candidateCount,
-      "randomIndex",
-      randomIndex
-    );
+    // console.log(
+    //   "birdRandomSeed",
+    //   birdRandomSeed,
+    //   "candidateCount",
+    //   candidateCount,
+    //   "randomIndex",
+    //   randomIndex
+    // );
     setAudioRandomIndex(randomIndex);
     setAudioSources(urlWithMetadata);
   };
@@ -382,7 +382,7 @@ function Quiz() {
                     width: "100%",
                     objectFit: "contain",
                     // borderRadius: "4px",
-                    borderRadius: "15px",
+                    borderRadius: "10px",
                   }}
                   src={images[randomIndex].url}
                   loading="lazy"
