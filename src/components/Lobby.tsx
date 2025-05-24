@@ -149,8 +149,6 @@ function Lobby() {
       } else {
         setUser(null);
         setIsAdmin(false);
-        setSnakeMessage(`Logged out successfully`);
-        setOpenSnake(true);
       }
     });
     return () => unsubscribe();
