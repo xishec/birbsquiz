@@ -9,6 +9,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 import LanguageIcon from "@mui/icons-material/Language";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
   Box,
   Button,
@@ -19,6 +20,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import StyledChip from "./StyledChip";
@@ -353,16 +355,23 @@ function Lobby() {
               display: "grid",
               gridTemplateColumns: "auto auto",
               alignItems: "center",
-              gap: "0.5rem",
             }}
           >
-            <Box sx={{ justifySelf: "end", marginBottom: "0.1rem" }}>
-              {user && (
-                <Link underline="none" variant="body1">
-                  {user.email}
-                </Link>
-              )}
-            </Box>
+            {user && (
+              <Tooltip
+                placement="left"
+                enterDelay={0}
+                leaveDelay={0}
+                enterTouchDelay={0}
+                leaveTouchDelay={0}
+                title={user ? user.email : "Login to save your lists :)"}
+                sx={{ justifySelf: "end", marginBottom: "0.05rem" }}
+              >
+                <IconButton>
+                  <InfoOutlinedIcon color="primary" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            )}
 
             {!user && (
               <Button
@@ -446,7 +455,7 @@ function Lobby() {
                 inputRef={inputRef} // pass the ref here
                 label={
                   !user && currentList !== "Custom"
-                    ? "Disabled"
+                    ? "Disabled (not your list)"
                     : `Find birbs ${
                         region === Region.EARTH ? "on" : "in"
                       } ${region}...`

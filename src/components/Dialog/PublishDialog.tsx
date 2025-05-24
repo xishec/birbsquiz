@@ -157,7 +157,7 @@ function PublishDialog({
               setOpenPublishDialog(false);
             }}
           >
-            Publish
+            Create
           </Button>
         </Box>
       </DialogContent>
