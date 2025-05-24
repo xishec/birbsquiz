@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -9,6 +15,7 @@ import {
   FormControl,
   IconButton,
   InputLabel,
+  Link,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -63,6 +70,7 @@ function Lobby() {
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null); // add this ref
 
   // update custom list content when birbs change
   useEffect(() => {
@@ -344,32 +352,58 @@ function Lobby() {
               justifySelf: "end",
               display: "grid",
               gridTemplateColumns: "auto auto",
+              alignItems: "center",
+              gap: "0.5rem",
             }}
           >
-            <Box sx={{ justifySelf: "end" }}>
-              <IconButton
-                color="primary"
-                onClick={() => setOpenLocalizationDialog(true)}
-              >
-                <LanguageIcon />
-              </IconButton>
+            <Box sx={{ justifySelf: "end", marginBottom: "0.1rem" }}>
+              {user && (
+                <Link underline="none" variant="body1">
+                  {user.email}
+                </Link>
+              )}
             </Box>
 
             {!user && (
-              <IconButton color="primary" onClick={signInWithGoogle}>
-                <LoginIcon />
-              </IconButton>
+              <Button
+                variant="text"
+                onClick={signInWithGoogle}
+                endIcon={<LoginIcon />}
+                size="small"
+              >
+                Login
+              </Button>
             )}
             {user && (
-              <IconButton color="error" onClick={() => signOut(auth)}>
-                <LogoutIcon />
-              </IconButton>
+              <Button
+                variant="text"
+                onClick={() => signOut(auth)}
+                endIcon={<LogoutIcon />}
+                size="small"
+              >
+                Logout
+              </Button>
             )}
           </Box>
         </Box>
 
         {/* autocomplete */}
-        <Box sx={{ margin: "0 1.5rem" }}>
+        <Box
+          sx={{
+            margin: "0 1.5rem",
+            display: "grid",
+            gridTemplateColumns: "auto 1fr",
+          }}
+        >
+          <Box sx={{ justifySelf: "end" }}>
+            <IconButton
+              color="primary"
+              onClick={() => setOpenLocalizationDialog(true)}
+            >
+              <LanguageIcon />
+            </IconButton>
+          </Box>
+
           <Autocomplete
             disabled={!user && currentList !== "Custom"}
             size="small"
@@ -409,12 +443,13 @@ function Lobby() {
             renderInput={(params) => (
               <TextField
                 {...params}
+                inputRef={inputRef} // pass the ref here
                 label={
                   !user && currentList !== "Custom"
                     ? "Disabled"
-                    : `Find bribs ${
+                    : `Find birbs ${
                         region === Region.EARTH ? "on" : "in"
-                      } ${region}`
+                      } ${region}...`
                 }
                 variant="outlined"
               />
@@ -475,6 +510,7 @@ function Lobby() {
         )}
         {selectedBirbIds.length === 0 && (
           <Box
+            onClick={() => inputRef.current?.focus()} // add onClick handler here
             sx={{
               margin: "0 1.5rem",
               height: "100%",
@@ -483,9 +519,10 @@ function Lobby() {
               display: "grid",
               justifyContent: "center",
               alignItems: "center",
+              cursor: "pointer", // indicate it's clickable
             }}
           >
-            <IconButton size="large" disabled>
+            <IconButton size="large">
               <AddIcon sx={{ color: "#ccc" }} />
             </IconButton>
           </Box>
@@ -699,27 +736,6 @@ function Lobby() {
                 selectedBirbIds.length === 1 ? "" : "s"
               }`}
             </Button>
-
-            {/* {shareClickCount >= 5 && (
-            <Box>
-              {!user && (
-                <IconButton color="primary" onClick={signInWithGoogle}>
-                  <LoginIcon />
-                </IconButton>
-              )}
-              {user && (
-                <IconButton
-                  color="error"
-                  onClick={() => {
-                    setShareClickCount(0);
-                    signOut(auth);
-                  }}
-                >
-                  <LogoutIcon />
-                </IconButton>
-              )}
-            </Box>
-          )} */}
           </Box>
         </Box>
       </Box>

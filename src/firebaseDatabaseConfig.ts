@@ -22,15 +22,17 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
+// Force the Google account selection prompt every time
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 const signInWithGoogle = () => {
   signInWithPopup(auth, googleProvider)
     .then((result) => {
       // This gives you a Google Access Token.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential?.accessToken;
       // The signed-in user info.
-      const user = result.user;
+      // const user = result.user;
       // Add any additional user handling here.
     })
     .catch((error) => {

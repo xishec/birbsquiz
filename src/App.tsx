@@ -99,9 +99,11 @@ function App() {
   const eBird = raw_eBird as any;
   const regionList = raw_region_list as any;
 
+  const localStorageKey = "birbsquiz-2205";
+
   // Helper to load progress from localStorage
   const loadProgress = () => {
-    const saved = localStorage.getItem("birbsquiz-2205");
+    const saved = localStorage.getItem(localStorageKey);
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -115,27 +117,7 @@ function App() {
   const savedProgress = loadProgress();
 
   const [selectedBirbIds, setSelectedBirbIds] = React.useState<Array<string>>(
-    () => {
-      const urlBirbs = new URLSearchParams(window.location.search).get("birbs");
-      if (urlBirbs) {
-        try {
-          const parsedBirbs = JSON.parse(atob(urlBirbs));
-          return Array.isArray(parsedBirbs)
-            ? parsedBirbs.filter((birbId: any) => eBird[birbId])
-            : [];
-        } catch (e) {
-          console.error("Error parsing URL birbs:", e);
-          return [];
-        }
-      } else if (
-        savedProgress.selectedBirbIds &&
-        Array.isArray(savedProgress.selectedBirbIds)
-      ) {
-        return savedProgress.selectedBirbIds;
-      }
-      return [];
-      // return JSON.parse(atob("WyIyNCIsIjQyOSIsIjI3MCJd"));
-    }
+    () => savedProgress.selectedBirbIds || []
   );
 
   useEffect(() => {
@@ -144,28 +126,35 @@ function App() {
     window.history.replaceState(null, "", url.toString());
   }, [selectedBirbIds]);
 
+  const oneHour = 3600000;
+  const isOneHourAgo =
+    savedProgress.counter !== undefined &&
+    Date.now() - savedProgress.timestamp < oneHour;
+
   const [counter, setCounter] = React.useState<number>(() =>
-    savedProgress.counter !== undefined ? savedProgress.counter : 0
+    savedProgress.counter && isOneHourAgo ? savedProgress.counter : 0
   );
 
-  const [sequence, setSequence] = React.useState<Array<string>>(
-    () => savedProgress.sequence || []
+  const [sequence, setSequence] = React.useState<Array<string>>(() =>
+    savedProgress.sequence && isOneHourAgo ? savedProgress.sequence : []
   );
 
-  const [randomSeed, setRandomSeed] = React.useState<number>(
-    () => savedProgress.randomSeed || 0
+  const [randomSeed, setRandomSeed] = React.useState<number>(() =>
+    savedProgress.randomSeed && isOneHourAgo ? savedProgress.randomSeed : 0
   );
 
-  const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>(
-    () => savedProgress.showAnswers || []
+  const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>(() =>
+    savedProgress.showAnswers && isOneHourAgo ? savedProgress.showAnswers : []
   );
 
-  const [answers, setAnswers] = React.useState<Array<boolean>>(
-    () => savedProgress.answers || []
+  const [answers, setAnswers] = React.useState<Array<boolean>>(() =>
+    savedProgress.answers && isOneHourAgo ? savedProgress.answers : []
   );
 
-  const [quizStarted, setQuizStarted] = React.useState<boolean>(
-    () => savedProgress.quizStarted
+  const [quizStarted, setQuizStarted] = React.useState<boolean>(() =>
+    savedProgress.quizStarted && isOneHourAgo
+      ? savedProgress.quizStarted
+      : false
   );
 
   const [openSnake, setOpenSnake] = React.useState<boolean>(false);
@@ -177,23 +166,33 @@ function App() {
   );
 
   const [openEndQuizDialog, setOpenEndQuizDialog] = React.useState<boolean>(
-    () => savedProgress.openEndQuizDialog
+    () =>
+      savedProgress.openEndQuizDialog && isMobileDevice
+        ? savedProgress.openEndQuizDialog
+        : false
   );
 
-  const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(
-    () => savedProgress.openStartQuizDialog
+  const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(() =>
+    savedProgress.openStartQuizDialog && isMobileDevice
+      ? savedProgress.openStartQuizDialog
+      : false
   );
 
+  console.log(savedProgress);
   const [openLocalizationDialog, setOpenLocalizationDialog] = React.useState(
     () => savedProgress?.openLocalizationDialog ?? true
   );
 
-  const [openPublishDialog, setOpenPublishDialog] = React.useState(
-    () => savedProgress.openPublishDialog
+  const [openPublishDialog, setOpenPublishDialog] = React.useState(() =>
+    savedProgress.openPublishDialog && isMobileDevice
+      ? savedProgress.openPublishDialog
+      : false
   );
 
-  const [openEditDialog, setOpenEditDialog] = React.useState(
-    () => savedProgress.openEditDialog
+  const [openEditDialog, setOpenEditDialog] = React.useState(() =>
+    savedProgress.openEditDialog && isMobileDevice
+      ? savedProgress.openEditDialog
+      : false
   );
 
   const [gameMode, setGameMode] = React.useState<GameMode | null>(
@@ -229,13 +228,13 @@ function App() {
   );
 
   const [region, setRegion] = React.useState<string>(
-    () => savedProgress.region || Region.EARTH
+    () => savedProgress.region || Region.CA_QC
   );
 
   const [isMobileDevice, setIsMobileDevice] = React.useState(false);
 
-  const [dbBirbs, setDbBirbs] = React.useState<DB_BIRBS>(
-    () => savedProgress.dbBirbs || {}
+  const [dbBirbs, setDbBirbs] = React.useState<DB_BIRBS>(() =>
+    savedProgress.dbBirbs && isOneHourAgo ? savedProgress.dbBirbs : {}
   );
 
   const startQuiz = (nbBirb: number) => {
@@ -272,6 +271,7 @@ function App() {
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
     const progress = {
+      timestamp: Date.now(),
       selectedBirbIds,
       counter,
       sequence,
@@ -299,7 +299,7 @@ function App() {
     localStorage.removeItem("birbsQuizProgress");
     localStorage.removeItem("birbsQuizV2");
     localStorage.removeItem("birbsquiz-1905");
-    localStorage.setItem("birbsquiz-2205", JSON.stringify(progress));
+    localStorage.setItem(localStorageKey, JSON.stringify(progress));
   }, [
     selectedBirbIds,
     counter,
