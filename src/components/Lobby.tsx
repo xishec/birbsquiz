@@ -543,218 +543,218 @@ function Lobby() {
           </Box>
         )}
 
-        {/* DB List */}
-        {true && (
-          <Box
-            sx={{
-              margin: "0 1.5rem",
-              marginTop: "0.5rem",
-              display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns: "1fr",
-            }}
-          >
-            <Box>
-              <FormControl fullWidth>
-                <InputLabel>List</InputLabel>
-                <Select
-                  label="List"
-                  value={currentList}
-                  onChange={(event: SelectChangeEvent) => {
-                    const key = event.target.value;
-                    setCurrentList(key);
-                  }}
-                  size="small"
-                >
-                  <MenuItem value="Custom">Custom</MenuItem>
-                  {dbListsData &&
-                    Object.entries(dbListsData)
-                      .filter(
-                        ([key, value]) =>
-                          value.favorite === FavoriteList.FAVORITE
-                      )
-                      .map(([key, value]) => {
-                        return <MenuItem value={key}>⭐️ {key}</MenuItem>;
-                      })}
-                  {dbListsData &&
-                    Object.entries(dbListsData)
-                      .filter(
-                        ([key, value]) =>
-                          value.favorite !== FavoriteList.FAVORITE &&
-                          value.creator === user?.uid
-                      )
-                      .map(([key, value]) => {
-                        return <MenuItem value={key}>✏️ {key}</MenuItem>;
-                      })}
-                  {dbListsData &&
-                    Object.entries(dbListsData)
-                      .filter(
-                        ([key, value]) =>
-                          value.favorite !== FavoriteList.FAVORITE &&
-                          value.creator !== user?.uid
-                      )
-                      .map(([key, value]) => {
-                        return <MenuItem value={key}>{key}</MenuItem>;
-                      })}
-                </Select>
-              </FormControl>
-            </Box>
-
-            {currentList === "Custom" && (
-              <Box
-                sx={{
-                  display: "grid",
-                  gap: "0.5rem",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                }}
-              >
-                <Button
-                  sx={{ height: "40px" }}
-                  disabled={selectedBirbIds.length <= 0}
-                  onClick={() =>
-                    confirmAction(
-                      "Clear Custom list",
-                      "Are you sure you want to clear your Custom list?",
-                      () => {
-                        setSelectedBirbIds([]);
-                      }
-                    )
-                  }
-                  color="error"
-                  variant="outlined"
-                >
-                  Clear
-                </Button>
-                {user && (
-                  <Button
-                    disabled={selectedBirbIds.length <= 0}
-                    sx={{ height: "40px" }}
-                    onClick={() => {
-                      setOpenPublishDialog(true);
-                    }}
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Create
-                  </Button>
-                )}
-              </Box>
-            )}
-
-            {currentList !== "Custom" && (
-              <Box
-                sx={{
-                  display: "grid",
-                  gap: "0.5rem",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                }}
-              >
-                <Button
-                  sx={{ height: "40px" }}
-                  onClick={() =>
-                    confirmAction(
-                      "Copy to Custom list",
-                      "This might overwrite your current Custom list, make sure to save your birbs",
-                      () => {
-                        setCurrentList("Custom");
-                        setCustomList(selectedBirbIds);
-                      }
-                    )
-                  }
-                  color="primary"
-                  variant="outlined"
-                >
-                  Copy
-                </Button>
-
-                {isUserList && (
-                  <Button
-                    sx={{ height: "40px" }}
-                    onClick={() => setOpenEditDialog(true)}
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Edit
-                  </Button>
-                )}
-              </Box>
-            )}
-
-            {currentList !== "Custom" &&
-              isUserList &&
-              !arraysEqual(selectedBirbIds, dbListsData[currentList]?.ids) && (
-                <Box
-                  sx={{
-                    display: "grid",
-                    gap: "0.5rem",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                  }}
-                >
-                  <Button
-                    sx={{ height: "40px" }}
-                    onClick={() =>
-                      confirmAction(
-                        "Reset unsaved changes",
-                        `Are you sure you want to reset your unsaved changes?`,
-                        () => {
-                          setSelectedBirbIds(dbListsData[currentList]?.ids!);
-                        }
-                      )
-                    }
-                    color="warning"
-                    variant="outlined"
-                  >
-                    Reset changes
-                  </Button>
-
-                  <Button
-                    sx={{ height: "40px" }}
-                    onClick={() =>
-                      confirmAction(
-                        "Save birbs to list",
-                        `Are you sure you want to update your list?`,
-                        () => {
-                          saveBirbList(
-                            currentList,
-                            dbListsData[currentList].creator
-                          );
-                        }
-                      )
-                    }
-                    color="success"
-                    variant="outlined"
-                  >
-                    Save changes
-                  </Button>
-                </Box>
-              )}
-          </Box>
-        )}
-
-        {/* Language and Quiz button */}
+        {/* Buttons */}
         <Box
           sx={{
             margin: "0 1.5rem",
+            marginTop: "0.5rem",
             display: "grid",
+            gap: "0.5rem",
             gridTemplateColumns: "1fr",
           }}
         >
+          {/* Dropdown list */}
+          <Box>
+            <FormControl fullWidth>
+              <InputLabel>List</InputLabel>
+              <Select
+                label="List"
+                value={currentList}
+                onChange={(event: SelectChangeEvent) => {
+                  const key = event.target.value;
+                  setCurrentList(key);
+                }}
+                size="small"
+              >
+                <MenuItem value="Custom">Custom</MenuItem>
+                {dbListsData &&
+                  Object.entries(dbListsData)
+                    .filter(
+                      ([key, value]) => value.favorite === FavoriteList.FAVORITE
+                    )
+                    .map(([key, value]) => {
+                      return <MenuItem value={key}>⭐️ {key}</MenuItem>;
+                    })}
+                {dbListsData &&
+                  Object.entries(dbListsData)
+                    .filter(
+                      ([key, value]) =>
+                        value.favorite !== FavoriteList.FAVORITE &&
+                        value.creator === user?.uid
+                    )
+                    .map(([key, value]) => {
+                      return <MenuItem value={key}>✏️ {key}</MenuItem>;
+                    })}
+                {dbListsData &&
+                  Object.entries(dbListsData)
+                    .filter(
+                      ([key, value]) =>
+                        value.favorite !== FavoriteList.FAVORITE &&
+                        value.creator !== user?.uid
+                    )
+                    .map(([key, value]) => {
+                      return <MenuItem value={key}>{key}</MenuItem>;
+                    })}
+              </Select>
+            </FormControl>
+          </Box>
+
+          {/* Clear and create */}
+          {currentList === "Custom" && (
+            <Box
+              sx={{
+                display: "grid",
+                gap: "0.5rem",
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+              }}
+            >
+              <Button
+                sx={{ height: "40px" }}
+                disabled={selectedBirbIds.length <= 0}
+                onClick={() =>
+                  confirmAction(
+                    "Clear Custom list",
+                    "Are you sure you want to clear your Custom list?",
+                    () => {
+                      setSelectedBirbIds([]);
+                    }
+                  )
+                }
+                color="error"
+                variant="outlined"
+              >
+                Clear
+              </Button>
+              {user && (
+                <Button
+                  disabled={selectedBirbIds.length <= 0}
+                  sx={{ height: "40px" }}
+                  onClick={() => {
+                    setOpenPublishDialog(true);
+                  }}
+                  color="primary"
+                  variant="outlined"
+                >
+                  Create
+                </Button>
+              )}
+            </Box>
+          )}
+
+          {/* Copy and edit */}
+          {currentList !== "Custom" && (
+            <Box
+              sx={{
+                display: "grid",
+                gap: "0.5rem",
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+              }}
+            >
+              <Button
+                sx={{ height: "40px" }}
+                onClick={() =>
+                  confirmAction(
+                    "Copy to Custom list",
+                    "This might overwrite your current Custom list, make sure to save your birbs",
+                    () => {
+                      setCurrentList("Custom");
+                      setCustomList(selectedBirbIds);
+                    }
+                  )
+                }
+                color="primary"
+                variant="outlined"
+              >
+                Copy
+              </Button>
+
+              {isUserList && (
+                <Button
+                  sx={{ height: "40px" }}
+                  onClick={() => setOpenEditDialog(true)}
+                  color="primary"
+                  variant="outlined"
+                >
+                  Edit
+                </Button>
+              )}
+            </Box>
+          )}
+
+          {/* Reset and save */}
+          {currentList !== "Custom" &&
+            isUserList &&
+            !arraysEqual(selectedBirbIds, dbListsData[currentList]?.ids) && (
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                }}
+              >
+                <Button
+                  sx={{ height: "40px" }}
+                  onClick={() =>
+                    confirmAction(
+                      "Reset unsaved changes",
+                      `Are you sure you want to reset your unsaved changes?`,
+                      () => {
+                        setSelectedBirbIds(dbListsData[currentList]?.ids!);
+                      }
+                    )
+                  }
+                  color="warning"
+                  variant="outlined"
+                >
+                  Reset changes
+                </Button>
+
+                <Button
+                  sx={{ height: "40px" }}
+                  onClick={() =>
+                    confirmAction(
+                      "Save birbs to list",
+                      `Are you sure you want to update your list?`,
+                      () => {
+                        saveBirbList(
+                          currentList,
+                          dbListsData[currentList].creator
+                        );
+                      }
+                    )
+                  }
+                  color="success"
+                  variant="outlined"
+                >
+                  Save changes
+                </Button>
+              </Box>
+            )}
+
+          {/* Quiz button */}
           <Box
             sx={{
               display: "grid",
               gridTemplateColumns: "1fr",
             }}
           >
-            <Button
-              sx={{ height: "40px" }}
-              variant="contained"
-              onClick={() => setOpenStartQuizDialog(true)}
-              disabled={selectedBirbIds.length <= 0}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+              }}
             >
-              {`Quiz ${selectedBirbIds.length} birb${
-                selectedBirbIds.length === 1 ? "" : "s"
-              }`}
-            </Button>
+              <Button
+                sx={{ height: "40px" }}
+                variant="contained"
+                onClick={() => setOpenStartQuizDialog(true)}
+                disabled={selectedBirbIds.length <= 0}
+              >
+                {`Quiz ${selectedBirbIds.length} birb${
+                  selectedBirbIds.length === 1 ? "" : "s"
+                }`}
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
