@@ -9,7 +9,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 import LanguageIcon from "@mui/icons-material/Language";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
   Box,
   Button,
@@ -19,7 +18,6 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import StyledChip from "./StyledChip";

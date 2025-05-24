@@ -128,7 +128,7 @@ function App() {
 
   const oneHour = 3600000;
   const isOneHourAgo =
-    savedProgress.counter !== undefined &&
+    savedProgress.timestamp !== undefined &&
     Date.now() - savedProgress.timestamp < oneHour;
 
   const [counter, setCounter] = React.useState<number>(() =>
