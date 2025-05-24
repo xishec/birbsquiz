@@ -475,7 +475,7 @@ function App() {
 
           <Snackbar
             open={openSnake}
-            autoHideDuration={5000}
+            autoHideDuration={1000}
             onClose={() => {
               setOpenSnake(false);
               setSnakeMessage("");
