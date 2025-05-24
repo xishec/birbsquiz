@@ -326,7 +326,7 @@ function App() {
     dbBirbs,
   ]);
 
-  const css_height_90 = "calc(var(--vh, 1vh) * 90)";
+  const css_height_90 = "calc(var(--vh, 1vh) * 93)";
 
   useEffect(() => {
     const handleResize = () => {
@@ -481,7 +481,7 @@ function App() {
               setSnakeMessage("");
             }}
             message={snakeMessage}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           />
         </Box>
       </QuizContext.Provider>

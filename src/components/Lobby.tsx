@@ -16,7 +16,6 @@ import {
   FormControl,
   IconButton,
   InputLabel,
-  Link,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -24,8 +23,6 @@ import {
   Typography,
 } from "@mui/material";
 import StyledChip from "./StyledChip";
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, database, signInWithGoogle } from "../firebaseDatabaseConfig";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
@@ -138,6 +135,8 @@ function Lobby() {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       if (u) {
         setUser(u);
+        setSnakeMessage(`Hello ${u.email}, welcome to Birbsquiz!`);
+        setOpenSnake(true);
         get(ref(database, `admin/${u.uid}`))
           .then((snapshot) => {
             if (snapshot.exists()) {
@@ -149,6 +148,9 @@ function Lobby() {
           });
       } else {
         setUser(null);
+        setIsAdmin(false);
+        setSnakeMessage(`Logged out successfully`);
+        setOpenSnake(true);
       }
     });
     return () => unsubscribe();
@@ -298,7 +300,7 @@ function Lobby() {
           minHeight: 0,
           gridTemplateColumns: "1fr",
           gridTemplateRows: "auto auto 1fr auto",
-          gap: "0.5rem",
+          gap: "1rem",
           marginTop: "1rem",
         }}
       >
@@ -321,7 +323,7 @@ function Lobby() {
         {/* title */}
         <Box
           sx={{
-            margin: "0.25rem 1.5rem",
+            margin: "0rem 1.5rem",
             display: "grid",
             alignItems: "center",
             gridTemplateColumns: "auto auto",
@@ -330,7 +332,7 @@ function Lobby() {
           <Typography
             onClick={() => window.location.reload()}
             sx={{
-              fontSize: isMobileDevice ? "1.75rem" : "3rem",
+              fontSize: isMobileDevice ? "2rem" : "3rem",
               fontWeight: "200",
               justifySelf: "start",
               cursor: "pointer",
@@ -354,31 +356,15 @@ function Lobby() {
             sx={{
               justifySelf: "end",
               display: "grid",
-              gridTemplateColumns: "auto auto",
+              gridTemplateColumns: "auto",
               alignItems: "center",
             }}
           >
-            {user && (
-              <Tooltip
-                placement="left"
-                enterDelay={0}
-                leaveDelay={0}
-                enterTouchDelay={0}
-                leaveTouchDelay={0}
-                title={user ? user.email : "Login to save your lists :)"}
-                sx={{ justifySelf: "end", marginBottom: "0.05rem" }}
-              >
-                <IconButton>
-                  <InfoOutlinedIcon color="primary" fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            )}
-
             {!user && (
               <Button
                 variant="text"
                 onClick={signInWithGoogle}
-                endIcon={<LoginIcon />}
+                // endIcon={<LoginIcon />}
                 size="small"
               >
                 Login
@@ -388,12 +374,28 @@ function Lobby() {
               <Button
                 variant="text"
                 onClick={() => signOut(auth)}
-                endIcon={<LogoutIcon />}
+                // endIcon={<LogoutIcon />}
                 size="small"
               >
                 Logout
               </Button>
             )}
+            {/* 
+            {user && (
+              <Tooltip
+                placement="left"
+                enterDelay={0}
+                leaveDelay={0}
+                enterTouchDelay={0}
+                leaveTouchDelay={0}
+                title={user ? user.email : "Login to save your lists :)"}
+                sx={{ justifySelf: "end", marginBottom: "0.25rem" }}
+              >
+                <IconButton>
+                  <InfoOutlinedIcon color="primary" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            )} */}
           </Box>
         </Box>
 
@@ -402,7 +404,7 @@ function Lobby() {
           sx={{
             margin: "0 1.5rem",
             display: "grid",
-            gridTemplateColumns: "auto 1fr",
+            gridTemplateColumns: "auto 1fr auto",
           }}
         >
           <Box sx={{ justifySelf: "end" }}>
@@ -512,7 +514,7 @@ function Lobby() {
                       }`}
                     variant="outlined"
                     onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-                    onDelete={() => deleteBirb(birbId)}
+                    onDelete={isUserList ? () => deleteBirb(birbId) : undefined}
                   />
                 </Box>
               ))}
@@ -658,7 +660,7 @@ function Lobby() {
                   color="primary"
                   variant="outlined"
                 >
-                  Copy to Custom
+                  Copy
                 </Button>
 
                 {isUserList && (
