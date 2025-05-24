@@ -603,6 +603,7 @@ function Lobby() {
               >
                 <Button
                   sx={{ height: "40px" }}
+                  disabled={selectedBirbIds.length <= 0}
                   onClick={() =>
                     confirmAction(
                       "Clear Custom list",

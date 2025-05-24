@@ -178,7 +178,7 @@ function App() {
       : false
   );
 
-  console.log(savedProgress);
+  // console.log(savedProgress);
   const [openLocalizationDialog, setOpenLocalizationDialog] = React.useState(
     () => savedProgress?.openLocalizationDialog ?? true
   );
