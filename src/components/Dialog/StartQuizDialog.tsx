@@ -170,7 +170,7 @@ function StartQuizDialog() {
                   label="Region"
                   value={region}
                   onChange={(event: SelectChangeEvent) => {
-                    const key = event.target.value;
+                    const key = event.target.value as Region;
                     setRegion(key);
                   }}
                   size="small"

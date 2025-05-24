@@ -40,53 +40,53 @@ export type QuizContextType = {
     }
   >;
   regionList: Record<string, string[]>;
-  sequence: Array<string>;
+  sequence: string[];
   randomSeed: number;
   counter: number;
   birbEmoji: string;
-  selectedBirbIds: Array<string>;
-  answers: Array<boolean>;
-  showAnswers: Array<boolean>;
+  selectedBirbIds: string[];
+  answers: boolean[];
+  showAnswers: boolean[];
   endQuiz: () => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
-  setAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
-  setShowAnswers: React.Dispatch<React.SetStateAction<Array<boolean>>>;
+  setAnswers: React.Dispatch<React.SetStateAction<boolean[]>>;
+  setShowAnswers: React.Dispatch<React.SetStateAction<boolean[]>>;
   css_height_90: string;
   gameMode: GameMode | null;
-  setSelectedBirbIds: React.Dispatch<any>;
-  setOpenStartQuizDialog: React.Dispatch<any>;
-  setOpenSnake: React.Dispatch<any>;
-  setSnakeMessage: React.Dispatch<any>;
+  setSelectedBirbIds: React.Dispatch<React.SetStateAction<string[]>>;
+  setOpenStartQuizDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenSnake: React.Dispatch<React.SetStateAction<boolean>>;
+  setSnakeMessage: React.Dispatch<React.SetStateAction<string>>;
   currentList: string;
-  setCurrentList: React.Dispatch<any>;
-  customList: Array<string>;
-  setCustomList: React.Dispatch<any>;
-  setQuizStarted: React.Dispatch<any>;
-  setGameMode: React.Dispatch<any>;
+  setCurrentList: React.Dispatch<React.SetStateAction<string>>;
+  customList: string[];
+  setCustomList: React.Dispatch<React.SetStateAction<string[]>>;
+  setQuizStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  setGameMode: React.Dispatch<React.SetStateAction<GameMode | null>>;
   openStartQuizDialog: boolean;
   startQuiz: (nbBirb: number) => void;
   openEndQuizDialog: boolean;
-  setOpenEndQuizDialog: React.Dispatch<any>;
+  setOpenEndQuizDialog: React.Dispatch<React.SetStateAction<boolean>>;
   songCheckbox: boolean;
-  setSongCheckbox: React.Dispatch<any>;
+  setSongCheckbox: React.Dispatch<React.SetStateAction<boolean>>;
   callCheckbox: boolean;
-  setCallCheckbox: React.Dispatch<any>;
+  setCallCheckbox: React.Dispatch<React.SetStateAction<boolean>>;
   language: Language;
-  setLanguage: React.Dispatch<any>;
+  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
   eBirdNameProperty: EBirdNameProperty;
   sliderValue: number;
-  setSliderValue: React.Dispatch<any>;
-  region: string;
-  setRegion: React.Dispatch<any>;
+  setSliderValue: React.Dispatch<React.SetStateAction<number>>;
+  region: Region;
+  setRegion: React.Dispatch<React.SetStateAction<Region>>;
   isMobileDevice: boolean;
   openLocalizationDialog: boolean;
-  setOpenLocalizationDialog: React.Dispatch<any>;
+  setOpenLocalizationDialog: React.Dispatch<React.SetStateAction<boolean>>;
   openPublishDialog: boolean;
-  setOpenPublishDialog: React.Dispatch<any>;
+  setOpenPublishDialog: React.Dispatch<React.SetStateAction<boolean>>;
   openEditDialog: boolean;
-  setOpenEditDialog: React.Dispatch<any>;
+  setOpenEditDialog: React.Dispatch<React.SetStateAction<boolean>>;
   dbBirbs: DB_BIRBS;
-  setDbBirbs: React.Dispatch<any>;
+  setDbBirbs: React.Dispatch<React.SetStateAction<DB_BIRBS>>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -227,7 +227,7 @@ function App() {
     () => savedProgress.sliderValue || selectedBirbIds.length
   );
 
-  const [region, setRegion] = React.useState<string>(
+  const [region, setRegion] = React.useState<Region>(
     () => savedProgress.region || Region.CA_QC
   );
 

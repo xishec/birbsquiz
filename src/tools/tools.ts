@@ -1,6 +1,6 @@
 import { get, ref, set } from "firebase/database";
 import { database } from "../firebaseDatabaseConfig";
-import { AudioType, FavoriteList, Sex } from "./constants";
+import { AudioType, FavoriteList, Region, Sex } from "./constants";
 
 export type UrlWithMetadata = { url: string; location: string; author: string };
 
@@ -234,7 +234,7 @@ export type DB_LIST = {
   creator: string;
   favorite: FavoriteList;
   ids: string[];
-  region: string;
+  region: Region;
 };
 
 export const arraysEqual = (a: string[], b: string[] = []) => {

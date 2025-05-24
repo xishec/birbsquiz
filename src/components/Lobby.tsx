@@ -56,6 +56,7 @@ function Lobby() {
     setCustomList,
     eBirdNameProperty,
     region,
+    setRegion,
     setOpenLocalizationDialog,
     setOpenPublishDialog,
     setOpenEditDialog,
@@ -107,7 +108,7 @@ function Lobby() {
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {
-        let data = snapshot.val();
+        let data: DB_LISTS = snapshot.val();
         if (!data) {
           data = {};
           set(listRef, data)
@@ -116,14 +117,16 @@ function Lobby() {
             )
             .catch((error) => console.error("Error creating v2/lists:", error));
         }
+        console.log("dbListsData", data, data[currentList].region);
         setDbListsData(data);
+        setRegion(data[currentList].region);
       })
       .catch((error) => {
         console.error("Error reading birb list:", error);
         setSnakeMessage("Erreur lors du chargement de la liste!");
         setOpenSnake(true);
       });
-  }, [setOpenSnake, setSnakeMessage, setDbListsData]);
+  }, []);
 
   useEffect(() => {
     loadBirbList();
@@ -219,11 +222,15 @@ function Lobby() {
     // });
   };
 
-  const saveBirbList = (newListName: string, user: User, favorite?: string) => {
+  const saveBirbList = (
+    newListName: string,
+    userId: string,
+    favorite?: string
+  ) => {
     const listRef = ref(database, `v2/lists/${newListName}`);
     set(listRef, {
       name: newListName,
-      creator: user.uid,
+      creator: userId,
       ids: selectedBirbIds,
       region: region,
       ...(favorite !== undefined ? { favorite } : {}),
@@ -274,7 +281,7 @@ function Lobby() {
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
         saveBirbList={(listName: string, favorite: string) =>
-          saveBirbList(listName, user!, favorite)
+          saveBirbList(listName, user!.uid, favorite)
         }
       />
       <EditDialog
@@ -283,7 +290,7 @@ function Lobby() {
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
         saveBirbList={(listName: string, favorite: string) =>
-          saveBirbList(listName, user!, favorite)
+          saveBirbList(listName, dbListsData[listName].creator, favorite)
         }
         deleteBirbList={deleteBirbList}
       />
@@ -707,7 +714,10 @@ function Lobby() {
                         "Save birbs to list",
                         `Are you sure you want to update your list?`,
                         () => {
-                          saveBirbList(currentList, user!);
+                          saveBirbList(
+                            currentList,
+                            dbListsData[currentList].creator
+                          );
                         }
                       )
                     }

@@ -59,7 +59,7 @@ function LocalizationDialog() {
                 label="Region"
                 value={region}
                 onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value;
+                  const key = event.target.value as Region;
                   setRegion(key);
                 }}
                 size="small"
@@ -88,7 +88,7 @@ function LocalizationDialog() {
                 value={language}
                 label="Language"
                 onChange={(event: SelectChangeEvent) =>
-                  setLanguage(event.target.value)
+                  setLanguage(event.target.value as Language)
                 }
                 size="small"
               >
