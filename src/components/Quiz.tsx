@@ -21,7 +21,6 @@ import {
   Sex,
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
-import { set } from "firebase/database";
 
 function Quiz() {
   const quizContext = useContext(QuizContext);

@@ -167,13 +167,13 @@ function App() {
 
   const [openEndQuizDialog, setOpenEndQuizDialog] = React.useState<boolean>(
     () =>
-      savedProgress.openEndQuizDialog && isMobileDevice
+      savedProgress.openEndQuizDialog && isOneHourAgo
         ? savedProgress.openEndQuizDialog
         : false
   );
 
   const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(() =>
-    savedProgress.openStartQuizDialog && isMobileDevice
+    savedProgress.openStartQuizDialog && isOneHourAgo
       ? savedProgress.openStartQuizDialog
       : false
   );
@@ -184,13 +184,13 @@ function App() {
   );
 
   const [openPublishDialog, setOpenPublishDialog] = React.useState(() =>
-    savedProgress.openPublishDialog && isMobileDevice
+    savedProgress.openPublishDialog && isOneHourAgo
       ? savedProgress.openPublishDialog
       : false
   );
 
   const [openEditDialog, setOpenEditDialog] = React.useState(() =>
-    savedProgress.openEditDialog && isMobileDevice
+    savedProgress.openEditDialog && isOneHourAgo
       ? savedProgress.openEditDialog
       : false
   );
@@ -329,15 +329,15 @@ function App() {
   const css_height_90 = "calc(var(--vh, 1vh) * 90)";
 
   useEffect(() => {
-    setIsMobileDevice(window.innerWidth <= 800);
-    // console.log("isMobileDevice", window.innerWidth <= 800);
-    const setVh = () => {
+    const handleResize = () => {
+      setIsMobileDevice(window.innerWidth <= 800);
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-    setVh();
-    window.addEventListener("resize", setVh);
-    return () => window.removeEventListener("resize", setVh);
+    // Initialize on mount
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (

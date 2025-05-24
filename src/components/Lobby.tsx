@@ -64,6 +64,7 @@ function Lobby() {
     setOpenLocalizationDialog,
     setOpenPublishDialog,
     setOpenEditDialog,
+    isMobileDevice,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
@@ -320,7 +321,7 @@ function Lobby() {
         {/* title */}
         <Box
           sx={{
-            margin: "0 1.5rem",
+            margin: "0.25rem 1.5rem",
             display: "grid",
             alignItems: "center",
             gridTemplateColumns: "auto auto",
@@ -329,7 +330,7 @@ function Lobby() {
           <Typography
             onClick={() => window.location.reload()}
             sx={{
-              fontSize: "2.5rem",
+              fontSize: isMobileDevice ? "1.75rem" : "3rem",
               fontWeight: "200",
               justifySelf: "start",
               cursor: "pointer",
