@@ -175,7 +175,9 @@ function StartQuizDialog() {
                   }}
                   size="small"
                 >
-                  <MenuItem key={Region.EARTH} value={Region.EARTH}>{Region.EARTH}</MenuItem>
+                  <MenuItem key={Region.EARTH} value={Region.EARTH}>
+                    {Region.EARTH}
+                  </MenuItem>
                   {regionList &&
                     Object.keys(regionList)
                       .filter((key) => key !== Region.EARTH)
@@ -198,7 +200,7 @@ function StartQuizDialog() {
                 enterTouchDelay={0}
                 leaveTouchDelay={0}
                 title={
-                  "Show your local birbs (if a selected birb isn't available in your region, we will default back to a EARTH version)"
+                  "If a selected birb isn't available in your region, we will default back to a EARTH version"
                 }
               >
                 <IconButton>

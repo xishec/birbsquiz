@@ -47,7 +47,7 @@ export const fetchAudioForOne = async (
   id: string,
   region: string
 ): Promise<BirdAudio | null> => {
-  const dbRef = ref(database, `v2/birds/${id}/${region}/audio`);
+  const dbRef = ref(database, `v2/birbs/${id}/${region}/audio`);
   try {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) return snapshot.val() as BirdAudio;
@@ -124,7 +124,7 @@ export const fetchImageForOne = async (
   id: string,
   region: string
 ): Promise<BirdImage | null> => {
-  const dbRef = ref(database, `v2/birds/${id}/${region}/image`);
+  const dbRef = ref(database, `v2/birbs/${id}/${region}/image`);
   try {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) return snapshot.val() as BirdImage;
