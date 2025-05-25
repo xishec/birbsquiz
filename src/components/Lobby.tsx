@@ -139,8 +139,11 @@ function Lobby() {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       if (u) {
         setUser(u);
-        setSnakeMessage(`Hello ${u.email}, welcome to Birbsquiz!`);
-        setOpenSnake(true);
+        if (!sessionStorage.getItem("greeted")) {
+          setSnakeMessage(`Hello ${u.email}, welcome to Birbsquiz!`);
+          setOpenSnake(true);
+          sessionStorage.setItem("greeted", "true");
+        }
         get(ref(database, `admin/${u.uid}`))
           .then((snapshot) => {
             if (snapshot.exists()) {
@@ -153,9 +156,11 @@ function Lobby() {
       } else {
         setUser(null);
         setIsAdmin(false);
+        sessionStorage.removeItem("greeted");
       }
     });
     return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addBirb = useCallback(
@@ -565,14 +570,18 @@ function Lobby() {
               <InputLabel>List</InputLabel>
               <Select
                 label="List"
-                value={currentList}
+                value={
+                  ["Custom", ...Object.keys(dbListsData)].includes(currentList)
+                    ? currentList
+                    : "Custom"
+                }
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
                   setCurrentList(key);
                 }}
                 size="small"
               >
-                <MenuItem key="custom" value="Custom">
+                <MenuItem key="Custom" value="Custom">
                   Custom
                 </MenuItem>
                 {dbListsData &&
@@ -580,13 +589,11 @@ function Lobby() {
                     .filter(
                       ([key, value]) => value.favorite === FavoriteList.FAVORITE
                     )
-                    .map(([key, value]) => {
-                      return (
-                        <MenuItem key={key} value={key}>
-                          ⭐️ {key}
-                        </MenuItem>
-                      );
-                    })}
+                    .map(([key, value]) => (
+                      <MenuItem key={key} value={key}>
+                        ⭐️ {key}
+                      </MenuItem>
+                    ))}
                 {dbListsData &&
                   Object.entries(dbListsData)
                     .filter(
@@ -594,13 +601,11 @@ function Lobby() {
                         value.favorite !== FavoriteList.FAVORITE &&
                         value.creator === user?.uid
                     )
-                    .map(([key, value]) => {
-                      return (
-                        <MenuItem key={key} value={key}>
-                          ✏️ {key}
-                        </MenuItem>
-                      );
-                    })}
+                    .map(([key, value]) => (
+                      <MenuItem key={key} value={key}>
+                        ✏️ {key}
+                      </MenuItem>
+                    ))}
                 {dbListsData &&
                   Object.entries(dbListsData)
                     .filter(
@@ -608,13 +613,11 @@ function Lobby() {
                         value.favorite !== FavoriteList.FAVORITE &&
                         value.creator !== user?.uid
                     )
-                    .map(([key, value]) => {
-                      return (
-                        <MenuItem key={key} value={key}>
-                          {key}
-                        </MenuItem>
-                      );
-                    })}
+                    .map(([key, value]) => (
+                      <MenuItem key={key} value={key}>
+                        {key}
+                      </MenuItem>
+                    ))}
               </Select>
             </FormControl>
           </Box>

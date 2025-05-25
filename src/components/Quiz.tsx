@@ -96,7 +96,7 @@ function Quiz() {
 
   useEffect(() => {
     setBirbId(sequence[counter]);
-    console.log("birbId", sequence[counter]);
+    console.log("birbId is", sequence[counter]);
   }, [counter, selectedBirbIds, sequence]);
 
   const fetchAndSetAudioSources = () => {
@@ -326,6 +326,7 @@ function Quiz() {
 
           return (
             <Box
+              key={`image-box-${birbId}-${sex}`}
               sx={{
                 justifySelf: "center",
               }}

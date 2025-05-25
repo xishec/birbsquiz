@@ -143,9 +143,15 @@ function StartQuizDialog() {
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1rem" }}>
         {!shouldShowLoading && (
-          <Typography variant="h5">Start a quiz</Typography>
+          <Typography variant="h5" component="span">
+            Start a quiz
+          </Typography>
         )}
-        {shouldShowLoading && <Typography variant="h5">Loading...</Typography>}
+        {shouldShowLoading && (
+          <Typography variant="h5" component="span">
+            Loading...
+          </Typography>
+        )}
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         {!shouldShowLoading && (
