@@ -106,18 +106,18 @@ function App() {
     const saved = localStorage.getItem(localStorageKey);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        return JSON.parse(saved) as Progress;
       } catch (e) {
         console.error("Error parsing progress:", e);
       }
     }
-    return {};
+    return null;
   };
 
-  const savedProgress = loadProgress();
+  const savedProgress: Progress | null = loadProgress();
 
   const [selectedBirbIds, setSelectedBirbIds] = React.useState<Array<string>>(
-    () => savedProgress.selectedBirbIds || []
+    () => savedProgress?.selectedBirbIds || []
   );
 
   useEffect(() => {
@@ -128,32 +128,32 @@ function App() {
 
   const oneHour = 3600000;
   const isOneHourAgo =
-    savedProgress.timestamp !== undefined &&
-    Date.now() - savedProgress.timestamp < oneHour;
+    savedProgress?.timestamp !== undefined &&
+    Date.now() - savedProgress?.timestamp < oneHour;
 
   const [counter, setCounter] = React.useState<number>(() =>
-    savedProgress.counter && isOneHourAgo ? savedProgress.counter : 0
+    savedProgress?.counter && isOneHourAgo ? savedProgress?.counter : 0
   );
 
   const [sequence, setSequence] = React.useState<Array<string>>(() =>
-    savedProgress.sequence && isOneHourAgo ? savedProgress.sequence : []
+    savedProgress?.sequence && isOneHourAgo ? savedProgress?.sequence : []
   );
 
   const [randomSeed, setRandomSeed] = React.useState<number>(() =>
-    savedProgress.randomSeed && isOneHourAgo ? savedProgress.randomSeed : 0
+    savedProgress?.randomSeed && isOneHourAgo ? savedProgress?.randomSeed : 0
   );
 
   const [showAnswers, setShowAnswers] = React.useState<Array<boolean>>(() =>
-    savedProgress.showAnswers && isOneHourAgo ? savedProgress.showAnswers : []
+    savedProgress?.showAnswers && isOneHourAgo ? savedProgress?.showAnswers : []
   );
 
   const [answers, setAnswers] = React.useState<Array<boolean>>(() =>
-    savedProgress.answers && isOneHourAgo ? savedProgress.answers : []
+    savedProgress?.answers && isOneHourAgo ? savedProgress?.answers : []
   );
 
   const [quizStarted, setQuizStarted] = React.useState<boolean>(() =>
-    savedProgress.quizStarted && isOneHourAgo
-      ? savedProgress.quizStarted
+    savedProgress?.quizStarted && isOneHourAgo
+      ? savedProgress?.quizStarted
       : false
   );
 
@@ -167,14 +167,14 @@ function App() {
 
   const [openEndQuizDialog, setOpenEndQuizDialog] = React.useState<boolean>(
     () =>
-      savedProgress.openEndQuizDialog && isOneHourAgo
-        ? savedProgress.openEndQuizDialog
+      savedProgress?.openEndQuizDialog && isOneHourAgo
+        ? savedProgress?.openEndQuizDialog
         : false
   );
 
   const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState(() =>
-    savedProgress.openStartQuizDialog && isOneHourAgo
-      ? savedProgress.openStartQuizDialog
+    savedProgress?.openStartQuizDialog && isOneHourAgo
+      ? savedProgress?.openStartQuizDialog
       : false
   );
 
@@ -184,57 +184,61 @@ function App() {
   );
 
   const [openPublishDialog, setOpenPublishDialog] = React.useState(() =>
-    savedProgress.openPublishDialog && isOneHourAgo
-      ? savedProgress.openPublishDialog
+    savedProgress?.openPublishDialog && isOneHourAgo
+      ? savedProgress?.openPublishDialog
       : false
   );
 
   const [openEditDialog, setOpenEditDialog] = React.useState(() =>
-    savedProgress.openEditDialog && isOneHourAgo
-      ? savedProgress.openEditDialog
+    savedProgress?.openEditDialog && isOneHourAgo
+      ? savedProgress?.openEditDialog
       : false
   );
 
   const [gameMode, setGameMode] = React.useState<GameMode | null>(
-    () => savedProgress.gameMode || null
+    () => savedProgress?.gameMode ?? null
   );
 
   const [currentList, setCurrentList] = React.useState<string>(
-    () => savedProgress.currentList || "Custom"
+    () => savedProgress?.currentList ?? "Custom"
   );
 
   const [customList, setCustomList] = React.useState<Array<string>>(
-    () => savedProgress.customList || []
+    () => savedProgress?.customList ?? []
   );
 
   const [songCheckbox, setSongCheckbox] = React.useState(
-    () => savedProgress.songCheckbox
+    () => savedProgress?.songCheckbox ?? true
   );
 
   const [callCheckbox, setCallCheckbox] = React.useState(
-    () => savedProgress.callCheckbox
+    () => savedProgress?.callCheckbox ?? false
   );
 
   const [language, setLanguage] = React.useState(
-    () => savedProgress.language || Language.FR
+    () => savedProgress?.language ?? Language.FR
   );
 
   const [eBirdNameProperty, setEBridNameProperty] = React.useState(
-    () => savedProgress.eBirdNameProperty || EBirdNameProperty.COMMON_NAME_FR
+    () => savedProgress?.eBirdNameProperty ?? EBirdNameProperty.COMMON_NAME_FR
   );
 
   const [sliderValue, setSliderValue] = React.useState<number>(
-    () => savedProgress.sliderValue || selectedBirbIds.length
+    () => savedProgress?.sliderValue ?? selectedBirbIds.length
   );
 
-  const [region, setRegion] = React.useState<Region>(
-    () => savedProgress.region || Region.CA_QC
+  // Update region state to validate the saved value
+  const [region, setRegion] = React.useState<Region>(() =>
+    savedProgress?.region &&
+    Object.values(Region).includes(savedProgress.region)
+      ? savedProgress.region
+      : Region.CA_QC
   );
 
   const [isMobileDevice, setIsMobileDevice] = React.useState(false);
 
   const [dbBirbs, setDbBirbs] = React.useState<DB_BIRBS>(() =>
-    savedProgress.dbBirbs && isOneHourAgo ? savedProgress.dbBirbs : {}
+    savedProgress?.dbBirbs && isOneHourAgo ? savedProgress?.dbBirbs : {}
   );
 
   const startQuiz = (nbBirb: number) => {
@@ -268,9 +272,36 @@ function App() {
     }
   }, [language]);
 
+  type Progress = {
+    timestamp: number;
+    selectedBirbIds: string[];
+    counter: number;
+    sequence: string[];
+    randomSeed: number;
+    showAnswers: boolean[];
+    answers: boolean[];
+    quizStarted: boolean;
+    openEndQuizDialog: boolean;
+    openStartQuizDialog: boolean;
+    openLocalizationDialog: boolean;
+    openPublishDialog: boolean;
+    openEditDialog: boolean;
+    gameMode: GameMode | null;
+    currentList: string;
+    customList: string[];
+    songCheckbox: boolean;
+    callCheckbox: boolean;
+    language: Language;
+    eBirdNameProperty: EBirdNameProperty;
+    sliderValue: number;
+    region: Region;
+    isMobileDevice: boolean;
+    dbBirbs: DB_BIRBS;
+  };
+
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
-    const progress = {
+    const progress: Progress = {
       timestamp: Date.now(),
       selectedBirbIds,
       counter,

@@ -117,13 +117,16 @@ function Lobby() {
             )
             .catch((error) => console.error("Error creating v2/lists:", error));
         }
-        console.log("dbListsData", data, data[currentList].region);
         setDbListsData(data);
-        setRegion(data[currentList].region);
+
+        // if list invalid, set to Custom
+        if (!data[currentList]) {
+          setCurrentList("Custom");
+        }
       })
       .catch((error) => {
         console.error("Error reading birb list:", error);
-        setSnakeMessage("Erreur lors du chargement de la liste!");
+        setSnakeMessage(error.message);
         setOpenSnake(true);
       });
   }, []);

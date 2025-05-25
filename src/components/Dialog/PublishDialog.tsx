@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
-import { FavoriteList, Region } from "../../tools/constants";
+import { FavoriteList } from "../../tools/constants";
 
 function PublishDialog({
   isAdmin,
@@ -37,13 +37,7 @@ function PublishDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const {
-    openPublishDialog,
-    setOpenPublishDialog,
-    region,
-    setRegion,
-    regionList,
-  } = quizContext;
+  const { openPublishDialog, setOpenPublishDialog } = quizContext;
 
   return (
     <Dialog
@@ -91,7 +85,7 @@ function PublishDialog({
             }
           />
 
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+          {/* <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
             <FormControl fullWidth>
               <InputLabel>Region</InputLabel>{" "}
               <Select
@@ -118,7 +112,7 @@ function PublishDialog({
                     })}
               </Select>
             </FormControl>
-          </Box>
+          </Box> */}
 
           {isAdmin && (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>

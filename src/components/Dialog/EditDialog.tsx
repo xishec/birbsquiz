@@ -37,8 +37,7 @@ function EditDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openEditDialog, setOpenEditDialog, region, setRegion, regionList } =
-    quizContext;
+  const { openEditDialog, setOpenEditDialog } = quizContext;
 
   const [newListName, setNewListName] = React.useState<string>(currentList);
 
@@ -114,7 +113,7 @@ function EditDialog({
             }
           />
 
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
+          {/* <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
             <FormControl fullWidth>
               <InputLabel>Region</InputLabel>{" "}
               <Select
@@ -141,7 +140,7 @@ function EditDialog({
                     })}
               </Select>
             </FormControl>
-          </Box>
+          </Box> */}
 
           {isAdmin && (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>

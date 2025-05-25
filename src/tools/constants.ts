@@ -32,9 +32,9 @@ export enum FavoriteList {
 }
 
 export enum Region {
-  US_CA = "US-CA",
-  CA_QC = "CA-QC",
-  US_FL = "US-FL",
-  CA_BC = "CA-BC",
-  EARTH = "EARTH",
+  US_CA = "California",
+  CA_QC = "Quebec",
+  US_FL = "Florida",
+  CA_BC = "British Columbia",
+  EARTH = "Earth",
 }
