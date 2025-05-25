@@ -64,7 +64,9 @@ function LocalizationDialog() {
                 }}
                 size="small"
               >
-                <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
+                <MenuItem key={Region.EARTH} value={Region.EARTH}>
+                  {Region.EARTH}
+                </MenuItem>
                 {regionList &&
                   Object.keys(regionList)
                     .filter((key) => key !== Region.EARTH)

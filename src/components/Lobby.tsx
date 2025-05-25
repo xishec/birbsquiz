@@ -495,7 +495,10 @@ function Lobby() {
           >
             {selectedBirbIds.length > 0 &&
               selectedBirbIds.map((birbId, i) => (
-                <Box sx={{ height: "100%", width: "100%" }}>
+                <Box
+                  key={`chip-${birbId}`}
+                  sx={{ height: "100%", width: "100%" }}
+                >
                   <StyledChip
                     sx={{
                       width: "100%",
@@ -569,14 +572,20 @@ function Lobby() {
                 }}
                 size="small"
               >
-                <MenuItem value="Custom">Custom</MenuItem>
+                <MenuItem key="custom" value="Custom">
+                  Custom
+                </MenuItem>
                 {dbListsData &&
                   Object.entries(dbListsData)
                     .filter(
                       ([key, value]) => value.favorite === FavoriteList.FAVORITE
                     )
                     .map(([key, value]) => {
-                      return <MenuItem value={key}>⭐️ {key}</MenuItem>;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          ⭐️ {key}
+                        </MenuItem>
+                      );
                     })}
                 {dbListsData &&
                   Object.entries(dbListsData)
@@ -586,7 +595,11 @@ function Lobby() {
                         value.creator === user?.uid
                     )
                     .map(([key, value]) => {
-                      return <MenuItem value={key}>✏️ {key}</MenuItem>;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          ✏️ {key}
+                        </MenuItem>
+                      );
                     })}
                 {dbListsData &&
                   Object.entries(dbListsData)
@@ -596,7 +609,11 @@ function Lobby() {
                         value.creator !== user?.uid
                     )
                     .map(([key, value]) => {
-                      return <MenuItem value={key}>{key}</MenuItem>;
+                      return (
+                        <MenuItem key={key} value={key}>
+                          {key}
+                        </MenuItem>
+                      );
                     })}
               </Select>
             </FormControl>

@@ -241,3 +241,8 @@ export const arraysEqual = (a: string[], b: string[] = []) => {
   if (a.length !== b.length) return false;
   return a.every((item, index) => item === b[index]);
 };
+
+export const isValidEnumValue = <T extends object>(
+  enumObj: T,
+  value: any
+): value is T[keyof T] => Object.values(enumObj).includes(value);

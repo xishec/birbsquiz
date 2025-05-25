@@ -155,10 +155,16 @@ function EditDialog({
                   }}
                   size="small"
                 >
-                  <MenuItem value={FavoriteList.FAVORITE}>
+                  <MenuItem
+                    key={FavoriteList.FAVORITE}
+                    value={FavoriteList.FAVORITE}
+                  >
                     {FavoriteList.FAVORITE}
                   </MenuItem>
-                  <MenuItem value={FavoriteList.NORMAL}>
+                  <MenuItem
+                    key={FavoriteList.NORMAL}
+                    value={FavoriteList.NORMAL}
+                  >
                     {FavoriteList.NORMAL}
                   </MenuItem>
                 </Select>
