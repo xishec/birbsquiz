@@ -26,7 +26,12 @@ import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import { AudioType, FavoriteList, Region } from "../tools/constants";
+import {
+  AudioType,
+  FavoriteList,
+  DbRegion,
+  DbRegionText,
+} from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
@@ -56,7 +61,6 @@ function Lobby() {
     setCustomList,
     eBirdNameProperty,
     region,
-    setRegion,
     setOpenLocalizationDialog,
     setOpenPublishDialog,
     setOpenEditDialog,
@@ -105,6 +109,8 @@ function Lobby() {
   }, [currentList]);
 
   const loadBirbList = useCallback(() => {
+    // remove(ref(database, `v2/birbs`))
+
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {
@@ -129,6 +135,7 @@ function Lobby() {
         setSnakeMessage(error.message);
         setOpenSnake(true);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -470,9 +477,9 @@ function Lobby() {
                 label={
                   !user && currentList !== "Custom"
                     ? "Disabled (not your list)"
-                    : `Find birbs ${
-                        region === Region.EARTH ? "on" : "in"
-                      } ${region}...`
+                    : `Find birbs ${region === DbRegion.EARTH ? "on" : "in"} ${
+                        DbRegionText[region]
+                      }...`
                 }
                 variant="outlined"
               />

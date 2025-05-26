@@ -16,7 +16,7 @@ import {
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { useConfirm } from "material-ui-confirm";
-import { FavoriteList, Region } from "../../tools/constants";
+import { FavoriteList } from "../../tools/constants";
 
 function EditDialog({
   isAdmin,
@@ -77,7 +77,9 @@ function EditDialog({
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
-        <Typography variant="h5">Edit</Typography>
+        <Typography variant="h5" component="span">
+          Edit
+        </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>

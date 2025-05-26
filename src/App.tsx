@@ -5,7 +5,7 @@ import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import { EBirdNameProperty, Language, Region } from "./tools/constants";
+import { DbRegion, EBirdNameProperty, Language } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS, isValidEnumValue } from "./tools/tools";
 
@@ -39,7 +39,7 @@ export type QuizContextType = {
       comNameFr: string;
     }
   >;
-  regionList: Record<string, string[]>;
+  regionList: Record<DbRegion, string[]>;
   sequence: string[];
   randomSeed: number;
   counter: number;
@@ -76,8 +76,8 @@ export type QuizContextType = {
   eBirdNameProperty: EBirdNameProperty;
   sliderValue: number;
   setSliderValue: React.Dispatch<React.SetStateAction<number>>;
-  region: Region;
-  setRegion: React.Dispatch<React.SetStateAction<Region>>;
+  region: DbRegion;
+  setRegion: React.Dispatch<React.SetStateAction<DbRegion>>;
   isMobileDevice: boolean;
   openLocalizationDialog: boolean;
   setOpenLocalizationDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,13 +96,15 @@ export const QuizContext = createContext<QuizContextType | undefined>(
 function App() {
   const buildDate = process.env.REACT_APP_BUILD_DATE;
 
-  const eBird = raw_eBird as any;
-  const regionList = Object.fromEntries(
-    Object.entries(raw_region_list).map(([key, value]) => {
-      const enumKey = Region[key.replace("-", "_") as keyof typeof Region];
-      return [enumKey, value];
-    })
-  ) as Record<keyof typeof Region, string[]>;
+  const eBird = raw_eBird as Record<
+    string,
+    {
+      sciName: string;
+      comName: string;
+      comNameFr: string;
+    }
+  >;
+  const regionList = raw_region_list as Record<DbRegion, string[]>;
 
   const localStorageKey = "birbsquiz-2205";
 
@@ -171,12 +173,8 @@ function App() {
         : false
   );
 
-  const [openStartQuizDialog, setOpenStartQuizDialog] = React.useState<boolean>(
-    () =>
-      savedProgress?.openStartQuizDialog !== undefined && isOneHourAgo
-        ? savedProgress.openStartQuizDialog
-        : false
-  );
+  const [openStartQuizDialog, setOpenStartQuizDialog] =
+    React.useState<boolean>(false);
 
   const [openLocalizationDialog, setOpenLocalizationDialog] =
     React.useState<boolean>(() =>
@@ -200,7 +198,7 @@ function App() {
 
   const [gameMode, setGameMode] = React.useState<GameMode | null>(() =>
     savedProgress?.gameMode &&
-    isValidEnumValue(GameMode, savedProgress.gameMode) &&
+    isValidEnumValue(GameMode, savedProgress.gameMode) && quizStarted &&
     isOneHourAgo
       ? savedProgress.gameMode
       : null
@@ -245,10 +243,10 @@ function App() {
       : selectedBirbIds.length
   );
 
-  const [region, setRegion] = React.useState<Region>(() =>
-    savedProgress?.region && isValidEnumValue(Region, savedProgress.region)
+  const [region, setRegion] = React.useState<DbRegion>(() =>
+    savedProgress?.region && isValidEnumValue(DbRegion, savedProgress.region)
       ? savedProgress.region
-      : Region.CA_QC
+      : DbRegion.CA_QC
   );
 
   const [isMobileDevice, setIsMobileDevice] = React.useState<boolean>(false);
@@ -310,7 +308,7 @@ function App() {
     language: Language;
     eBirdNameProperty: EBirdNameProperty;
     sliderValue: number;
-    region: Region;
+    region: DbRegion;
     isMobileDevice: boolean;
     dbBirbs: DB_BIRBS;
   };

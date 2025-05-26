@@ -24,7 +24,7 @@ import { GameMode } from "../../App";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
-import { LoadingState, Region } from "../../tools/constants";
+import { DbRegion, DbRegionText, LoadingState } from "../../tools/constants";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -58,6 +58,7 @@ function StartQuizDialog() {
     LoadingState.UNLOADED
   );
   const [progress, setProgress] = React.useState<number>(0);
+  const [buffer, setBuffer] = React.useState<number>(0);
 
   const handleSliderChange = (
     event: Event,
@@ -95,9 +96,17 @@ function StartQuizDialog() {
   const loadQuiz = () => {
     setLoadingState(LoadingState.LOADING);
     setProgress(0);
+    setBuffer(0);
     console.log("Loading quiz...");
-    fetchImageAndAudioForMultiple(selectedBirbIds, region, (prog) =>
-      setProgress(prog)
+    fetchImageAndAudioForMultiple(
+      selectedBirbIds,
+      region,
+      (newProgress) => {
+        setProgress(newProgress);
+      },
+      (newBuffer) => {
+        setBuffer(newBuffer);
+      }
     ).then((newDbBirbs) => {
       setDbBirbs(newDbBirbs);
       console.log("dbBirbs loaded", newDbBirbs, Object.keys(newDbBirbs).length);
@@ -132,7 +141,8 @@ function StartQuizDialog() {
 
   return (
     <Dialog
-      onClose={() => {
+      onClose={(event, reason) => {
+        if (loadingState === LoadingState.LOADING) return;
         setOpenStartQuizDialog(false);
         setLoadingState(LoadingState.UNLOADED);
       }}
@@ -160,7 +170,7 @@ function StartQuizDialog() {
               marginTop: "1rem",
               display: "grid",
               gap: "0.5rem",
-              gridTemplateRows: "auto auto auto auto auto",
+              gridTemplateRows: "repeat(auto-fill, auto)",
             }}
           >
             <Box
@@ -176,23 +186,23 @@ function StartQuizDialog() {
                   label="Region"
                   value={region}
                   onChange={(event: SelectChangeEvent) => {
-                    const key = event.target.value as Region;
+                    const key = event.target.value as DbRegion;
                     setRegion(key);
                   }}
                   size="small"
                 >
-                  <MenuItem key={Region.EARTH} value={Region.EARTH}>
-                    {Region.EARTH}
+                  <MenuItem key={DbRegion.EARTH} value={DbRegion.EARTH}>
+                    {DbRegionText[DbRegion.EARTH]}
                   </MenuItem>
                   {regionList &&
                     Object.keys(regionList)
-                      .filter((key) => key !== Region.EARTH)
+                      .filter((key) => key !== DbRegion.EARTH)
                       .sort()
                       .map((key) => {
-                        if (key === Region.EARTH) return null;
+                        if (key === DbRegion.EARTH) return null;
                         return (
                           <MenuItem key={key} value={key}>
-                            {key}
+                            {DbRegionText[key as DbRegion]}
                           </MenuItem>
                         );
                       })}
@@ -296,7 +306,11 @@ function StartQuizDialog() {
           <Box sx={{ width: "100%", margin: "1rem 0" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ width: "100%", mr: 1 }}>
-                <LinearProgress variant="determinate" value={progress} />
+                <LinearProgress
+                  variant="buffer"
+                  value={progress}
+                  valueBuffer={buffer}
+                />
               </Box>
               <Box sx={{ minWidth: 35 }}>
                 <Typography

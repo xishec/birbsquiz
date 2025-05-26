@@ -15,9 +15,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import {
   AudioType,
+  DbRegionText,
   EBirdNameProperty,
   Language,
-  Region,
   Sex,
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
@@ -382,7 +382,7 @@ function Quiz() {
                     width: "100%",
                     objectFit: "contain",
                     // borderRadius: "4px",
-                    borderRadius: "10px",
+                    borderRadius: "4px",
                   }}
                   src={images[randomIndex].url}
                   loading="lazy"
@@ -666,7 +666,7 @@ function Quiz() {
                       ${
                         regionList[region].includes(birbId)
                           ? ""
-                          : `(not found in ${region}, audio came from ${Region.EARTH})`
+                          : `(not found in ${region}, audio came from ${DbRegionText[region]})`
                       }`}
               </Button>
               <Box

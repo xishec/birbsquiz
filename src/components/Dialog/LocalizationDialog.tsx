@@ -2,6 +2,7 @@ import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import {
   Box,
+  Button,
   DialogContent,
   DialogTitle,
   FormControl,
@@ -12,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import { Language, Region } from "../../tools/constants";
+import { DbRegion, DbRegionText, Language } from "../../tools/constants";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -38,7 +39,7 @@ function LocalizationDialog() {
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
-        <Typography variant="h5">Localization Settings</Typography>
+        <Typography variant="h5" component="span">Localization Settings</Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>
@@ -49,7 +50,7 @@ function LocalizationDialog() {
             marginTop: "1rem",
             display: "grid",
             gap: "1rem",
-            gridTemplateRows: "auto auto",
+            gridTemplateRows: "repeat(auto-fill, auto)",
           }}
         >
           <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
@@ -59,23 +60,23 @@ function LocalizationDialog() {
                 label="Region"
                 value={region}
                 onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value as Region;
+                  const key = event.target.value as DbRegion;
                   setRegion(key);
                 }}
                 size="small"
               >
-                <MenuItem key={Region.EARTH} value={Region.EARTH}>
-                  {Region.EARTH}
+                <MenuItem key={DbRegion.EARTH} value={DbRegion.EARTH}>
+                  {DbRegionText[DbRegion.EARTH]}
                 </MenuItem>
                 {regionList &&
                   Object.keys(regionList)
-                    .filter((key) => key !== Region.EARTH)
+                    .filter((key) => key !== DbRegion.EARTH)
                     .sort()
                     .map((key) => {
-                      if (key === Region.EARTH) return null;
+                      if (key === DbRegion.EARTH) return null;
                       return (
                         <MenuItem key={key} value={key}>
-                          {key}
+                          {DbRegionText[key as DbRegion]}
                         </MenuItem>
                       );
                     })}
@@ -102,6 +103,14 @@ function LocalizationDialog() {
               </Select>
             </FormControl>
           </Box>
+
+          <Button
+            sx={{ height: "40px" }}
+            variant="outlined"
+            onClick={() => setOpenLocalizationDialog(false)}
+          >
+            OK
+          </Button>
         </Box>
       </DialogContent>
     </Dialog>
