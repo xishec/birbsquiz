@@ -535,7 +535,11 @@ function Lobby() {
                       }`}
                     variant="outlined"
                     onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
-                    onDelete={isUserList ? () => deleteBirb(birbId) : undefined}
+                    onDelete={
+                      currentList === "Custom" || isUserList
+                        ? () => deleteBirb(birbId)
+                        : undefined
+                    }
                   />
                 </Box>
               ))}
