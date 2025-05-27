@@ -176,8 +176,8 @@ function Lobby() {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
       playAudioForBirb(birbId, AudioType.SONG);
-      setBirbInput("");
-      setSelectedBirbId("");
+      // setBirbInput("");
+      // setSelectedBirbId("");
     },
     [eBird, selectedBirbIds, setSelectedBirbIds]
   );
@@ -435,6 +435,7 @@ function Lobby() {
           </Box>
 
           <Autocomplete
+            disableCloseOnSelect
             disabled={!user && currentList !== "Custom"}
             size="small"
             inputValue={birbInput}
@@ -484,7 +485,36 @@ function Lobby() {
                 variant="outlined"
               />
             )}
-            getOptionDisabled={(option) => selectedBirbIds.includes(option)}
+            renderOption={(props, option) => (
+              <li
+                {...props}
+                style={{
+                  width: "100%",
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  cursor: selectedBirbIds.includes(option)
+                    ? "default"
+                    : "pointer",
+                }}
+              >
+                <span
+                  style={{
+                    color: selectedBirbIds.includes(option) ? "#aaa" : "#000",
+                  }}
+                >
+                  {eBird[option][eBirdNameProperty]}
+                </span>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={(event) => {
+                    console.log("Button clicked for:", option);
+                  }}
+                >
+                  Learn
+                </Button>
+              </li>
+            )}
           />
         </Box>
 
@@ -559,8 +589,8 @@ function Lobby() {
               cursor: "pointer", // indicate it's clickable
             }}
           >
-            <IconButton size="large">
-              <AddIcon sx={{ color: "#ccc" }} />
+            <IconButton size="large" color="primary">
+              <AddIcon />
             </IconButton>
           </Box>
         )}
