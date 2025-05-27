@@ -374,9 +374,10 @@ function Lobby() {
         >
           <Typography
             onClick={() => window.location.reload()}
+            variant="h5"
+            component="span"
             sx={{
               fontSize: isMobileDevice ? "2rem" : "3rem",
-              fontWeight: "200",
               justifySelf: "start",
               cursor: "pointer",
             }}

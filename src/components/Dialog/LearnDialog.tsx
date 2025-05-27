@@ -21,6 +21,7 @@ import {
   AudioType,
   DbRegion,
   DbRegionText,
+  EBirdNameProperty,
   Language,
   LoadingState,
   Sex,
@@ -46,6 +47,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     eBird,
     eBirdNameProperty,
     region,
+    regionList,
   } = quizContext;
 
   const [audioSourcesSong, setAudioSourcesSong] = React.useState<
@@ -62,6 +64,8 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED
   );
+  const [shouldRevealMoreNames, setShouldRevealMoreNames] =
+    React.useState(false);
 
   React.useEffect(() => {
     if (!Object.keys(eBird).includes(birbId)) return;
@@ -179,7 +183,13 @@ function LearnDialog({ birbId }: { birbId: string }) {
       fullScreen={isMobileDevice}
     >
       <DialogTitle sx={{ padding: paddingValue, paddingBottom: "0.5rem" }}>
-        <Typography variant="h5" component="span">
+        <Typography
+          variant="h5"
+          component="span"
+          sx={{
+            fontSize: isMobileDevice ? "1.5rem" : "2rem",
+          }}
+        >
           {eBird[birbId][eBirdNameProperty]}
         </Typography>
       </DialogTitle>
@@ -295,10 +305,95 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 </Box>
               </Box>
             </Box>
-            <Box sx={{ padding: paddingValue, paddingTop: paddingValue }}>
+
+            {shouldRevealMoreNames && (
+              <Box
+                sx={{
+                  paddingInline: paddingValue,
+                  marginTop: "1rem",
+                  display: "grid",
+                  justifyContent: "center",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: "0.5rem",
+                }}
+              >
+                <Button
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    height: "40px",
+                    pointerEvents: "none",
+                    color: "#222222",
+                    borderColor: "#222222",
+                  }}
+                >
+                  {`${Language.EN.toUpperCase()} : ${
+                    eBird[birbId][EBirdNameProperty.COMMON_NAME]
+                  }`}
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    height: "40px",
+                    pointerEvents: "none",
+                    color: "#222222",
+                    borderColor: "#222222",
+                  }}
+                >
+                  {`${Language.FR} : ${
+                    eBird[birbId][EBirdNameProperty.COMMON_NAME_FR]
+                  }`}
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    height: "40px",
+                    pointerEvents: "none",
+                    color: "#222222",
+                    borderColor: "#222222",
+                  }}
+                >
+                  {`${Language.LATIN} : ${
+                    eBird[birbId][EBirdNameProperty.SCIENTIFIC_NAME]
+                  }`}
+                </Button>
+              </Box>
+            )}
+            <Box
+              sx={{
+                paddingInline: paddingValue,
+                marginTop: "1rem",
+                display: "grid",
+                alignItems: "center",
+                gridTemplateColumns: "1fr",
+              }}
+            >
+              <Button
+                sx={{ height: "40px" }}
+                variant="outlined"
+                color="primary"
+                onMouseDown={() => setShouldRevealMoreNames(true)}
+                onMouseUp={() => setShouldRevealMoreNames(false)}
+                onMouseLeave={() => setShouldRevealMoreNames(false)}
+                onTouchStart={() => setShouldRevealMoreNames(true)}
+                onTouchEnd={() => setShouldRevealMoreNames(false)}
+              >
+                {`${eBird[birbId][eBirdNameProperty]} 
+                                  ${
+                                    regionList[region].includes(birbId)
+                                      ? ""
+                                      : `(not found in ${region}, audio came from ${DbRegionText[region]})`
+                                  }`}
+              </Button>
+            </Box>
+
+            <Box sx={{ padding: paddingValue, paddingTop: "0.5rem" }}>
               <Button
                 sx={{ height: "40px", width: "100%" }}
                 variant="outlined"
+                color="error"
                 onClick={() => setOpenLearnDialog(false)}
               >
                 Close
