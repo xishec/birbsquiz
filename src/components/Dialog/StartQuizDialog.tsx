@@ -59,6 +59,7 @@ function StartQuizDialog() {
   );
   const [progress, setProgress] = React.useState<number>(0);
   const [buffer, setBuffer] = React.useState<number>(0);
+  const cancelRequestRef = React.useRef(false);
 
   const handleSliderChange = (
     event: Event,
@@ -97,6 +98,7 @@ function StartQuizDialog() {
     setLoadingState(LoadingState.LOADING);
     setProgress(0);
     setBuffer(0);
+    cancelRequestRef.current = false;
     console.log("Loading quiz...");
     fetchImageAndAudioForMultiple(
       selectedBirbIds,
@@ -108,11 +110,12 @@ function StartQuizDialog() {
         setBuffer(newBuffer);
       }
     ).then((newDbBirbs) => {
+      if (cancelRequestRef.current) return; // cancel if flagged
       setDbBirbs(newDbBirbs);
       console.log("dbBirbs loaded", newDbBirbs, Object.keys(newDbBirbs).length);
       setTimeout(() => {
+        if (cancelRequestRef.current) return;
         setLoadingState(LoadingState.DONE);
-        // console.log("Quiz loaded");
       }, 500);
     });
   };
@@ -143,8 +146,7 @@ function StartQuizDialog() {
   return (
     <Dialog
       onClose={(event, reason) => {
-        // TODO
-        // if (loadingState === LoadingState.LOADING) return;
+        cancelRequestRef.current = true; // cancel any in-progress request
         setOpenStartQuizDialog(false);
         setLoadingState(LoadingState.UNLOADED);
       }}

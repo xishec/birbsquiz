@@ -65,7 +65,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
 
   React.useEffect(() => {
     if (!Object.keys(eBird).includes(birbId)) return;
-    console.log("birbId", birbId);
+    console.log("birbId is", birbId);
     fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
       setProgress(newProgress);
     }).then((newDbBirb) => {
@@ -73,7 +73,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
       setAudioSourcesSong(newDbBirb[birbId]?.audio?.song || []);
       setAudioSourcesCall(newDbBirb[birbId]?.audio?.call || []);
       setImageSources(newDbBirb[birbId]?.image || undefined);
-      console.log("dbBirbs loaded", newDbBirb);
+      // console.log("dbBirbs loaded", newDbBirb);
       setTimeout(() => {
         setLoadingState(LoadingState.DONE);
       }, 500);
@@ -162,7 +162,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     </>
   );
 
-  if (!birbId) {
+  if (!birbId || !Object.keys(eBird).includes(birbId)) {
     setOpenLearnDialog(false);
     return null;
   }
@@ -315,11 +315,31 @@ function LearnDialog({ birbId }: { birbId: string }) {
               marginTop: "-2rem",
             }}
           >
-            <CircularProgress
-              size="5rem"
-              variant="determinate"
-              value={progress}
-            />
+            <Box sx={{ position: "relative", display: "inline-flex" }}>
+              <CircularProgress
+                variant="determinate"
+                size="5rem"
+                value={progress}
+              />
+              <Box
+                sx={{
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  right: 0,
+                  position: "absolute",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  component="div"
+                  sx={{ color: "text.secondary" }}
+                >{`${Math.round(progress)}%`}</Typography>
+              </Box>
+            </Box>
           </Box>
         )}
       </DialogContent>

@@ -66,11 +66,12 @@ function Lobby() {
     setOpenPublishDialog,
     setOpenEditDialog,
     isMobileDevice,
+    openLearnDialog,
     setOpenLearnDialog,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
-  const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
+  const [learnBirbId, setLearnBirbId] = React.useState<string>("");
   const [user, setUser] = useState<User | null | undefined>();
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
@@ -303,12 +304,18 @@ function Lobby() {
     }
   };
 
+  React.useEffect(() => {
+    if (!openLearnDialog) {
+      setLearnBirbId("");
+    }
+  }, [openLearnDialog]);
+
   return (
     <Box>
       <EndQuizDialog />
       <StartQuizDialog />
       <LocalizationDialog />
-      <LearnDialog birbId={selectedBirbId} />
+      <LearnDialog birbId={learnBirbId} />
       <PublishDialog
         isAdmin={isAdmin}
         dbListsData={dbListsData}
@@ -459,7 +466,7 @@ function Lobby() {
             size="small"
             inputValue={birbInput}
             onInputChange={(e, v) => {
-              console.log(e, v);
+              // console.log(e, v);
               if (e?.type === "change" || v === "") {
                 setBirbInput(v);
               }
@@ -541,8 +548,8 @@ function Lobby() {
                   variant="outlined"
                   onClick={(event) => {
                     event.stopPropagation();
-                    console.log("Button clicked for:", option);
-                    setSelectedBirbId(option);
+                    // console.log("Button clicked for:", option);
+                    setLearnBirbId(option);
                     setOpenLearnDialog(true);
                   }}
                 >
@@ -599,7 +606,10 @@ function Lobby() {
                           : `(not found in ${region})`
                       }`}
                     variant="outlined"
-                    onClick={() => playAudioForBirb(birbId, AudioType.SONG)}
+                    onClick={() => {
+                      setOpenLearnDialog(true);
+                      setLearnBirbId(birbId);
+                    }}
                     onDelete={
                       currentList === "Custom" || isUserList
                         ? () => deleteBirb(birbId)
