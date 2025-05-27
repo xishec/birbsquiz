@@ -39,6 +39,7 @@ import PublishDialog from "./Dialog/PublishDialog";
 import { arraysEqual, DB_LIST, DB_LISTS } from "../tools/tools";
 import EditDialog from "./Dialog/EditDialog";
 import { useConfirm } from "material-ui-confirm";
+import LearnDialog from "./Dialog/LearnDialog";
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -65,10 +66,11 @@ function Lobby() {
     setOpenPublishDialog,
     setOpenEditDialog,
     isMobileDevice,
+    setOpenLearnDialog,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
-  // const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
+  const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<User | null | undefined>();
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
@@ -306,6 +308,7 @@ function Lobby() {
       <EndQuizDialog />
       <StartQuizDialog />
       <LocalizationDialog />
+      <LearnDialog birbId={selectedBirbId} />
       <PublishDialog
         isAdmin={isAdmin}
         dbListsData={dbListsData}
@@ -456,7 +459,8 @@ function Lobby() {
             size="small"
             inputValue={birbInput}
             onInputChange={(e, v) => {
-              if (e?.type === "change") {
+              console.log(e, v);
+              if (e?.type === "change" || v === "") {
                 setBirbInput(v);
               }
             }}
@@ -536,7 +540,10 @@ function Lobby() {
                   size="small"
                   variant="outlined"
                   onClick={(event) => {
+                    event.stopPropagation();
                     console.log("Button clicked for:", option);
+                    setSelectedBirbId(option);
+                    setOpenLearnDialog(true);
                   }}
                 >
                   Learn

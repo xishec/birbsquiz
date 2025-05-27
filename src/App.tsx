@@ -87,6 +87,8 @@ export type QuizContextType = {
   setOpenEditDialog: React.Dispatch<React.SetStateAction<boolean>>;
   dbBirbs: DB_BIRBS;
   setDbBirbs: React.Dispatch<React.SetStateAction<DB_BIRBS>>;
+  openLearnDialog: boolean;
+  setOpenLearnDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -183,6 +185,12 @@ function App() {
         : true
     );
 
+  const [openLearnDialog, setOpenLearnDialog] = React.useState<boolean>(() =>
+    savedProgress?.openLearnDialog !== undefined && isOneHourAgo
+      ? savedProgress.openLearnDialog
+      : false
+  );
+
   const [openPublishDialog, setOpenPublishDialog] = React.useState<boolean>(
     () =>
       savedProgress?.openPublishDialog !== undefined && isOneHourAgo
@@ -198,7 +206,8 @@ function App() {
 
   const [gameMode, setGameMode] = React.useState<GameMode | null>(() =>
     savedProgress?.gameMode &&
-    isValidEnumValue(GameMode, savedProgress.gameMode) && quizStarted &&
+    isValidEnumValue(GameMode, savedProgress.gameMode) &&
+    quizStarted &&
     isOneHourAgo
       ? savedProgress.gameMode
       : null
@@ -311,6 +320,7 @@ function App() {
     region: DbRegion;
     isMobileDevice: boolean;
     dbBirbs: DB_BIRBS;
+    openLearnDialog: boolean;
   };
 
   // Save quiz progress to localStorage whenever any dependency changes
@@ -340,6 +350,7 @@ function App() {
       region,
       isMobileDevice,
       dbBirbs,
+      openLearnDialog,
     };
     localStorage.removeItem("birbsQuizProgress");
     localStorage.removeItem("birbsQuizV2");
@@ -369,6 +380,7 @@ function App() {
     region,
     isMobileDevice,
     dbBirbs,
+    openLearnDialog,
   ]);
 
   const css_height_90 = "calc(var(--vh, 1vh) * 93)";
@@ -438,6 +450,8 @@ function App() {
           setOpenEditDialog,
           dbBirbs,
           setDbBirbs,
+          openLearnDialog,
+          setOpenLearnDialog,
         }}
       >
         <Box

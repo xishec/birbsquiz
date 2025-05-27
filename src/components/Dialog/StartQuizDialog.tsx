@@ -127,14 +127,15 @@ function StartQuizDialog() {
     if (loadingState === LoadingState.DONE && gameMode !== null) {
       officiallyStartQuiz();
     }
+    if (gameMode !== null) loadQuiz();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingState, gameMode]);
 
-  React.useEffect(() => {
-    if (openStartQuizDialog && loadingState === LoadingState.UNLOADED)
-      loadQuiz();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openStartQuizDialog, loadingState]);
+  // React.useEffect(() => {
+  //   if (openStartQuizDialog && loadingState === LoadingState.UNLOADED)
+  //     loadQuiz();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [openStartQuizDialog, loadingState]);
 
   const shouldShowLoading =
     loadingState === LoadingState.LOADING && gameMode !== null;
