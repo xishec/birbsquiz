@@ -450,6 +450,7 @@ function Lobby() {
           </Box>
 
           <Autocomplete
+            autoHighlight
             disableCloseOnSelect
             disabled={!user && currentList !== "Custom"}
             size="small"
@@ -459,11 +460,8 @@ function Lobby() {
                 setBirbInput(v);
               }
             }}
-            // value={selectedBirbId}
             onChange={(e, v) => {
               addBirb(v!);
-              // setSelectedBirbId(v!);
-              // setBirbInput(birbInput);
             }}
             options={regionList[region].sort((a, b) =>
               eBird[a][eBirdNameProperty].localeCompare(
@@ -503,7 +501,7 @@ function Lobby() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                inputRef={inputRef} // pass the ref here
+                inputRef={inputRef}
                 label={
                   !user && currentList !== "Custom"
                     ? "Disabled (not your list)"
@@ -517,6 +515,7 @@ function Lobby() {
             renderOption={(props, option) => (
               <li
                 {...props}
+                id={option}
                 style={{
                   width: "100%",
                   display: "grid",
