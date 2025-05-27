@@ -6,20 +6,13 @@ import {
   CircularProgress,
   DialogContent,
   DialogTitle,
-  FormControl,
   IconButton,
-  InputLabel,
-  LinearProgress,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import {
   AudioType,
-  DbRegion,
   DbRegionText,
   EBirdNameProperty,
   Language,
@@ -29,11 +22,9 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
   BirdImage,
-  DB_BIRBS,
   fetchImageAndAudioForMultiple,
   UrlWithMetadata,
 } from "../../tools/tools";
-import { set } from "firebase/database";
 
 function LearnDialog({ birbId }: { birbId: string }) {
   const quizContext = React.useContext(QuizContext);
@@ -59,7 +50,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [imageSources, setImageSources] = React.useState<BirdImage>();
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
-  const [dbBirb, setDbBirb] = React.useState<DB_BIRBS>();
+  // const [dbBirb, setDbBirb] = React.useState<DB_BIRBS>();
   const [progress, setProgress] = React.useState<number>(0);
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED
@@ -73,7 +64,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
       setProgress(newProgress);
     }).then((newDbBirb) => {
-      setDbBirb(newDbBirb);
+      // setDbBirb(newDbBirb);
       setAudioSourcesSong(newDbBirb[birbId]?.audio?.song || []);
       setAudioSourcesCall(newDbBirb[birbId]?.audio?.call || []);
       setImageSources(newDbBirb[birbId]?.image || undefined);
@@ -82,6 +73,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
         setLoadingState(LoadingState.DONE);
       }, 500);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birbId]);
 
   React.useEffect(() => {
@@ -171,7 +163,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     return null;
   }
 
-  const paddingValue = isMobileDevice ? "1.5rem" : "2rem";
+  const OneOrTwoREM = isMobileDevice ? "1rem" : "2rem";
 
   return (
     <Dialog
@@ -179,10 +171,14 @@ function LearnDialog({ birbId }: { birbId: string }) {
       open={openLearnDialog}
       scroll="paper"
       maxWidth="xl"
-      // sx={{ width: isMobileDevice ? "default" : "800px" }}
       fullScreen={isMobileDevice}
     >
-      <DialogTitle sx={{ padding: paddingValue, paddingBottom: "0.5rem" }}>
+      <DialogTitle
+        sx={{
+          paddingInline: OneOrTwoREM,
+          paddingBlock: "1rem",
+        }}
+      >
         <Typography
           variant="h5"
           component="span"
@@ -204,9 +200,8 @@ function LearnDialog({ birbId }: { birbId: string }) {
             <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
               <Box
                 sx={{
-                  marginTop: "1rem",
                   overflow: "auto",
-                  paddingInline: paddingValue,
+                  paddingInline: OneOrTwoREM,
                   paddingBottom: isMobileDevice ? "2rem" : 0,
                 }}
               >
@@ -309,8 +304,8 @@ function LearnDialog({ birbId }: { birbId: string }) {
             {shouldRevealMoreNames && (
               <Box
                 sx={{
-                  paddingInline: paddingValue,
-                  marginTop: "1rem",
+                  paddingInline: OneOrTwoREM,
+                  paddingTop: OneOrTwoREM,
                   display: "grid",
                   justifyContent: "center",
                   gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -363,8 +358,8 @@ function LearnDialog({ birbId }: { birbId: string }) {
             )}
             <Box
               sx={{
-                paddingInline: paddingValue,
-                marginTop: "1rem",
+                paddingInline: OneOrTwoREM,
+                paddingTop: OneOrTwoREM,
                 display: "grid",
                 alignItems: "center",
                 gridTemplateColumns: "1fr",
@@ -389,7 +384,13 @@ function LearnDialog({ birbId }: { birbId: string }) {
               </Button>
             </Box>
 
-            <Box sx={{ padding: paddingValue, paddingTop: "0.5rem" }}>
+            <Box
+              sx={{
+                paddingInline: OneOrTwoREM,
+                paddingTop: "0.5rem",
+                paddingBottom: OneOrTwoREM,
+              }}
+            >
               <Button
                 sx={{ height: "40px", width: "100%" }}
                 variant="outlined"
