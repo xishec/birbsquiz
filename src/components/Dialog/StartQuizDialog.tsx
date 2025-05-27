@@ -142,7 +142,8 @@ function StartQuizDialog() {
   return (
     <Dialog
       onClose={(event, reason) => {
-        if (loadingState === LoadingState.LOADING) return;
+        // TODO
+        // if (loadingState === LoadingState.LOADING) return;
         setOpenStartQuizDialog(false);
         setLoadingState(LoadingState.UNLOADED);
       }}

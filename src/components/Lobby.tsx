@@ -68,12 +68,20 @@ function Lobby() {
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
-  const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
+  // const [selectedBirbId, setSelectedBirbId] = React.useState<string>("");
   const [user, setUser] = useState<User | null | undefined>();
   const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null); // add this ref
+  const listboxRef = useRef<HTMLUListElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    if (listboxRef.current) {
+      listboxRef.current.scrollTop = scrollPosition;
+    }
+  }, [selectedBirbIds, scrollPosition]);
 
   // update custom list content when birbs change
   useEffect(() => {
@@ -172,6 +180,7 @@ function Lobby() {
 
   const addBirb = useCallback(
     (birbId: string) => {
+      // console.log("Adding birb:", birbId);
       if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
@@ -182,8 +191,13 @@ function Lobby() {
     [eBird, selectedBirbIds, setSelectedBirbIds]
   );
 
+  // useEffect(() => {
+  //   console.log(birbInput);
+  // }, [birbInput]);
+
   const deleteBirb = useCallback(
     (birbId: string) => {
+      // console.log("Deleting birb:", birbId);
       const newSelectedBirbIds = selectedBirbIds?.filter((id) => id !== birbId);
       setSelectedBirbIds(newSelectedBirbIds!);
     },
@@ -200,9 +214,10 @@ function Lobby() {
   //   setOpenSnake(true);
   // };
 
-  useEffect(() => {
-    if (selectedBirbId) addBirb(selectedBirbId);
-  }, [selectedBirbId, addBirb]);
+  // useEffect(() => {
+  //   console.log("Selected birb ID changed:", selectedBirbId);
+  //   if (selectedBirbId) addBirb(selectedBirbId);
+  // }, [selectedBirbId, addBirb]);
 
   // const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -439,9 +454,17 @@ function Lobby() {
             disabled={!user && currentList !== "Custom"}
             size="small"
             inputValue={birbInput}
-            onInputChange={(e, v) => setBirbInput(v)}
-            value={selectedBirbId}
-            onChange={(e, v) => setSelectedBirbId(v!)}
+            onInputChange={(e, v) => {
+              if (e?.type === "change") {
+                setBirbInput(v);
+              }
+            }}
+            // value={selectedBirbId}
+            onChange={(e, v) => {
+              addBirb(v!);
+              // setSelectedBirbId(v!);
+              // setBirbInput(birbInput);
+            }}
             options={regionList[region].sort((a, b) =>
               eBird[a][eBirdNameProperty].localeCompare(
                 eBird[b][eBirdNameProperty]
@@ -470,6 +493,12 @@ function Lobby() {
                 ).toLowerCase();
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
+            }}
+            ListboxProps={{
+              ref: listboxRef,
+              onScroll: (event: React.UIEvent<HTMLUListElement>) => {
+                setScrollPosition(event.currentTarget.scrollTop);
+              },
             }}
             renderInput={(params) => (
               <TextField
