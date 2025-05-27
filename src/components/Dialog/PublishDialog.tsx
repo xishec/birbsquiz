@@ -51,7 +51,9 @@ function PublishDialog({
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
-        <Typography variant="h5" component="span">Publish</Typography>
+        <Typography variant="h5" component="span">
+          Publish
+        </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>
@@ -147,6 +149,7 @@ function PublishDialog({
             variant="outlined"
             onClick={() => {
               saveBirbList(newListName, favorite);
+              console.log("seeting current list to", newListName);
               setCurrentList(newListName!);
               setOpenPublishDialog(false);
             }}

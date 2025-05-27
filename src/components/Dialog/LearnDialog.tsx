@@ -159,7 +159,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
   );
 
   if (!birbId || !Object.keys(eBird).includes(birbId)) {
-    setOpenLearnDialog(false);
+    if (openLearnDialog) setOpenLearnDialog(false);
     return null;
   }
 

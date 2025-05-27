@@ -84,7 +84,8 @@ function Lobby() {
     if (listboxRef.current) {
       listboxRef.current.scrollTop = scrollPosition;
     }
-  }, [selectedBirbIds, scrollPosition]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedBirbIds]);
 
   // update custom list content when birbs change
   useEffect(() => {
@@ -119,6 +120,15 @@ function Lobby() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentList]);
 
+  // if list invalid, set to Custom
+  useEffect(() => {
+    if (currentList !== "Custom" && !dbListsData[currentList]) {
+      console.log(`List "${currentList}" not found in DB, setting to Custom`);
+      setCurrentList("Custom");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dbListsData]);
+
   const loadBirbList = useCallback(() => {
     // remove(ref(database, `v2/birbs`))
 
@@ -135,11 +145,6 @@ function Lobby() {
             .catch((error) => console.error("Error creating v2/lists:", error));
         }
         setDbListsData(data);
-
-        // if list invalid, set to Custom
-        if (!data[currentList]) {
-          setCurrentList("Custom");
-        }
       })
       .catch((error) => {
         console.error("Error reading birb list:", error);
@@ -664,6 +669,7 @@ function Lobby() {
                 }
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
+                  console.log("Setting current list to:", key);
                   setCurrentList(key);
                 }}
                 size="small"
