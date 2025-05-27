@@ -3,6 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import {
   Box,
   Button,
+  CircularProgress,
   DialogContent,
   DialogTitle,
   FormControl,
@@ -58,23 +59,16 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [dbBirb, setDbBirb] = React.useState<DB_BIRBS>();
   const [progress, setProgress] = React.useState<number>(0);
-  const [buffer, setBuffer] = React.useState<number>(0);
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED
   );
+
   React.useEffect(() => {
     if (!Object.keys(eBird).includes(birbId)) return;
     console.log("birbId", birbId);
-    fetchImageAndAudioForMultiple(
-      [birbId],
-      region,
-      (newProgress) => {
-        setProgress(newProgress);
-      },
-      (newBuffer) => {
-        setBuffer(newBuffer);
-      }
-    ).then((newDbBirb) => {
+    fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
+      setProgress(newProgress);
+    }).then((newDbBirb) => {
       setDbBirb(newDbBirb);
       setAudioSourcesSong(newDbBirb[birbId]?.audio?.song || []);
       setAudioSourcesCall(newDbBirb[birbId]?.audio?.call || []);
@@ -85,6 +79,13 @@ function LearnDialog({ birbId }: { birbId: string }) {
       }, 500);
     });
   }, [birbId]);
+
+  React.useEffect(() => {
+    if (!openLearnDialog) {
+      setProgress(0);
+      setLoadingState(LoadingState.UNLOADED);
+    }
+  }, [openLearnDialog]);
 
   const handleAudioPlay = (
     e: React.SyntheticEvent<HTMLAudioElement, Event>
@@ -136,6 +137,9 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
+                onError={(e) => {
+                  window.location.reload();
+                }}
               >
                 Your browser does not support the
                 <code>audio</code> element.
@@ -167,10 +171,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
 
   return (
     <Dialog
-      onClose={() => {
-        setOpenLearnDialog(false);
-        setLoadingState(LoadingState.UNLOADED);
-      }}
+      onClose={() => setOpenLearnDialog(false)}
       open={openLearnDialog}
       scroll="paper"
       maxWidth="xl"
@@ -182,7 +183,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
           {eBird[birbId][eBirdNameProperty]}
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ padding: "0" }}>
+      <DialogContent sx={{ padding: "0", height: "100%" }}>
         {loadingState === LoadingState.DONE ? (
           <Box
             sx={{
@@ -220,7 +221,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                   }}
                 >
                   {imageSources &&
-                    Object.entries(imageSources).map(([sex, images]) => {
+                    Object.entries(imageSources!).map(([sex, images]) => {
                       if (!images || images.length === 0) return null;
                       const randomIndex =
                         sex === Sex.MALE
@@ -305,22 +306,20 @@ function LearnDialog({ birbId }: { birbId: string }) {
             </Box>
           </Box>
         ) : (
-          <Box sx={{ width: "100%", marginInline: paddingValue }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Box sx={{ width: "100%", mr: 1 }}>
-                <LinearProgress
-                  variant="buffer"
-                  value={progress}
-                  valueBuffer={buffer}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {`${Math.round(progress)}%`}
-                </Typography>
-              </Box>
-            </Box>
+          <Box
+            sx={{
+              height: "100%",
+              display: "grid",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "-2rem",
+            }}
+          >
+            <CircularProgress
+              size="5rem"
+              variant="determinate"
+              value={progress}
+            />
           </Box>
         )}
       </DialogContent>

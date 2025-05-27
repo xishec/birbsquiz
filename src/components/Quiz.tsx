@@ -243,6 +243,9 @@ function Quiz() {
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
+                onError={(e) => {
+                  window.location.reload();
+                }}
               >
                 Your browser does not support the
                 <code>audio</code> element.
