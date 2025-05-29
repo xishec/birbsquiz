@@ -30,7 +30,7 @@ function EditDialog({
   currentList: string;
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
-  saveBirbList: (listName: string, favorite: string) => void;
+  saveBirbList: (newListName: string, favorite?: string) => void;
   deleteBirbList: (listName: string) => void;
 }) {
   const quizContext = React.useContext(QuizContext);
@@ -199,8 +199,8 @@ function EditDialog({
               variant="outlined"
               color="success"
               onClick={() => {
-                deleteBirbList(currentList);
                 saveBirbList(newListName, favorite);
+                deleteBirbList(currentList);
                 setCurrentList(newListName!);
                 setOpenEditDialog(false);
               }}

@@ -409,6 +409,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
               justifyContent: "center",
               alignItems: "center",
               marginTop: "-2rem",
+              padding: isMobileDevice ? "0" : "15rem",
             }}
           >
             <Box sx={{ position: "relative", display: "inline-flex" }}>

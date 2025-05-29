@@ -334,8 +334,8 @@ function Lobby() {
         currentList={currentList}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
-        saveBirbList={(listName: string, favorite: string) =>
-          saveBirbList(listName, dbListsData[listName].creator, favorite)
+        saveBirbList={(newListName: string, favorite?: string) =>
+          saveBirbList(newListName, dbListsData[currentList].creator, favorite)
         }
         deleteBirbList={deleteBirbList}
       />
