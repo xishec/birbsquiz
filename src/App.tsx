@@ -61,10 +61,12 @@ export type QuizContextType = {
   setCurrentList: React.Dispatch<React.SetStateAction<string>>;
   customList: string[];
   setCustomList: React.Dispatch<React.SetStateAction<string[]>>;
+  quizStarted: boolean;
   setQuizStarted: React.Dispatch<React.SetStateAction<boolean>>;
   setGameMode: React.Dispatch<React.SetStateAction<GameMode | null>>;
   openStartQuizDialog: boolean;
-  startQuiz: (nbBirb: number) => void;
+  prepareQuiz: (nbBirb: number) => void;
+  startQuiz: () => void;
   openEndQuizDialog: boolean;
   setOpenEndQuizDialog: React.Dispatch<React.SetStateAction<boolean>>;
   songCheckbox: boolean;
@@ -264,11 +266,15 @@ function App() {
     savedProgress?.dbBirbs && isOneHourAgo ? savedProgress.dbBirbs : {}
   );
 
-  const startQuiz = (nbBirb: number) => {
+  const prepareQuiz = (nbBirb: number) => {
     setCounter(0);
     randomSequence(nbBirb);
     setShowAnswers(Array(nbBirb).fill(false));
     setAnswers(Array(nbBirb).fill(false));
+  };
+
+  const startQuiz = () => {
+    setQuizStarted(true);
   };
 
   const endQuiz = () => {
@@ -424,9 +430,11 @@ function App() {
           setCurrentList,
           customList,
           setCustomList,
+          quizStarted,
           setQuizStarted,
           setGameMode,
           openStartQuizDialog,
+          prepareQuiz,
           startQuiz,
           openEndQuizDialog,
           setOpenEndQuizDialog,

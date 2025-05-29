@@ -38,7 +38,7 @@ function StartQuizDialog() {
     selectedBirbIds,
     gameMode,
     setGameMode,
-    setQuizStarted,
+    prepareQuiz,
     startQuiz,
     callCheckbox,
     setCallCheckbox,
@@ -49,6 +49,8 @@ function StartQuizDialog() {
     region,
     setRegion,
     setDbBirbs,
+    sequence,
+    endQuiz,
   } = quizContext;
 
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
@@ -94,14 +96,16 @@ function StartQuizDialog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBirbIds, sliderValue, openStartQuizDialog]);
 
-  const loadQuiz = () => {
+  React.useEffect(() => {
+    if (sequence.length <= 0 || !openStartQuizDialog) return;
+    console.log("Starting quiz with sequence", sequence);
     setLoadingState(LoadingState.LOADING);
     setProgress(0);
     setBuffer(0);
     cancelRequestRef.current = false;
     console.log("Loading quiz...");
     fetchImageAndAudioForMultiple(
-      selectedBirbIds,
+      sequence,
       region,
       (newProgress) => {
         setProgress(newProgress);
@@ -118,37 +122,34 @@ function StartQuizDialog() {
         setLoadingState(LoadingState.DONE);
       }, 500);
     });
-  };
-
-  const officiallyStartQuiz = () => {
-    setQuizStarted(true);
-    setOpenStartQuizDialog(false);
-    startQuiz(sliderValue);
-  };
-
-  React.useEffect(() => {
-    if (loadingState === LoadingState.DONE && gameMode !== null) {
-      officiallyStartQuiz();
-    }
-    if (gameMode !== null) loadQuiz();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingState, gameMode]);
+  }, [sequence]);
 
-  // React.useEffect(() => {
-  //   if (openStartQuizDialog && loadingState === LoadingState.UNLOADED)
-  //     loadQuiz();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [openStartQuizDialog, loadingState]);
+  // Close the dialog when loading is done and quiz has started
+  React.useEffect(() => {
+    if (loadingState === LoadingState.DONE) {
+      startQuiz();
+      setOpenStartQuizDialog(false);
+    }
+  }, [loadingState, startQuiz, setOpenStartQuizDialog]);
+
+  // Prepare the quiz when gameMode is set and loadingState is UNLOADED
+  React.useEffect(() => {
+    if (gameMode !== null && loadingState === LoadingState.UNLOADED) {
+      prepareQuiz(sliderValue);
+    }
+  }, [gameMode, loadingState, sliderValue, prepareQuiz]);
 
   const shouldShowLoading =
     loadingState === LoadingState.LOADING && gameMode !== null;
 
   return (
     <Dialog
-      onClose={(event, reason) => {
+      onClose={() => {
         cancelRequestRef.current = true; // cancel any in-progress request
         setOpenStartQuizDialog(false);
         setLoadingState(LoadingState.UNLOADED);
+        endQuiz();
       }}
       open={openStartQuizDialog}
       scroll="paper"

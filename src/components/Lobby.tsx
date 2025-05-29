@@ -124,7 +124,6 @@ function Lobby() {
   useEffect(() => {
     if (!dbListsData || Object.keys(dbListsData).length === 0) return;
     if (currentList !== "Custom" && !dbListsData[currentList]) {
-      console.log(dbListsData, currentList);
       console.log(`List "${currentList}" not found in DB, setting to Custom`);
       setCurrentList("Custom");
     }
