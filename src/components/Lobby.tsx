@@ -120,9 +120,11 @@ function Lobby() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentList]);
 
-  // if list invalid, set to Custom
+  // if loaded and list invalid, set to Custom
   useEffect(() => {
+    if (!dbListsData || Object.keys(dbListsData).length === 0) return;
     if (currentList !== "Custom" && !dbListsData[currentList]) {
+      console.log(dbListsData, currentList);
       console.log(`List "${currentList}" not found in DB, setting to Custom`);
       setCurrentList("Custom");
     }
