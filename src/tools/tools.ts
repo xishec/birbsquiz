@@ -188,8 +188,45 @@ export const fetchImageForOne = async (
     return null;
   }
 };
-
 export const fetchImageAndAudioForMultiple = async (
+  requestTimestamp: number,
+  birdIds: string[],
+  region: string,
+  onProgress?: (originalTimestamp: number, progress: number) => void
+): Promise<DB_BIRBS> => {
+  const MAX_CONCURRENT = 10;
+  const results: DB_BIRBS = {};
+  let completed = 0;
+  let index = 0;
+
+  async function worker() {
+    while (index < birdIds.length) {
+      // Use the current ID and move the pointer
+      const currentId = birdIds[index];
+      index++;
+      // Wait before starting this request
+      const [image, audio] = await Promise.all([
+        fetchImageForOne(currentId, region),
+        fetchAudioForOne(currentId, region),
+      ]);
+      results[currentId] = { image, audio };
+      completed++;
+      if (onProgress)
+        onProgress(requestTimestamp, (completed / birdIds.length) * 100);
+    }
+  }
+
+  // Start a pool of workers
+  const workers = [];
+  for (let i = 0; i < MAX_CONCURRENT; i++) {
+    workers.push(worker());
+  }
+
+  await Promise.all(workers);
+  return results;
+};
+
+export const fetchImageAndAudioForMultiple1 = async (
   requestTimestamp: number,
   birdIds: string[],
   region: string,
