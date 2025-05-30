@@ -68,6 +68,7 @@ function Lobby() {
     isMobileDevice,
     openLearnDialog,
     setOpenLearnDialog,
+    translation,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");

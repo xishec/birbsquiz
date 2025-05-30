@@ -8,6 +8,7 @@ import Quiz from "./components/Quiz";
 import { DbRegion, EBirdNameProperty, Language } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS, isValidEnumValue } from "./tools/tools";
+import { useTranslation } from "react-i18next";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -91,6 +92,7 @@ export type QuizContextType = {
   setDbBirbs: React.Dispatch<React.SetStateAction<DB_BIRBS>>;
   openLearnDialog: boolean;
   setOpenLearnDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  translation: (key: string) => string;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -99,6 +101,8 @@ export const QuizContext = createContext<QuizContextType | undefined>(
 
 function App() {
   const buildDate = process.env.REACT_APP_BUILD_DATE;
+
+  const { t: translation, i18n } = useTranslation();
 
   const eBird = raw_eBird as Record<
     string,
@@ -299,6 +303,7 @@ function App() {
     } else if (language === Language.LATIN) {
       setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
     }
+    i18n.changeLanguage(language);
   }, [language]);
 
   type Progress = {
@@ -460,6 +465,7 @@ function App() {
           setDbBirbs,
           openLearnDialog,
           setOpenLearnDialog,
+          translation,
         }}
       >
         <Box
