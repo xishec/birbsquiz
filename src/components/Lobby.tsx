@@ -685,7 +685,14 @@ function Lobby() {
                     )
                     .map(([key, value]) => (
                       <MenuItem key={key} value={key}>
-                        ⭐️ {key}
+                        <span
+                          role="img"
+                          aria-label="favorite"
+                          style={{ marginRight: "0.5rem" }}
+                        >
+                          ⭐️
+                        </span>
+                        {key}
                       </MenuItem>
                     ))}
                 {dbListsData &&
@@ -697,7 +704,14 @@ function Lobby() {
                     )
                     .map(([key, value]) => (
                       <MenuItem key={key} value={key}>
-                        ✏️ {key}
+                        <span
+                          role="img"
+                          aria-label="edit"
+                          style={{ marginRight: "0.5rem" }}
+                        >
+                          ✏️
+                        </span>
+                        {key}
                       </MenuItem>
                     ))}
                 {dbListsData &&

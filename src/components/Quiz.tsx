@@ -18,7 +18,6 @@ import {
   DbRegionText,
   EBirdNameProperty,
   Language,
-  LoadingState,
   Sex,
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
@@ -192,6 +191,7 @@ function Quiz() {
     }
   }, [audioSources, imageSources]);
 
+  // Preload images when imageSources are available
   useEffect(() => {
     if (
       imageSources &&
@@ -207,7 +207,7 @@ function Quiz() {
       );
       setShouldReveal(showAnswers[counter]);
     }
-  }, [imageSources]);
+  }, [imageSources, counter, showAnswers]);
 
   const audioComponents = (
     <>
@@ -587,7 +587,9 @@ function Quiz() {
                   onTouchStart={() => setPreviewing(true)}
                   onTouchEnd={() => setPreviewing(false)}
                 >
-                  👀
+                  <span role="img" aria-label="peek">
+                    👀
+                  </span>
                 </Button>
               )}
             </Box>
