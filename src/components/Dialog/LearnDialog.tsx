@@ -31,6 +31,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
   const {
+    birbEmoji,
     isMobileDevice,
     openLearnDialog,
     setOpenLearnDialog,
@@ -161,257 +162,275 @@ function LearnDialog({ birbId }: { birbId: string }) {
     return null;
   }
 
-  const OneOrTwoREM = isMobileDevice ? "1rem" : "2rem";
+  const OneAndHalfOrTwoREM = isMobileDevice ? "1.5rem" : "2rem";
 
   return (
     <Dialog
       onClose={() => setOpenLearnDialog(false)}
       open={openLearnDialog}
-      scroll="paper"
-      maxWidth="xl"
+      maxWidth={false}
       fullScreen={isMobileDevice}
     >
       <DialogTitle
         sx={{
-          paddingInline: OneOrTwoREM,
+          paddingInline: OneAndHalfOrTwoREM,
           paddingBlock: "1rem",
         }}
       >
         <Typography
+          onClick={() => window.location.reload()}
           variant="h5"
           component="span"
           sx={{
-            fontSize: isMobileDevice ? "1.5rem" : "2rem",
+            fontSize: isMobileDevice ? "2rem" : "2.5rem",
+            justifySelf: "start",
+            cursor: "pointer",
           }}
         >
-          {eBird[birbId][eBirdNameProperty]}
+          Birbsquiz
+          <Box
+            component="span"
+            sx={{
+              marginLeft: "1rem",
+              display: "inline-block",
+              transition: "transform 0.1s ease",
+              "&:hover": { transform: "scale(1.1)" },
+            }}
+          >
+            {birbEmoji}
+          </Box>
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ padding: "0", height: "100%" }}>
+      <DialogContent
+        sx={{
+          padding: 0,
+          width: isMobileDevice ? "100%" : "800px",
+          height: isMobileDevice ? "100%" : "80vh",
+        }}
+      >
         {loadingState === LoadingState.DONE ? (
           <Box
             sx={{
-              display: "grid",
               height: "100%",
+              display: "grid",
+              gridTemplateRows: isMobileDevice ? "1fr auto" : "1fr auto",
             }}
           >
-            <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+            <Box
+              sx={{
+                overflow: "auto",
+                paddingInline: OneAndHalfOrTwoREM,
+                paddingBottom: isMobileDevice ? "2rem" : 0,
+              }}
+            >
+              {/* Images section */}
               <Box
                 sx={{
-                  overflow: "auto",
-                  paddingInline: OneOrTwoREM,
-                  paddingBottom: isMobileDevice ? "2rem" : 0,
+                  display: "grid",
+                  justifyContent: "center",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "2rem",
+                  rowGap: "0.5rem",
                 }}
               >
-                {/* Images section */}
-                <Box
-                  sx={{
-                    display: "grid",
-                    justifyContent: "center",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                    gap: "2rem",
-                    rowGap: "0.5rem",
-                  }}
-                >
-                  {imageSources &&
-                    Object.entries(imageSources)
-                      .sort(([sexA], [sexB]) => {
-                        if (sexA === Sex.MALE) return -1;
-                        if (sexB === Sex.MALE) return 1;
-                        return 0;
-                      })
-                      .map(([sex, images]) => {
-                        if (!images || images.length === 0) return null;
-                        const randomIndex =
-                          sex === Sex.MALE
-                            ? imageMaleRandomIndex
-                            : imageFemaleRandomIndex;
-                        return (
-                          <Box
-                            key={`image-box-${birbId}-${sex}`}
-                            sx={{ justifySelf: "center" }}
+                {imageSources &&
+                  Object.entries(imageSources)
+                    .sort(([sexA], [sexB]) => {
+                      if (sexA === Sex.MALE) return -1;
+                      if (sexB === Sex.MALE) return 1;
+                      return 0;
+                    })
+                    .map(([sex, images]) => {
+                      if (!images || images.length === 0) return null;
+                      const randomIndex =
+                        sex === Sex.MALE
+                          ? imageMaleRandomIndex
+                          : imageFemaleRandomIndex;
+                      return (
+                        <Box
+                          key={`image-box-${birbId}-${sex}`}
+                          sx={{ justifySelf: "center" }}
+                        >
+                          <Typography
+                            sx={{
+                              display: "grid",
+                              alignItems: "center",
+                              gridTemplateColumns: "1fr min-content",
+                              paddingBottom: "0.2rem",
+                            }}
+                            variant="body1"
                           >
-                            <Typography
-                              sx={{
-                                display: "grid",
-                                alignItems: "center",
-                                gridTemplateColumns: "1fr min-content",
-                                paddingBottom: "0.2rem",
-                              }}
-                              variant="body1"
+                            {sex === Sex.MALE ? t.Male : t.Female}
+                            <Tooltip
+                              placement="top"
+                              enterDelay={0}
+                              leaveDelay={0}
+                              enterTouchDelay={0}
+                              leaveTouchDelay={0}
+                              title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
+                              sx={{ marginBottom: "0.1rem" }}
                             >
-                              {sex === Sex.MALE ? t.Male : t.Female}
-                              <Tooltip
-                                placement="top"
-                                enterDelay={0}
-                                leaveDelay={0}
-                                enterTouchDelay={0}
-                                leaveTouchDelay={0}
-                                title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                                sx={{ marginBottom: "0.1rem" }}
-                              >
-                                <IconButton>
-                                  <InfoOutlinedIcon
-                                    sx={{ color: "black" }}
-                                    fontSize="small"
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Typography>
-                            <Box
-                              sx={{
-                                cursor: "pointer",
-                                overflow: "hidden",
-                                padding: "0 0rem",
+                              <IconButton>
+                                <InfoOutlinedIcon
+                                  sx={{ color: "black" }}
+                                  fontSize="small"
+                                />
+                              </IconButton>
+                            </Tooltip>
+                          </Typography>
+                          <Box
+                            sx={{
+                              cursor: "pointer",
+                              overflow: "hidden",
+                              padding: "0 0rem",
+                            }}
+                            onClick={() => {
+                              if (sex === Sex.MALE) {
+                                setImageMaleRandomIndex(
+                                  (prevIndex) => (prevIndex + 1) % images.length
+                                );
+                              } else {
+                                setImageFemaleRandomIndex(
+                                  (prevIndex) => (prevIndex + 1) % images.length
+                                );
+                              }
+                            }}
+                          >
+                            <img
+                              style={{
+                                height: "100%",
+                                width: "100%",
+                                objectFit: "contain",
+                                borderRadius: "4px",
                               }}
-                              onClick={() => {
-                                if (sex === Sex.MALE) {
-                                  setImageMaleRandomIndex(
-                                    (prevIndex) =>
-                                      (prevIndex + 1) % images.length
-                                  );
-                                } else {
-                                  setImageFemaleRandomIndex(
-                                    (prevIndex) =>
-                                      (prevIndex + 1) % images.length
-                                  );
-                                }
-                              }}
-                            >
-                              <img
-                                style={{
-                                  height: "100%",
-                                  width: "100%",
-                                  objectFit: "contain",
-                                  borderRadius: "4px",
-                                }}
-                                src={images[randomIndex].url}
-                                loading="lazy"
-                                alt={eBird[birbId][eBirdNameProperty]}
-                              />
-                            </Box>
+                              src={images[randomIndex].url}
+                              loading="lazy"
+                              alt={eBird[birbId][eBirdNameProperty]}
+                            />
                           </Box>
-                        );
-                      })}
-                </Box>
+                        </Box>
+                      );
+                    })}
+              </Box>
 
-                {/* Audio section */}
-                <Box
-                  sx={{
-                    marginTop: "2rem",
-                    display: "grid",
-                    gap: "0.5rem",
-                    gridTemplateColumns: "repeat(auto-fill, 1fr)",
-                  }}
-                >
-                  {audioComponent(audioSourcesSong, AudioType.SONG)}
-                  {audioComponent(audioSourcesCall, AudioType.CAll)}
-                </Box>
+              {/* Audio section */}
+              <Box
+                sx={{
+                  marginTop: "2rem",
+                  display: "grid",
+                  gap: "0.5rem",
+                  gridTemplateColumns: "repeat(auto-fill, 1fr)",
+                }}
+              >
+                {audioComponent(audioSourcesSong, AudioType.SONG)}
+                {audioComponent(audioSourcesCall, AudioType.CAll)}
               </Box>
             </Box>
 
-            {/* More names */}
-            {shouldRevealMoreNames && (
+            <Box>
+              {/* More names */}
+              {shouldRevealMoreNames && (
+                <Box
+                  sx={{
+                    paddingInline: OneAndHalfOrTwoREM,
+                    paddingTop: OneAndHalfOrTwoREM,
+                    display: "grid",
+                    justifyContent: "center",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      height: "40px",
+                      pointerEvents: "none",
+                      color: "#222222",
+                      borderColor: "#222222",
+                    }}
+                  >
+                    {`${Language.EN.toUpperCase()} : ${
+                      eBird[birbId][EBirdNameProperty.COMMON_NAME]
+                    }`}
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      height: "40px",
+                      pointerEvents: "none",
+                      color: "#222222",
+                      borderColor: "#222222",
+                    }}
+                  >
+                    {`${Language.FR} : ${
+                      eBird[birbId][EBirdNameProperty.COMMON_NAME_FR]
+                    }`}
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      height: "40px",
+                      pointerEvents: "none",
+                      color: "#222222",
+                      borderColor: "#222222",
+                    }}
+                  >
+                    {`${Language.LATIN} : ${
+                      eBird[birbId][EBirdNameProperty.SCIENTIFIC_NAME]
+                    }`}
+                  </Button>
+                </Box>
+              )}
+
+              {/* Button to reveal */}
               <Box
                 sx={{
-                  paddingInline: OneOrTwoREM,
-                  paddingTop: OneOrTwoREM,
+                  paddingInline: OneAndHalfOrTwoREM,
+                  paddingTop: OneAndHalfOrTwoREM,
                   display: "grid",
-                  justifyContent: "center",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: "0.5rem",
+                  alignItems: "center",
+                  gridTemplateColumns: "1fr",
                 }}
               >
                 <Button
-                  size="small"
+                  sx={{ height: "40px" }}
                   variant="outlined"
-                  sx={{
-                    height: "40px",
-                    pointerEvents: "none",
-                    color: "#222222",
-                    borderColor: "#222222",
-                  }}
+                  color="primary"
+                  onMouseDown={() => setShouldRevealMoreNames(true)}
+                  onMouseUp={() => setShouldRevealMoreNames(false)}
+                  onMouseLeave={() => setShouldRevealMoreNames(false)}
+                  onTouchStart={() => setShouldRevealMoreNames(true)}
+                  onTouchEnd={() => setShouldRevealMoreNames(false)}
                 >
-                  {`${Language.EN.toUpperCase()} : ${
-                    eBird[birbId][EBirdNameProperty.COMMON_NAME]
-                  }`}
-                </Button>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  sx={{
-                    height: "40px",
-                    pointerEvents: "none",
-                    color: "#222222",
-                    borderColor: "#222222",
-                  }}
-                >
-                  {`${Language.FR} : ${
-                    eBird[birbId][EBirdNameProperty.COMMON_NAME_FR]
-                  }`}
-                </Button>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  sx={{
-                    height: "40px",
-                    pointerEvents: "none",
-                    color: "#222222",
-                    borderColor: "#222222",
-                  }}
-                >
-                  {`${Language.LATIN} : ${
-                    eBird[birbId][EBirdNameProperty.SCIENTIFIC_NAME]
-                  }`}
-                </Button>
-              </Box>
-            )}
-
-            {/* Button to reveal */}
-            <Box
-              sx={{
-                paddingInline: OneOrTwoREM,
-                paddingTop: OneOrTwoREM,
-                display: "grid",
-                alignItems: "center",
-                gridTemplateColumns: "1fr",
-              }}
-            >
-              <Button
-                sx={{ height: "40px" }}
-                variant="outlined"
-                color="primary"
-                onMouseDown={() => setShouldRevealMoreNames(true)}
-                onMouseUp={() => setShouldRevealMoreNames(false)}
-                onMouseLeave={() => setShouldRevealMoreNames(false)}
-                onTouchStart={() => setShouldRevealMoreNames(true)}
-                onTouchEnd={() => setShouldRevealMoreNames(false)}
-              >
-                {`${eBird[birbId][eBirdNameProperty]} 
+                  {`${eBird[birbId][eBirdNameProperty]} 
                                   ${
                                     regionList[region].includes(birbId)
                                       ? ""
                                       : `(not found in ${region}, audio came from ${t[region]})`
                                   }`}
-              </Button>
-            </Box>
+                </Button>
+              </Box>
 
-            {/* Close button */}
-            <Box
-              sx={{
-                paddingInline: OneOrTwoREM,
-                paddingTop: "0.5rem",
-                paddingBottom: OneOrTwoREM,
-              }}
-            >
-              <Button
-                sx={{ height: "40px", width: "100%" }}
-                variant="outlined"
-                color="error"
-                onClick={() => setOpenLearnDialog(false)}
+              {/* Close button */}
+              <Box
+                sx={{
+                  paddingInline: OneAndHalfOrTwoREM,
+                  paddingTop: "0.5rem",
+                  paddingBottom: OneAndHalfOrTwoREM,
+                }}
               >
-                {t.Close}
-              </Button>
+                <Button
+                  sx={{ height: "40px", width: "100%" }}
+                  variant="outlined"
+                  color="error"
+                  onClick={() => setOpenLearnDialog(false)}
+                >
+                  {t.Close}
+                </Button>
+              </Box>
             </Box>
           </Box>
         ) : (
