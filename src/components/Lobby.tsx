@@ -185,20 +185,12 @@ function Lobby() {
 
   const addBirb = useCallback(
     (birbId: string) => {
-      // console.log("Adding birb:", birbId);
       if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
       }
-      playAudioForBirb(birbId, AudioType.SONG);
-      // setBirbInput("");
-      // setSelectedBirbId("");
     },
     [eBird, selectedBirbIds, setSelectedBirbIds]
   );
-
-  // useEffect(() => {
-  //   console.log(birbInput);
-  // }, [birbInput]);
 
   const deleteBirb = useCallback(
     (birbId: string) => {
@@ -208,54 +200,6 @@ function Lobby() {
     },
     [selectedBirbIds, setSelectedBirbIds]
   );
-
-  // const copyUrl = () => {
-  //   const url = new URL(window.location.href);
-  //   const encodedBirbs = btoa(JSON.stringify(selectedBirbIds));
-  //   url.searchParams.set("birbs", encodedBirbs);
-  //   navigator.clipboard.writeText(url.toString());
-  //   url.searchParams.delete("birbs");
-  //   setSnakeMessage(`Lien copié!`);
-  //   setOpenSnake(true);
-  // };
-
-  // useEffect(() => {
-  //   console.log("Selected birb ID changed:", selectedBirbId);
-  //   if (selectedBirbId) addBirb(selectedBirbId);
-  // }, [selectedBirbId, addBirb]);
-
-  // const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-
-  const playAudioForBirb = (birbId: string, audioType: AudioType) => {
-    // fetchAudioForOne(birbId, region).then((birdAudio) => {
-    //   if (!birdAudio) return;
-    //   const audioList = birdAudio[audioType];
-    //   if (currentAudioRef.current) {
-    //     currentAudioRef.current.pause();
-    //     currentAudioRef.current = null;
-    //   }
-    //   const randomIndex = (Math.random() * Math.min(audioList.length, 5)) | 0;
-    //   const urlWithMetadata = audioList?.[randomIndex];
-    //   if (urlWithMetadata!.url) {
-    //     const audio = new Audio(urlWithMetadata.url);
-    //     currentAudioRef.current = audio;
-    //     audio.currentTime = 4 + Math.random() * 4;
-    //     audio
-    //       .play()
-    //       .then(() => {
-    //         setTimeout(() => {
-    //           audio.pause();
-    //           if (currentAudioRef.current === audio) {
-    //             currentAudioRef.current = null;
-    //           }
-    //         }, 3000);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error playing audio", error);
-    //       });
-    //   }
-    // });
-  };
 
   const saveBirbList = (
     newListName: string,
@@ -407,41 +351,15 @@ function Lobby() {
             }}
           >
             {!user && (
-              <Button
-                variant="text"
-                onClick={signInWithGoogle}
-                // endIcon={<LoginIcon />}
-                size="small"
-              >
-                Login
+              <Button variant="text" onClick={signInWithGoogle} size="small">
+                {t.Login}
               </Button>
             )}
             {user && (
-              <Button
-                variant="text"
-                onClick={() => signOut(auth)}
-                // endIcon={<LogoutIcon />}
-                size="small"
-              >
-                Logout
+              <Button variant="text" onClick={() => signOut(auth)} size="small">
+                {t.Logout}
               </Button>
             )}
-            {/* 
-            {user && (
-              <Tooltip
-                placement="left"
-                enterDelay={0}
-                leaveDelay={0}
-                enterTouchDelay={0}
-                leaveTouchDelay={0}
-                title={user ? user.email : "Login to save your lists :)"}
-                sx={{ justifySelf: "end", marginBottom: "0.25rem" }}
-              >
-                <IconButton>
-                  <InfoOutlinedIcon color="primary" fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            )} */}
           </Box>
         </Box>
 

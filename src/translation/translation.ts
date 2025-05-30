@@ -23,6 +23,8 @@ export interface Translation {
   Save: string;
   SaveTile: string;
   SaveConfirm: string;
+  Login: string;
+  Logout: string;
 }
 
 export const translationEnglish: Translation = {
@@ -51,6 +53,8 @@ export const translationEnglish: Translation = {
   Save: "Save changes",
   SaveTile: "Save birbs to list",
   SaveConfirm: "Are you sure you want to update your list?",
+  Login: "Login",
+  Logout: "Logout",
 };
 
 export const translationFrench: Translation = {
@@ -80,4 +84,6 @@ export const translationFrench: Translation = {
   Save: "Sauvegarder les modifications",
   SaveTile: "Sauvegarder les birbs dans la liste",
   SaveConfirm: "Êtes-vous sûr de vouloir mettre à jour votre liste ?",
+  Login: "Connexion",
+  Logout: "Déconnexion",
 };
