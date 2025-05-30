@@ -556,7 +556,7 @@ function Lobby() {
                     setOpenLearnDialog(true);
                   }}
                 >
-                  Learn
+                  {t.Learn}
                 </Button>
               </li>
             )}
@@ -739,18 +739,14 @@ function Lobby() {
                 sx={{ height: "40px" }}
                 disabled={selectedBirbIds.length <= 0}
                 onClick={() =>
-                  confirmAction(
-                    "Clear Custom list",
-                    "Are you sure you want to clear your Custom list?",
-                    () => {
-                      setSelectedBirbIds([]);
-                    }
-                  )
+                  confirmAction(t.ClearTile, t.ClearConfirm, () => {
+                    setSelectedBirbIds([]);
+                  })
                 }
                 color="error"
                 variant="outlined"
               >
-                Clear
+                {t.Clear}
               </Button>
               {user && (
                 <Button
@@ -762,7 +758,7 @@ function Lobby() {
                   color="primary"
                   variant="outlined"
                 >
-                  Create
+                  {t.Create}
                 </Button>
               )}
             </Box>
@@ -780,19 +776,15 @@ function Lobby() {
               <Button
                 sx={{ height: "40px" }}
                 onClick={() =>
-                  confirmAction(
-                    "Copy to Custom list",
-                    "This might overwrite your current Custom list, make sure to save your birbs",
-                    () => {
-                      setCurrentList("Custom");
-                      setCustomList(selectedBirbIds);
-                    }
-                  )
+                  confirmAction(t.CopyTile, t.CopyConfirm, () => {
+                    setCurrentList("Custom");
+                    setCustomList(selectedBirbIds);
+                  })
                 }
                 color="primary"
                 variant="outlined"
               >
-                Copy
+                {t.Copy}
               </Button>
 
               {isUserList && (
@@ -802,7 +794,7 @@ function Lobby() {
                   color="primary"
                   variant="outlined"
                 >
-                  Edit
+                  {t.Edit}
                 </Button>
               )}
             </Box>
@@ -822,38 +814,30 @@ function Lobby() {
                 <Button
                   sx={{ height: "40px" }}
                   onClick={() =>
-                    confirmAction(
-                      "Reset unsaved changes",
-                      `Are you sure you want to reset your unsaved changes?`,
-                      () => {
-                        setSelectedBirbIds(dbListsData[currentList]?.ids!);
-                      }
-                    )
+                    confirmAction(t.ResetTile, t.ResetConfirm, () => {
+                      setSelectedBirbIds(dbListsData[currentList]?.ids!);
+                    })
                   }
                   color="warning"
                   variant="outlined"
                 >
-                  Reset changes
+                  {t.Reset}
                 </Button>
 
                 <Button
                   sx={{ height: "40px" }}
                   onClick={() =>
-                    confirmAction(
-                      "Save birbs to list",
-                      `Are you sure you want to update your list?`,
-                      () => {
-                        saveBirbList(
-                          currentList,
-                          dbListsData[currentList].creator
-                        );
-                      }
-                    )
+                    confirmAction(t.SaveTile, t.SaveConfirm, () => {
+                      saveBirbList(
+                        currentList,
+                        dbListsData[currentList].creator
+                      );
+                    })
                   }
                   color="success"
                   variant="outlined"
                 >
-                  Save changes
+                  {t.Save}
                 </Button>
               </Box>
             )}

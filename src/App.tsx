@@ -8,7 +8,11 @@ import Quiz from "./components/Quiz";
 import { DBRegion, EBirdNameProperty, Language } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS, isValidEnumValue } from "./tools/tools";
-import { Translation, translationEnglish } from "./translation/translation";
+import {
+  Translation,
+  translationEnglish,
+  translationFrench,
+} from "./translation/translation";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -298,13 +302,14 @@ function App() {
 
   useEffect(() => {
     if (language === Language.FR) {
+      setCurrentTranslation(translationFrench);
       setEBridNameProperty(EBirdNameProperty.COMMON_NAME_FR);
     } else if (language === Language.EN) {
+      setCurrentTranslation(translationEnglish);
       setEBridNameProperty(EBirdNameProperty.COMMON_NAME);
     } else if (language === Language.LATIN) {
       setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
     }
-    setCurrentTranslation(translationEnglish);
   }, [language]);
 
   type Progress = {
