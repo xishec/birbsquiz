@@ -97,8 +97,14 @@ function StartQuizDialog() {
   }, [selectedBirbIds, sliderValue, openStartQuizDialog]);
 
   React.useEffect(() => {
-    if (sequence.length <= 0 || !openStartQuizDialog) return;
-    console.log("Starting quiz with sequence", sequence);
+    if (
+      sequence.length <= 0 ||
+      !openStartQuizDialog ||
+      loadingState !== LoadingState.UNLOADED
+    ) {
+      return;
+    }
+
     setLoadingState(LoadingState.LOADING);
     setProgress(0);
     cancelRequestRef.current = false;

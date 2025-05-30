@@ -196,25 +196,25 @@ export const fetchImageAndAudioForMultiple = async (
 ): Promise<DB_BIRBS> => {
   const BATCH_SIZE = 10;
   const results: DB_BIRBS = {};
-  let completed = 0;
+  const completed = { value: 0 };
+
+  // helper declared outside of the loop to avoid closure issues
+  const processBirdId = async (id: string): Promise<void> => {
+    const [image, audio] = await Promise.all([
+      fetchImageForOne(id, region),
+      fetchAudioForOne(id, region),
+    ]);
+    results[id] = { image, audio };
+    completed.value++;
+    if (onProgress) {
+      onProgress((completed.value / birdIds.length) * 100);
+    }
+  };
+
   for (let i = 0; i < birdIds.length; i += BATCH_SIZE) {
     const batch = birdIds.slice(i, i + BATCH_SIZE);
-    const batchResults = await Promise.all(
-      batch.map(async (id) => {
-        const [image, audio] = await Promise.all([
-          fetchImageForOne(id, region),
-          fetchAudioForOne(id, region),
-        ]);
-        return { id, image, audio };
-      })
-    );
-    batchResults.forEach(({ id, image, audio }) => {
-      results[id] = { image, audio };
-    });
-    completed += batchResults.length;
-    if (onProgress) {
-      onProgress((completed / birdIds.length) * 100);
-    }
+    const promises = batch.map(processBirdId);
+    await Promise.all(promises);
   }
   return results;
 };
