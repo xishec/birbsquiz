@@ -13,7 +13,7 @@ import {
 import { QuizContext } from "../../App";
 import {
   AudioType,
-  DbRegionText,
+  DBRegionText,
   EBirdNameProperty,
   Language,
   LoadingState,
@@ -50,7 +50,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [imageSources, setImageSources] = React.useState<BirdImage>();
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
-  // const [dbBirb, setDbBirb] = React.useState<DB_BIRBS>();
+  // const [dbBirb, setDBBirb] = React.useState<DB_BIRBS>();
   const [progress, setProgress] = React.useState<number>(0);
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED
@@ -63,12 +63,12 @@ function LearnDialog({ birbId }: { birbId: string }) {
     console.log("birbId is", birbId);
     fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
       setProgress(newProgress);
-    }).then((newDbBirb) => {
-      // setDbBirb(newDbBirb);
-      setAudioSourcesSong(newDbBirb[birbId]?.audio?.song || []);
-      setAudioSourcesCall(newDbBirb[birbId]?.audio?.call || []);
-      setImageSources(newDbBirb[birbId]?.image || undefined);
-      // console.log("dbBirbs loaded", newDbBirb);
+    }).then((newDBBirb) => {
+      // setDBBirb(newDBBirb);
+      setAudioSourcesSong(newDBBirb[birbId]?.audio?.song || []);
+      setAudioSourcesCall(newDBBirb[birbId]?.audio?.call || []);
+      setImageSources(newDBBirb[birbId]?.image || undefined);
+      // console.log("dbBirbs loaded", newDBBirb);
       setTimeout(() => {
         setLoadingState(LoadingState.DONE);
       }, 500);
@@ -379,7 +379,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                                   ${
                                     regionList[region].includes(birbId)
                                       ? ""
-                                      : `(not found in ${region}, audio came from ${DbRegionText[region]})`
+                                      : `(not found in ${region}, audio came from ${DBRegionText[region]})`
                                   }`}
               </Button>
             </Box>

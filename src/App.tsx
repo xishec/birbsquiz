@@ -5,10 +5,10 @@ import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import { DbRegion, EBirdNameProperty, Language } from "./tools/constants";
+import { DBRegion, EBirdNameProperty, Language } from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS, isValidEnumValue } from "./tools/tools";
-import { useTranslation } from "react-i18next";
+import { Translation, translationEnglish } from "./translation/translation";
 
 const birbEmojis = [
   "🐦‍⬛",
@@ -40,7 +40,7 @@ export type QuizContextType = {
       comNameFr: string;
     }
   >;
-  regionList: Record<DbRegion, string[]>;
+  regionList: Record<DBRegion, string[]>;
   sequence: string[];
   randomSeed: number;
   counter: number;
@@ -79,8 +79,8 @@ export type QuizContextType = {
   eBirdNameProperty: EBirdNameProperty;
   sliderValue: number;
   setSliderValue: React.Dispatch<React.SetStateAction<number>>;
-  region: DbRegion;
-  setRegion: React.Dispatch<React.SetStateAction<DbRegion>>;
+  region: DBRegion;
+  setRegion: React.Dispatch<React.SetStateAction<DBRegion>>;
   isMobileDevice: boolean;
   openLocalizationDialog: boolean;
   setOpenLocalizationDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -89,10 +89,10 @@ export type QuizContextType = {
   openEditDialog: boolean;
   setOpenEditDialog: React.Dispatch<React.SetStateAction<boolean>>;
   dbBirbs: DB_BIRBS;
-  setDbBirbs: React.Dispatch<React.SetStateAction<DB_BIRBS>>;
+  setDBBirbs: React.Dispatch<React.SetStateAction<DB_BIRBS>>;
   openLearnDialog: boolean;
   setOpenLearnDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  translation: (key: string) => string;
+  currentTranslation: Translation;
 };
 
 export const QuizContext = createContext<QuizContextType | undefined>(
@@ -102,8 +102,6 @@ export const QuizContext = createContext<QuizContextType | undefined>(
 function App() {
   const buildDate = process.env.REACT_APP_BUILD_DATE;
 
-  const { t: translation, i18n } = useTranslation();
-
   const eBird = raw_eBird as Record<
     string,
     {
@@ -112,7 +110,7 @@ function App() {
       comNameFr: string;
     }
   >;
-  const regionList = raw_region_list as Record<DbRegion, string[]>;
+  const regionList = raw_region_list as Record<DBRegion, string[]>;
 
   const localStorageKey = "birbsquiz-2205";
 
@@ -258,17 +256,20 @@ function App() {
       : selectedBirbIds.length
   );
 
-  const [region, setRegion] = React.useState<DbRegion>(() =>
-    savedProgress?.region && isValidEnumValue(DbRegion, savedProgress.region)
+  const [region, setRegion] = React.useState<DBRegion>(() =>
+    savedProgress?.region && isValidEnumValue(DBRegion, savedProgress.region)
       ? savedProgress.region
-      : DbRegion.CA_QC
+      : DBRegion.CA_QC
   );
 
   const [isMobileDevice, setIsMobileDevice] = React.useState<boolean>(false);
 
-  const [dbBirbs, setDbBirbs] = React.useState<DB_BIRBS>(() =>
+  const [dbBirbs, setDBBirbs] = React.useState<DB_BIRBS>(() =>
     savedProgress?.dbBirbs && isOneHourAgo ? savedProgress.dbBirbs : {}
   );
+
+  const [currentTranslation, setCurrentTranslation] =
+    React.useState<Translation>({} as Translation);
 
   const prepareQuiz = (nbBirb: number) => {
     setCounter(0);
@@ -303,7 +304,7 @@ function App() {
     } else if (language === Language.LATIN) {
       setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
     }
-    i18n.changeLanguage(language);
+    setCurrentTranslation(translationEnglish);
   }, [language]);
 
   type Progress = {
@@ -328,7 +329,7 @@ function App() {
     language: Language;
     eBirdNameProperty: EBirdNameProperty;
     sliderValue: number;
-    region: DbRegion;
+    region: DBRegion;
     isMobileDevice: boolean;
     dbBirbs: DB_BIRBS;
     openLearnDialog: boolean;
@@ -462,10 +463,10 @@ function App() {
           openEditDialog,
           setOpenEditDialog,
           dbBirbs,
-          setDbBirbs,
+          setDBBirbs,
           openLearnDialog,
           setOpenLearnDialog,
-          translation,
+          currentTranslation,
         }}
       >
         <Box

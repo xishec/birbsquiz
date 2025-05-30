@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import { DbRegion, DbRegionText, Language } from "../../tools/constants";
+import {  Language } from "../../tools/constants";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -60,23 +60,23 @@ function LocalizationDialog() {
                 label="Region"
                 value={region}
                 onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value as DbRegion;
+                  const key = event.target.value as DBRegion;
                   setRegion(key);
                 }}
                 size="small"
               >
-                <MenuItem key={DbRegion.EARTH} value={DbRegion.EARTH}>
-                  {DbRegionText[DbRegion.EARTH]}
+                <MenuItem key={DBRegion.EARTH} value={DBRegion.EARTH}>
+                  {DBRegionText[DBRegion.EARTH]}
                 </MenuItem>
                 {regionList &&
                   Object.keys(regionList)
-                    .filter((key) => key !== DbRegion.EARTH)
+                    .filter((key) => key !== DBRegion.EARTH)
                     .sort()
                     .map((key) => {
-                      if (key === DbRegion.EARTH) return null;
+                      if (key === DBRegion.EARTH) return null;
                       return (
                         <MenuItem key={key} value={key}>
-                          {DbRegionText[key as DbRegion]}
+                          {DBRegionText[key as DBRegion]}
                         </MenuItem>
                       );
                     })}

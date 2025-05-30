@@ -31,7 +31,7 @@ export enum FavoriteList {
   FAVORITE = "Favorite list",
 }
 
-export enum DbRegion {
+export enum DBRegion {
   US_CA = "US-CA",
   CA_QC = "CA-QC",
   US_FL = "US-FL",
@@ -39,10 +39,10 @@ export enum DbRegion {
   EARTH = "EARTH",
 }
 
-export const DbRegionText = {
-  "US-CA": "California",
-  "CA-QC": "Quebec",
-  "US-FL": "Florida",
-  "CA-BC": "British Columbia",
-  EARTH: "Earth",
-};
+// export const DBRegionText = {
+//   "US-CA": "California",
+//   "CA-QC": "Quebec",
+//   "US-FL": "Florida",
+//   "CA-BC": "British Columbia",
+//   EARTH: "Earth",
+// };

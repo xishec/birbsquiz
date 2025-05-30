@@ -24,7 +24,7 @@ import { GameMode } from "../../App";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
-import { DbRegion, DbRegionText, LoadingState } from "../../tools/constants";
+import { DBRegion, DBRegionText, LoadingState } from "../../tools/constants";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -48,7 +48,7 @@ function StartQuizDialog() {
     setSliderValue,
     region,
     setRegion,
-    setDbBirbs,
+    setDBBirbs,
     sequence,
     endQuiz,
   } = quizContext;
@@ -113,10 +113,10 @@ function StartQuizDialog() {
       (newBuffer) => {
         setBuffer(newBuffer);
       }
-    ).then((newDbBirbs) => {
+    ).then((newDBBirbs) => {
       if (cancelRequestRef.current) return; // cancel if flagged
-      setDbBirbs(newDbBirbs);
-      console.log("dbBirbs loaded", newDbBirbs, Object.keys(newDbBirbs).length);
+      setDBBirbs(newDBBirbs);
+      console.log("dbBirbs loaded", newDBBirbs, Object.keys(newDBBirbs).length);
       setTimeout(() => {
         if (cancelRequestRef.current) return;
         setLoadingState(LoadingState.DONE);
@@ -191,23 +191,23 @@ function StartQuizDialog() {
                   label="Region"
                   value={region}
                   onChange={(event: SelectChangeEvent) => {
-                    const key = event.target.value as DbRegion;
+                    const key = event.target.value as DBRegion;
                     setRegion(key);
                   }}
                   size="small"
                 >
-                  <MenuItem key={DbRegion.EARTH} value={DbRegion.EARTH}>
-                    {DbRegionText[DbRegion.EARTH]}
+                  <MenuItem key={DBRegion.EARTH} value={DBRegion.EARTH}>
+                    {DBRegionText[DBRegion.EARTH]}
                   </MenuItem>
                   {regionList &&
                     Object.keys(regionList)
-                      .filter((key) => key !== DbRegion.EARTH)
+                      .filter((key) => key !== DBRegion.EARTH)
                       .sort()
                       .map((key) => {
-                        if (key === DbRegion.EARTH) return null;
+                        if (key === DBRegion.EARTH) return null;
                         return (
                           <MenuItem key={key} value={key}>
-                            {DbRegionText[key as DbRegion]}
+                            {DBRegionText[key as DBRegion]}
                           </MenuItem>
                         );
                       })}

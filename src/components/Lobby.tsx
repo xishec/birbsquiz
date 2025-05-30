@@ -29,8 +29,7 @@ import { QuizContext } from "../App";
 import {
   AudioType,
   FavoriteList,
-  DbRegion,
-  DbRegionText,
+  RegionToDBRegionMap,
 } from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
@@ -68,13 +67,13 @@ function Lobby() {
     isMobileDevice,
     openLearnDialog,
     setOpenLearnDialog,
-    translation,
+    currentTranslation: t,
   } = quizContext;
 
   const [birbInput, setBirbInput] = React.useState<string>("");
   const [learnBirbId, setLearnBirbId] = React.useState<string>("");
   const [user, setUser] = useState<User | null | undefined>();
-  const [dbListsData, setDbListsData] = useState<DB_LISTS>({});
+  const [dbListsData, setDBListsData] = useState<DB_LISTS>({});
   const [isUserList, setIsUserList] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null); // add this ref
@@ -146,7 +145,7 @@ function Lobby() {
             )
             .catch((error) => console.error("Error creating v2/lists:", error));
         }
-        setDbListsData(data);
+        setDBListsData(data);
       })
       .catch((error) => {
         console.error("Error reading birb list:", error);
@@ -523,10 +522,10 @@ function Lobby() {
                 inputRef={inputRef}
                 label={
                   !user && currentList !== "Custom"
-                    ? "Disabled (not your list)"
-                    : `Find birbs ${region === DbRegion.EARTH ? "on" : "in"} ${
-                        DbRegionText[region]
-                      }...`
+                    ? t.NotYourList
+                    : `${t.FindBirbs} ${
+                        region === DBRegion.EARTH ? t.On : t.In
+                      } ${t[region]}...`
                 }
                 variant="outlined"
               />
