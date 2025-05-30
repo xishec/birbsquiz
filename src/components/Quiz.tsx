@@ -15,7 +15,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import {
   AudioType,
-  DBRegionText,
   EBirdNameProperty,
   Language,
   Sex,
@@ -48,6 +47,7 @@ function Quiz() {
     dbBirbs,
     regionList,
     region,
+    currentTranslation: t,
   } = quizContext;
 
   const [audioRandomIndex, setAudioRandomIndex] = React.useState(0);
@@ -674,7 +674,7 @@ function Quiz() {
                       ${
                         regionList[region].includes(birbId)
                           ? ""
-                          : `(not found in ${region}, audio came from ${DBRegionText[region]})`
+                          : `(not found in ${region}, audio came from ${t[region]})`
                       }`}
               </Button>
               <Box

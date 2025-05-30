@@ -3,7 +3,7 @@ export interface Translation {
   On: string;
   In: string;
   FindBirbs: string;
-  Earth: string;
+  EARTH: string;
   "US-CA": string;
   "CA-QC": string;
   "US-FL": string;
@@ -15,7 +15,7 @@ export const translationEnglish: Translation = {
   On: "on",
   In: "in",
   FindBirbs: "Find birbs",
-  Earth: "Earth",
+  EARTH: "Earth",
   "US-CA": "California",
   "CA-QC": "Quebec",
   "US-FL": "Florida",

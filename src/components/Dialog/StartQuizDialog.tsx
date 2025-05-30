@@ -24,7 +24,7 @@ import { GameMode } from "../../App";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
-import { DBRegion, DBRegionText, LoadingState } from "../../tools/constants";
+import { DBRegion, LoadingState } from "../../tools/constants";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -51,6 +51,7 @@ function StartQuizDialog() {
     setDBBirbs,
     sequence,
     endQuiz,
+    currentTranslation: t,
   } = quizContext;
 
   const [maxSliderValue, setMaxSliderValue] = React.useState<number>(
@@ -197,7 +198,7 @@ function StartQuizDialog() {
                   size="small"
                 >
                   <MenuItem key={DBRegion.EARTH} value={DBRegion.EARTH}>
-                    {DBRegionText[DBRegion.EARTH]}
+                    {t[DBRegion.EARTH]}
                   </MenuItem>
                   {regionList &&
                     Object.keys(regionList)
@@ -207,7 +208,7 @@ function StartQuizDialog() {
                         if (key === DBRegion.EARTH) return null;
                         return (
                           <MenuItem key={key} value={key}>
-                            {DBRegionText[key as DBRegion]}
+                            {t[key as DBRegion]}
                           </MenuItem>
                         );
                       })}

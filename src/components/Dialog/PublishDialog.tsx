@@ -37,7 +37,11 @@ function PublishDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openPublishDialog, setOpenPublishDialog } = quizContext;
+  const {
+    openPublishDialog,
+    setOpenPublishDialog,
+    currentTranslation: t,
+  } = quizContext;
 
   return (
     <Dialog

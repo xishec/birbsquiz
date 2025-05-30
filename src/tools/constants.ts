@@ -38,11 +38,3 @@ export enum DBRegion {
   CA_BC = "CA-BC",
   EARTH = "EARTH",
 }
-
-// export const DBRegionText = {
-//   "US-CA": "California",
-//   "CA-QC": "Quebec",
-//   "US-FL": "Florida",
-//   "CA-BC": "British Columbia",
-//   EARTH: "Earth",
-// };

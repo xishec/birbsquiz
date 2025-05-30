@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { QuizContext } from "../../App";
-import {  Language } from "../../tools/constants";
+import { DBRegion, Language } from "../../tools/constants";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -28,6 +28,7 @@ function LocalizationDialog() {
     setRegion,
     language,
     setLanguage,
+    currentTranslation: t,
   } = quizContext;
 
   return (
@@ -39,7 +40,9 @@ function LocalizationDialog() {
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
-        <Typography variant="h5" component="span">Localization Settings</Typography>
+        <Typography variant="h5" component="span">
+          Localization Settings
+        </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>
@@ -66,7 +69,7 @@ function LocalizationDialog() {
                 size="small"
               >
                 <MenuItem key={DBRegion.EARTH} value={DBRegion.EARTH}>
-                  {DBRegionText[DBRegion.EARTH]}
+                  {t[DBRegion.EARTH]}
                 </MenuItem>
                 {regionList &&
                   Object.keys(regionList)
@@ -76,7 +79,7 @@ function LocalizationDialog() {
                       if (key === DBRegion.EARTH) return null;
                       return (
                         <MenuItem key={key} value={key}>
-                          {DBRegionText[key as DBRegion]}
+                          {t[key as DBRegion]}
                         </MenuItem>
                       );
                     })}

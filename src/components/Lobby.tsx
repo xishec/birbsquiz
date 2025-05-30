@@ -26,11 +26,7 @@ import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import {
-  AudioType,
-  FavoriteList,
-  RegionToDBRegionMap,
-} from "../tools/constants";
+import { AudioType, DBRegion, FavoriteList } from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";

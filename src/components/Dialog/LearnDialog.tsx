@@ -13,7 +13,6 @@ import {
 import { QuizContext } from "../../App";
 import {
   AudioType,
-  DBRegionText,
   EBirdNameProperty,
   Language,
   LoadingState,
@@ -39,6 +38,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
     eBirdNameProperty,
     region,
     regionList,
+    currentTranslation: t,
   } = quizContext;
 
   const [audioSourcesSong, setAudioSourcesSong] = React.useState<
@@ -379,7 +379,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                                   ${
                                     regionList[region].includes(birbId)
                                       ? ""
-                                      : `(not found in ${region}, audio came from ${DBRegionText[region]})`
+                                      : `(not found in ${region}, audio came from ${t[region]})`
                                   }`}
               </Button>
             </Box>
