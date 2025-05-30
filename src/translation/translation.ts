@@ -49,6 +49,11 @@ export interface Translation {
   FavoriteControl: string;
   Favorite: string;
   Normal: string;
+  Results: string;
+  Male: string;
+  Female: string;
+  Close: string;
+  Reveal: string;
 }
 
 export const translationEnglish: Translation = {
@@ -104,6 +109,11 @@ export const translationEnglish: Translation = {
   FavoriteControl: "Favorite control (admin)",
   Favorite: "Favorite",
   Normal: "Normal",
+  Results: "Results",
+  Male: "Male",
+  Female: "Female",
+  Close: "Close",
+  Reveal: "Reveal",
 };
 
 export const translationFrench: Translation = {
@@ -160,6 +170,11 @@ export const translationFrench: Translation = {
   FavoriteControl: "Contrôle des favoris (admin)",
   Favorite: "Favori",
   Normal: "Normal",
+  Results: "Résultats",
+  Male: "Mâle",
+  Female: "Femelle",
+  Close: "Fermer",
+  Reveal: "Révéler",
 };
 
 export const translationLatin: Translation = {
@@ -215,4 +230,9 @@ export const translationLatin: Translation = {
   FavoriteControl: "Moderatio Favoritorum (admin)",
   Favorite: "Favoritum",
   Normal: "Normalis",
+  Results: "Resultata",
+  Male: "Masculinum",
+  Female: "Femininum",
+  Close: "Claude",
+  Reveal: "Revela",
 };

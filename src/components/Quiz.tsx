@@ -129,23 +129,9 @@ function Quiz() {
     const urlWithMetadata = birdAudio[newAudioType];
     const candidateCount = Math.min(urlWithMetadata.length, 5);
     const randomIndex = Math.floor(birdRandomSeed * candidateCount);
-    // console.log(
-    //   "birdRandomSeed",
-    //   birdRandomSeed,
-    //   "candidateCount",
-    //   candidateCount,
-    //   "randomIndex",
-    //   randomIndex
-    // );
     setAudioRandomIndex(randomIndex);
     setAudioSources(urlWithMetadata);
   };
-
-  // // Create a ref to always store the latest birbId.
-  // const birbIdRef = useRef(birbId);
-  // useEffect(() => {
-  //   birbIdRef.current = birbId;
-  // }, [birbId]);
 
   const fetchAndSetImageSources = () => {
     const birdImage = dbBirbs[birbId]?.image;
@@ -213,6 +199,7 @@ function Quiz() {
     <>
       {audioSources.slice(0, 5).length > 0 &&
         audioSources.slice(0, 5)[0] &&
+        currentAudioType &&
         audioSources
           .slice(0, 5)
           .map((urlWithMetadata: UrlWithMetadata, i: number) => (
@@ -231,12 +218,9 @@ function Quiz() {
                   fontWeight: i === audioRandomIndex ? "bold" : "normal",
                 }}
               >
-                {`${
-                  currentAudioType
-                    ? currentAudioType.charAt(0).toUpperCase() +
-                      currentAudioType.slice(1)
-                    : ""
-                } ${i + 1}`}
+                {`${currentAudioType === AudioType.CAll ? t.Call : t.Song} ${
+                  i + 1
+                }`}
               </Typography>
 
               <audio
@@ -575,7 +559,7 @@ function Quiz() {
                   setAnswers(newAnswers);
                 }}
               >
-                Reveal
+                {t.Reveal}
               </Button>
               {gameMode === GameMode.CHANTS && (
                 <Button

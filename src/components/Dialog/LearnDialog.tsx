@@ -50,7 +50,6 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [imageSources, setImageSources] = React.useState<BirdImage>();
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
-  // const [dbBirb, setDBBirb] = React.useState<DB_BIRBS>();
   const [progress, setProgress] = React.useState<number>(0);
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED
@@ -64,11 +63,9 @@ function LearnDialog({ birbId }: { birbId: string }) {
     fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
       setProgress(newProgress);
     }).then((newDBBirb) => {
-      // setDBBirb(newDBBirb);
       setAudioSourcesSong(newDBBirb[birbId]?.audio?.song || []);
       setAudioSourcesCall(newDBBirb[birbId]?.audio?.call || []);
       setImageSources(newDBBirb[birbId]?.image || undefined);
-      // console.log("dbBirbs loaded", newDBBirb);
       setTimeout(() => {
         setLoadingState(LoadingState.DONE);
       }, 500);
@@ -246,7 +243,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                             }}
                             variant="body1"
                           >
-                            {sex.charAt(0).toUpperCase() + sex.slice(1)}
+                            {sex === Sex.MALE ? t.Male : t.Female}
                             <Tooltip
                               placement="top"
                               enterDelay={0}
@@ -397,7 +394,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 color="error"
                 onClick={() => setOpenLearnDialog(false)}
               >
-                Close
+                {t.Close}
               </Button>
             </Box>
           </Box>

@@ -56,13 +56,11 @@ function PublishDialog({
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
         <Typography variant="h5" component="span">
-          Publish
+          {t.Create}
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
-        <Typography sx={{ fontSize: "0.9rem" }}>
-          Let's share your quiz with others!
-        </Typography>
+        <Typography sx={{ fontSize: "0.9rem" }}>{t.ShareTitle}</Typography>
         <Box
           sx={{
             marginTop: "1rem",
@@ -91,41 +89,12 @@ function PublishDialog({
             }
           />
 
-          {/* <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
-            <FormControl fullWidth>
-              <InputLabel>Region</InputLabel>{" "}
-              <Select
-                label="Region"
-                value={region}
-                onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value as Region;
-                  setRegion(key);
-                }}
-                size="small"
-              >
-                <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
-                {regionList &&
-                  Object.keys(regionList)
-                    .filter((key) => key !== Region.EARTH)
-                    .sort()
-                    .map((key) => {
-                      if (key === Region.EARTH) return null;
-                      return (
-                        <MenuItem key={key} value={key}>
-                          {key}
-                        </MenuItem>
-                      );
-                    })}
-              </Select>
-            </FormControl>
-          </Box> */}
-
           {isAdmin && (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
               <FormControl fullWidth>
-                <InputLabel>Favorite control (admin)</InputLabel>{" "}
+                <InputLabel>{t.FavoriteControl}</InputLabel>{" "}
                 <Select
-                  label="Favorite control (admin)"
+                  label={t.FavoriteControl}
                   value={favorite}
                   onChange={(event: SelectChangeEvent) => {
                     const key = event.target.value;
@@ -134,11 +103,9 @@ function PublishDialog({
                   size="small"
                 >
                   <MenuItem value={FavoriteList.FAVORITE}>
-                    {FavoriteList.FAVORITE}
+                    {t.Favorite}
                   </MenuItem>
-                  <MenuItem value={FavoriteList.NORMAL}>
-                    {FavoriteList.NORMAL}
-                  </MenuItem>
+                  <MenuItem value={FavoriteList.NORMAL}>{t.Normal}</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -158,7 +125,7 @@ function PublishDialog({
               setOpenPublishDialog(false);
             }}
           >
-            Create
+            {t.Create}
           </Button>
         </Box>
       </DialogContent>

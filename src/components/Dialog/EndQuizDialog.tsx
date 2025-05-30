@@ -16,6 +16,7 @@ function EndQuizDialog() {
     sequence,
     answers,
     eBirdNameProperty,
+    currentTranslation: t,
   } = quizContext;
 
   const nbGood = answers.filter((answer) => answer).length;
@@ -30,7 +31,7 @@ function EndQuizDialog() {
       fullWidth
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1.5rem" }}>
-        {`Résultats : ${((nbGood / nbTotal) * 100).toFixed(
+        {`${t.Results} : ${((nbGood / nbTotal) * 100).toFixed(
           2
         )}% (${nbGood}/${nbTotal})`}
       </DialogTitle>
