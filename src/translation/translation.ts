@@ -40,6 +40,12 @@ export interface Translation {
   Audio: string;
   Image: string;
   Quiz: string;
+  Delete: string;
+  DeleteTile: string;
+  Confirm: string;
+  ShareTitle: string;
+  TitleCustom: string;
+  TitleDuplicate: string;
 }
 
 export const translationEnglish: Translation = {
@@ -65,7 +71,7 @@ export const translationEnglish: Translation = {
   Reset: "Reset changes",
   ResetTile: "Reset unsaved changes",
   ResetConfirm: "Are you sure you want to reset your unsaved changes?",
-  Save: "Save changes",
+  Save: "Save",
   SaveTile: "Save birbs to list",
   SaveConfirm: "Are you sure you want to update your list?",
   Login: "Login",
@@ -86,6 +92,12 @@ export const translationEnglish: Translation = {
   Audio: "Audio",
   Image: "Image",
   Quiz: "Quiz",
+  Delete: "Delete",
+  DeleteTile: "Are you sure you want to delete this list",
+  Confirm: "Confirm",
+  ShareTitle: "Let's share your quiz with others!",
+  TitleCustom: "List name cannot be",
+  TitleDuplicate: "List name already exists",
 };
 
 export const translationFrench: Translation = {
@@ -133,4 +145,63 @@ export const translationFrench: Translation = {
   Audio: "Audio",
   Image: "Image",
   Quiz: "Quiz",
+  Delete: "Supprimer la liste",
+  DeleteLong: "Supprimer la liste",
+  DeleteTile: "Êtes-vous sûr de vouloir supprimer cette liste ?",
+  Confirm: "Confirmer",
+  ShareTitle: "Partageons votre quiz avec les autres !",
+  TitleCustom: "Le nom de la liste ne peut pas être",
+  TitleDuplicate: "Le nom de la liste existe déjà",
+};
+
+export const translationLatin: Translation = {
+  NotYourList: "Inactivus (non tuus index)",
+  On: "in",
+  In: "in",
+  FindBirbs: "Inveni aves",
+  EARTH: "Terra",
+  "US-CA": "California",
+  "CA-QC": "Quebec",
+  "US-FL": "Florida",
+  "CA-BC": "Columbia Britannica",
+  Learn: "Disce",
+  Clear: "Munda",
+  ClearTile: "Munda Index Proprius",
+  ClearConfirm: "Esne certus te velle munda index proprius tuum?",
+  Create: "Crea",
+  Copy: "Copia",
+  CopyTile: "Copia ad Index Proprius",
+  CopyConfirm:
+    "Hoc fortasse superimponet index proprius tuus. Cura ut aves serventur.",
+  Edit: "Edita",
+  Reset: "Reverte mutationes",
+  ResetTile: "Reverte mutationes non servatas",
+  ResetConfirm: "Esne certus te velle revertere mutationes non servatas?",
+  Save: "Salva",
+  SaveTile: "Salva aves in indicem",
+  SaveConfirm: "Esne certus te velle indicem tuum renovare?",
+  Login: "Intra",
+  Logout: "Exi",
+  List: "Index",
+  Custom: "Proprius",
+  LocalizationSettings: "Configurationes Localizationis",
+  LocalizationTitle: "Muta regionem ad aves filtrares",
+  Region: "Regio",
+  Language: "Lingua",
+  StartQuiz: "Incipe quaestionarium",
+  Loading: "In onere...",
+  StartHelp:
+    "Si avis selecta non est in regione tua, alteram regionem adhibebimus",
+  StartNumber: "Numerus avium ad quaestionarium:",
+  Call: "Vocare",
+  Song: "Carmen",
+  Audio: "Sonus",
+  Image: "Imago",
+  Quiz: "Quaestionarium",
+  Delete: "Delere",
+  DeleteTile: "Esne certus te velle delere hunc indicem?",
+  Confirm: "Confirmare",
+  ShareTitle: "Communicemus quaestionarium tuum cum aliis!",
+  TitleCustom: "Nomen indicis non potest esse",
+  TitleDuplicate: "Nomen indicis iam existit",
 };

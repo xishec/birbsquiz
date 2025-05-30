@@ -17,6 +17,7 @@ import {
   Translation,
   translationEnglish,
   translationFrench,
+  translationLatin,
 } from "./translation/translation";
 
 const birbEmojis = [
@@ -313,6 +314,7 @@ function App() {
       setCurrentTranslation(translationEnglish);
       setEBridNameProperty(EBirdNameProperty.COMMON_NAME);
     } else if (language === Language.LATIN) {
+      setCurrentTranslation(translationLatin);
       setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
     }
   }, [language]);

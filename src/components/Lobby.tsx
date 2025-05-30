@@ -242,7 +242,7 @@ function Lobby() {
     const { confirmed } = await confirm({
       title: title,
       description: description,
-      confirmationText: "Confirm",
+      confirmationText: t.Confirm,
     });
 
     if (confirmed) {

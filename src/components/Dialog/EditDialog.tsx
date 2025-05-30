@@ -37,7 +37,11 @@ function EditDialog({
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { openEditDialog, setOpenEditDialog } = quizContext;
+  const {
+    openEditDialog,
+    setOpenEditDialog,
+    currentTranslation: t,
+  } = quizContext;
 
   const [newListName, setNewListName] = React.useState<string>(currentList);
 
@@ -47,9 +51,9 @@ function EditDialog({
   const confirm = useConfirm();
   const handleDelete = async () => {
     const { confirmed } = await confirm({
-      title: "Delete list",
-      description: `Are you sure you want to delete this list "${currentList}" ?`,
-      confirmationText: "Confirm",
+      title: t.Delete,
+      description: `${t.DeleteTile} "${currentList}" ?`,
+      confirmationText: t.Confirm,
     });
 
     if (confirmed) {
@@ -78,7 +82,7 @@ function EditDialog({
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
         <Typography variant="h5" component="span">
-          Edit
+          {t.Edit}
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
@@ -107,47 +111,18 @@ function EditDialog({
             }
             helperText={
               newListName.toLowerCase() === CUSTOM
-                ? "List name cannot be 'Custom'"
+                ? `${t.TitleCustom} be '${t.Custom}'`
                 : Object.keys(dbListsData).includes(newListName) &&
                   newListName !== currentList
-                ? "List name already exists"
+                ? t.TitleDuplicate
                 : ""
             }
           />
 
-          {/* <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
-            <FormControl fullWidth>
-              <InputLabel>Region</InputLabel>{" "}
-              <Select
-                label="Region"
-                value={region}
-                onChange={(event: SelectChangeEvent) => {
-                  const key = event.target.value as Region;
-                  setRegion(key);
-                }}
-                size="small"
-              >
-                <MenuItem value={Region.EARTH}>{Region.EARTH}</MenuItem>
-                {regionList &&
-                  Object.keys(regionList)
-                    .filter((key) => key !== Region.EARTH)
-                    .sort()
-                    .map((key) => {
-                      if (key === Region.EARTH) return null;
-                      return (
-                        <MenuItem key={key} value={key}>
-                          {key}
-                        </MenuItem>
-                      );
-                    })}
-              </Select>
-            </FormControl>
-          </Box> */}
-
           {isAdmin && (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
               <FormControl fullWidth>
-                <InputLabel>Favorite control (admin)</InputLabel>{" "}
+                <InputLabel>Favorite control (admin)</InputLabel>
                 <Select
                   label="Favorite control (admin)"
                   value={favorite}
@@ -186,7 +161,7 @@ function EditDialog({
               color="error"
               onClick={() => handleDelete()}
             >
-              Delete
+              {t.Delete}
             </Button>
 
             <Button
@@ -205,7 +180,7 @@ function EditDialog({
                 setOpenEditDialog(false);
               }}
             >
-              Save
+              {t.Save}
             </Button>
           </Box>
         </Box>
