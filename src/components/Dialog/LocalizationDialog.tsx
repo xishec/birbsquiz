@@ -41,12 +41,12 @@ function LocalizationDialog() {
     >
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "0.5rem" }}>
         <Typography variant="h5" component="span">
-          Localization Settings
+          {t.LocalizationSettings}
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
         <Typography sx={{ fontSize: "0.9rem" }}>
-          Change the region to filter birbs
+          {t.LocalizationTitle}
         </Typography>
         <Box
           sx={{
@@ -58,9 +58,9 @@ function LocalizationDialog() {
         >
           <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
             <FormControl fullWidth>
-              <InputLabel>Region</InputLabel>{" "}
+              <InputLabel>{t.Region}</InputLabel>
               <Select
-                label="Region"
+                label={t.Region}
                 value={region}
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value as DBRegion;
@@ -89,10 +89,10 @@ function LocalizationDialog() {
 
           <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
             <FormControl fullWidth>
-              <InputLabel>Language</InputLabel>
+              <InputLabel>{t.Language}</InputLabel>
               <Select
                 value={language}
-                label="Language"
+                label={t.Language}
                 onChange={(event: SelectChangeEvent) =>
                   setLanguage(event.target.value as Language)
                 }

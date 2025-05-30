@@ -160,12 +160,12 @@ function StartQuizDialog() {
       <DialogTitle sx={{ padding: "1.5rem", paddingBottom: "1rem" }}>
         {!shouldShowLoading && (
           <Typography variant="h5" component="span">
-            Start a quiz
+            {t.StartQuiz}
           </Typography>
         )}
         {shouldShowLoading && (
           <Typography variant="h5" component="span">
-            Loading...
+            {t.Loading}
           </Typography>
         )}
       </DialogTitle>
@@ -187,9 +187,9 @@ function StartQuizDialog() {
               }}
             >
               <FormControl fullWidth>
-                <InputLabel>Region</InputLabel>
+                <InputLabel>{t.Region}</InputLabel>
                 <Select
-                  label="Region"
+                  label={t.Region}
                   value={region}
                   onChange={(event: SelectChangeEvent) => {
                     const key = event.target.value as DBRegion;
@@ -221,9 +221,7 @@ function StartQuizDialog() {
                 leaveDelay={0}
                 enterTouchDelay={0}
                 leaveTouchDelay={0}
-                title={
-                  "If a selected birb isn't available in your region, we will default back to a EARTH version"
-                }
+                title={t.StartHelp}
               >
                 <IconButton>
                   <InfoOutlinedIcon sx={{ color: "black" }} fontSize="small" />
@@ -233,7 +231,7 @@ function StartQuizDialog() {
 
             <Box sx={{ marginTop: "0.5rem" }}>
               <Typography variant="body1" gutterBottom>
-                Number of birbs to quiz :
+                {t.StartNumber}
               </Typography>
               <Box
                 sx={{
@@ -279,13 +277,13 @@ function StartQuizDialog() {
                 control={<Checkbox />}
                 checked={callCheckbox}
                 onChange={(event, checked) => setCallCheckbox(checked)}
-                label="Calls"
+                label={t.Call}
               />
               <FormControlLabel
                 control={<Checkbox />}
                 checked={songCheckbox}
                 onChange={(event, checked) => setSongCheckbox(checked)}
-                label="Songs"
+                label={t.Song}
               />
             </FormGroup>
 
@@ -295,7 +293,7 @@ function StartQuizDialog() {
               disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
               onClick={() => setGameMode(GameMode.CHANTS)}
             >
-              Audio
+              {t.Audio}
             </Button>
 
             <Button
@@ -304,7 +302,7 @@ function StartQuizDialog() {
               disabled={sliderValue <= 0}
               onClick={() => setGameMode(GameMode.IMAGES)}
             >
-              Image
+              {t.Image}
             </Button>
           </Box>
         )}

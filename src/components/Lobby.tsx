@@ -582,7 +582,7 @@ function Lobby() {
           {/* Dropdown list */}
           <Box>
             <FormControl fullWidth>
-              <InputLabel>List</InputLabel>
+              <InputLabel>{t.List}</InputLabel>
               <Select
                 label={t.List}
                 value={
@@ -598,7 +598,7 @@ function Lobby() {
                 size="small"
               >
                 <MenuItem key={CUSTOM} value={CUSTOM}>
-                  t.Custom
+                  {t.Custom}
                 </MenuItem>
                 {dbListsData &&
                   Object.entries(dbListsData)
@@ -787,7 +787,7 @@ function Lobby() {
                 onClick={() => setOpenStartQuizDialog(true)}
                 disabled={selectedBirbIds.length <= 0}
               >
-                {`Quiz ${selectedBirbIds.length} birb${
+                {`${t.Quiz} ${selectedBirbIds.length} birb${
                   selectedBirbIds.length === 1 ? "" : "s"
                 }`}
               </Button>

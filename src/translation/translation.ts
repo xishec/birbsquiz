@@ -27,6 +27,19 @@ export interface Translation {
   Logout: string;
   List: string;
   Custom: string;
+  LocalizationSettings: string;
+  LocalizationTitle: string;
+  Region: string;
+  Language: string;
+  StartQuiz: string;
+  Loading: string;
+  StartHelp: string;
+  StartNumber: string;
+  Call: string;
+  Song: string;
+  Audio: string;
+  Image: string;
+  Quiz: string;
 }
 
 export const translationEnglish: Translation = {
@@ -59,12 +72,26 @@ export const translationEnglish: Translation = {
   Logout: "Logout",
   List: "List",
   Custom: "Custom",
+  LocalizationSettings: "Localization Settings",
+  LocalizationTitle: " Change the region to filter birbs",
+  Region: "Region",
+  Language: "Language",
+  StartQuiz: "Start a Quiz",
+  Loading: "Loading...",
+  StartHelp:
+    "If a selected birb isn't available in your region, we will use another region",
+  StartNumber: "Number of birbs to quiz :",
+  Call: "Call",
+  Song: "Song",
+  Audio: "Audio",
+  Image: "Image",
+  Quiz: "Quiz",
 };
 
 export const translationFrench: Translation = {
   NotYourList: "Désactivé (pas votre liste)",
   On: "sur la",
-  In: "dans la region de",
+  In: "de",
   FindBirbs: "Trouver des birbs",
   EARTH: "Terre",
   "US-CA": "Californie",
@@ -92,4 +119,18 @@ export const translationFrench: Translation = {
   Logout: "Déconnexion",
   List: "Liste",
   Custom: "Personnalisée",
+  LocalizationSettings: "Paramètres de localisation",
+  LocalizationTitle: "Changer la région pour filtrer les birbs",
+  Region: "Région",
+  Language: "Langue",
+  StartQuiz: "Commencer un quiz",
+  Loading: "Chargement...",
+  StartHelp:
+    "Si un birb sélectionné n'est pas disponible dans votre région, nous utiliserons une autre région",
+  StartNumber: "Nombre de birbs à tester :",
+  Call: "Cri",
+  Song: "Chant",
+  Audio: "Audio",
+  Image: "Image",
+  Quiz: "Quiz",
 };
