@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
-import { FavoriteList } from "../../tools/constants";
+import { CUSTOM, FavoriteList } from "../../tools/constants";
 
 function PublishDialog({
   isAdmin,
@@ -79,11 +79,11 @@ function PublishDialog({
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
             error={
-              newListName.toLowerCase() === "custom" ||
+              newListName.toLowerCase() === CUSTOM ||
               Object.keys(dbListsData).includes(newListName)
             }
             helperText={
-              newListName.toLowerCase() === "custom"
+              newListName.toLowerCase() === CUSTOM
                 ? "List name cannot be 'Custom'"
                 : Object.keys(dbListsData).includes(newListName)
                 ? "List name already exists"
@@ -147,7 +147,7 @@ function PublishDialog({
           <Button
             disabled={
               !newListName ||
-              newListName.toLowerCase() === "custom" ||
+              newListName.toLowerCase() === CUSTOM ||
               Object.keys(dbListsData).includes(newListName)
             }
             variant="outlined"

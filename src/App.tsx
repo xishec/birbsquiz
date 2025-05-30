@@ -5,7 +5,12 @@ import raw_region_list from "./macaulay/ebird_species_list.json";
 import { Box, Link, Snackbar, Typography } from "@mui/material";
 import Lobby from "./components/Lobby";
 import Quiz from "./components/Quiz";
-import { DBRegion, EBirdNameProperty, Language } from "./tools/constants";
+import {
+  CUSTOM,
+  DBRegion,
+  EBirdNameProperty,
+  Language,
+} from "./tools/constants";
 import { ConfirmProvider } from "material-ui-confirm";
 import { DB_BIRBS, isValidEnumValue } from "./tools/tools";
 import {
@@ -224,7 +229,7 @@ function App() {
   const [currentList, setCurrentList] = React.useState<string>(() =>
     savedProgress?.currentList && isOneHourAgo
       ? savedProgress.currentList
-      : "Custom"
+      : CUSTOM
   );
 
   const [customList, setCustomList] = React.useState<string[]>(() =>

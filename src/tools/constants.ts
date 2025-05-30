@@ -38,3 +38,5 @@ export enum DBRegion {
   CA_BC = "CA-BC",
   EARTH = "EARTH",
 }
+
+export const CUSTOM = "Custom";

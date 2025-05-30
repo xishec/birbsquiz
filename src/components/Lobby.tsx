@@ -26,7 +26,7 @@ import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import { AudioType, DBRegion, FavoriteList } from "../tools/constants";
+import { AudioType, CUSTOM, DBRegion, FavoriteList } from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
@@ -85,7 +85,7 @@ function Lobby() {
 
   // update custom list content when birbs change
   useEffect(() => {
-    if (currentList === "Custom") {
+    if (currentList === CUSTOM) {
       setCustomList(selectedBirbIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +107,7 @@ function Lobby() {
 
   // update birbs when currentList changes
   useEffect(() => {
-    if (currentList === "Custom") {
+    if (currentList === CUSTOM) {
       setSelectedBirbIds(customList ? customList : []);
     } else {
       if (dbListsData[currentList])
@@ -119,9 +119,9 @@ function Lobby() {
   // if loaded and list invalid, set to Custom
   useEffect(() => {
     if (!dbListsData || Object.keys(dbListsData).length === 0) return;
-    if (currentList !== "Custom" && !dbListsData[currentList]) {
+    if (currentList !== CUSTOM && !dbListsData[currentList]) {
       console.log(`List "${currentList}" not found in DB, setting to Custom`);
-      setCurrentList("Custom");
+      setCurrentList(CUSTOM);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dbListsData]);
@@ -351,12 +351,20 @@ function Lobby() {
             }}
           >
             {!user && (
-              <Button variant="text" onClick={signInWithGoogle} size="small">
+              <Button
+                variant="outlined"
+                onClick={signInWithGoogle}
+                size="small"
+              >
                 {t.Login}
               </Button>
             )}
             {user && (
-              <Button variant="text" onClick={() => signOut(auth)} size="small">
+              <Button
+                variant="outlined"
+                onClick={() => signOut(auth)}
+                size="small"
+              >
                 {t.Logout}
               </Button>
             )}
@@ -383,7 +391,7 @@ function Lobby() {
           <Autocomplete
             autoHighlight
             disableCloseOnSelect
-            disabled={!user && currentList !== "Custom"}
+            disabled={!user && currentList !== CUSTOM}
             size="small"
             inputValue={birbInput}
             onInputChange={(e, v) => {
@@ -435,7 +443,7 @@ function Lobby() {
                 {...params}
                 inputRef={inputRef}
                 label={
-                  !user && currentList !== "Custom"
+                  !user && currentList !== CUSTOM
                     ? t.NotYourList
                     : `${t.FindBirbs} ${
                         region === DBRegion.EARTH ? t.On : t.In
@@ -532,7 +540,7 @@ function Lobby() {
                       setLearnBirbId(birbId);
                     }}
                     onDelete={
-                      currentList === "Custom" || isUserList
+                      currentList === CUSTOM || isUserList
                         ? () => deleteBirb(birbId)
                         : undefined
                     }
@@ -576,11 +584,11 @@ function Lobby() {
             <FormControl fullWidth>
               <InputLabel>List</InputLabel>
               <Select
-                label="List"
+                label={t.List}
                 value={
-                  ["Custom", ...Object.keys(dbListsData)].includes(currentList)
+                  [CUSTOM, ...Object.keys(dbListsData)].includes(currentList)
                     ? currentList
-                    : "Custom"
+                    : CUSTOM
                 }
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
@@ -589,8 +597,8 @@ function Lobby() {
                 }}
                 size="small"
               >
-                <MenuItem key="Custom" value="Custom">
-                  Custom
+                <MenuItem key={CUSTOM} value={CUSTOM}>
+                  t.Custom
                 </MenuItem>
                 {dbListsData &&
                   Object.entries(dbListsData)
@@ -645,7 +653,7 @@ function Lobby() {
           </Box>
 
           {/* Clear and create */}
-          {currentList === "Custom" && (
+          {currentList === CUSTOM && (
             <Box
               sx={{
                 display: "grid",
@@ -683,7 +691,7 @@ function Lobby() {
           )}
 
           {/* Copy and edit */}
-          {currentList !== "Custom" && (
+          {currentList !== CUSTOM && (
             <Box
               sx={{
                 display: "grid",
@@ -695,7 +703,7 @@ function Lobby() {
                 sx={{ height: "40px" }}
                 onClick={() =>
                   confirmAction(t.CopyTile, t.CopyConfirm, () => {
-                    setCurrentList("Custom");
+                    setCurrentList(CUSTOM);
                     setCustomList(selectedBirbIds);
                   })
                 }
@@ -719,7 +727,7 @@ function Lobby() {
           )}
 
           {/* Reset and save */}
-          {currentList !== "Custom" &&
+          {currentList !== CUSTOM &&
             isUserList &&
             !arraysEqual(selectedBirbIds, dbListsData[currentList]?.ids) && (
               <Box

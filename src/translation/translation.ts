@@ -25,6 +25,8 @@ export interface Translation {
   SaveConfirm: string;
   Login: string;
   Logout: string;
+  List: string;
+  Custom: string;
 }
 
 export const translationEnglish: Translation = {
@@ -55,6 +57,8 @@ export const translationEnglish: Translation = {
   SaveConfirm: "Are you sure you want to update your list?",
   Login: "Login",
   Logout: "Logout",
+  List: "List",
+  Custom: "Custom",
 };
 
 export const translationFrench: Translation = {
@@ -86,4 +90,6 @@ export const translationFrench: Translation = {
   SaveConfirm: "Êtes-vous sûr de vouloir mettre à jour votre liste ?",
   Login: "Connexion",
   Logout: "Déconnexion",
+  List: "Liste",
+  Custom: "Personnalisée",
 };

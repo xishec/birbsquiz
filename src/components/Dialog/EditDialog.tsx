@@ -16,7 +16,7 @@ import {
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { useConfirm } from "material-ui-confirm";
-import { FavoriteList } from "../../tools/constants";
+import { CUSTOM, FavoriteList } from "../../tools/constants";
 
 function EditDialog({
   isAdmin,
@@ -54,7 +54,7 @@ function EditDialog({
 
     if (confirmed) {
       deleteBirbList(currentList);
-      setCurrentList("Custom");
+      setCurrentList(CUSTOM);
       setOpenEditDialog(false);
     }
   };
@@ -101,12 +101,12 @@ function EditDialog({
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
             error={
-              newListName.toLowerCase() === "custom" ||
+              newListName.toLowerCase() === CUSTOM ||
               (Object.keys(dbListsData).includes(newListName) &&
                 newListName !== currentList)
             }
             helperText={
-              newListName.toLowerCase() === "custom"
+              newListName.toLowerCase() === CUSTOM
                 ? "List name cannot be 'Custom'"
                 : Object.keys(dbListsData).includes(newListName) &&
                   newListName !== currentList
@@ -192,7 +192,7 @@ function EditDialog({
             <Button
               disabled={
                 !newListName ||
-                newListName.toLowerCase() === "custom" ||
+                newListName.toLowerCase() === CUSTOM ||
                 (Object.keys(dbListsData).includes(newListName) &&
                   newListName !== currentList)
               }
