@@ -192,38 +192,30 @@ export const fetchImageForOne = async (
 export const fetchImageAndAudioForMultiple = async (
   birdIds: string[],
   region: string,
-  onProgress?: (newProgress: number) => void,
-  onBuffer?: (newBuffer: number) => void
+  onProgress?: (progress: number) => void
 ): Promise<DB_BIRBS> => {
-  const MAX_CONCURRENT = 10;
+  const BATCH_SIZE = 10;
   const results: DB_BIRBS = {};
   let completed = 0;
-  let index = 0;
-
-  async function worker() {
-    while (index < birdIds.length) {
-      // Use the current ID and move the pointer
-      const currentId = birdIds[index];
-      index++;
-      if (onBuffer) onBuffer((index / birdIds.length) * 100);
-      // Wait before starting this request
-      const [image, audio] = await Promise.all([
-        fetchImageForOne(currentId, region),
-        fetchAudioForOne(currentId, region),
-      ]);
-      results[currentId] = { image, audio };
-      completed++;
-      if (onProgress) onProgress((completed / birdIds.length) * 100);
+  for (let i = 0; i < birdIds.length; i += BATCH_SIZE) {
+    const batch = birdIds.slice(i, i + BATCH_SIZE);
+    const batchResults = await Promise.all(
+      batch.map(async (id) => {
+        const [image, audio] = await Promise.all([
+          fetchImageForOne(id, region),
+          fetchAudioForOne(id, region),
+        ]);
+        return { id, image, audio };
+      })
+    );
+    batchResults.forEach(({ id, image, audio }) => {
+      results[id] = { image, audio };
+    });
+    completed += batchResults.length;
+    if (onProgress) {
+      onProgress((completed / birdIds.length) * 100);
     }
   }
-
-  // Start a pool of workers
-  const workers = [];
-  for (let i = 0; i < MAX_CONCURRENT; i++) {
-    workers.push(worker());
-  }
-
-  await Promise.all(workers);
   return results;
 };
 

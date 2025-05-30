@@ -309,80 +309,86 @@ function Quiz() {
       }}
     >
       {imageSources &&
-        Object.entries(imageSources).map(([sex, images]) => {
-          if (!images || images.length === 0) return null;
+        Object.entries(imageSources)
+          .sort(([sexA], [sexB]) => {
+            if (sexA === Sex.MALE) return -1;
+            if (sexB === Sex.MALE) return 1;
+            return 0;
+          })
+          .map(([sex, images]) => {
+            if (!images || images.length === 0) return null;
 
-          const randomIndex =
-            sex === Sex.MALE ? imageMaleRandomIndex : imageFemaleRandomIndex;
+            const randomIndex =
+              sex === Sex.MALE ? imageMaleRandomIndex : imageFemaleRandomIndex;
 
-          return (
-            <Box
-              key={`image-box-${birbId}-${sex}`}
-              sx={{
-                justifySelf: "center",
-              }}
-            >
-              <Typography
-                sx={{
-                  display: "grid",
-                  alignItems: "center",
-                  gridTemplateColumns: "1fr min-content",
-                  paddingBottom: "0.2rem",
-                }}
-                variant="body1"
-              >
-                {sex.charAt(0).toUpperCase() + sex.slice(1)}
-                <Tooltip
-                  placement="top"
-                  enterDelay={0}
-                  leaveDelay={0}
-                  enterTouchDelay={0}
-                  leaveTouchDelay={0}
-                  title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                  sx={{ marginBottom: "0.1rem" }}
-                >
-                  <IconButton>
-                    <InfoOutlinedIcon
-                      sx={{ color: "black" }}
-                      fontSize="small"
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Typography>
+            return (
               <Box
+                key={`image-box-${birbId}-${sex}`}
                 sx={{
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  padding: "0 0rem",
-                }}
-                onClick={() => {
-                  if (sex === Sex.MALE) {
-                    setImageMaleRandomIndex(
-                      (prevIndex) => (prevIndex + 1) % images.length
-                    );
-                  } else {
-                    setImageFemaleRandomIndex(
-                      (prevIndex) => (prevIndex + 1) % images.length
-                    );
-                  }
+                  justifySelf: "center",
                 }}
               >
-                <img
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "contain",
-                    // borderRadius: "4px",
-                    borderRadius: "4px",
+                <Typography
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    gridTemplateColumns: "1fr min-content",
+                    paddingBottom: "0.2rem",
                   }}
-                  src={images[randomIndex].url}
-                  loading="lazy"
-                  alt={eBird[birbId][eBirdNameProperty]}
-                />
+                  variant="body1"
+                >
+                  {sex.charAt(0).toUpperCase() + sex.slice(1)}
+                  <Tooltip
+                    placement="top"
+                    enterDelay={0}
+                    leaveDelay={0}
+                    enterTouchDelay={0}
+                    leaveTouchDelay={0}
+                    title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
+                    sx={{ marginBottom: "0.1rem" }}
+                  >
+                    <IconButton>
+                      <InfoOutlinedIcon
+                        sx={{ color: "black" }}
+                        fontSize="small"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </Typography>
+                <Box
+                  sx={{
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    padding: "0 0rem",
+                  }}
+                  onClick={() => {
+                    if (sex === Sex.MALE) {
+                      setImageMaleRandomIndex(
+                        (prevIndex) => (prevIndex + 1) % images.length
+                      );
+                    } else {
+                      setImageFemaleRandomIndex(
+                        (prevIndex) => (prevIndex + 1) % images.length
+                      );
+                    }
+                  }}
+                >
+                  <img
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "contain",
+                      // borderRadius: "4px",
+                      borderRadius: "4px",
+                    }}
+                    src={images[randomIndex].url}
+                    loading="lazy"
+                    alt={eBird[birbId][eBirdNameProperty]}
+                  />
+                </Box>
               </Box>
-            </Box>
-          );
-        })}
+            );
+          })}
     </Box>
   );
 

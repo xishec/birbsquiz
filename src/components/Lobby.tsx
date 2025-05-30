@@ -26,7 +26,7 @@ import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { ref, set, get, remove } from "firebase/database";
 import { QuizContext } from "../App";
 // import { fetchAudioForOne } from "../tools/tools";
-import { AudioType, CUSTOM, DBRegion, FavoriteList } from "../tools/constants";
+import { CUSTOM, DBRegion, FavoriteList } from "../tools/constants";
 import EndQuizDialog from "./Dialog/EndQuizDialog";
 import StartQuizDialog from "./Dialog/StartQuizDialog";
 import LocalizationDialog from "./Dialog/LocalizationDialog";
@@ -127,8 +127,6 @@ function Lobby() {
   }, [dbListsData]);
 
   const loadBirbList = useCallback(() => {
-    // remove(ref(database, `v2/birbs`))
-
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {

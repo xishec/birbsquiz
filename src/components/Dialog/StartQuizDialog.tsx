@@ -61,7 +61,6 @@ function StartQuizDialog() {
     LoadingState.UNLOADED
   );
   const [progress, setProgress] = React.useState<number>(0);
-  const [buffer, setBuffer] = React.useState<number>(0);
   const cancelRequestRef = React.useRef(false);
 
   const handleSliderChange = (
@@ -102,19 +101,11 @@ function StartQuizDialog() {
     console.log("Starting quiz with sequence", sequence);
     setLoadingState(LoadingState.LOADING);
     setProgress(0);
-    setBuffer(0);
     cancelRequestRef.current = false;
     console.log("Loading quiz...");
-    fetchImageAndAudioForMultiple(
-      sequence,
-      region,
-      (newProgress) => {
-        setProgress(newProgress);
-      },
-      (newBuffer) => {
-        setBuffer(newBuffer);
-      }
-    ).then((newDBBirbs) => {
+    fetchImageAndAudioForMultiple(sequence, region, (newProgress) => {
+      setProgress(newProgress);
+    }).then((newDBBirbs) => {
       if (cancelRequestRef.current) return; // cancel if flagged
       setDBBirbs(newDBBirbs);
       console.log("dbBirbs loaded", newDBBirbs, Object.keys(newDBBirbs).length);
@@ -313,7 +304,7 @@ function StartQuizDialog() {
                 <LinearProgress
                   variant="buffer"
                   value={progress}
-                  valueBuffer={buffer}
+                  valueBuffer={progress + 10}
                 />
               </Box>
               <Box sx={{ minWidth: 35 }}>
