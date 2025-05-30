@@ -18,6 +18,7 @@ import {
   DbRegionText,
   EBirdNameProperty,
   Language,
+  LoadingState,
   Sex,
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
@@ -62,6 +63,7 @@ function Quiz() {
   const [currentAudioType, setCurrentAudioType] = React.useState<AudioType>();
   const [shouldRevealMoreNames, setShouldRevealMoreNames] =
     React.useState(false);
+  const [shouldReveal, setShouldReveal] = React.useState(false);
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
@@ -95,6 +97,7 @@ function Quiz() {
   };
 
   useEffect(() => {
+    setShouldReveal(false);
     setBirbId(sequence[counter]);
     console.log("birbId is", sequence[counter]);
   }, [counter, selectedBirbIds, sequence]);
@@ -202,6 +205,7 @@ function Quiz() {
           img.src = urlWithMetadata.url;
         }
       );
+      setShouldReveal(showAnswers[counter]);
     }
   }, [imageSources]);
 
@@ -398,8 +402,6 @@ function Quiz() {
     </Box>
   );
 
-  const shouldReveal = showAnswers[counter];
-
   return (
     <Box
       sx={{
@@ -569,6 +571,7 @@ function Quiz() {
 
                   const newAnswers: any = Array.from(answers);
                   newAnswers[counter] = true;
+                  setShouldReveal(true);
                   setAnswers(newAnswers);
                 }}
               >
