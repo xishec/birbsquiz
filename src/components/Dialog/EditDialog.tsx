@@ -122,9 +122,9 @@ function EditDialog({
           {isAdmin && (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr" }}>
               <FormControl fullWidth>
-                <InputLabel>Favorite control (admin)</InputLabel>
+                <InputLabel>{t.FavoriteControl}</InputLabel>
                 <Select
-                  label="Favorite control (admin)"
+                  label={t.FavoriteControl}
                   value={favorite}
                   onChange={(event: SelectChangeEvent) => {
                     const key = event.target.value;
@@ -136,13 +136,13 @@ function EditDialog({
                     key={FavoriteList.FAVORITE}
                     value={FavoriteList.FAVORITE}
                   >
-                    {FavoriteList.FAVORITE}
+                    {t.Favorite}
                   </MenuItem>
                   <MenuItem
                     key={FavoriteList.NORMAL}
                     value={FavoriteList.NORMAL}
                   >
-                    {FavoriteList.NORMAL}
+                    {t.Normal}
                   </MenuItem>
                 </Select>
               </FormControl>

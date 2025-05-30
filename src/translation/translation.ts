@@ -46,6 +46,9 @@ export interface Translation {
   ShareTitle: string;
   TitleCustom: string;
   TitleDuplicate: string;
+  FavoriteControl: string;
+  Favorite: string;
+  Normal: string;
 }
 
 export const translationEnglish: Translation = {
@@ -98,6 +101,9 @@ export const translationEnglish: Translation = {
   ShareTitle: "Let's share your quiz with others!",
   TitleCustom: "List name cannot be",
   TitleDuplicate: "List name already exists",
+  FavoriteControl: "Favorite control (admin)",
+  Favorite: "Favorite",
+  Normal: "Normal",
 };
 
 export const translationFrench: Translation = {
@@ -120,11 +126,11 @@ export const translationFrench: Translation = {
   CopyConfirm:
     "Ceci pourrait écraser votre liste personnalisée actuelle, assurez-vous de sauvegarder vos birbs",
   Edit: "Modifier",
-  Reset: "Réinitialiser les modifications",
+  Reset: "Annuler",
   ResetTile: "Réinitialiser les modifications non sauvegardées",
   ResetConfirm:
     "Êtes-vous sûr de vouloir réinitialiser les modifications non sauvegardées ?",
-  Save: "Sauvegarder les modifications",
+  Save: "Sauvegarder",
   SaveTile: "Sauvegarder les birbs dans la liste",
   SaveConfirm: "Êtes-vous sûr de vouloir mettre à jour votre liste ?",
   Login: "Connexion",
@@ -145,13 +151,15 @@ export const translationFrench: Translation = {
   Audio: "Audio",
   Image: "Image",
   Quiz: "Quiz",
-  Delete: "Supprimer la liste",
-  DeleteLong: "Supprimer la liste",
+  Delete: "Supprimer",
   DeleteTile: "Êtes-vous sûr de vouloir supprimer cette liste ?",
   Confirm: "Confirmer",
   ShareTitle: "Partageons votre quiz avec les autres !",
   TitleCustom: "Le nom de la liste ne peut pas être",
   TitleDuplicate: "Le nom de la liste existe déjà",
+  FavoriteControl: "Contrôle des favoris (admin)",
+  Favorite: "Favori",
+  Normal: "Normal",
 };
 
 export const translationLatin: Translation = {
@@ -174,7 +182,7 @@ export const translationLatin: Translation = {
   CopyConfirm:
     "Hoc fortasse superimponet index proprius tuus. Cura ut aves serventur.",
   Edit: "Edita",
-  Reset: "Reverte mutationes",
+  Reset: "Reverte",
   ResetTile: "Reverte mutationes non servatas",
   ResetConfirm: "Esne certus te velle revertere mutationes non servatas?",
   Save: "Salva",
@@ -204,4 +212,7 @@ export const translationLatin: Translation = {
   ShareTitle: "Communicemus quaestionarium tuum cum aliis!",
   TitleCustom: "Nomen indicis non potest esse",
   TitleDuplicate: "Nomen indicis iam existit",
+  FavoriteControl: "Moderatio Favoritorum (admin)",
+  Favorite: "Favoritum",
+  Normal: "Normalis",
 };
