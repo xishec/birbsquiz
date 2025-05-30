@@ -127,6 +127,8 @@ function Lobby() {
   }, [dbListsData]);
 
   const loadBirbList = useCallback(() => {
+    // remove(ref(database, `v2/birbs`))
+
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {

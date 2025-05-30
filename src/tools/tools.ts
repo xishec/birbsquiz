@@ -190,9 +190,10 @@ export const fetchImageForOne = async (
 };
 
 export const fetchImageAndAudioForMultiple = async (
+  requestTimestamp: number,
   birdIds: string[],
   region: string,
-  onProgress?: (progress: number) => void
+  onProgress?: (originalTimestamp: number, progress: number) => void
 ): Promise<DB_BIRBS> => {
   const BATCH_SIZE = 10;
   const results: DB_BIRBS = {};
@@ -207,7 +208,7 @@ export const fetchImageAndAudioForMultiple = async (
     results[id] = { image, audio };
     completed.value++;
     if (onProgress) {
-      onProgress((completed.value / birdIds.length) * 100);
+      onProgress(requestTimestamp, (completed.value / birdIds.length) * 100);
     }
   };
 

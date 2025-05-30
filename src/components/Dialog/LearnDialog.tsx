@@ -60,7 +60,8 @@ function LearnDialog({ birbId }: { birbId: string }) {
   React.useEffect(() => {
     if (!Object.keys(eBird).includes(birbId)) return;
     console.log("birbId is", birbId);
-    fetchImageAndAudioForMultiple([birbId], region, (newProgress) => {
+
+    fetchImageAndAudioForMultiple(0, [birbId], region, (_, newProgress) => {
       setProgress(newProgress);
     }).then((newDBBirb) => {
       setAudioSourcesSong(newDBBirb[birbId]?.audio?.song || []);

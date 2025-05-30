@@ -109,9 +109,16 @@ function StartQuizDialog() {
     setProgress(0);
     cancelRequestRef.current = false;
     console.log("Loading quiz...");
-    fetchImageAndAudioForMultiple(sequence, region, (newProgress) => {
-      setProgress(newProgress);
-    }).then((newDBBirbs) => {
+
+    const now = Date.now();
+    fetchImageAndAudioForMultiple(
+      now,
+      sequence,
+      region,
+      (originalTimestamp, newProgress) => {
+        if (originalTimestamp === now) setProgress(newProgress);
+      }
+    ).then((newDBBirbs) => {
       if (cancelRequestRef.current) return; // cancel if flagged
       setDBBirbs(newDBBirbs);
       console.log("dbBirbs loaded", newDBBirbs, Object.keys(newDBBirbs).length);
