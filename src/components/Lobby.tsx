@@ -73,15 +73,15 @@ function Lobby() {
   const [isUserList, setIsUserList] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null); // add this ref
-  const listboxRef = useRef<HTMLUListElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // const listboxRef = useRef<HTMLUListElement>(null);
+  // const [scrollPosition, setScrollPosition] = useState(0);
 
-  useEffect(() => {
-    if (listboxRef.current) {
-      listboxRef.current.scrollTop = scrollPosition;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBirbIds]);
+  // useEffect(() => {
+  //   if (listboxRef.current) {
+  //     listboxRef.current.scrollTop = scrollPosition;
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedBirbIds]);
 
   // update custom list content when birbs change
   useEffect(() => {
@@ -183,14 +183,15 @@ function Lobby() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addBirb = useCallback(
-    (birbId: string) => {
+  const addBirb = (birbId: string) => {
+    if (user || currentList === CUSTOM) {
       if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
+        console.log("Adding birb:", birbId);
       }
-    },
-    [eBird, selectedBirbIds, setSelectedBirbIds]
-  );
+    }
+    setBirbInput("");
+  };
 
   const deleteBirb = useCallback(
     (birbId: string) => {
@@ -390,15 +391,10 @@ function Lobby() {
 
           <Autocomplete
             autoHighlight
-            disableCloseOnSelect
-            disabled={!user && currentList !== CUSTOM}
             size="small"
             inputValue={birbInput}
             onInputChange={(e, v) => {
-              // console.log(e, v);
-              if (e?.type === "change" || v === "") {
-                setBirbInput(v);
-              }
+              if (e) setBirbInput(v);
             }}
             onChange={(e, v) => {
               addBirb(v!);
@@ -411,7 +407,7 @@ function Lobby() {
             getOptionLabel={(birbId) =>
               eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
             }
-            freeSolo
+            // freeSolo
             isOptionEqualToValue={(birbId, input) =>
               eBird[birbId][eBirdNameProperty] === input
             }
@@ -432,23 +428,19 @@ function Lobby() {
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
             }}
-            ListboxProps={{
-              ref: listboxRef,
-              onScroll: (event: React.UIEvent<HTMLUListElement>) => {
-                setScrollPosition(event.currentTarget.scrollTop);
-              },
-            }}
+            // ListboxProps={{
+            //   ref: listboxRef,
+            //   onScroll: (event: React.UIEvent<HTMLUListElement>) => {
+            //     setScrollPosition(event.currentTarget.scrollTop);
+            //   },
+            // }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 inputRef={inputRef}
-                label={
-                  !user && currentList !== CUSTOM
-                    ? t.NotYourList
-                    : `${t.FindBirbs} ${
-                        region === DBRegion.EARTH ? t.On : t.In
-                      } ${t[region]}...`
-                }
+                label={`${t.FindBirbs} ${
+                  region === DBRegion.EARTH ? t.On : t.In
+                } ${t[region]}...`}
                 variant="outlined"
               />
             )}

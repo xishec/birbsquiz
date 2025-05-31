@@ -127,7 +127,7 @@ export const translationFrench: Translation = {
   "US-FL": "Floride",
   "CA-BC": "Colombie-Britannique",
   Learn: "Apprendre",
-  Clear: "Effacer",
+  Clear: "Réinitialiser",
   ClearTile: "Effacer la liste personnalisée",
   ClearConfirm: "Êtes-vous sûr de vouloir effacer votre liste personnalisée ?",
   Create: "Créer",
