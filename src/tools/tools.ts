@@ -70,7 +70,8 @@ export const fetchAudioForOne = async (
       "mediaUrl",
       (item) =>
         String(item.behaviors).toLowerCase() === AudioType.CAll &&
-        item?.source === "ebird"
+        item?.source === "ebird" &&
+        item?.rating >= 4
     );
     if (birdAudio[AudioType.CAll].length < 10) {
       await fetchMedia(
@@ -92,7 +93,8 @@ export const fetchAudioForOne = async (
       "mediaUrl",
       (item) =>
         String(item.behaviors).toLowerCase() === AudioType.SONG &&
-        item?.source === "ebird"
+        item?.source === "ebird" &&
+        item?.rating >= 4
     );
     if (birdAudio[AudioType.SONG].length < 10) {
       await fetchMedia(
@@ -145,7 +147,7 @@ export const fetchImageForOne = async (
       maleRegionUrl,
       birdImage[Sex.MALE],
       "previewUrl",
-      (item) => String(item.sex).toLowerCase() === Sex.MALE
+      (item) => String(item.sex).toLowerCase() === Sex.MALE && item?.rating >= 4
     );
     if (birdImage[Sex.MALE].length < 10) {
       await fetchMedia(
@@ -163,7 +165,8 @@ export const fetchImageForOne = async (
       femaleRegionUrl,
       birdImage[Sex.FEMALE],
       "previewUrl",
-      (item) => String(item.sex).toLowerCase() === Sex.FEMALE
+      (item) =>
+        String(item.sex).toLowerCase() === Sex.FEMALE && item?.rating >= 4
     );
     if (birdImage[Sex.FEMALE].length < 10) {
       await fetchMedia(
