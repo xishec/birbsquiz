@@ -72,13 +72,13 @@ function Quiz() {
   };
 
   const nextQuestion = () => {
-    console.log("loading is");
     setLoading(true);
     setCounter(counter + 1);
     setAudioPlayed(false);
   };
 
   const previousQuestion = () => {
+    setLoading(true);
     setCounter(counter - 1);
     setAudioPlayed(false);
   };
@@ -98,6 +98,7 @@ function Quiz() {
   };
 
   useEffect(() => {
+    setLoading(true);
     setShouldReveal(false);
     setBirbId(sequence[counter]);
     console.log("birbId is", sequence[counter]);
@@ -503,10 +504,10 @@ function Quiz() {
                 {!shouldReveal && audioComponent}
                 {shouldReveal && audioComponents}
               </Box>
-              {(previewing || shouldReveal) && birbImage}
+              {(previewing || shouldReveal) && !loading && birbImage}
             </Box>
           )}
-          {gameMode === GameMode.IMAGES && (
+          {gameMode === GameMode.IMAGES && !loading && (
             <Box
               sx={{
                 marginTop: "1rem",

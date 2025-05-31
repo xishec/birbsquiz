@@ -195,7 +195,8 @@ export const fetchImageAndAudioForMultiple = async (
   requestTimestamp: number,
   birdIds: string[],
   region: string,
-  onProgress?: (originalTimestamp: number, progress: number) => void
+  onProgress?: (originalTimestamp: number, progress: number) => void,
+  onBuffer?: (originalTimestamp: number, newBuffer: number) => void
 ): Promise<DB_BIRBS> => {
   const MAX_CONCURRENT = 10;
   const results: DB_BIRBS = {};
@@ -207,6 +208,8 @@ export const fetchImageAndAudioForMultiple = async (
       // Use the current ID and move the pointer
       const currentId = birdIds[index];
       index++;
+      if (onBuffer) onBuffer(requestTimestamp, (index / birdIds.length) * 100);
+
       // Wait before starting this request
       const [image, audio] = await Promise.all([
         fetchImageForOne(currentId, region),

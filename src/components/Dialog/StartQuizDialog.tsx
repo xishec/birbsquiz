@@ -61,6 +61,7 @@ function StartQuizDialog() {
     LoadingState.UNLOADED
   );
   const [progress, setProgress] = React.useState<number>(0);
+  const [buffer, setBuffer] = React.useState<number>(0);
   const cancelRequestRef = React.useRef(false);
 
   const handleSliderChange = (
@@ -112,6 +113,9 @@ function StartQuizDialog() {
       region,
       (originalTimestamp, newProgress) => {
         if (originalTimestamp === now) setProgress(newProgress);
+      },
+      (originalTimestamp, newBuffer) => {
+        if (originalTimestamp === now) setBuffer(newBuffer);
       }
     ).then((newDBBirbs) => {
       if (cancelRequestRef.current) return;
@@ -312,7 +316,7 @@ function StartQuizDialog() {
                 <LinearProgress
                   variant="buffer"
                   value={progress}
-                  valueBuffer={progress + 10}
+                  valueBuffer={buffer}
                 />
               </Box>
               <Box sx={{ minWidth: 35 }}>
