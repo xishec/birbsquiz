@@ -57,7 +57,7 @@ export interface Translation {
 }
 
 export const translationEnglish: Translation = {
-  NotYourList: "Disabled (not your list)",
+  NotYourList: "Can't add birb, copy this list first",
   On: "on",
   In: "in",
   FindBirbs: "Find birbs",
@@ -117,7 +117,7 @@ export const translationEnglish: Translation = {
 };
 
 export const translationFrench: Translation = {
-  NotYourList: "Désactivé (pas votre liste)",
+  NotYourList: "Vous ne pouvez pas ajouter de birb, copiez d'abord cette liste",
   On: "sur la",
   In: "de",
   FindBirbs: "Trouver des birbs",
@@ -178,7 +178,7 @@ export const translationFrench: Translation = {
 };
 
 export const translationLatin: Translation = {
-  NotYourList: "Inactivus (non tuus index)",
+  NotYourList: "Non potest addere avem, copia hanc indicem primum",
   On: "in",
   In: "in",
   FindBirbs: "Inveni aves",

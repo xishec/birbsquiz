@@ -234,7 +234,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 }}
               >
                 {imageSources &&
-                  Object.entries(imageSources)
+                  Object.entries(imageSources!)
                     .sort(([sexA], [sexB]) => {
                       if (sexA === Sex.MALE) return -1;
                       if (sexB === Sex.MALE) return 1;
@@ -441,7 +441,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
               justifyContent: "center",
               alignItems: "center",
               marginTop: "-2rem",
-              padding: isMobileDevice ? "0" : "15rem",
+              padding: isMobileDevice ? "0" : "0",
             }}
           >
             <Box sx={{ position: "relative", display: "inline-flex" }}>

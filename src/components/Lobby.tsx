@@ -189,6 +189,9 @@ function Lobby() {
         setSelectedBirbIds([...selectedBirbIds, birbId]);
         console.log("Adding birb:", birbId);
       }
+    } else {
+      setSnakeMessage(t.NotYourList);
+      setOpenSnake(true);
     }
     setBirbInput("");
   };
@@ -407,7 +410,7 @@ function Lobby() {
             getOptionLabel={(birbId) =>
               eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
             }
-            // freeSolo
+            freeSolo
             isOptionEqualToValue={(birbId, input) =>
               eBird[birbId][eBirdNameProperty] === input
             }
