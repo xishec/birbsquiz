@@ -72,6 +72,8 @@ function Quiz() {
   };
 
   const nextQuestion = () => {
+    console.log("loading is");
+    setLoading(true);
     setCounter(counter + 1);
     setAudioPlayed(false);
   };
@@ -174,7 +176,7 @@ function Quiz() {
     } else {
       setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioSources, imageSources]);
 
   // Preload images when imageSources are available
@@ -538,6 +540,7 @@ function Quiz() {
         }}
       >
         <Box>
+          {/* Show reveal button if not already revealed */}
           {!shouldReveal && (
             <Box
               sx={{
@@ -640,6 +643,8 @@ function Quiz() {
               </Button>
             </Box>
           )}
+
+          {/* Reveal answer and switch */}
           {shouldReveal && (
             <Box
               sx={{
@@ -720,28 +725,20 @@ function Quiz() {
             >
               <Button
                 sx={{ height: "40px" }}
-                disabled={!shouldReveal}
+                disabled={!shouldReveal || loading}
                 variant="contained"
                 onClick={nextQuestion}
                 color={answers[counter] ? "success" : "error"}
               >
                 <ArrowForwardIcon />
               </Button>
-              {/* <Button
-                disabled={!shouldReveal}
-                variant="contained"
-                onClick={nextQuestion}
-                color={answers[counter] ? "success" : "error"}
-              >
-                {` ${answers.filter((answer) => answer).length}/${counter + 1}`}
-              </Button> */}
             </Box>
           )}
 
           {counter === sequence.length - 1 && (
             <Button
               sx={{ height: "40px" }}
-              disabled={!shouldReveal}
+              disabled={!shouldReveal || loading}
               variant="contained"
               onClick={endQuiz}
               color={answers[counter] ? "success" : "error"}
