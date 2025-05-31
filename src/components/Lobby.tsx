@@ -393,6 +393,7 @@ function Lobby() {
           </Box>
 
           <Autocomplete
+            blurOnSelect={!user && currentList !== CUSTOM}
             autoHighlight
             size="small"
             inputValue={birbInput}
@@ -431,12 +432,6 @@ function Lobby() {
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
             }}
-            // ListboxProps={{
-            //   ref: listboxRef,
-            //   onScroll: (event: React.UIEvent<HTMLUListElement>) => {
-            //     setScrollPosition(event.currentTarget.scrollTop);
-            //   },
-            // }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -472,7 +467,6 @@ function Lobby() {
                   variant="outlined"
                   onClick={(event) => {
                     event.stopPropagation();
-                    // console.log("Button clicked for:", option);
                     setLearnBirbId(option);
                     setOpenLearnDialog(true);
                   }}
