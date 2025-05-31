@@ -114,7 +114,7 @@ function StartQuizDialog() {
         if (originalTimestamp === now) setProgress(newProgress);
       }
     ).then((newDBBirbs) => {
-      if (cancelRequestRef.current) return; // cancel if flagged
+      if (cancelRequestRef.current) return;
       setDBBirbs(newDBBirbs);
       setTimeout(() => {
         if (cancelRequestRef.current) return;
