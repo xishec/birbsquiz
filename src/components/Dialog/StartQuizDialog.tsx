@@ -97,15 +97,10 @@ function StartQuizDialog() {
   }, [selectedBirbIds, sliderValue, openStartQuizDialog]);
 
   React.useEffect(() => {
-    if (
-      sequence.length <= 0 ||
-      !openStartQuizDialog ||
-      loadingState !== LoadingState.UNLOADED
-    ) {
+    if (sequence.length <= 0 || !openStartQuizDialog) {
       return;
     }
 
-    setLoadingState(LoadingState.LOADING);
     setProgress(0);
     cancelRequestRef.current = false;
     console.log("Loading quiz...");
@@ -121,7 +116,6 @@ function StartQuizDialog() {
     ).then((newDBBirbs) => {
       if (cancelRequestRef.current) return; // cancel if flagged
       setDBBirbs(newDBBirbs);
-      console.log("dbBirbs loaded", newDBBirbs, Object.keys(newDBBirbs).length);
       setTimeout(() => {
         if (cancelRequestRef.current) return;
         setLoadingState(LoadingState.DONE);
@@ -141,6 +135,7 @@ function StartQuizDialog() {
   // Prepare the quiz when gameMode is set and loadingState is UNLOADED
   React.useEffect(() => {
     if (gameMode !== null && loadingState === LoadingState.UNLOADED) {
+      setLoadingState(LoadingState.LOADING);
       prepareQuiz(sliderValue);
     }
   }, [gameMode, loadingState, sliderValue, prepareQuiz]);
