@@ -121,20 +121,13 @@ function StartQuizDialog() {
       if (cancelRequestRef.current) return;
       setDBBirbs(newDBBirbs);
       setTimeout(() => {
-        if (cancelRequestRef.current) return;
+        startQuiz();
+        setOpenStartQuizDialog(false);
         setLoadingState(LoadingState.DONE);
       }, 500);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sequence]);
-
-  // Close the dialog when loading is done and quiz has started
-  React.useEffect(() => {
-    if (loadingState === LoadingState.DONE) {
-      startQuiz();
-      setOpenStartQuizDialog(false);
-    }
-  }, [loadingState, startQuiz, setOpenStartQuizDialog]);
 
   // Prepare the quiz when gameMode is set and loadingState is UNLOADED
   React.useEffect(() => {
