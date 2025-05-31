@@ -157,9 +157,6 @@ function Quiz() {
       [Sex.MALE]: [],
       [Sex.FEMALE]: [],
     });
-    fetchAndSetAudioSources();
-    fetchAndSetImageSources();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birbId]);
 
   useEffect(() => {
@@ -172,6 +169,8 @@ function Quiz() {
       imageSources[Sex.FEMALE].length === 0
     ) {
       setLoading(true);
+      fetchAndSetAudioSources();
+      fetchAndSetImageSources();
     } else {
       setLoading(false);
     }
@@ -686,6 +685,7 @@ function Quiz() {
                     },
                   }}
                   color="success"
+                  disabled={!shouldReveal}
                   checked={answers[counter]}
                   onChange={() => {
                     const newAnswers: any = Array.from(answers);
