@@ -416,6 +416,7 @@ function Lobby() {
               eBird[birbId][eBirdNameProperty] === input
             }
             filterOptions={(options, { inputValue }) => {
+              if (inputValue.length < 3) return [];
               const normalize = (str: string) =>
                 str
                   .normalize("NFD")
