@@ -486,7 +486,9 @@ function Lobby() {
               display: "grid",
               gridAutoFlow: "column",
               gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
-              gridAutoColumns: "calc(100% - 0rem)",
+              gridAutoColumns: isMobileDevice
+                ? "calc(100% - 0rem)"
+                : "calc(50% - 0.5rem) calc(50% - 0.5rem)",
               height: "100%",
               overflowX: "auto",
               overflowY: "hidden",
@@ -496,46 +498,52 @@ function Lobby() {
             }}
           >
             {selectedBirbIds.length > 0 &&
-              selectedBirbIds.map((birbId, i) => (
-                <Box
-                  key={`chip-${birbId}`}
-                  sx={{ height: "100%", width: "100%" }}
-                >
-                  <StyledChip
-                    sx={{
-                      width: "100%",
-                      height: "40px",
-                      cursor: "pointer",
-                      transition: "transform 0.1s ease",
-                      "&:hover": {},
-                      "&:active": { transform: "scale(1.02)", boxShadow: 0 },
-                      borderRadius: "100px",
-                    }}
-                    color={
-                      regionList[region].includes(birbId)
-                        ? "default"
-                        : "warning"
-                    }
-                    key={`chip-${i}`}
-                    label={`${eBird[birbId][eBirdNameProperty]} 
+              selectedBirbIds
+                .sort((a, b) =>
+                  eBird[a][eBirdNameProperty].localeCompare(
+                    eBird[b][eBirdNameProperty]
+                  )
+                )
+                .map((birbId, i) => (
+                  <Box
+                    key={`chip-${birbId}`}
+                    sx={{ height: "100%", width: "100%" }}
+                  >
+                    <StyledChip
+                      sx={{
+                        width: "100%",
+                        height: "40px",
+                        cursor: "pointer",
+                        transition: "transform 0.1s ease",
+                        "&:hover": {},
+                        "&:active": { transform: "scale(1.02)", boxShadow: 0 },
+                        borderRadius: "100px",
+                      }}
+                      color={
+                        regionList[region].includes(birbId)
+                          ? "default"
+                          : "warning"
+                      }
+                      key={`chip-${i}`}
+                      label={`${eBird[birbId][eBirdNameProperty]} 
                       ${
                         regionList[region].includes(birbId)
                           ? ""
                           : `(not found in ${region})`
                       }`}
-                    variant="outlined"
-                    onClick={() => {
-                      setOpenLearnDialog(true);
-                      setLearnBirbId(birbId);
-                    }}
-                    onDelete={
-                      currentList === CUSTOM || isUserList
-                        ? () => deleteBirb(birbId)
-                        : undefined
-                    }
-                  />
-                </Box>
-              ))}
+                      variant="outlined"
+                      onClick={() => {
+                        setOpenLearnDialog(true);
+                        setLearnBirbId(birbId);
+                      }}
+                      onDelete={
+                        currentList === CUSTOM || isUserList
+                          ? () => deleteBirb(birbId)
+                          : undefined
+                      }
+                    />
+                  </Box>
+                ))}
           </Box>
         )}
         {selectedBirbIds.length === 0 && (
