@@ -488,7 +488,7 @@ function Lobby() {
               gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
               gridAutoColumns: isMobileDevice
                 ? "calc(100% - 0rem)"
-                : "calc(50% - 0.5rem) calc(50% - 0.5rem)",
+                : "calc(50% - 0.25rem) calc(50% - 0.25rem)",
               height: "100%",
               overflowX: "auto",
               overflowY: "hidden",
