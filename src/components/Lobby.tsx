@@ -260,6 +260,8 @@ function Lobby() {
     }
   }, [openLearnDialog]);
 
+  console.log(selectedBirbIds, dbListsData[currentList]?.ids);
+
   return (
     <Box>
       <EndQuizDialog />
@@ -487,9 +489,10 @@ function Lobby() {
               display: "grid",
               gridAutoFlow: "column",
               gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
-              gridAutoColumns: isMobileDevice
-                ? "calc(100% - 0rem)"
-                : "calc(50% - 0.25rem) calc(50% - 0.25rem)",
+              gridAutoColumns: "calc(100% - 0rem)",
+              // gridAutoColumns: isMobileDevice
+              //   ? "calc(100% - 0rem)"
+              //   : "calc(50% - 0.25rem) calc(50% - 0.25rem)",
               height: "100%",
               overflowX: "auto",
               overflowY: "hidden",
