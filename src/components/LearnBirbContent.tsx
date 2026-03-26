@@ -10,7 +10,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../App";
 import { AudioType, Sex } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
-import BirbNameRevealControl from "./BirbNames";
+import BirbNames from "./BirbNames";
 
 type LearnBirbContentProps = {
   audioSourcesCall: UrlWithMetadata[];
@@ -26,7 +26,6 @@ function LearnBirbContent({
   audioSourcesSong,
   imageSources,
   birbId,
-  nameControlBottomContent,
 }: LearnBirbContentProps) {
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
@@ -129,134 +128,121 @@ function LearnBirbContent({
     <Box
       sx={{
         display: "grid",
-        gap: "0.5rem",
+        gap: "1rem",
       }}
     >
-      <Box>
-        <BirbNameRevealControl
-          bottomContent={nameControlBottomContent}
-          commonName={eBird[birbId].comName}
-          commonNameFr={eBird[birbId].comNameFr}
-          currentNameProperty={eBirdNameProperty}
-          isBirbInRegion={isBirbInRegion}
-          region={region}
-          regionLabel={t[region]}
-          scientificName={eBird[birbId].sciName}
-        />
-      </Box>
+      <BirbNames
+        commonName={eBird[birbId].comName}
+        commonNameFr={eBird[birbId].comNameFr}
+        currentNameProperty={eBirdNameProperty}
+        isBirbInRegion={isBirbInRegion}
+        region={region}
+        regionLabel={t[region]}
+        scientificName={eBird[birbId].sciName}
+      />
 
-      <Box
-        sx={{
-          overflow: "auto",
-        }}
-      >
-        {hasImages && (
-          <Box
-            sx={{
-              display: "grid",
-              justifyContent: "center",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "2rem",
-              rowGap: "0.5rem",
-            }}
-          >
-            {[
-              { images: maleImages, label: t.Male, sex: Sex.MALE },
-              { images: femaleImages, label: t.Female, sex: Sex.FEMALE },
-            ].map(({ images, label, sex }) => {
-              if (images.length === 0) {
-                return null;
-              }
+      {hasImages && (
+        <Box
+          sx={{
+            display: "grid",
+            justifyContent: "center",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "2rem",
+            rowGap: "0.5rem",
+          }}
+        >
+          {[
+            { images: maleImages, label: t.Male, sex: Sex.MALE },
+            { images: femaleImages, label: t.Female, sex: Sex.FEMALE },
+          ].map(({ images, label, sex }) => {
+            if (images.length === 0) {
+              return null;
+            }
 
-              const randomIndex =
-                sex === Sex.MALE
-                  ? imageMaleRandomIndex
-                  : imageFemaleRandomIndex;
+            const randomIndex =
+              sex === Sex.MALE ? imageMaleRandomIndex : imageFemaleRandomIndex;
 
-              return (
-                <Box
-                  key={`image-box-${birbId}-${sex}`}
-                  sx={{ justifySelf: "center" }}
+            return (
+              <Box
+                key={`image-box-${birbId}-${sex}`}
+                sx={{ justifySelf: "center" }}
+              >
+                <Typography
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    gridTemplateColumns: "1fr min-content",
+                    paddingBottom: "0.2rem",
+                  }}
+                  variant="body1"
                 >
-                  <Typography
-                    sx={{
-                      display: "grid",
-                      alignItems: "center",
-                      gridTemplateColumns: "1fr min-content",
-                      paddingBottom: "0.2rem",
-                    }}
-                    variant="body1"
+                  {label}
+                  <Tooltip
+                    placement="top"
+                    enterDelay={0}
+                    leaveDelay={0}
+                    enterTouchDelay={0}
+                    leaveTouchDelay={0}
+                    title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
+                    sx={{ marginBottom: "0.1rem" }}
                   >
-                    {label}
-                    <Tooltip
-                      placement="top"
-                      enterDelay={0}
-                      leaveDelay={0}
-                      enterTouchDelay={0}
-                      leaveTouchDelay={0}
-                      title={`${images[randomIndex].author} - ${images[randomIndex].location}`}
-                      sx={{ marginBottom: "0.1rem" }}
-                    >
-                      <IconButton>
-                        <InfoOutlinedIcon
-                          sx={{ color: "black" }}
-                          fontSize="small"
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  </Typography>
-                  <Box
-                    sx={{
-                      cursor: "pointer",
-                      overflow: "hidden",
-                      padding: "0 0rem",
+                    <IconButton>
+                      <InfoOutlinedIcon
+                        sx={{ color: "black" }}
+                        fontSize="small"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </Typography>
+                <Box
+                  sx={{
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    padding: "0 0rem",
+                  }}
+                  onClick={() => {
+                    if (sex === Sex.MALE) {
+                      setImageMaleRandomIndex(
+                        (previousIndex) => (previousIndex + 1) % images.length,
+                      );
+                    } else {
+                      setImageFemaleRandomIndex(
+                        (previousIndex) => (previousIndex + 1) % images.length,
+                      );
+                    }
+                  }}
+                >
+                  <img
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "contain",
+                      borderRadius: "4px",
                     }}
-                    onClick={() => {
-                      if (sex === Sex.MALE) {
-                        setImageMaleRandomIndex(
-                          (previousIndex) =>
-                            (previousIndex + 1) % images.length,
-                        );
-                      } else {
-                        setImageFemaleRandomIndex(
-                          (previousIndex) =>
-                            (previousIndex + 1) % images.length,
-                        );
-                      }
-                    }}
-                  >
-                    <img
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "contain",
-                        borderRadius: "4px",
-                      }}
-                      src={images[randomIndex].url}
-                      loading="lazy"
-                      alt={eBird[birbId][eBirdNameProperty]}
-                    />
-                  </Box>
+                    src={images[randomIndex].url}
+                    loading="lazy"
+                    alt={eBird[birbId][eBirdNameProperty]}
+                  />
                 </Box>
-              );
-            })}
-          </Box>
-        )}
+              </Box>
+            );
+          })}
+        </Box>
+      )}
 
-        {hasAudio && (
-          <Box
-            sx={{
-              marginTop: hasImages ? "2rem" : 0,
-              display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns: "repeat(auto-fill, 1fr)",
-            }}
-          >
-            {renderAudioSection(audioSourcesSong, AudioType.SONG)}
-            {renderAudioSection(audioSourcesCall, AudioType.CAll)}
-          </Box>
-        )}
-      </Box>
+      {hasAudio && (
+        <Box
+          sx={{
+            marginTop: "0.5rem",
+            display: "grid",
+            gap: "0.5rem",
+            gridTemplateColumns: "repeat(auto-fill, 1fr)",
+          }}
+        >
+          {renderAudioSection(audioSourcesSong, AudioType.SONG)}
+          {renderAudioSection(audioSourcesCall, AudioType.CAll)}
+        </Box>
+      )}
     </Box>
   );
 }

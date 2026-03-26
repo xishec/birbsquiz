@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DBRegion, EBirdNameProperty } from "../tools/constants";
 
-type BirbNameRevealControlProps = {
-  bottomContent?: React.ReactNode;
+type BirbNamesProps = {
   commonName: string;
   commonNameFr: string;
   currentNameProperty: EBirdNameProperty;
@@ -13,8 +12,7 @@ type BirbNameRevealControlProps = {
   scientificName: string;
 };
 
-function BirbNameRevealControl({
-  bottomContent,
+function BirbNames({
   commonName,
   commonNameFr,
   currentNameProperty,
@@ -22,7 +20,7 @@ function BirbNameRevealControl({
   region,
   regionLabel,
   scientificName,
-}: BirbNameRevealControlProps) {
+}: BirbNamesProps) {
   const namesByProperty = {
     [EBirdNameProperty.COMMON_NAME]: {
       label: "English",
@@ -46,12 +44,9 @@ function BirbNameRevealControl({
     <>
       <Typography
         sx={{
-          marginTop: "1rem",
           display: "grid",
-          gridTemplateColumns: "minmax(0, 1.6fr) minmax(180px, 1fr)",
-          gridTemplateRows: "auto auto",
-          columnGap: "1rem",
-          rowGap: "0.5rem",
+          gridTemplateColumns: "1fr 1fr",
+          columnGap: "2rem",
           alignItems: "start",
         }}
       >
@@ -59,7 +54,6 @@ function BirbNameRevealControl({
           component="span"
           sx={{
             gridColumn: "1",
-            gridRow: "1 / span 2",
             minWidth: 0,
             alignSelf: "center",
           }}
@@ -78,7 +72,8 @@ function BirbNameRevealControl({
             component="span"
             sx={{
               display: "block",
-              fontSize: "1.5rem",
+              fontSize: "1rem",
+              fontWeight: "medium",
             }}
           >
             {`${primaryName.value}${
@@ -88,41 +83,41 @@ function BirbNameRevealControl({
             }`}
           </Typography>
         </Typography>
-        {secondaryNames.map(([, name], index) => (
-          <Typography
-            key={name.label}
-            component="span"
-            sx={{
-              gridColumn: "2",
-              gridRow: `${index + 1}`,
-              minWidth: 0,
-            }}
-          >
+        <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          {secondaryNames.map(([, name]) => (
             <Typography
+              key={name.label}
               component="span"
               sx={{
-                display: "block",
-                fontSize: "0.8rem",
-                opacity: 0.7,
+                gridColumn: "span 1",
+                minWidth: 0,
               }}
             >
-              {name.label}
+              <Typography
+                component="span"
+                sx={{
+                  display: "block",
+                  fontSize: "0.8rem",
+                  opacity: 0.7,
+                }}
+              >
+                {name.label}
+              </Typography>
+              <Typography
+                component="span"
+                sx={{
+                  display: "block",
+                  fontSize: "1rem",
+                }}
+              >
+                {name.value}
+              </Typography>
             </Typography>
-            <Typography
-              component="span"
-              sx={{
-                display: "block",
-                fontSize: "0.8rem",
-              }}
-            >
-              {name.value}
-            </Typography>
-          </Typography>
-        ))}
+          ))}
+        </Box>
       </Typography>
-      {bottomContent}
     </>
   );
 }
 
-export default BirbNameRevealControl;
+export default BirbNames;

@@ -2,6 +2,7 @@ import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import {
   Box,
+  Button,
   CircularProgress,
   DialogContent,
   Typography,
@@ -105,12 +106,27 @@ function LearnDialog({ birbId }: { birbId: string }) {
         }}
       >
         {loadingState === LoadingState.DONE ? (
-          <LearnBirbContent
-            birbId={birbId}
-            audioSourcesCall={audioSourcesCall}
-            audioSourcesSong={audioSourcesSong}
-            imageSources={imageSources}
-          />
+          <Box
+            sx={{
+              display: "grid",
+              gap: "1rem",
+            }}
+          >
+            <LearnBirbContent
+              birbId={birbId}
+              audioSourcesCall={audioSourcesCall}
+              audioSourcesSong={audioSourcesSong}
+              imageSources={imageSources}
+            />
+            <Button
+              sx={{ mt: "1rem", height: "40px" }}
+              variant="outlined"
+              color="error"
+              onClick={() => setOpenLearnDialog(false)}
+            >
+              Close
+            </Button>
+          </Box>
         ) : (
           <Box
             sx={{
