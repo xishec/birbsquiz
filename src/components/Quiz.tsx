@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import {
   Box,
   CircularProgress,
   IconButton,
   Switch,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -75,7 +77,20 @@ function Quiz() {
   const [audioPlayed, setAudioPlayed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [shouldReveal, setShouldReveal] = React.useState(false);
+  const [answerInput, setAnswerInput] = React.useState("");
+  const [selectedAnswerBirbId, setSelectedAnswerBirbId] =
+    React.useState<string | null>(null);
   const birbId = sequence[counter];
+
+  const sortedAnswerBirbIds = useMemo(
+    () =>
+      [...selectedBirbIds].sort((leftBirbId, rightBirbId) =>
+        eBird[leftBirbId][eBirdNameProperty].localeCompare(
+          eBird[rightBirbId][eBirdNameProperty],
+        ),
+      ),
+    [eBird, eBirdNameProperty, selectedBirbIds],
+  );
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
@@ -114,7 +129,22 @@ function Quiz() {
     setLoading(true);
     setShouldReveal(false);
     setPreviewing(false);
+    setAnswerInput("");
+    setSelectedAnswerBirbId(null);
   }, [counter, selectedBirbIds, sequence]);
+
+  const revealCurrentQuestion = () => {
+    pauseAllAudio();
+    const isCorrectAnswer = selectedAnswerBirbId === birbId;
+    void isCorrectAnswer;
+    setShowAnswers((previousShowAnswers) =>
+      updateBooleanAtIndex(previousShowAnswers, counter, true),
+    );
+    setShouldReveal(true);
+    setAnswers((previousAnswers) =>
+      updateBooleanAtIndex(previousAnswers, counter, true),
+    );
+  };
 
   const fetchAndSetAudioSources = () => {
     const birdAudio = dbBirbs[birbId]?.audio;
@@ -467,7 +497,6 @@ function Quiz() {
                   audioSourcesCall={revealCallSources}
                   audioSourcesSong={revealSongSources}
                   imageSources={imageSources}
-                  nameControlColor={answers[counter] ? "success" : "error"}
                   nameControlBottomContent={
                     <Box
                       sx={{
@@ -512,7 +541,6 @@ function Quiz() {
                   audioSourcesCall={revealCallSources}
                   audioSourcesSong={revealSongSources}
                   imageSources={imageSources}
-                  nameControlColor={answers[counter] ? "success" : "error"}
                   nameControlBottomContent={
                     <Box
                       sx={{
@@ -561,31 +589,62 @@ function Quiz() {
         }}
       >
         <Box>
-          {/* Show reveal button if not already revealed */}
           {!shouldReveal && (
             <Box
               sx={{
                 marginTop: "1rem",
                 display: "grid",
-                alignItems: "center",
-                gridTemplateColumns: "1fr auto",
                 gap: "0.5rem",
               }}
             >
+              <Autocomplete
+                autoHighlight
+                size="small"
+                value={selectedAnswerBirbId}
+                inputValue={answerInput}
+                onChange={(_event, value) => {
+                  setSelectedAnswerBirbId(value);
+                  setAnswerInput(value ? eBird[value][eBirdNameProperty] : "");
+                }}
+                onInputChange={(_event, value, reason) => {
+                  setAnswerInput(value);
+                  if (reason === "clear") {
+                    setSelectedAnswerBirbId(null);
+                  }
+                }}
+                options={sortedAnswerBirbIds}
+                getOptionLabel={(answerBirbId) =>
+                  eBird[answerBirbId]
+                    ? eBird[answerBirbId][eBirdNameProperty]
+                    : ""
+                }
+                isOptionEqualToValue={(option, value) => option === value}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t.FindBirbs}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" && selectedAnswerBirbId) {
+                        event.preventDefault();
+                        revealCurrentQuestion();
+                      }
+                    }}
+                  />
+                )}
+              />
+              <Box
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  gridTemplateColumns: "1fr auto",
+                gap: "0.5rem",
+                }}
+              >
               <Button
                 sx={{ height: "40px" }}
                 variant="outlined"
                 disabled={!audioPlayed && gameMode === GameMode.CHANTS}
-                onClick={() => {
-                  pauseAllAudio();
-                  setShowAnswers((previousShowAnswers) =>
-                    updateBooleanAtIndex(previousShowAnswers, counter, true),
-                  );
-                  setShouldReveal(true);
-                  setAnswers((previousAnswers) =>
-                    updateBooleanAtIndex(previousAnswers, counter, true),
-                  );
-                }}
+                onClick={revealCurrentQuestion}
               >
                 {t.Reveal}
               </Button>
@@ -604,6 +663,7 @@ function Quiz() {
                   </span>
                 </Button>
               )}
+            </Box>
             </Box>
           )}
         </Box>

@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   Box,
-  ButtonProps,
   IconButton,
   Tooltip,
   Typography,
@@ -18,7 +17,6 @@ type LearnBirbContentProps = {
   imageSources?: BirdImage | null;
   birbId: string;
   nameControlBottomContent?: React.ReactNode;
-  nameControlColor?: ButtonProps["color"];
 };
 
 function LearnBirbContent({
@@ -26,6 +24,7 @@ function LearnBirbContent({
   audioSourcesSong,
   imageSources,
   birbId,
+  nameControlBottomContent,
 }: LearnBirbContentProps) {
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
@@ -132,6 +131,7 @@ function LearnBirbContent({
       }}
     >
       <BirbNames
+        bottomContent={nameControlBottomContent}
         commonName={eBird[birbId].comName}
         commonNameFr={eBird[birbId].comNameFr}
         currentNameProperty={eBirdNameProperty}

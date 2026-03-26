@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { DBRegion, EBirdNameProperty } from "../tools/constants";
 
 type BirbNamesProps = {
+  bottomContent?: React.ReactNode;
   commonName: string;
   commonNameFr: string;
   currentNameProperty: EBirdNameProperty;
@@ -13,6 +14,7 @@ type BirbNamesProps = {
 };
 
 function BirbNames({
+  bottomContent,
   commonName,
   commonNameFr,
   currentNameProperty,
@@ -116,6 +118,7 @@ function BirbNames({
           ))}
         </Box>
       </Typography>
+      {bottomContent}
     </>
   );
 }
