@@ -97,7 +97,7 @@ function EditDialog({
         >
           <TextField
             fullWidth
-            label="List name"
+            label={t.ListName}
             variant="outlined"
             size="small"
             value={newListName}
@@ -109,7 +109,7 @@ function EditDialog({
             }
             helperText={
               newListName.toLowerCase() === CUSTOM
-                ? `${t.TitleCustom} be '${t.Custom}'`
+                ? t.ListNameCannotBeCustom
                 : Object.keys(dbListsData).includes(newListName) &&
                   newListName !== currentList
                 ? t.TitleDuplicate

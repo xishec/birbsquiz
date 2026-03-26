@@ -56,6 +56,17 @@ export interface Translation {
   Reveal: string;
   Answer: string;
   NoAnswer: string;
+  TypeAtLeast3Characters: string;
+  English: string;
+  French: string;
+  Latin: string;
+  NotFoundInRegion: string;
+  NotFoundInRegionAudioFromRegion: string;
+  ListName: string;
+  ListNameCannotBeCustom: string;
+  Birb: string;
+  Birbs: string;
+  BrowserDoesNotSupportAudio: string;
 }
 
 export const translationEnglish: Translation = {
@@ -118,6 +129,18 @@ export const translationEnglish: Translation = {
   Reveal: "Reveal",
   Answer: "Answer",
   NoAnswer: "No answer",
+  TypeAtLeast3Characters: "Type at least 3 characters",
+  English: "English",
+  French: "French",
+  Latin: "Latin",
+  NotFoundInRegion: "not found in {region}",
+  NotFoundInRegionAudioFromRegion:
+    "not found in {region}, audio came from {regionLabel}",
+  ListName: "List name",
+  ListNameCannotBeCustom: "List name cannot be 'Custom'",
+  Birb: "birb",
+  Birbs: "birbs",
+  BrowserDoesNotSupportAudio: "Your browser does not support the audio element.",
 };
 
 export const translationFrench: Translation = {
@@ -181,6 +204,19 @@ export const translationFrench: Translation = {
   Reveal: "Révéler",
   Answer: "Réponse",
   NoAnswer: "Pas de réponse",
+  TypeAtLeast3Characters: "Tapez au moins 3 caractères",
+  English: "Anglais",
+  French: "Français",
+  Latin: "Latin",
+  NotFoundInRegion: "introuvable dans {region}",
+  NotFoundInRegionAudioFromRegion:
+    "introuvable dans {region}, audio provenant de {regionLabel}",
+  ListName: "Nom de la liste",
+  ListNameCannotBeCustom: "Le nom de la liste ne peut pas être 'Personnalisée'",
+  Birb: "birb",
+  Birbs: "birbs",
+  BrowserDoesNotSupportAudio:
+    "Votre navigateur ne prend pas en charge l'élément audio.",
 };
 
 export const translationLatin: Translation = {
@@ -243,4 +279,17 @@ export const translationLatin: Translation = {
   Reveal: "Revela",
   Answer: "Responsum",
   NoAnswer: "Nulla responsum",
+  TypeAtLeast3Characters: "Scribe saltem 3 characteres",
+  English: "Anglica",
+  French: "Gallica",
+  Latin: "Latina",
+  NotFoundInRegion: "non inventa in {region}",
+  NotFoundInRegionAudioFromRegion:
+    "non inventa in {region}, sonus venit ex {regionLabel}",
+  ListName: "Nomen indicis",
+  ListNameCannotBeCustom: "Nomen indicis non potest esse 'Proprius'",
+  Birb: "avis",
+  Birbs: "aves",
+  BrowserDoesNotSupportAudio:
+    "Navigator tuus elementum audio non sustinet.",
 };

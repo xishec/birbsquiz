@@ -72,7 +72,7 @@ function PublishDialog({
         >
           <TextField
             fullWidth
-            label="List name"
+            label={t.ListName}
             variant="outlined"
             size="small"
             value={newListName}
@@ -83,9 +83,9 @@ function PublishDialog({
             }
             helperText={
               newListName.toLowerCase() === CUSTOM
-                ? "List name cannot be 'Custom'"
+                ? t.ListNameCannotBeCustom
                 : Object.keys(dbListsData).includes(newListName)
-                ? "List name already exists"
+                ? t.TitleDuplicate
                 : ""
             }
           />

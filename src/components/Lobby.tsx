@@ -461,6 +461,9 @@ function Lobby() {
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
             }}
+            noOptionsText={
+              birbInput.trim().length < 3 ? t.TypeAtLeast3Characters : undefined
+            }
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -552,7 +555,10 @@ function Lobby() {
                       ${
                         regionList[region].includes(birbId)
                           ? ""
-                          : `(not found in ${region})`
+                          : `(${t.NotFoundInRegion.replace(
+                              "{region}",
+                              region,
+                            )})`
                       }`}
                       variant="outlined"
                       onClick={() => {
@@ -623,7 +629,6 @@ function Lobby() {
                   <MenuItem key={key} value={key}>
                     <span
                       role="img"
-                      aria-label="favorite"
                       style={{ marginRight: "0.5rem" }}
                     >
                       ⭐️
@@ -635,7 +640,6 @@ function Lobby() {
                   <MenuItem key={key} value={key}>
                     <span
                       role="img"
-                      aria-label="edit"
                       style={{ marginRight: "0.5rem" }}
                     >
                       ✏️
@@ -787,8 +791,8 @@ function Lobby() {
                 onClick={() => setOpenStartQuizDialog(true)}
                 disabled={selectedBirbIds.length <= 0}
               >
-                {`${t.Quiz} ${selectedBirbIds.length} birb${
-                  selectedBirbIds.length === 1 ? "" : "s"
+                {`${t.Quiz} ${selectedBirbIds.length} ${
+                  selectedBirbIds.length === 1 ? t.Birb : t.Birbs
                 }`}
               </Button>
             </Box>

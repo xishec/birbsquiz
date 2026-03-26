@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useMemo } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
+import Autocomplete, {
+  createFilterOptions,
+} from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import {
   Box,
@@ -27,6 +29,8 @@ const updateBooleanAtIndex = (
   nextItems[index] = value;
   return nextItems;
 };
+
+const filterAnswerOptions = createFilterOptions<string>();
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -69,14 +73,14 @@ function Quiz() {
   >(null);
   const birbId = sequence[counter];
 
-  const sortedAnswerBirbIds = useMemo(
+  const sortedAllBirbIds = useMemo(
     () =>
-      [...selectedBirbIds].sort((leftBirbId, rightBirbId) =>
+      Object.keys(eBird).sort((leftBirbId, rightBirbId) =>
         eBird[leftBirbId][eBirdNameProperty].localeCompare(
           eBird[rightBirbId][eBirdNameProperty],
         ),
       ),
-    [eBird, eBirdNameProperty, selectedBirbIds],
+    [eBird, eBirdNameProperty],
   );
 
   const pauseAllAudio = () => {
@@ -253,11 +257,21 @@ function Quiz() {
           setSelectedAnswerBirbId(null);
         }
       }}
-      options={sortedAnswerBirbIds}
+      filterOptions={(options, state) =>
+        state.inputValue.trim().length < 3
+          ? []
+          : filterAnswerOptions(options, state)
+      }
+      options={sortedAllBirbIds}
       getOptionLabel={(answerBirbId) =>
         eBird[answerBirbId] ? eBird[answerBirbId][eBirdNameProperty] : ""
       }
       isOptionEqualToValue={(option, value) => option === value}
+      noOptionsText={
+        answerInput.trim().length < 3
+          ? t.TypeAtLeast3Characters
+          : undefined
+      }
       renderInput={(params) => (
         <TextField
           {...params}
@@ -307,8 +321,7 @@ function Quiz() {
               window.location.reload();
             }}
           >
-            Your browser does not support the
-            <code>audio</code> element.
+            {t.BrowserDoesNotSupportAudio}
           </audio>
         </Box>
       )}
@@ -562,7 +575,7 @@ function Quiz() {
         <Box>
           <Box
             sx={{
-              marginTop: "1rem",
+              marginTop: "1.5rem",
               display: "grid",
               gap: "0.5rem",
             }}

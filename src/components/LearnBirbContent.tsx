@@ -90,8 +90,7 @@ function LearnBirbContent({
               window.location.reload();
             }}
           >
-            Your browser does not support the
-            <code>audio</code> element.
+            {t.BrowserDoesNotSupportAudio}
           </audio>
 
           <Tooltip

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Box, Typography } from "@mui/material";
+import { QuizContext } from "../App";
 import { DBRegion, EBirdNameProperty } from "../tools/constants";
 
 type BirbNamesProps = {
@@ -21,20 +22,35 @@ function BirbNames({
   regionLabel,
   scientificName,
 }: BirbNamesProps) {
+  const quizContext = React.useContext(QuizContext);
+  if (!quizContext) {
+    throw new Error("Must be used within a QuizContext.Provider");
+  }
+  const { currentTranslation: t } = quizContext;
+
+  const replaceTemplate = (
+    template: string,
+    values: Record<string, string>,
+  ) =>
+    Object.entries(values).reduce(
+      (message, [key, value]) => message.replace(`{${key}}`, value),
+      template,
+    );
+
   const allNames = [
     {
       property: EBirdNameProperty.COMMON_NAME,
-      label: "English",
+      label: t.English,
       value: commonName,
     },
     {
       property: EBirdNameProperty.COMMON_NAME_FR,
-      label: "French",
+      label: t.French,
       value: commonNameFr,
     },
     {
       property: EBirdNameProperty.SCIENTIFIC_NAME,
-      label: "Latin",
+      label: t.Latin,
       value: scientificName,
     },
   ];
@@ -99,12 +115,18 @@ function BirbNames({
               </Typography>
               <Typography
                 sx={{
-                  fontSize: "1rem",
-                }}
-              >
+                fontSize: "1rem",
+              }}
+            >
                 {`${name.value}${
                   index === 0 && !isBirbInRegion
-                    ? ` (not found in ${region}, audio came from ${regionLabel})`
+                    ? ` (${replaceTemplate(
+                        t.NotFoundInRegionAudioFromRegion,
+                        {
+                          region,
+                          regionLabel,
+                        },
+                      )})`
                     : ""
                 }`}
               </Typography>
