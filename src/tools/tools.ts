@@ -14,6 +14,23 @@ export type BirdImage = {
   [Sex.FEMALE]: UrlWithMetadata[];
 };
 
+type MacaulayLibraryItem = {
+  behaviors?: string | string[];
+  location?: string;
+  mediaUrl?: string;
+  previewUrl?: string;
+  rating?: number;
+  sex?: string | string[];
+  source?: string;
+  userDisplayName?: string;
+};
+
+type MacaulayLibraryResponse = {
+  results?: {
+    content?: MacaulayLibraryItem[];
+  };
+};
+
 /**
  * Helper function to fetch media data and push to results array.
  * @param url - endpoint to fetch data from.
@@ -25,17 +42,17 @@ export type BirdImage = {
 const fetchMedia = async (
   url: string,
   results: UrlWithMetadata[],
-  urlField: string,
-  predicate: (item: any) => boolean,
+  urlField: "mediaUrl" | "previewUrl",
+  predicate: (item: MacaulayLibraryItem) => boolean,
   maxCount: number = 10
 ) => {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  const data = await response.json();
-  data?.results?.content?.forEach((item: any) => {
+  const data = (await response.json()) as MacaulayLibraryResponse;
+  data?.results?.content?.forEach((item) => {
     if (item[urlField] && predicate(item) && results.length < maxCount) {
       results.push({
-        url: item[urlField],
+        url: item[urlField]!,
         location: item.location || "Unknown",
         author: item.userDisplayName || "Unknown",
       });
@@ -71,7 +88,7 @@ export const fetchAudioForOne = async (
       (item) =>
         String(item.behaviors).toLowerCase() === AudioType.CAll &&
         item?.source === "ebird" &&
-        item?.rating >= 4
+        (item.rating ?? 0) >= 4
     );
     if (birdAudio[AudioType.CAll].length < 10) {
       await fetchMedia(
@@ -94,7 +111,7 @@ export const fetchAudioForOne = async (
       (item) =>
         String(item.behaviors).toLowerCase() === AudioType.SONG &&
         item?.source === "ebird" &&
-        item?.rating >= 4
+        (item.rating ?? 0) >= 4
     );
     if (birdAudio[AudioType.SONG].length < 10) {
       await fetchMedia(
@@ -147,7 +164,8 @@ export const fetchImageForOne = async (
       maleRegionUrl,
       birdImage[Sex.MALE],
       "previewUrl",
-      (item) => String(item.sex).toLowerCase() === Sex.MALE && item?.rating >= 4
+      (item) =>
+        String(item.sex).toLowerCase() === Sex.MALE && (item.rating ?? 0) >= 4
     );
     if (birdImage[Sex.MALE].length < 10) {
       await fetchMedia(
@@ -166,7 +184,8 @@ export const fetchImageForOne = async (
       birdImage[Sex.FEMALE],
       "previewUrl",
       (item) =>
-        String(item.sex).toLowerCase() === Sex.FEMALE && item?.rating >= 4
+        String(item.sex).toLowerCase() === Sex.FEMALE &&
+        (item.rating ?? 0) >= 4
     );
     if (birdImage[Sex.FEMALE].length < 10) {
       await fetchMedia(
@@ -223,43 +242,12 @@ export const fetchImageAndAudioForMultiple = async (
   }
 
   // Start a pool of workers
-  const workers = [];
+  const workers: Promise<void>[] = [];
   for (let i = 0; i < MAX_CONCURRENT; i++) {
     workers.push(worker());
   }
 
   await Promise.all(workers);
-  return results;
-};
-
-export const fetchImageAndAudioForMultiple1 = async (
-  requestTimestamp: number,
-  birdIds: string[],
-  region: string,
-  onProgress?: (originalTimestamp: number, progress: number) => void
-): Promise<DB_BIRBS> => {
-  const BATCH_SIZE = 10;
-  const results: DB_BIRBS = {};
-  const completed = { value: 0 };
-
-  // helper declared outside of the loop to avoid closure issues
-  const processBirdId = async (id: string): Promise<void> => {
-    const [image, audio] = await Promise.all([
-      fetchImageForOne(id, region),
-      fetchAudioForOne(id, region),
-    ]);
-    results[id] = { image, audio };
-    completed.value++;
-    if (onProgress) {
-      onProgress(requestTimestamp, (completed.value / birdIds.length) * 100);
-    }
-  };
-
-  for (let i = 0; i < birdIds.length; i += BATCH_SIZE) {
-    const batch = birdIds.slice(i, i + BATCH_SIZE);
-    const promises = batch.map(processBirdId);
-    await Promise.all(promises);
-  }
   return results;
 };
 
@@ -276,17 +264,17 @@ export type DB_LISTS = Record<string, DB_LIST>;
 export type DB_LIST = {
   name: string;
   creator: string;
-  favorite: FavoriteList;
+  favorite?: FavoriteList;
   ids: string[];
   region: DBRegion;
 };
 
-export const arraysEqual = (a: string[], b: string[] = []) => {
+export const arraysEqual = <T>(a: T[], b: T[] = []) => {
   if (a.length !== b.length) return false;
   return a.every((item, index) => item === b[index]);
 };
 
 export const isValidEnumValue = <T extends object>(
   enumObj: T,
-  value: any
+  value: unknown
 ): value is T[keyof T] => Object.values(enumObj).includes(value);

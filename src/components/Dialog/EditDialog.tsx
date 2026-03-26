@@ -30,7 +30,7 @@ function EditDialog({
   currentList: string;
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
-  saveBirbList: (newListName: string, favorite?: string) => void;
+  saveBirbList: (newListName: string, favorite?: FavoriteList) => void;
   deleteBirbList: (listName: string) => void;
 }) {
   const quizContext = React.useContext(QuizContext);
@@ -86,9 +86,7 @@ function EditDialog({
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ padding: "1.5rem" }}>
-        <Typography sx={{ fontSize: "0.9rem" }}>
-          Let's share your quiz with others!
-        </Typography>
+        <Typography sx={{ fontSize: "0.9rem" }}>{t.ShareTitle}</Typography>
         <Box
           sx={{
             marginTop: "1rem",
@@ -176,7 +174,7 @@ function EditDialog({
               onClick={() => {
                 saveBirbList(newListName, favorite);
                 deleteBirbList(currentList);
-                setCurrentList(newListName!);
+                setCurrentList(newListName);
                 setOpenEditDialog(false);
               }}
             >

@@ -21,6 +21,16 @@ import {
 } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
 
+const updateBooleanAtIndex = (
+  items: boolean[],
+  index: number,
+  value: boolean
+) => {
+  const nextItems = [...items];
+  nextItems[index] = value;
+  return nextItems;
+};
+
 function Quiz() {
   const quizContext = useContext(QuizContext);
   if (!quizContext) {
@@ -55,7 +65,6 @@ function Quiz() {
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [imageSources, setImageSources] = React.useState<BirdImage>();
-  const [birbId, setBirbId] = React.useState(sequence[counter]);
   const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -63,6 +72,7 @@ function Quiz() {
   const [shouldRevealMoreNames, setShouldRevealMoreNames] =
     React.useState(false);
   const [shouldReveal, setShouldReveal] = React.useState(false);
+  const birbId = sequence[counter];
 
   const pauseAllAudio = () => {
     const audioElements = document.querySelectorAll("audio");
@@ -100,8 +110,8 @@ function Quiz() {
   useEffect(() => {
     setLoading(true);
     setShouldReveal(false);
-    setBirbId(sequence[counter]);
-    console.log("birbId is", sequence[counter]);
+    setShouldRevealMoreNames(false);
+    setPreviewing(false);
   }, [counter, selectedBirbIds, sequence]);
 
   const fetchAndSetAudioSources = () => {
@@ -117,9 +127,9 @@ function Quiz() {
     } else if (!birdAudio[AudioType.CAll]) {
       newAudioType = AudioType.SONG;
     } else {
-      if (callCheckbox) {
-        newAudioType = AudioType.CAll;
-      }
+        if (callCheckbox) {
+          newAudioType = AudioType.CAll;
+        }
       if (songCheckbox) {
         newAudioType = AudioType.SONG;
       }
@@ -194,18 +204,23 @@ function Quiz() {
           img.src = urlWithMetadata.url;
         }
       );
-      setShouldReveal(showAnswers[counter]);
+      setShouldReveal(showAnswers[counter] ?? false);
     }
   }, [imageSources, counter, showAnswers]);
 
+  if (!birbId || !eBird[birbId]) {
+    return null;
+  }
+
+  const isBirbInRegion = regionList[region].includes(birbId);
+  const revealedAudioSources = audioSources.slice(0, 5);
+
   const audioComponents = (
     <>
-      {audioSources.slice(0, 5).length > 0 &&
-        audioSources.slice(0, 5)[0] &&
+      {revealedAudioSources.length > 0 &&
+        revealedAudioSources[0] &&
         currentAudioType &&
-        audioSources
-          .slice(0, 5)
-          .map((urlWithMetadata: UrlWithMetadata, i: number) => (
+        revealedAudioSources.map((urlWithMetadata: UrlWithMetadata, i: number) => (
             <Box
               key={`audio-box-${birbId}-after-reveal-${i}`}
               sx={{
@@ -234,7 +249,7 @@ function Quiz() {
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
-                onError={(e) => {
+                onError={() => {
                   window.location.reload();
                 }}
               >
@@ -288,7 +303,7 @@ function Quiz() {
               const audio = e.currentTarget;
               audio.play();
             }}
-            onError={(e) => {
+            onError={() => {
               window.location.reload();
             }}
           >
@@ -558,15 +573,13 @@ function Quiz() {
                 disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                 onClick={() => {
                   pauseAllAudio();
-
-                  const newShowAnswers: any = Array.from(showAnswers);
-                  newShowAnswers[counter] = !newShowAnswers[counter];
-                  setShowAnswers(newShowAnswers);
-
-                  const newAnswers: any = Array.from(answers);
-                  newAnswers[counter] = true;
+                  setShowAnswers((previousShowAnswers) =>
+                    updateBooleanAtIndex(previousShowAnswers, counter, true)
+                  );
                   setShouldReveal(true);
-                  setAnswers(newAnswers);
+                  setAnswers((previousAnswers) =>
+                    updateBooleanAtIndex(previousAnswers, counter, true)
+                  );
                 }}
               >
                 {t.Reveal}
@@ -665,10 +678,10 @@ function Quiz() {
                 onMouseLeave={() => setShouldRevealMoreNames(false)}
                 onTouchStart={() => setShouldRevealMoreNames(true)}
                 onTouchEnd={() => setShouldRevealMoreNames(false)}
-              >
-                {`${eBird[birbId][eBirdNameProperty]} 
+                >
+                  {`${eBird[birbId][eBirdNameProperty]} 
                       ${
-                        regionList[region].includes(birbId)
+                        isBirbInRegion
                           ? ""
                           : `(not found in ${region}, audio came from ${t[region]})`
                       }`}
@@ -695,9 +708,13 @@ function Quiz() {
                   disabled={!shouldReveal}
                   checked={answers[counter]}
                   onChange={() => {
-                    const newAnswers: any = Array.from(answers);
-                    newAnswers[counter] = !newAnswers[counter];
-                    setAnswers(newAnswers);
+                    setAnswers((previousAnswers) =>
+                      updateBooleanAtIndex(
+                        previousAnswers,
+                        counter,
+                        !previousAnswers[counter]
+                      )
+                    );
                   }}
                 />
                 {/* <Typography variant="body1">

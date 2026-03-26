@@ -26,7 +26,7 @@ function PublishDialog({
   isAdmin: boolean;
   dbListsData: DB_LISTS;
   setCurrentList: (listName: string) => void;
-  saveBirbList: (listName: string, favorite: string) => void;
+  saveBirbList: (listName: string, favorite: FavoriteList) => void;
 }) {
   const [newListName, setNewListName] = React.useState<string>("");
   const [favorite, setFavorite] = React.useState<FavoriteList>(
@@ -48,6 +48,7 @@ function PublishDialog({
       onClose={() => {
         setOpenPublishDialog(false);
         setNewListName("");
+        setFavorite(FavoriteList.NORMAL);
       }}
       open={openPublishDialog}
       scroll="paper"
@@ -120,9 +121,10 @@ function PublishDialog({
             variant="outlined"
             onClick={() => {
               saveBirbList(newListName, favorite);
-              console.log("seeting current list to", newListName);
-              setCurrentList(newListName!);
+              setCurrentList(newListName);
               setOpenPublishDialog(false);
+              setNewListName("");
+              setFavorite(FavoriteList.NORMAL);
             }}
           >
             {t.Create}

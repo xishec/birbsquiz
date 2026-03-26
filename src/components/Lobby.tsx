@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -35,6 +36,13 @@ import { arraysEqual, DB_LIST, DB_LISTS } from "../tools/tools";
 import EditDialog from "./Dialog/EditDialog";
 import { useConfirm } from "material-ui-confirm";
 import LearnDialog from "./Dialog/LearnDialog";
+
+const normalizeSearchText = (value: string) =>
+  value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['-]/g, "")
+    .toLowerCase();
 
 function Lobby() {
   const quizContext = useContext(QuizContext);
@@ -76,6 +84,45 @@ function Lobby() {
   // const listboxRef = useRef<HTMLUListElement>(null);
   // const [scrollPosition, setScrollPosition] = useState(0);
 
+  const listEntries = useMemo(() => Object.entries(dbListsData), [dbListsData]);
+  const favoriteLists = useMemo(
+    () =>
+      listEntries.filter(
+        ([, value]) => value.favorite === FavoriteList.FAVORITE
+      ),
+    [listEntries]
+  );
+  const userLists = useMemo(
+    () =>
+      listEntries.filter(
+        ([, value]) =>
+          value.favorite !== FavoriteList.FAVORITE && value.creator === user?.uid
+      ),
+    [listEntries, user]
+  );
+  const otherLists = useMemo(
+    () =>
+      listEntries.filter(
+        ([, value]) =>
+          value.favorite !== FavoriteList.FAVORITE && value.creator !== user?.uid
+      ),
+    [listEntries, user]
+  );
+  const sortedRegionBirbIds = useMemo(
+    () =>
+      [...regionList[region]].sort((a, b) =>
+        eBird[a][eBirdNameProperty].localeCompare(eBird[b][eBirdNameProperty])
+      ),
+    [eBird, eBirdNameProperty, region, regionList]
+  );
+  const sortedSelectedBirbIds = useMemo(
+    () =>
+      [...selectedBirbIds].sort((a, b) =>
+        eBird[a][eBirdNameProperty].localeCompare(eBird[b][eBirdNameProperty])
+      ),
+    [eBird, eBirdNameProperty, selectedBirbIds]
+  );
+
   // useEffect(() => {
   //   if (listboxRef.current) {
   //     listboxRef.current.scrollTop = scrollPosition;
@@ -88,8 +135,7 @@ function Lobby() {
     if (currentList === CUSTOM) {
       setCustomList(selectedBirbIds);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBirbIds]);
+  }, [currentList, selectedBirbIds, setCustomList]);
 
   // update isUserList when currentList or dbListsData or user change
   useEffect(() => {
@@ -108,38 +154,33 @@ function Lobby() {
   // update birbs when currentList changes
   useEffect(() => {
     if (currentList === CUSTOM) {
-      setSelectedBirbIds(customList ? customList : []);
-    } else {
-      if (dbListsData[currentList])
-        setSelectedBirbIds(dbListsData[currentList].ids);
+      setSelectedBirbIds(customList || []);
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentList]);
+
+    if (dbListsData[currentList]) {
+      setSelectedBirbIds(dbListsData[currentList].ids);
+    }
+  }, [currentList, customList, dbListsData, setSelectedBirbIds]);
 
   // if loaded and list invalid, set to Custom
   useEffect(() => {
     if (!dbListsData || Object.keys(dbListsData).length === 0) return;
     if (currentList !== CUSTOM && !dbListsData[currentList]) {
-      console.log(`List "${currentList}" not found in DB, setting to Custom`);
       setCurrentList(CUSTOM);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dbListsData]);
+  }, [currentList, dbListsData, setCurrentList]);
 
   const loadBirbList = useCallback(() => {
-    // remove(ref(database, `v2/birbs`))
-
     const listRef = ref(database, `v2/lists`);
     get(listRef)
       .then((snapshot) => {
         let data: DB_LISTS = snapshot.val();
         if (!data) {
           data = {};
-          set(listRef, data)
-            .then(() =>
-              console.log("Created v2/lists because it did not exist")
-            )
-            .catch((error) => console.error("Error creating v2/lists:", error));
+          set(listRef, data).catch((error) =>
+            console.error("Error creating v2/lists:", error)
+          );
         }
         setDBListsData(data);
       })
@@ -148,8 +189,7 @@ function Lobby() {
         setSnakeMessage(error.message);
         setOpenSnake(true);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setOpenSnake, setSnakeMessage]);
 
   useEffect(() => {
     loadBirbList();
@@ -180,14 +220,12 @@ function Lobby() {
       }
     });
     return () => unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setOpenSnake, setSnakeMessage]);
 
   const addBirb = (birbId: string) => {
     if (user || currentList === CUSTOM) {
-      if (eBird[birbId] && !selectedBirbIds.find((id) => id === birbId)) {
-        setSelectedBirbIds([...selectedBirbIds, birbId]);
-        console.log("Adding birb:", birbId);
+      if (eBird[birbId] && !selectedBirbIds.includes(birbId)) {
+        setSelectedBirbIds((previousBirbIds) => [...previousBirbIds, birbId]);
       }
     } else {
       setSnakeMessage(t.NotYourList);
@@ -198,17 +236,17 @@ function Lobby() {
 
   const deleteBirb = useCallback(
     (birbId: string) => {
-      // console.log("Deleting birb:", birbId);
-      const newSelectedBirbIds = selectedBirbIds?.filter((id) => id !== birbId);
-      setSelectedBirbIds(newSelectedBirbIds!);
+      setSelectedBirbIds((previousBirbIds) =>
+        previousBirbIds.filter((id) => id !== birbId)
+      );
     },
-    [selectedBirbIds, setSelectedBirbIds]
+    [setSelectedBirbIds]
   );
 
   const saveBirbList = (
     newListName: string,
     userId: string,
-    favorite?: string
+    favorite?: FavoriteList
   ) => {
     const listRef = ref(database, `v2/lists/${newListName}`);
     set(listRef, {
@@ -216,7 +254,7 @@ function Lobby() {
       creator: userId,
       ids: selectedBirbIds,
       region: region,
-      ...(favorite !== undefined ? { favorite } : {}),
+      favorite: favorite ?? FavoriteList.NORMAL,
     } as DB_LIST)
       .then(() => {
         loadBirbList();
@@ -260,8 +298,6 @@ function Lobby() {
     }
   }, [openLearnDialog]);
 
-  console.log(selectedBirbIds, dbListsData[currentList]?.ids);
-
   return (
     <Box>
       <EndQuizDialog />
@@ -272,7 +308,7 @@ function Lobby() {
         isAdmin={isAdmin}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
-        saveBirbList={(listName: string, favorite: string) =>
+        saveBirbList={(listName: string, favorite: FavoriteList) =>
           saveBirbList(listName, user!.uid, favorite)
         }
       />
@@ -281,7 +317,7 @@ function Lobby() {
         currentList={currentList}
         dbListsData={dbListsData}
         setCurrentList={setCurrentList}
-        saveBirbList={(newListName: string, favorite?: string) =>
+        saveBirbList={(newListName: string, favorite?: FavoriteList) =>
           saveBirbList(newListName, dbListsData[currentList].creator, favorite)
         }
         deleteBirbList={deleteBirbList}
@@ -405,11 +441,7 @@ function Lobby() {
             onChange={(e, v) => {
               addBirb(v!);
             }}
-            options={regionList[region].sort((a, b) =>
-              eBird[a][eBirdNameProperty].localeCompare(
-                eBird[b][eBirdNameProperty]
-              )
-            )}
+            options={sortedRegionBirbIds}
             getOptionLabel={(birbId) =>
               eBird[birbId] ? eBird[birbId][eBirdNameProperty] : ""
             }
@@ -419,19 +451,13 @@ function Lobby() {
             }
             filterOptions={(options, { inputValue }) => {
               if (inputValue.length < 3) return [];
-              const normalize = (str: string) =>
-                str
-                  .normalize("NFD")
-                  .replace(/[\u0300-\u036f]/g, "")
-                  .replace(/['-]/g, ""); // ignore apostrophes and hyphens
-              const searchTerms = normalize(inputValue)
-                .toLowerCase()
+              const searchTerms = normalizeSearchText(inputValue)
                 .split(" ")
                 .filter((term) => term);
               return options.filter((option) => {
-                const optionLabel = normalize(
+                const optionLabel = normalizeSearchText(
                   eBird[option][eBirdNameProperty]
-                ).toLowerCase();
+                );
                 return searchTerms.every((term) => optionLabel.includes(term));
               });
             }}
@@ -501,14 +527,7 @@ function Lobby() {
               padding: "0 1.5rem",
             }}
           >
-            {selectedBirbIds.length > 0 &&
-              selectedBirbIds
-                .sort((a, b) =>
-                  eBird[a][eBirdNameProperty].localeCompare(
-                    eBird[b][eBirdNameProperty]
-                  )
-                )
-                .map((birbId, i) => (
+            {sortedSelectedBirbIds.map((birbId, i) => (
                   <Box
                     key={`chip-${birbId}`}
                     sx={{ height: "100%", width: "100%" }}
@@ -593,7 +612,6 @@ function Lobby() {
                 }
                 onChange={(event: SelectChangeEvent) => {
                   const key = event.target.value;
-                  console.log("Setting current list to:", key);
                   setCurrentList(key);
                 }}
                 size="small"
@@ -601,54 +619,35 @@ function Lobby() {
                 <MenuItem key={CUSTOM} value={CUSTOM}>
                   {t.Custom}
                 </MenuItem>
-                {dbListsData &&
-                  Object.entries(dbListsData)
-                    .filter(
-                      ([key, value]) => value.favorite === FavoriteList.FAVORITE
-                    )
-                    .map(([key, value]) => (
-                      <MenuItem key={key} value={key}>
-                        <span
-                          role="img"
-                          aria-label="favorite"
-                          style={{ marginRight: "0.5rem" }}
-                        >
-                          ⭐️
-                        </span>
-                        {key}
-                      </MenuItem>
-                    ))}
-                {dbListsData &&
-                  Object.entries(dbListsData)
-                    .filter(
-                      ([key, value]) =>
-                        value.favorite !== FavoriteList.FAVORITE &&
-                        value.creator === user?.uid
-                    )
-                    .map(([key, value]) => (
-                      <MenuItem key={key} value={key}>
-                        <span
-                          role="img"
-                          aria-label="edit"
-                          style={{ marginRight: "0.5rem" }}
-                        >
-                          ✏️
-                        </span>
-                        {key}
-                      </MenuItem>
-                    ))}
-                {dbListsData &&
-                  Object.entries(dbListsData)
-                    .filter(
-                      ([key, value]) =>
-                        value.favorite !== FavoriteList.FAVORITE &&
-                        value.creator !== user?.uid
-                    )
-                    .map(([key, value]) => (
-                      <MenuItem key={key} value={key}>
-                        {key}
-                      </MenuItem>
-                    ))}
+                {favoriteLists.map(([key]) => (
+                  <MenuItem key={key} value={key}>
+                    <span
+                      role="img"
+                      aria-label="favorite"
+                      style={{ marginRight: "0.5rem" }}
+                    >
+                      ⭐️
+                    </span>
+                    {key}
+                  </MenuItem>
+                ))}
+                {userLists.map(([key]) => (
+                  <MenuItem key={key} value={key}>
+                    <span
+                      role="img"
+                      aria-label="edit"
+                      style={{ marginRight: "0.5rem" }}
+                    >
+                      ✏️
+                    </span>
+                    {key}
+                  </MenuItem>
+                ))}
+                {otherLists.map(([key]) => (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>

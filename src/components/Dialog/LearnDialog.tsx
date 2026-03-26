@@ -59,28 +59,60 @@ function LearnDialog({ birbId }: { birbId: string }) {
     React.useState(false);
 
   React.useEffect(() => {
-    if (!Object.keys(eBird).includes(birbId)) return;
-    console.log("birbId is", birbId);
+    if (!birbId || !eBird[birbId]) {
+      return;
+    }
+
+    let ignore = false;
+    let timeoutId: number | undefined;
+
+    setProgress(0);
+    setLoadingState(LoadingState.LOADING);
+    setShouldRevealMoreNames(false);
+    setImageMaleRandomIndex(0);
+    setImageFemaleRandomIndex(0);
 
     fetchImageAndAudioForMultiple(0, [birbId], region, (_, newProgress) => {
-      setProgress(newProgress);
+      if (!ignore) {
+        setProgress(newProgress);
+      }
     }).then((newDBBirb) => {
+      if (ignore) {
+        return;
+      }
+
       setAudioSourcesSong(newDBBirb[birbId]?.audio?.song || []);
       setAudioSourcesCall(newDBBirb[birbId]?.audio?.call || []);
       setImageSources(newDBBirb[birbId]?.image || undefined);
-      setTimeout(() => {
+      timeoutId = window.setTimeout(() => {
         setLoadingState(LoadingState.DONE);
       }, 500);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [birbId]);
+
+    return () => {
+      ignore = true;
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [birbId, eBird, region]);
 
   React.useEffect(() => {
     if (!openLearnDialog) {
       setProgress(0);
       setLoadingState(LoadingState.UNLOADED);
+      setAudioSourcesSong([]);
+      setAudioSourcesCall([]);
+      setImageSources(undefined);
+      setShouldRevealMoreNames(false);
     }
   }, [openLearnDialog]);
+
+  React.useEffect(() => {
+    if (openLearnDialog && birbId && !eBird[birbId]) {
+      setOpenLearnDialog(false);
+    }
+  }, [birbId, eBird, openLearnDialog, setOpenLearnDialog]);
 
   const handleAudioPlay = (
     e: React.SyntheticEvent<HTMLAudioElement, Event>
@@ -132,7 +164,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 controls
                 src={urlWithMetadata.url}
                 onPlay={handleAudioPlay}
-                onError={(e) => {
+                onError={() => {
                   window.location.reload();
                 }}
               >
@@ -158,11 +190,11 @@ function LearnDialog({ birbId }: { birbId: string }) {
   );
 
   if (!birbId || !Object.keys(eBird).includes(birbId)) {
-    if (openLearnDialog) setOpenLearnDialog(false);
     return null;
   }
 
   const OneAndHalfOrTwoREM = isMobileDevice ? "1.5rem" : "2rem";
+  const isBirbInRegion = regionList[region].includes(birbId);
 
   return (
     <Dialog
@@ -407,7 +439,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
                 >
                   {`${eBird[birbId][eBirdNameProperty]} 
                                   ${
-                                    regionList[region].includes(birbId)
+                                    isBirbInRegion
                                       ? ""
                                       : `(not found in ${region}, audio came from ${t[region]})`
                                   }`}

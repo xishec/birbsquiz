@@ -65,9 +65,9 @@ function StartQuizDialog() {
   const cancelRequestRef = React.useRef(false);
 
   const handleSliderChange = (
-    event: Event,
+    _event: Event,
     newValue: number | number[],
-    activeThumb: number
+    _activeThumb: number
   ) => {
     if (openStartQuizDialog) setSliderValue(newValue as number);
   };
@@ -104,7 +104,6 @@ function StartQuizDialog() {
 
     setProgress(0);
     cancelRequestRef.current = false;
-    console.log("Loading quiz...");
 
     const now = Date.now();
     fetchImageAndAudioForMultiple(

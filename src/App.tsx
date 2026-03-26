@@ -109,6 +109,34 @@ export const QuizContext = createContext<QuizContextType | undefined>(
   undefined
 );
 
+type Progress = {
+  timestamp: number;
+  selectedBirbIds: string[];
+  counter: number;
+  sequence: string[];
+  randomSeed: number;
+  showAnswers: boolean[];
+  answers: boolean[];
+  quizStarted: boolean;
+  openEndQuizDialog: boolean;
+  openStartQuizDialog: boolean;
+  openLocalizationDialog: boolean;
+  openPublishDialog: boolean;
+  openEditDialog: boolean;
+  gameMode: GameMode | null;
+  currentList: string;
+  customList: string[];
+  songCheckbox: boolean;
+  callCheckbox: boolean;
+  language: Language;
+  eBirdNameProperty: EBirdNameProperty;
+  sliderValue: number;
+  region: DBRegion;
+  isMobileDevice: boolean;
+  dbBirbs: DB_BIRBS;
+  openLearnDialog: boolean;
+};
+
 function App() {
   const buildDate = process.env.REACT_APP_BUILD_DATE;
 
@@ -124,8 +152,7 @@ function App() {
 
   const localStorageKey = "birbsquiz-2205";
 
-  // Helper to load progress from localStorage
-  const loadProgress = () => {
+  const loadProgress = (): Progress | null => {
     const saved = localStorage.getItem(localStorageKey);
     if (saved) {
       try {
@@ -149,7 +176,9 @@ function App() {
   );
 
   const [counter, setCounter] = React.useState<number>(() =>
-    savedProgress?.counter && isOneHourAgo ? savedProgress.counter : 0
+    savedProgress?.counter !== undefined && isOneHourAgo
+      ? savedProgress.counter
+      : 0
   );
 
   const [sequence, setSequence] = React.useState<string[]>(() =>
@@ -157,7 +186,9 @@ function App() {
   );
 
   const [randomSeed, setRandomSeed] = React.useState<number>(() =>
-    savedProgress?.randomSeed && isOneHourAgo ? savedProgress.randomSeed : 0
+    savedProgress?.randomSeed !== undefined && isOneHourAgo
+      ? savedProgress.randomSeed
+      : 0
   );
 
   const [showAnswers, setShowAnswers] = React.useState<boolean[]>(() =>
@@ -238,11 +269,11 @@ function App() {
   );
 
   const [songCheckbox, setSongCheckbox] = React.useState<boolean>(() =>
-    savedProgress?.songCheckbox ? savedProgress.songCheckbox : true
+    savedProgress?.songCheckbox ?? true
   );
 
   const [callCheckbox, setCallCheckbox] = React.useState<boolean>(() =>
-    savedProgress?.callCheckbox ? savedProgress.callCheckbox : false
+    savedProgress?.callCheckbox ?? false
   );
 
   const [language, setLanguage] = React.useState<Language>(() =>
@@ -252,7 +283,7 @@ function App() {
       : Language.FR
   );
 
-  const [eBirdNameProperty, setEBridNameProperty] =
+  const [eBirdNameProperty, setEBirdNameProperty] =
     React.useState<EBirdNameProperty>(() =>
       savedProgress?.eBirdNameProperty &&
       isValidEnumValue(EBirdNameProperty, savedProgress.eBirdNameProperty)
@@ -261,7 +292,7 @@ function App() {
     );
 
   const [sliderValue, setSliderValue] = React.useState<number>(() =>
-    savedProgress?.sliderValue
+    savedProgress?.sliderValue !== undefined
       ? savedProgress.sliderValue
       : selectedBirbIds.length
   );
@@ -279,7 +310,7 @@ function App() {
   );
 
   const [currentTranslation, setCurrentTranslation] =
-    React.useState<Translation>({} as Translation);
+    React.useState<Translation>(translationFrench);
 
   const prepareQuiz = (nbBirb: number) => {
     setCounter(0);
@@ -309,43 +340,15 @@ function App() {
   useEffect(() => {
     if (language === Language.FR) {
       setCurrentTranslation(translationFrench);
-      setEBridNameProperty(EBirdNameProperty.COMMON_NAME_FR);
+      setEBirdNameProperty(EBirdNameProperty.COMMON_NAME_FR);
     } else if (language === Language.EN) {
       setCurrentTranslation(translationEnglish);
-      setEBridNameProperty(EBirdNameProperty.COMMON_NAME);
+      setEBirdNameProperty(EBirdNameProperty.COMMON_NAME);
     } else if (language === Language.LATIN) {
       setCurrentTranslation(translationLatin);
-      setEBridNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
+      setEBirdNameProperty(EBirdNameProperty.SCIENTIFIC_NAME);
     }
   }, [language]);
-
-  type Progress = {
-    timestamp: number;
-    selectedBirbIds: string[];
-    counter: number;
-    sequence: string[];
-    randomSeed: number;
-    showAnswers: boolean[];
-    answers: boolean[];
-    quizStarted: boolean;
-    openEndQuizDialog: boolean;
-    openStartQuizDialog: boolean;
-    openLocalizationDialog: boolean;
-    openPublishDialog: boolean;
-    openEditDialog: boolean;
-    gameMode: GameMode | null;
-    currentList: string;
-    customList: string[];
-    songCheckbox: boolean;
-    callCheckbox: boolean;
-    language: Language;
-    eBirdNameProperty: EBirdNameProperty;
-    sliderValue: number;
-    region: DBRegion;
-    isMobileDevice: boolean;
-    dbBirbs: DB_BIRBS;
-    openLearnDialog: boolean;
-  };
 
   // Save quiz progress to localStorage whenever any dependency changes
   useEffect(() => {
