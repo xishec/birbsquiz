@@ -232,12 +232,14 @@ function Quiz() {
 
   const isFirstQuestion = counter === 0;
   const isLastQuestion = counter === sequence.length - 1;
+  const hasAnswerInput = answerInput.trim().length > 0;
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CAll] || [];
   const answerAutocomplete = (disabled: boolean) => (
     <Autocomplete
       autoHighlight
       disabled={disabled}
+      forcePopupIcon={false}
       size="small"
       value={selectedAnswerBirbId}
       inputValue={answerInput}
@@ -259,8 +261,8 @@ function Quiz() {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={t.FindBirbs}
-          placeholder={disabled && !answerInput ? "No answer" : undefined}
+          label={`${t.Answer}...`}
+          placeholder={disabled && !answerInput ? t.NoAnswer : undefined}
           onKeyDown={(event) => {
             if (!disabled && event.key === "Enter" && selectedAnswerBirbId) {
               event.preventDefault();
@@ -574,7 +576,7 @@ function Quiz() {
                   disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                   onClick={revealCurrentQuestion}
                 >
-                  {t.Reveal}
+                  {hasAnswerInput ? t.Confirm : t.NoAnswer}
                 </Button>
               </>
             )}

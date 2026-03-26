@@ -54,6 +54,8 @@ export interface Translation {
   Female: string;
   Close: string;
   Reveal: string;
+  Answer: string;
+  NoAnswer: string;
 }
 
 export const translationEnglish: Translation = {
@@ -114,6 +116,8 @@ export const translationEnglish: Translation = {
   Female: "Female",
   Close: "Close",
   Reveal: "Reveal",
+  Answer: "Answer",
+  NoAnswer: "No answer",
 };
 
 export const translationFrench: Translation = {
@@ -175,6 +179,8 @@ export const translationFrench: Translation = {
   Female: "Femelle",
   Close: "Fermer",
   Reveal: "Révéler",
+  Answer: "Réponse",
+  NoAnswer: "Pas de réponse",
 };
 
 export const translationLatin: Translation = {
@@ -235,4 +241,6 @@ export const translationLatin: Translation = {
   Female: "Femininum",
   Close: "Claude",
   Reveal: "Revela",
+  Answer: "Responsum",
+  NoAnswer: "Nulla responsum",
 };
