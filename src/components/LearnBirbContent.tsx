@@ -16,7 +16,6 @@ type LearnBirbContentProps = {
   audioSourcesSong: UrlWithMetadata[];
   imageSources?: BirdImage | null;
   birbId: string;
-  nameControlBottomContent?: React.ReactNode;
 };
 
 function LearnBirbContent({
@@ -24,7 +23,6 @@ function LearnBirbContent({
   audioSourcesSong,
   imageSources,
   birbId,
-  nameControlBottomContent,
 }: LearnBirbContentProps) {
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
@@ -131,7 +129,6 @@ function LearnBirbContent({
       }}
     >
       <BirbNames
-        bottomContent={nameControlBottomContent}
         commonName={eBird[birbId].comName}
         commonNameFr={eBird[birbId].comNameFr}
         currentNameProperty={eBirdNameProperty}

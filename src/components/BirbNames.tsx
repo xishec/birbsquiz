@@ -3,7 +3,6 @@ import { Box, Typography } from "@mui/material";
 import { DBRegion, EBirdNameProperty } from "../tools/constants";
 
 type BirbNamesProps = {
-  bottomContent?: React.ReactNode;
   commonName: string;
   commonNameFr: string;
   currentNameProperty: EBirdNameProperty;
@@ -14,7 +13,6 @@ type BirbNamesProps = {
 };
 
 function BirbNames({
-  bottomContent,
   commonName,
   commonNameFr,
   currentNameProperty,
@@ -23,59 +21,77 @@ function BirbNames({
   regionLabel,
   scientificName,
 }: BirbNamesProps) {
-  const namesByProperty = {
-    [EBirdNameProperty.COMMON_NAME]: {
+  const allNames = [
+    {
+      property: EBirdNameProperty.COMMON_NAME,
       label: "English",
       value: commonName,
     },
-    [EBirdNameProperty.COMMON_NAME_FR]: {
+    {
+      property: EBirdNameProperty.COMMON_NAME_FR,
       label: "French",
       value: commonNameFr,
     },
-    [EBirdNameProperty.SCIENTIFIC_NAME]: {
+    {
+      property: EBirdNameProperty.SCIENTIFIC_NAME,
       label: "Latin",
       value: scientificName,
     },
-  };
-  const primaryName = namesByProperty[currentNameProperty];
-  const secondaryNames = Object.entries(namesByProperty).filter(
-    ([property]) => property !== currentNameProperty,
+  ];
+  const primaryName = allNames.find(
+    ({ property }) => property === currentNameProperty,
   );
+
+  if (!primaryName) {
+    return null;
+  }
+
+  const secondaryNames = allNames.filter(
+    ({ property }) => property !== currentNameProperty,
+  );
+  const orderedNames = [primaryName, ...secondaryNames];
+  const secondaryColumnWidth = "140px";
 
   return (
     <>
-      <Typography
+      <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          columnGap: "2rem",
-          alignItems: "start",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "1rem",
         }}
       >
-        <Typography
-          component="span"
+        {orderedNames.map((name, index) => (
+          <Typography
+            key={name.label}
+            sx={{
+              fontSize: "0.8rem",
+              opacity: 0.7,
+              flex: index === 0 ? "1 1 0" : `0 0 ${secondaryColumnWidth}`,
+              minWidth: 0,
+            }}
+          >
+            {name.label}
+          </Typography>
+        ))}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: "1rem",
+        }}
+      >
+        <Box
           sx={{
-            gridColumn: "1",
+            flex: "1 1 0",
             minWidth: 0,
-            alignSelf: "center",
           }}
         >
           <Typography
-            component="span"
             sx={{
-              display: "block",
-              fontSize: "0.8rem",
-              opacity: 0.7,
-            }}
-          >
-            {primaryName.label}
-          </Typography>
-          <Typography
-            component="span"
-            sx={{
-              display: "block",
               fontSize: "1rem",
-              fontWeight: "medium",
             }}
           >
             {`${primaryName.value}${
@@ -84,41 +100,25 @@ function BirbNames({
                 : ` (not found in ${region}, audio came from ${regionLabel})`
             }`}
           </Typography>
-        </Typography>
-        <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          {secondaryNames.map(([, name]) => (
+        </Box>
+        {secondaryNames.map((name) => (
+          <Box
+            key={name.label}
+            sx={{
+              flex: `0 0 ${secondaryColumnWidth}`,
+              minWidth: 0,
+            }}
+          >
             <Typography
-              key={name.label}
-              component="span"
               sx={{
-                gridColumn: "span 1",
-                minWidth: 0,
+                fontSize: "1rem",
               }}
             >
-              <Typography
-                component="span"
-                sx={{
-                  display: "block",
-                  fontSize: "0.8rem",
-                  opacity: 0.7,
-                }}
-              >
-                {name.label}
-              </Typography>
-              <Typography
-                component="span"
-                sx={{
-                  display: "block",
-                  fontSize: "1rem",
-                }}
-              >
-                {name.value}
-              </Typography>
+              {name.value}
             </Typography>
-          ))}
-        </Box>
-      </Typography>
-      {bottomContent}
+          </Box>
+        ))}
+      </Box>
     </>
   );
 }

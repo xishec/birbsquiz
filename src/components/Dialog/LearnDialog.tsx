@@ -21,8 +21,14 @@ function LearnDialog({ birbId }: { birbId: string }) {
   if (!quizContext) {
     throw new Error("Must be used within a QuizContext.Provider");
   }
-  const { isMobileDevice, openLearnDialog, setOpenLearnDialog, eBird, region } =
-    quizContext;
+  const {
+    isMobileDevice,
+    openLearnDialog,
+    setOpenLearnDialog,
+    eBird,
+    region,
+    currentTranslation: t,
+  } = quizContext;
 
   const [audioSourcesSong, setAudioSourcesSong] = React.useState<
     UrlWithMetadata[]
@@ -35,6 +41,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const [loadingState, setLoadingState] = React.useState<LoadingState>(
     LoadingState.UNLOADED,
   );
+  const closeDialog = () => setOpenLearnDialog(false);
 
   React.useEffect(() => {
     if (!birbId || !eBird[birbId]) {
@@ -88,12 +95,12 @@ function LearnDialog({ birbId }: { birbId: string }) {
     }
   }, [birbId, eBird, openLearnDialog, setOpenLearnDialog]);
 
-  if (!birbId || !Object.keys(eBird).includes(birbId)) {
+  if (!birbId || !eBird[birbId]) {
     return null;
   }
   return (
     <Dialog
-      onClose={() => setOpenLearnDialog(false)}
+      onClose={closeDialog}
       open={openLearnDialog}
       maxWidth={false}
       fullScreen={isMobileDevice}
@@ -122,9 +129,9 @@ function LearnDialog({ birbId }: { birbId: string }) {
               sx={{ mt: "1rem", height: "40px" }}
               variant="outlined"
               color="error"
-              onClick={() => setOpenLearnDialog(false)}
+              onClick={closeDialog}
             >
-              Close
+              {t.Close}
             </Button>
           </Box>
         ) : (
@@ -135,7 +142,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
               justifyContent: "center",
               alignItems: "center",
               marginTop: "-2rem",
-              padding: isMobileDevice ? "0" : "0",
+              padding: 0,
             }}
           >
             <Box sx={{ position: "relative", display: "inline-flex" }}>

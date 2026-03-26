@@ -5,14 +5,13 @@ import {
   Box,
   CircularProgress,
   IconButton,
-  Switch,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import { AudioType, Sex } from "../tools/constants";
@@ -29,18 +28,6 @@ const updateBooleanAtIndex = (
   return nextItems;
 };
 
-const answerSwitchSx = {
-  "&.MuiSwitch-root .MuiSwitch-switchBase": {
-    color: "red",
-  },
-  "&.MuiSwitch-root .Mui-checked": {
-    color: "green",
-  },
-  ".MuiSwitch-track": {
-    backgroundColor: "red",
-  },
-};
-
 function Quiz() {
   const quizContext = useContext(QuizContext);
   if (!quizContext) {
@@ -51,7 +38,6 @@ function Quiz() {
     sequence,
     randomSeed,
     counter,
-    birbEmoji,
     selectedBirbIds,
     answers,
     showAnswers,
@@ -63,6 +49,7 @@ function Quiz() {
     gameMode,
     callCheckbox,
     songCheckbox,
+    birbEmoji,
     eBirdNameProperty,
     dbBirbs,
     currentTranslation: t,
@@ -73,13 +60,13 @@ function Quiz() {
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [imageSources, setImageSources] = React.useState<BirdImage>();
-  const [previewing, setPreviewing] = React.useState(false);
   const [audioPlayed, setAudioPlayed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [shouldReveal, setShouldReveal] = React.useState(false);
   const [answerInput, setAnswerInput] = React.useState("");
-  const [selectedAnswerBirbId, setSelectedAnswerBirbId] =
-    React.useState<string | null>(null);
+  const [selectedAnswerBirbId, setSelectedAnswerBirbId] = React.useState<
+    string | null
+  >(null);
   const birbId = sequence[counter];
 
   const sortedAnswerBirbIds = useMemo(
@@ -100,14 +87,16 @@ function Quiz() {
   };
 
   const nextQuestion = () => {
+    pauseAllAudio();
     setLoading(true);
-    setCounter(counter + 1);
+    setCounter((previousCounter) => previousCounter + 1);
     setAudioPlayed(false);
   };
 
   const previousQuestion = () => {
+    pauseAllAudio();
     setLoading(true);
-    setCounter(counter - 1);
+    setCounter((previousCounter) => previousCounter - 1);
     setAudioPlayed(false);
   };
 
@@ -128,7 +117,6 @@ function Quiz() {
   useEffect(() => {
     setLoading(true);
     setShouldReveal(false);
-    setPreviewing(false);
     setAnswerInput("");
     setSelectedAnswerBirbId(null);
   }, [counter, selectedBirbIds, sequence]);
@@ -136,13 +124,12 @@ function Quiz() {
   const revealCurrentQuestion = () => {
     pauseAllAudio();
     const isCorrectAnswer = selectedAnswerBirbId === birbId;
-    void isCorrectAnswer;
     setShowAnswers((previousShowAnswers) =>
       updateBooleanAtIndex(previousShowAnswers, counter, true),
     );
     setShouldReveal(true);
     setAnswers((previousAnswers) =>
-      updateBooleanAtIndex(previousAnswers, counter, true),
+      updateBooleanAtIndex(previousAnswers, counter, isCorrectAnswer),
     );
   };
 
@@ -243,8 +230,47 @@ function Quiz() {
     return null;
   }
 
+  const isFirstQuestion = counter === 0;
+  const isLastQuestion = counter === sequence.length - 1;
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CAll] || [];
+  const answerAutocomplete = (disabled: boolean) => (
+    <Autocomplete
+      autoHighlight
+      disabled={disabled}
+      size="small"
+      value={selectedAnswerBirbId}
+      inputValue={answerInput}
+      onChange={(_event, value) => {
+        setSelectedAnswerBirbId(value);
+        setAnswerInput(value ? eBird[value][eBirdNameProperty] : "");
+      }}
+      onInputChange={(_event, value, reason) => {
+        setAnswerInput(value);
+        if (reason === "clear" || reason === "input") {
+          setSelectedAnswerBirbId(null);
+        }
+      }}
+      options={sortedAnswerBirbIds}
+      getOptionLabel={(answerBirbId) =>
+        eBird[answerBirbId] ? eBird[answerBirbId][eBirdNameProperty] : ""
+      }
+      isOptionEqualToValue={(option, value) => option === value}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={t.FindBirbs}
+          placeholder={disabled && !answerInput ? "No answer" : undefined}
+          onKeyDown={(event) => {
+            if (!disabled && event.key === "Enter" && selectedAnswerBirbId) {
+              event.preventDefault();
+              revealCurrentQuestion();
+            }
+          }}
+        />
+      )}
+    />
+  );
 
   const audioComponent = (
     <>
@@ -368,7 +394,6 @@ function Quiz() {
                       height: "100%",
                       width: "100%",
                       objectFit: "contain",
-                      // borderRadius: "4px",
                       borderRadius: "4px",
                     }}
                     src={images[randomIndex].url}
@@ -393,16 +418,17 @@ function Quiz() {
         gridTemplateRows: "auto 1fr auto",
       }}
     >
-      {/* Header with counter and navigation buttons */}
+      {/* Header */}
       <Box
         sx={{
           display: "grid",
-          justifyContent: "space-between",
-          gridTemplateColumns: "1fr 1fr 1fr",
+          alignItems: "center",
+          gridTemplateColumns: "1fr auto 1fr",
           margin: "0 1.5rem",
+          gap: "1rem",
         }}
       >
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography
             variant="h4"
             onClick={() => window.location.reload()}
@@ -423,28 +449,18 @@ function Quiz() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
-            alignContent: "center",
-            margin: "0 1.5rem",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
         >
-          <IconButton
-            color="primary"
-            disabled={counter <= 0}
-            onClick={previousQuestion}
-          >
+          <IconButton onClick={previousQuestion} disabled={isFirstQuestion}>
             <ArrowBackIcon />
           </IconButton>
-
           <Typography variant="h4" sx={{ alignSelf: "center" }}>
             {`${counter + 1}/${sequence.length}`}
           </Typography>
-
-          <IconButton
-            color="primary"
-            disabled={counter >= sequence.length - 1}
-            onClick={nextQuestion}
-          >
+          <IconButton onClick={nextQuestion} disabled={isLastQuestion}>
             <ArrowForwardIcon />
           </IconButton>
         </Box>
@@ -490,36 +506,12 @@ function Quiz() {
               >
                 {!shouldReveal && audioComponent}
               </Box>
-              {!shouldReveal && previewing && !loading && birbImage}
               {shouldReveal && (
                 <LearnBirbContent
                   birbId={birbId}
                   audioSourcesCall={revealCallSources}
                   audioSourcesSong={revealSongSources}
                   imageSources={imageSources}
-                  nameControlBottomContent={
-                    <Box
-                      sx={{
-                        display: "grid",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Switch
-                        sx={answerSwitchSx}
-                        color="success"
-                        checked={answers[counter]}
-                        onChange={() => {
-                          setAnswers((previousAnswers) =>
-                            updateBooleanAtIndex(
-                              previousAnswers,
-                              counter,
-                              !previousAnswers[counter],
-                            ),
-                          );
-                        }}
-                      />
-                    </Box>
-                  }
                 />
               )}
             </Box>
@@ -541,29 +533,6 @@ function Quiz() {
                   audioSourcesCall={revealCallSources}
                   audioSourcesSong={revealSongSources}
                   imageSources={imageSources}
-                  nameControlBottomContent={
-                    <Box
-                      sx={{
-                        display: "grid",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Switch
-                        sx={answerSwitchSx}
-                        color="success"
-                        checked={answers[counter]}
-                        onChange={() => {
-                          setAnswers((previousAnswers) =>
-                            updateBooleanAtIndex(
-                              previousAnswers,
-                              counter,
-                              !previousAnswers[counter],
-                            ),
-                          );
-                        }}
-                      />
-                    </Box>
-                  }
                 />
               )}
             </Box>
@@ -589,124 +558,62 @@ function Quiz() {
         }}
       >
         <Box>
-          {!shouldReveal && (
-            <Box
-              sx={{
-                marginTop: "1rem",
-                display: "grid",
-                gap: "0.5rem",
-              }}
-            >
-              <Autocomplete
-                autoHighlight
-                size="small"
-                value={selectedAnswerBirbId}
-                inputValue={answerInput}
-                onChange={(_event, value) => {
-                  setSelectedAnswerBirbId(value);
-                  setAnswerInput(value ? eBird[value][eBirdNameProperty] : "");
-                }}
-                onInputChange={(_event, value, reason) => {
-                  setAnswerInput(value);
-                  if (reason === "clear") {
-                    setSelectedAnswerBirbId(null);
-                  }
-                }}
-                options={sortedAnswerBirbIds}
-                getOptionLabel={(answerBirbId) =>
-                  eBird[answerBirbId]
-                    ? eBird[answerBirbId][eBirdNameProperty]
-                    : ""
-                }
-                isOptionEqualToValue={(option, value) => option === value}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t.FindBirbs}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" && selectedAnswerBirbId) {
-                        event.preventDefault();
-                        revealCurrentQuestion();
-                      }
-                    }}
-                  />
-                )}
-              />
-              <Box
-                sx={{
-                  display: "grid",
-                  alignItems: "center",
-                  gridTemplateColumns: "1fr auto",
-                gap: "0.5rem",
-                }}
-              >
-              <Button
-                sx={{ height: "40px" }}
-                variant="outlined"
-                disabled={!audioPlayed && gameMode === GameMode.CHANTS}
-                onClick={revealCurrentQuestion}
-              >
-                {t.Reveal}
-              </Button>
-              {gameMode === GameMode.CHANTS && (
+          <Box
+            sx={{
+              marginTop: "1rem",
+              display: "grid",
+              gap: "0.5rem",
+            }}
+          >
+            {!shouldReveal && (
+              <>
+                {answerAutocomplete(false)}
                 <Button
                   sx={{ height: "40px" }}
                   variant="outlined"
-                  onMouseDown={() => setPreviewing(true)}
-                  onMouseUp={() => setPreviewing(false)}
-                  onMouseLeave={() => setPreviewing(false)}
-                  onTouchStart={() => setPreviewing(true)}
-                  onTouchEnd={() => setPreviewing(false)}
+                  disabled={!audioPlayed && gameMode === GameMode.CHANTS}
+                  onClick={revealCurrentQuestion}
                 >
-                  <span role="img" aria-label="peek">
-                    👀
-                  </span>
+                  {t.Reveal}
                 </Button>
-              )}
-            </Box>
-            </Box>
-          )}
-        </Box>
+              </>
+            )}
 
-        {/* Next question button */}
-        <Box
-          sx={{
-            marginTop: "0.5rem",
-            display: "grid",
-            alignItems: "center",
-          }}
-        >
-          {!(counter === sequence.length - 1) && (
-            <Box
-              sx={{
-                display: "grid",
-                alignItems: "center",
-                gridTemplateColumns: "1fr auto",
-              }}
-            >
-              <Button
-                sx={{ height: "40px" }}
-                disabled={!shouldReveal || loading}
-                variant="contained"
-                onClick={nextQuestion}
-                color={answers[counter] ? "success" : "error"}
-              >
-                <ArrowForwardIcon />
-              </Button>
-            </Box>
-          )}
+            {shouldReveal && (
+              <>
+                {answerAutocomplete(true)}
+                {!isLastQuestion && (
+                  <Box
+                    sx={{
+                      display: "grid",
+                      alignItems: "center",
+                      gridTemplateColumns: "1fr auto",
+                    }}
+                  >
+                    <Button
+                      sx={{ height: "40px" }}
+                      variant="contained"
+                      onClick={nextQuestion}
+                      color={answers[counter] ? "success" : "error"}
+                    >
+                      <ArrowForwardIcon />
+                    </Button>
+                  </Box>
+                )}
 
-          {counter === sequence.length - 1 && (
-            <Button
-              sx={{ height: "40px" }}
-              disabled={!shouldReveal || loading}
-              variant="contained"
-              onClick={endQuiz}
-              color={answers[counter] ? "success" : "error"}
-            >
-              <ArrowForwardIcon />
-            </Button>
-          )}
+                {isLastQuestion && (
+                  <Button
+                    sx={{ height: "40px" }}
+                    variant="contained"
+                    onClick={endQuiz}
+                    color={answers[counter] ? "success" : "error"}
+                  >
+                    <ArrowForwardIcon />
+                  </Button>
+                )}
+              </>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>
