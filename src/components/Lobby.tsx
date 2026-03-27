@@ -36,6 +36,7 @@ import { arraysEqual, DB_LIST, DB_LISTS } from "../tools/tools";
 import EditDialog from "./Dialog/EditDialog";
 import { useConfirm } from "material-ui-confirm";
 import LearnDialog from "./Dialog/LearnDialog";
+import { buttonSx } from "./buttonStyles";
 
 const normalizeSearchText = (value: string) =>
   value
@@ -394,18 +395,18 @@ function Lobby() {
           >
             {!user && (
               <Button
+                sx={buttonSx}
                 variant="outlined"
                 onClick={signInWithGoogle}
-                size="small"
               >
                 {t.Login}
               </Button>
             )}
             {user && (
               <Button
+                sx={buttonSx}
                 variant="outlined"
                 onClick={() => signOut(auth)}
-                size="small"
               >
                 {t.Logout}
               </Button>
@@ -495,7 +496,7 @@ function Lobby() {
                   {eBird[option][eBirdNameProperty]}
                 </span>
                 <Button
-                  size="small"
+                  sx={buttonSx}
                   variant="outlined"
                   onClick={(event) => {
                     event.stopPropagation();
@@ -666,7 +667,7 @@ function Lobby() {
               }}
             >
               <Button
-                sx={{ height: "40px" }}
+                sx={buttonSx}
                 disabled={selectedBirbIds.length <= 0}
                 onClick={() =>
                   confirmAction(t.ClearTile, t.ClearConfirm, () => {
@@ -681,7 +682,7 @@ function Lobby() {
               {user && (
                 <Button
                   disabled={selectedBirbIds.length <= 0}
-                  sx={{ height: "40px" }}
+                  sx={buttonSx}
                   onClick={() => {
                     setOpenPublishDialog(true);
                   }}
@@ -704,7 +705,7 @@ function Lobby() {
               }}
             >
               <Button
-                sx={{ height: "40px" }}
+                sx={buttonSx}
                 onClick={() =>
                   confirmAction(t.CopyTile, t.CopyConfirm, () => {
                     setCurrentList(CUSTOM);
@@ -719,7 +720,7 @@ function Lobby() {
 
               {isUserList && (
                 <Button
-                  sx={{ height: "40px" }}
+                  sx={buttonSx}
                   onClick={() => setOpenEditDialog(true)}
                   color="primary"
                   variant="outlined"
@@ -742,7 +743,7 @@ function Lobby() {
                 }}
               >
                 <Button
-                  sx={{ height: "40px" }}
+                  sx={buttonSx}
                   onClick={() =>
                     confirmAction(t.ResetTile, t.ResetConfirm, () => {
                       setSelectedBirbIds(dbListsData[currentList]?.ids!);
@@ -755,7 +756,7 @@ function Lobby() {
                 </Button>
 
                 <Button
-                  sx={{ height: "40px" }}
+                  sx={buttonSx}
                   onClick={() =>
                     confirmAction(t.SaveTile, t.SaveConfirm, () => {
                       saveBirbList(
@@ -786,7 +787,7 @@ function Lobby() {
               }}
             >
               <Button
-                sx={{ height: "40px" }}
+                sx={buttonSx}
                 variant="contained"
                 onClick={() => setOpenStartQuizDialog(true)}
                 disabled={selectedBirbIds.length <= 0}

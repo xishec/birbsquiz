@@ -25,6 +25,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../../App";
 import { fetchImageAndAudioForMultiple } from "../../tools/tools";
 import { DBRegion, LoadingState } from "../../tools/constants";
+import { buttonSx } from "../buttonStyles";
 
 function StartQuizDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -283,7 +284,7 @@ function StartQuizDialog() {
             </FormGroup>
 
             <Button
-              sx={{ height: "40px" }}
+              sx={buttonSx}
               variant="outlined"
               disabled={sliderValue <= 0 || !(callCheckbox || songCheckbox)}
               onClick={() => setGameMode(GameMode.CHANTS)}
@@ -292,7 +293,7 @@ function StartQuizDialog() {
             </Button>
 
             <Button
-              sx={{ height: "40px" }}
+              sx={buttonSx}
               variant="outlined"
               disabled={sliderValue <= 0}
               onClick={() => setGameMode(GameMode.IMAGES)}

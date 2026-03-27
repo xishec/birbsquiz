@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { QuizContext } from "../../App";
 import { DBRegion, Language } from "../../tools/constants";
+import { buttonSx } from "../buttonStyles";
 
 function LocalizationDialog() {
   const quizContext = React.useContext(QuizContext);
@@ -108,7 +109,7 @@ function LocalizationDialog() {
           </Box>
 
           <Button
-            sx={{ height: "40px" }}
+            sx={buttonSx}
             variant="outlined"
             onClick={() => setOpenLocalizationDialog(false)}
           >

@@ -19,6 +19,7 @@ import { GameMode, QuizContext, shuffleArray } from "../App";
 import { AudioType, Sex } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
 import LearnBirbContent from "./LearnBirbContent";
+import { buttonSx } from "./buttonStyles";
 
 const updateBooleanAtIndex = (
   items: boolean[],
@@ -584,7 +585,7 @@ function Quiz() {
               <>
                 {answerAutocomplete(false)}
                 <Button
-                  sx={{ height: "40px" }}
+                  sx={buttonSx}
                   variant="outlined"
                   disabled={!audioPlayed && gameMode === GameMode.CHANTS}
                   onClick={revealCurrentQuestion}
@@ -606,7 +607,7 @@ function Quiz() {
                     }}
                   >
                     <Button
-                      sx={{ height: "40px" }}
+                      sx={buttonSx}
                       variant="contained"
                       onClick={nextQuestion}
                       color={answers[counter] ? "success" : "error"}
@@ -618,7 +619,7 @@ function Quiz() {
 
                 {isLastQuestion && (
                   <Button
-                    sx={{ height: "40px" }}
+                    sx={buttonSx}
                     variant="contained"
                     onClick={endQuiz}
                     color={answers[counter] ? "success" : "error"}

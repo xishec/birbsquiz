@@ -15,6 +15,7 @@ import {
   UrlWithMetadata,
 } from "../../tools/tools";
 import LearnBirbContent from "../LearnBirbContent";
+import { buttonSx } from "../buttonStyles";
 
 function LearnDialog({ birbId }: { birbId: string }) {
   const quizContext = React.useContext(QuizContext);
@@ -126,7 +127,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
               imageSources={imageSources}
             />
             <Button
-              sx={{ mt: "1rem", height: "40px" }}
+              sx={{ ...buttonSx, mt: "1rem" }}
               variant="outlined"
               color="error"
               onClick={closeDialog}

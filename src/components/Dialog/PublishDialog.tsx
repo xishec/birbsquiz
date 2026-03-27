@@ -16,6 +16,7 @@ import {
 import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { CUSTOM, FavoriteList } from "../../tools/constants";
+import { buttonSx } from "../buttonStyles";
 
 function PublishDialog({
   isAdmin,
@@ -113,6 +114,7 @@ function PublishDialog({
           )}
 
           <Button
+            sx={buttonSx}
             disabled={
               !newListName ||
               newListName.toLowerCase() === CUSTOM ||

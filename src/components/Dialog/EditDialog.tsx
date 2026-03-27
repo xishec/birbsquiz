@@ -17,6 +17,7 @@ import { QuizContext } from "../../App";
 import { DB_LISTS } from "../../tools/tools";
 import { useConfirm } from "material-ui-confirm";
 import { CUSTOM, FavoriteList } from "../../tools/constants";
+import { buttonSx } from "../buttonStyles";
 
 function EditDialog({
   isAdmin,
@@ -155,6 +156,7 @@ function EditDialog({
             }}
           >
             <Button
+              sx={buttonSx}
               variant="outlined"
               color="error"
               onClick={() => handleDelete()}
@@ -163,6 +165,7 @@ function EditDialog({
             </Button>
 
             <Button
+              sx={buttonSx}
               disabled={
                 !newListName ||
                 newListName.toLowerCase() === CUSTOM ||
