@@ -82,6 +82,7 @@ function Lobby() {
   const [isUserList, setIsUserList] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null); // add this ref
+  const previousListRef = useRef(currentList);
   // const listboxRef = useRef<HTMLUListElement>(null);
   // const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -133,10 +134,13 @@ function Lobby() {
 
   // update custom list content when birbs change
   useEffect(() => {
-    if (currentList === CUSTOM) {
+    if (
+      currentList === CUSTOM &&
+      !arraysEqual(customList || [], selectedBirbIds)
+    ) {
       setCustomList(selectedBirbIds);
     }
-  }, [currentList, selectedBirbIds, setCustomList]);
+  }, [currentList, customList, selectedBirbIds, setCustomList]);
 
   // update isUserList when currentList or dbListsData or user change
   useEffect(() => {
@@ -152,17 +156,26 @@ function Lobby() {
     }
   }, [currentList, dbListsData, user, isAdmin]);
 
-  // update birbs when currentList changes
+  // update birbs when switching lists
   useEffect(() => {
-    if (currentList === CUSTOM) {
-      setSelectedBirbIds(customList || []);
-      return;
-    }
+    const previousList = previousListRef.current;
 
-    if (dbListsData[currentList]) {
+    if (currentList === CUSTOM) {
+      if (
+        previousList !== CUSTOM &&
+        !arraysEqual(selectedBirbIds, customList || [])
+      ) {
+        setSelectedBirbIds(customList || []);
+      }
+    } else if (
+      dbListsData[currentList] &&
+      !arraysEqual(selectedBirbIds, dbListsData[currentList].ids)
+    ) {
       setSelectedBirbIds(dbListsData[currentList].ids);
     }
-  }, [currentList, customList, dbListsData, setSelectedBirbIds]);
+
+    previousListRef.current = currentList;
+  }, [currentList, customList, dbListsData, selectedBirbIds, setSelectedBirbIds]);
 
   // if loaded and list invalid, set to Custom
   useEffect(() => {

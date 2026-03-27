@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import {
@@ -36,6 +36,9 @@ const normalizeSearchText = (value: string) =>
     .replace(/['-]/g, "")
     .toLowerCase()
     .trim();
+
+const isPlainEnterKey = (event: { key: string; metaKey: boolean; ctrlKey: boolean; altKey: boolean }) =>
+  event.key === "Enter" && !event.metaKey && !event.ctrlKey && !event.altKey;
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -243,6 +246,38 @@ function Quiz() {
   const isFirstQuestion = counter === 0;
   const isLastQuestion = counter === sequence.length - 1;
   const hasAnswerInput = answerInput.trim().length > 0;
+  const advanceRevealedQuestion = useCallback(() => {
+    if (isLastQuestion) {
+      endQuiz();
+    } else {
+      nextQuestion();
+    }
+  }, [endQuiz, isLastQuestion, nextQuestion]);
+
+  useEffect(() => {
+    if (!shouldReveal || loading) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        !isPlainEnterKey(event) ||
+        event.defaultPrevented ||
+        event.repeat
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      advanceRevealedQuestion();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [advanceRevealedQuestion, loading, shouldReveal]);
+
   const answerLanguageLabel =
     language === Language.EN
       ? t.English
@@ -296,9 +331,10 @@ function Quiz() {
       renderInput={(params) => (
         <TextField
           {...params}
+          autoFocus={!disabled}
           label={`${t.Answer} (${answerLanguageLabel}) ...`}
           onKeyDown={(event) => {
-            if (!disabled && event.key === "Enter" && selectedAnswerBirbId) {
+            if (!disabled && isPlainEnterKey(event)) {
               event.preventDefault();
               revealCurrentQuestion();
             }
@@ -628,7 +664,7 @@ function Quiz() {
                     <Button
                       sx={buttonSx}
                       variant="contained"
-                      onClick={nextQuestion}
+                      onClick={advanceRevealedQuestion}
                       color={answers[counter] ? "success" : "error"}
                     >
                       <ArrowForwardIcon />
@@ -640,7 +676,7 @@ function Quiz() {
                   <Button
                     sx={buttonSx}
                     variant="contained"
-                    onClick={endQuiz}
+                    onClick={advanceRevealedQuestion}
                     color={answers[counter] ? "success" : "error"}
                   >
                     <ArrowForwardIcon />
