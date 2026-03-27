@@ -239,10 +239,6 @@ function Quiz() {
     }
   }, [imageSources, counter, showAnswers]);
 
-  if (!birbId || !eBird[birbId]) {
-    return null;
-  }
-
   const isFirstQuestion = counter === 0;
   const isLastQuestion = counter === sequence.length - 1;
   const hasAnswerInput = answerInput.trim().length > 0;
@@ -260,11 +256,7 @@ function Quiz() {
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        !isPlainEnterKey(event) ||
-        event.defaultPrevented ||
-        event.repeat
-      ) {
+      if (!isPlainEnterKey(event) || event.defaultPrevented || event.repeat) {
         return;
       }
 
@@ -277,6 +269,10 @@ function Quiz() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [advanceRevealedQuestion, loading, shouldReveal]);
+
+  if (!birbId || !eBird[birbId]) {
+    return null;
+  }
 
   const answerLanguageLabel =
     language === Language.EN
