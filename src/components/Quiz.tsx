@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useMemo } from "react";
-import Autocomplete, {
-  createFilterOptions,
-} from "@mui/material/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import {
   Box,
@@ -16,7 +14,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
-import { AudioType, Sex } from "../tools/constants";
+import { AudioType, Language, Sex } from "../tools/constants";
 import { BirdImage, UrlWithMetadata } from "../tools/tools";
 import LearnBirbContent from "./LearnBirbContent";
 import { buttonSx } from "./buttonStyles";
@@ -31,7 +29,13 @@ const updateBooleanAtIndex = (
   return nextItems;
 };
 
-const filterAnswerOptions = createFilterOptions<string>();
+const normalizeSearchText = (value: string) =>
+  value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['-]/g, "")
+    .toLowerCase()
+    .trim();
 
 function Quiz() {
   const quizContext = useContext(QuizContext);
@@ -54,6 +58,7 @@ function Quiz() {
     gameMode,
     callCheckbox,
     songCheckbox,
+    language,
     birbEmoji,
     eBirdNameProperty,
     dbBirbs,
@@ -238,6 +243,12 @@ function Quiz() {
   const isFirstQuestion = counter === 0;
   const isLastQuestion = counter === sequence.length - 1;
   const hasAnswerInput = answerInput.trim().length > 0;
+  const answerLanguageLabel =
+    language === Language.EN
+      ? t.English
+      : language === Language.FR
+        ? t.French
+        : t.Latin;
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CAll] || [];
   const answerAutocomplete = (disabled: boolean) => (
@@ -258,25 +269,34 @@ function Quiz() {
           setSelectedAnswerBirbId(null);
         }
       }}
-      filterOptions={(options, state) =>
-        state.inputValue.trim().length < 3
-          ? []
-          : filterAnswerOptions(options, state)
-      }
+      filterOptions={(options, { inputValue }) => {
+        if (inputValue.length < 3) {
+          return [];
+        }
+
+        const searchTerms = normalizeSearchText(inputValue)
+          .split(" ")
+          .filter((term) => term);
+
+        return options.filter((option) => {
+          const optionLabel = normalizeSearchText(
+            eBird[option][eBirdNameProperty],
+          );
+          return searchTerms.every((term) => optionLabel.includes(term));
+        });
+      }}
       options={sortedAllBirbIds}
       getOptionLabel={(answerBirbId) =>
         eBird[answerBirbId] ? eBird[answerBirbId][eBirdNameProperty] : ""
       }
       isOptionEqualToValue={(option, value) => option === value}
       noOptionsText={
-        answerInput.trim().length < 3
-          ? t.TypeAtLeast3Characters
-          : undefined
+        answerInput.trim().length < 3 ? t.TypeAtLeast3Characters : undefined
       }
       renderInput={(params) => (
         <TextField
           {...params}
-          label={`${t.Answer}...`}
+          label={`${t.Answer} (${answerLanguageLabel}) ...`}
           onKeyDown={(event) => {
             if (!disabled && event.key === "Enter" && selectedAnswerBirbId) {
               event.preventDefault();
