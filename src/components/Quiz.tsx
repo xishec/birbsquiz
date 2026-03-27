@@ -247,7 +247,7 @@ function Quiz() {
       forcePopupIcon={false}
       size="small"
       value={selectedAnswerBirbId}
-      inputValue={answerInput}
+      inputValue={disabled && !hasAnswerInput ? t.NoAnswer : answerInput}
       onChange={(_event, value) => {
         setSelectedAnswerBirbId(value);
         setAnswerInput(value ? eBird[value][eBirdNameProperty] : "");
@@ -277,7 +277,6 @@ function Quiz() {
         <TextField
           {...params}
           label={`${t.Answer}...`}
-          placeholder={disabled && !answerInput ? t.NoAnswer : undefined}
           onKeyDown={(event) => {
             if (!disabled && event.key === "Enter" && selectedAnswerBirbId) {
               event.preventDefault();
