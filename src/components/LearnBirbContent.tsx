@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../App";
 import { AudioType, Sex } from "../tools/constants";
@@ -16,6 +11,8 @@ type LearnBirbContentProps = {
   audioSourcesSong: UrlWithMetadata[];
   imageSources?: BirdImage | null;
   birbId: string;
+  audioRandomIndex?: number;
+  highlightedAudioType?: AudioType | null;
 };
 
 function LearnBirbContent({
@@ -23,6 +20,8 @@ function LearnBirbContent({
   audioSourcesSong,
   imageSources,
   birbId,
+  audioRandomIndex,
+  highlightedAudioType,
 }: LearnBirbContentProps) {
   const quizContext = React.useContext(QuizContext);
   if (!quizContext) {
@@ -62,51 +61,61 @@ function LearnBirbContent({
     audioType: AudioType,
   ) => (
     <>
-      {audioSources.slice(0, 5).map((urlWithMetadata, index) => (
-        <Box
-          key={`audio-box-${birbId}-${audioType}-${index}`}
-          sx={{
-            display: "grid",
-            gap: "0.5rem",
-            gridTemplateColumns: "60px 1fr min-content",
-            alignItems: "center",
-          }}
-        >
-          <Typography sx={{ marginRight: "0.5rem" }}>
-            {`${audioType.charAt(0).toUpperCase() + audioType.slice(1)} ${
-              index + 1
-            }`}
-          </Typography>
+      {audioSources.slice(0, 5).map((urlWithMetadata, index) => {
+        const isHighlightedAudio =
+          audioRandomIndex === index && highlightedAudioType === audioType;
 
-          <audio
-            id={`audio-${birbId}-${audioType}-${index}`}
-            style={{
-              width: "100%",
-            }}
-            controls
-            src={urlWithMetadata.url}
-            onPlay={handleAudioPlay}
-            onError={() => {
-              window.location.reload();
+        return (
+          <Box
+            key={`audio-box-${birbId}-${audioType}-${index}`}
+            sx={{
+              display: "grid",
+              gap: "0.5rem",
+              gridTemplateColumns: "60px 1fr min-content",
+              alignItems: "center",
             }}
           >
-            {t.BrowserDoesNotSupportAudio}
-          </audio>
+            <Typography
+              sx={{
+                marginRight: "0.5rem",
+                fontWeight: isHighlightedAudio ? 700 : undefined,
+              }}
+            >
+              {`${audioType.charAt(0).toUpperCase() + audioType.slice(1)} ${
+                index + 1
+              }`}
+            </Typography>
 
-          <Tooltip
-            placement="top"
-            enterDelay={0}
-            leaveDelay={0}
-            enterTouchDelay={0}
-            leaveTouchDelay={0}
-            title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
-          >
-            <IconButton>
-              <InfoOutlinedIcon sx={{ color: "black" }} fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      ))}
+            <audio
+              id={`audio-${birbId}-${audioType}-${index}`}
+              style={{
+                width: "100%",
+              }}
+              controls
+              src={urlWithMetadata.url}
+              onPlay={handleAudioPlay}
+              onError={() => {
+                window.location.reload();
+              }}
+            >
+              {t.BrowserDoesNotSupportAudio}
+            </audio>
+
+            <Tooltip
+              placement="top"
+              enterDelay={0}
+              leaveDelay={0}
+              enterTouchDelay={0}
+              leaveTouchDelay={0}
+              title={`${urlWithMetadata.author} - ${urlWithMetadata.location}`}
+            >
+              <IconButton>
+                <InfoOutlinedIcon sx={{ color: "black" }} fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        );
+      })}
     </>
   );
 
@@ -236,7 +245,7 @@ function LearnBirbContent({
           }}
         >
           {renderAudioSection(audioSourcesSong, AudioType.SONG)}
-          {renderAudioSection(audioSourcesCall, AudioType.CAll)}
+          {renderAudioSection(audioSourcesCall, AudioType.CALL)}
         </Box>
       )}
     </Box>

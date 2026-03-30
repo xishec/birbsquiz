@@ -5,7 +5,7 @@ import { AudioType, DBRegion, FavoriteList, Sex } from "./constants";
 export type UrlWithMetadata = { url: string; location: string; author: string };
 
 export type BirdAudio = {
-  [AudioType.CAll]: UrlWithMetadata[];
+  [AudioType.CALL]: UrlWithMetadata[];
   [AudioType.SONG]: UrlWithMetadata[];
 };
 
@@ -73,7 +73,7 @@ export const fetchAudioForOne = async (
   }
 
   const birdAudio: BirdAudio = {
-    [AudioType.CAll]: [],
+    [AudioType.CALL]: [],
     [AudioType.SONG]: [],
   };
 
@@ -83,20 +83,20 @@ export const fetchAudioForOne = async (
     const callRegionUrl = callBaseUrl + `&regionCode=${region}`;
     await fetchMedia(
       callRegionUrl,
-      birdAudio[AudioType.CAll],
+      birdAudio[AudioType.CALL],
       "mediaUrl",
       (item) =>
-        String(item.behaviors).toLowerCase() === AudioType.CAll &&
+        String(item.behaviors).toLowerCase() === AudioType.CALL &&
         item?.source === "ebird" &&
         (item.rating ?? 0) >= 4
     );
-    if (birdAudio[AudioType.CAll].length < 10) {
+    if (birdAudio[AudioType.CALL].length < 10) {
       await fetchMedia(
         callBaseUrl,
-        birdAudio[AudioType.CAll],
+        birdAudio[AudioType.CALL],
         "mediaUrl",
         (item) =>
-          String(item.behaviors).toLowerCase().includes(AudioType.CAll) &&
+          String(item.behaviors).toLowerCase().includes(AudioType.CALL) &&
           item?.source === "ebird"
       );
     }

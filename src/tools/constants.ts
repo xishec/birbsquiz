@@ -1,5 +1,5 @@
 export enum AudioType {
-  CAll = "call",
+  CALL = "call",
   SONG = "song",
 }
 

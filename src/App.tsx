@@ -58,10 +58,14 @@ export type QuizContextType = {
   selectedBirbIds: string[];
   answers: boolean[];
   showAnswers: boolean[];
+  answerInputs: string[];
+  answerBirbIds: Array<string | null>;
   endQuiz: () => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setAnswers: React.Dispatch<React.SetStateAction<boolean[]>>;
   setShowAnswers: React.Dispatch<React.SetStateAction<boolean[]>>;
+  setAnswerInputs: React.Dispatch<React.SetStateAction<string[]>>;
+  setAnswerBirbIds: React.Dispatch<React.SetStateAction<Array<string | null>>>;
   css_height_90: string;
   gameMode: GameMode | null;
   setSelectedBirbIds: React.Dispatch<React.SetStateAction<string[]>>;
@@ -117,6 +121,8 @@ type Progress = {
   randomSeed: number;
   showAnswers: boolean[];
   answers: boolean[];
+  answerInputs: string[];
+  answerBirbIds: Array<string | null>;
   quizStarted: boolean;
   openEndQuizDialog: boolean;
   openStartQuizDialog: boolean;
@@ -197,6 +203,17 @@ function App() {
 
   const [answers, setAnswers] = React.useState<boolean[]>(() =>
     savedProgress?.answers && isOneHourAgo ? savedProgress.answers : []
+  );
+
+  const [answerInputs, setAnswerInputs] = React.useState<string[]>(() =>
+    savedProgress?.answerInputs && isOneHourAgo ? savedProgress.answerInputs : []
+  );
+
+  const [answerBirbIds, setAnswerBirbIds] = React.useState<Array<string | null>>(
+    () =>
+      savedProgress?.answerBirbIds && isOneHourAgo
+        ? savedProgress.answerBirbIds
+        : [],
   );
 
   const [quizStarted, setQuizStarted] = React.useState<boolean>(() =>
@@ -317,6 +334,8 @@ function App() {
     randomSequence(nbBirb);
     setShowAnswers(Array(nbBirb).fill(false));
     setAnswers(Array(nbBirb).fill(false));
+    setAnswerInputs(Array(nbBirb).fill(""));
+    setAnswerBirbIds(Array(nbBirb).fill(null));
   };
 
   const startQuiz = () => {
@@ -360,6 +379,8 @@ function App() {
       randomSeed,
       showAnswers,
       answers,
+      answerInputs,
+      answerBirbIds,
       quizStarted,
       openEndQuizDialog,
       openStartQuizDialog,
@@ -390,6 +411,8 @@ function App() {
     randomSeed,
     showAnswers,
     answers,
+    answerInputs,
+    answerBirbIds,
     quizStarted,
     openEndQuizDialog,
     openStartQuizDialog,
@@ -437,10 +460,14 @@ function App() {
           selectedBirbIds,
           answers,
           showAnswers,
+          answerInputs,
+          answerBirbIds,
           endQuiz,
           setCounter,
           setAnswers,
           setShowAnswers,
+          setAnswerInputs,
+          setAnswerBirbIds,
           css_height_90,
           gameMode,
           setSelectedBirbIds,

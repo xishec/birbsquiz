@@ -108,9 +108,9 @@ function LearnDialog({ birbId }: { birbId: string }) {
     >
       <DialogContent
         sx={{
-          padding: isMobileDevice ? "1rem" : "2rem",
-          width: isMobileDevice ? "100%" : "800px",
-          height: isMobileDevice ? "100%" : "80vh",
+          padding: isMobileDevice ? "1rem" : "4rem",
+          width: isMobileDevice ? "100%" : "900px",
+          height: isMobileDevice ? "100%" : "90vh",
         }}
       >
         {loadingState === LoadingState.DONE ? (
