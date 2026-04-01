@@ -111,7 +111,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
       fullScreen={isMobileDevice}
       PaperProps={{
         sx: {
-          width: isMobileDevice ? "100%" : "min(900px, calc(100vw - 3rem))",
+          width: isMobileDevice ? "100%" : "min(700px, calc(100vw - 3rem))",
           maxWidth: "100%",
           margin: isMobileDevice ? 0 : "1.5rem",
           overflowX: "hidden",
