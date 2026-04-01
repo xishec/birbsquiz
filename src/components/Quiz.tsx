@@ -601,7 +601,8 @@ function Quiz() {
       <LearnDialog birbId={learnBirbId} />
       <Box
         sx={{
-          overflow: "auto",
+          overflow: "hidden",
+          overscrollBehavior: "contain",
           display: "grid",
           height: "100%",
           minHeight: 0,
@@ -675,6 +676,8 @@ function Quiz() {
           <Box
             sx={{
               overflow: "auto",
+              minHeight: 0,
+              overscrollBehavior: "contain",
               display: "flex",
               flexDirection: "column",
               justifyContent: "start",
@@ -749,6 +752,9 @@ function Quiz() {
           sx={{
             padding: "1.5rem 1.5rem 0",
             boxSizing: "border-box",
+            backgroundColor: "background.paper",
+            position: "relative",
+            zIndex: 1,
           }}
         >
           <Box>

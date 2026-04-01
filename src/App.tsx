@@ -562,6 +562,9 @@ function App() {
       >
         <Box
           sx={{
+            position: "fixed",
+            inset: 0,
+            width: "100%",
             height: "var(--app-height, 100dvh)",
             minHeight: "var(--app-height, 100dvh)",
             overflow: "hidden",
