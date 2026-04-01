@@ -386,20 +386,10 @@ function Quiz() {
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CALL] || [];
   const isPinnedMobileAnswerBar = isMobileDevice && !shouldReveal;
-  const viewportTransition =
-    "var(--viewport-transition-duration) var(--viewport-transition-easing)";
   const pinnedAnswerBarReserve =
     "calc(8.5rem + var(--footer-height) + env(safe-area-inset-bottom))";
   const pinnedAnswerBarBottom =
     "calc(var(--footer-height) + env(safe-area-inset-bottom) + 0.75rem)";
-  const pinnedAnswerBarWidth =
-    "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))";
-  const answerBarTransition = [
-    `bottom ${viewportTransition}`,
-    `width ${viewportTransition}`,
-    `padding ${viewportTransition}`,
-    `border-radius ${viewportTransition}`,
-  ].join(", ");
 
   const answerAutocomplete = () => (
     <Autocomplete
@@ -713,7 +703,6 @@ function Quiz() {
               paddingBottom: isPinnedMobileAnswerBar
                 ? pinnedAnswerBarReserve
                 : 0,
-              transition: `padding-bottom ${viewportTransition}`,
             }}
           >
             {gameMode === GameMode.CHANTS && (
@@ -790,12 +779,12 @@ function Quiz() {
             backgroundColor: "background.paper",
             position: isPinnedMobileAnswerBar ? "fixed" : "relative",
             zIndex: isPinnedMobileAnswerBar ? 1600 : 1,
-            transition: answerBarTransition,
             ...(isPinnedMobileAnswerBar && {
               left: "50%",
               bottom: pinnedAnswerBarBottom,
               transform: "translateX(-50%)",
-              width: pinnedAnswerBarWidth,
+              width: "calc(100vw - (var(--screen-padding) * 2))",
+              maxWidth: "800px",
               borderRadius: pinnedAnswerBarRadius,
             }),
           }}

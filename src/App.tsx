@@ -36,8 +36,6 @@ const birbEmojis = [
   "🍳",
 ];
 
-const viewportHeightTransition =
-  "height var(--viewport-transition-duration) var(--viewport-transition-easing)";
 const footerReservedSpace =
   "calc(var(--footer-height) + env(safe-area-inset-bottom))";
 const footerTextSx = { color: "#dcdcdc", fontSize: "0.6rem" } as const;
@@ -466,10 +464,6 @@ function App() {
         "--app-height",
         `${viewportHeight}px`,
       );
-      document.documentElement.style.setProperty(
-        "--app-width",
-        `${viewportWidth}px`,
-      );
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
@@ -578,7 +572,6 @@ function App() {
             overflow: "hidden",
             display: "grid",
             gridTemplateRows: "minmax(0, 1fr)",
-            transition: viewportHeightTransition,
             "*": {
               WebkitUserSelect: "none",
               MozUserSelect: "none",

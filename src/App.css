@@ -1,10 +1,7 @@
 :root {
   --app-height: 100dvh;
-  --app-width: 100vw;
   --footer-height: 2.5rem;
   --screen-padding: clamp(16px, 4vw, 24px);
-  --viewport-transition-duration: 180ms;
-  --viewport-transition-easing: cubic-bezier(0.2, 0, 0, 1);
 }
 
 html,
