@@ -72,7 +72,7 @@ function LearnBirbContent({
             sx={{
               display: "grid",
               gap: "0.5rem",
-              gridTemplateColumns: "60px minmax(0, 1fr) min-content",
+              gridTemplateColumns: "72px minmax(0, 1fr) min-content",
               alignItems: "center",
               minWidth: 0,
             }}
@@ -82,7 +82,7 @@ function LearnBirbContent({
                 marginRight: "0.5rem",
                 fontWeight: isHighlightedAudio ? 700 : undefined,
                 minWidth: 0,
-                overflowWrap: "anywhere",
+                whiteSpace: "nowrap",
               }}
             >
               {`${audioType.charAt(0).toUpperCase() + audioType.slice(1)} ${
