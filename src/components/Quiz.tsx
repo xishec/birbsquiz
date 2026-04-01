@@ -122,26 +122,6 @@ function Quiz() {
     [eBird, eBirdNameProperty],
   );
 
-  const answerAutocompleteOptions = useMemo(() => {
-    if (answerInput.trim().length < 3) {
-      return [];
-    }
-
-    const searchTerms = normalizeSearchText(answerInput)
-      .split(" ")
-      .filter((term) => term);
-
-    return sortedAllBirbIds.filter((option) => {
-      const optionLabel = normalizeSearchText(eBird[option][eBirdNameProperty]);
-      return searchTerms.every((term) => optionLabel.includes(term));
-    });
-  }, [answerInput, eBird, eBirdNameProperty, sortedAllBirbIds]);
-
-  const answerAutocompletePlacement =
-    isMobileDevice && answerAutocompleteOptions.length > 0
-      ? "top-start"
-      : "bottom-start";
-
   const pauseAllAudio = useCallback(() => {
     const audioElements = document.querySelectorAll("audio");
     audioElements.forEach((audio) => {
@@ -360,9 +340,9 @@ function Quiz() {
   }>(
     () => ({
       popper: {
-        placement: answerAutocompletePlacement,
+        placement: isMobileDevice ? "top-start" : "bottom-start",
         popperOptions: {
-          strategy: isMobileDevice ? "fixed" : "absolute",
+          strategy: "absolute",
         },
         modifiers: [
           {
@@ -384,7 +364,7 @@ function Quiz() {
         },
       },
     }),
-    [answerAutocompletePlacement, isMobileDevice],
+    [isMobileDevice],
   );
 
   if (!birbId || !eBird[birbId]) {
@@ -408,6 +388,7 @@ function Quiz() {
       autoHighlight
       blurOnSelect={isMobileDevice ? "touch" : false}
       componentsProps={answerAutocompleteComponentsProps}
+      disablePortal={isMobileDevice}
       forcePopupIcon={false}
       ListboxProps={{
         sx: isMobileDevice
