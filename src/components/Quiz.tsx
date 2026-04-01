@@ -382,6 +382,7 @@ function Quiz() {
     : t.NoAnswer;
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CALL] || [];
+  const isPinnedMobileAnswerBar = isMobileDevice && !shouldReveal;
 
   const answerAutocomplete = () => (
     <Autocomplete
@@ -693,9 +694,11 @@ function Quiz() {
               flexDirection: "column",
               justifyContent: "start",
               paddingBottom:
-                isMobileDevice && !shouldReveal
+                isPinnedMobileAnswerBar
                   ? "calc(8.5rem + env(safe-area-inset-bottom))"
                   : 0,
+              transition:
+                "padding-bottom var(--viewport-transition-duration) var(--viewport-transition-easing)",
             }}
           >
             {gameMode === GameMode.CHANTS && (
@@ -765,32 +768,25 @@ function Quiz() {
 
         <Box
           sx={{
-            padding:
-              isMobileDevice && !shouldReveal ? 0 : "1.5rem 1.5rem 0",
+            padding: isPinnedMobileAnswerBar ? 0 : "1.5rem 1.5rem 0",
             boxSizing: "border-box",
             backgroundColor: "background.paper",
-            position: isMobileDevice && !shouldReveal ? "fixed" : "relative",
-            left: isMobileDevice && !shouldReveal ? "50%" : undefined,
-            bottom:
-              isMobileDevice && !shouldReveal
-                ? "calc(env(safe-area-inset-bottom) + 0.75rem)"
-                : undefined,
-            transform:
-              isMobileDevice && !shouldReveal ? "translateX(-50%)" : undefined,
-            width:
-              isMobileDevice && !shouldReveal
-                ? "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))"
-                : undefined,
-            borderRadius: isMobileDevice && !shouldReveal ? "16px" : undefined,
-            boxShadow:
-              isMobileDevice && !shouldReveal
-                ? "0 8px 24px rgba(0, 0, 0, 0.12)"
-                : undefined,
-            border:
-              isMobileDevice && !shouldReveal
-                ? "1px solid rgba(0, 0, 0, 0.08)"
-                : undefined,
-            zIndex: isMobileDevice && !shouldReveal ? 1600 : 1,
+            position: isPinnedMobileAnswerBar ? "fixed" : "relative",
+            zIndex: isPinnedMobileAnswerBar ? 1600 : 1,
+            transition: [
+              "bottom var(--viewport-transition-duration) var(--viewport-transition-easing)",
+              "width var(--viewport-transition-duration) var(--viewport-transition-easing)",
+              "padding var(--viewport-transition-duration) var(--viewport-transition-easing)",
+              "border-radius var(--viewport-transition-duration) var(--viewport-transition-easing)",
+            ].join(", "),
+            ...(isPinnedMobileAnswerBar && {
+              left: "50%",
+              bottom: "calc(env(safe-area-inset-bottom) + 0.75rem)",
+              transform: "translateX(-50%)",
+              width:
+                "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))",
+              borderRadius: "16px",
+            }),
           }}
         >
           <Box>

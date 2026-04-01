@@ -451,8 +451,6 @@ function App() {
       const isTouchDevice =
         window.matchMedia("(pointer: coarse)").matches ||
         navigator.maxTouchPoints > 0;
-      const viewportOffsetTop = Math.round(visualViewport?.offsetTop ?? 0);
-      const viewportOffsetLeft = Math.round(visualViewport?.offsetLeft ?? 0);
 
       setIsMobileDevice(
         isTouchDevice && Math.min(viewportWidth, viewportHeight) <= 900,
@@ -465,14 +463,6 @@ function App() {
       document.documentElement.style.setProperty(
         "--app-width",
         `${viewportWidth}px`,
-      );
-      document.documentElement.style.setProperty(
-        "--app-offset-top",
-        `${viewportOffsetTop}px`,
-      );
-      document.documentElement.style.setProperty(
-        "--app-offset-left",
-        `${viewportOffsetLeft}px`,
       );
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
@@ -494,7 +484,6 @@ function App() {
     window.addEventListener("resize", scheduleViewportUpdate);
     window.addEventListener("orientationchange", scheduleViewportUpdate);
     visualViewport?.addEventListener("resize", scheduleViewportUpdate);
-    visualViewport?.addEventListener("scroll", scheduleViewportUpdate);
 
     return () => {
       if (timeoutId !== undefined) {
@@ -507,7 +496,6 @@ function App() {
       window.removeEventListener("resize", scheduleViewportUpdate);
       window.removeEventListener("orientationchange", scheduleViewportUpdate);
       visualViewport?.removeEventListener("resize", scheduleViewportUpdate);
-      visualViewport?.removeEventListener("scroll", scheduleViewportUpdate);
     };
   }, []);
 
@@ -577,14 +565,16 @@ function App() {
         <Box
           sx={{
             position: "fixed",
-            top: "var(--app-offset-top, 0px)",
-            left: "var(--app-offset-left, 0px)",
-            width: "var(--app-width, 100vw)",
+            inset: "0 auto auto 0",
+            width: "100%",
             height: "var(--app-height, 100dvh)",
             minHeight: "var(--app-height, 100dvh)",
             overflow: "hidden",
             display: "grid",
             gridTemplateRows: "minmax(0, 1fr) auto",
+            transition: [
+              "height var(--viewport-transition-duration) var(--viewport-transition-easing)",
+            ].join(", "),
             "*": {
               WebkitUserSelect: "none",
               MozUserSelect: "none",
