@@ -455,6 +455,13 @@ function Quiz() {
           autoFocus
           inputRef={answerInputRef}
           label={`${t.Answer} (${answerLanguageLabel}) ...`}
+          InputLabelProps={
+            isPinnedMobileAnswerBar
+              ? {
+                  shrink: true,
+                }
+              : undefined
+          }
           onKeyDown={(event) => {
             if (!isPlainEnterKey(event)) {
               return;
