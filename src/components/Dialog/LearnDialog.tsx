@@ -45,12 +45,16 @@ function LearnDialog({ birbId }: { birbId: string }) {
   const closeDialog = () => setOpenLearnDialog(false);
 
   React.useEffect(() => {
-    if (!birbId || !eBird[birbId]) {
+    if (!openLearnDialog || !birbId || !eBird[birbId]) {
       return;
     }
 
     let ignore = false;
     let timeoutId: number | undefined;
+
+    document.querySelectorAll("audio").forEach((audio) => {
+      audio.pause();
+    });
 
     setProgress(0);
     setLoadingState(LoadingState.LOADING);
@@ -78,7 +82,7 @@ function LearnDialog({ birbId }: { birbId: string }) {
         window.clearTimeout(timeoutId);
       }
     };
-  }, [birbId, eBird, region]);
+  }, [birbId, eBird, openLearnDialog, region]);
 
   React.useEffect(() => {
     if (!openLearnDialog) {

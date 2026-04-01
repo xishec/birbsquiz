@@ -530,21 +530,28 @@ function Lobby() {
             sx={{
               marginTop: "0.25rem",
               display: "grid",
-              gridAutoFlow: "column",
-              gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
-              gridAutoColumns: "calc(100% - 0rem)",
-              // gridAutoColumns: isMobileDevice
-              //   ? "calc(100% - 0rem)"
-              //   : "calc(50% - 0.25rem) calc(50% - 0.25rem)",
+              gridTemplateColumns: "1fr",
+              alignContent: "start",
               height: "100%",
+              minHeight: 0,
               overflowX: "auto",
-              overflowY: "hidden",
+              overflowY: "auto",
               gap: "0.5rem",
               position: "relative",
               padding: "0 1.5rem",
+              ...(isMobileDevice
+                ? {
+                    overflowX: "hidden",
+                  }
+                : {
+                    gridAutoFlow: "column",
+                    gridTemplateRows: "repeat(auto-fill, minmax(40px, auto))",
+                    gridAutoColumns: "calc(100% - 0rem)",
+                    overflowY: "hidden",
+                  }),
             }}
           >
-            {sortedSelectedBirbIds.map((birbId, i) => (
+            {sortedSelectedBirbIds.map((birbId) => (
                   <Box
                     key={`chip-${birbId}`}
                     sx={{ height: "100%", width: "100%" }}
@@ -564,7 +571,6 @@ function Lobby() {
                           ? "default"
                           : "warning"
                       }
-                      key={`chip-${i}`}
                       label={`${eBird[birbId][eBirdNameProperty]} 
                       ${
                         regionList[region].includes(birbId)
