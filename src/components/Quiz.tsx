@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import { PopperProps } from "@mui/material/Popper";
 import {
   Box,
   CircularProgress,
@@ -85,6 +86,7 @@ function Quiz() {
     setOpenLearnDialog,
     eBirdNameProperty,
     dbBirbs,
+    isMobileDevice,
     currentTranslation: t,
   } = quizContext;
 
@@ -327,6 +329,38 @@ function Quiz() {
     };
   }, [advanceRevealedQuestion, loading, shouldReveal]);
 
+  const answerAutocompleteComponentsProps = useMemo<{
+    popper: Partial<PopperProps>;
+  }>(
+    () => ({
+      popper: {
+        placement: isMobileDevice ? "top-start" : "bottom-start",
+        popperOptions: {
+          strategy: isMobileDevice ? "fixed" : "absolute",
+        },
+        modifiers: [
+          {
+            name: "offset",
+            options: {
+              offset: [0, 8],
+            },
+          },
+          {
+            name: "preventOverflow",
+            options: {
+              boundary: "viewport",
+              padding: 8,
+            },
+          },
+        ],
+        sx: {
+          zIndex: 1500,
+        },
+      },
+    }),
+    [isMobileDevice],
+  );
+
   if (!birbId || !eBird[birbId]) {
     return null;
   }
@@ -342,10 +376,19 @@ function Quiz() {
     : t.NoAnswer;
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CALL] || [];
+
   const answerAutocomplete = () => (
     <Autocomplete
       autoHighlight
+      componentsProps={answerAutocompleteComponentsProps}
       forcePopupIcon={false}
+      ListboxProps={{
+        sx: isMobileDevice
+          ? {
+              maxHeight: "calc(var(--vh, 1vh) * 45)",
+            }
+          : undefined,
+      }}
       size="small"
       value={selectedAnswerBirbId}
       inputValue={answerInput}

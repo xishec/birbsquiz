@@ -436,15 +436,25 @@ function App() {
   const css_height_90 = "calc(var(--vh, 1vh) * 93)";
 
   useEffect(() => {
-    const handleResize = () => {
+    const visualViewport = window.visualViewport;
+
+    const updateViewportMetrics = () => {
       setIsMobileDevice(window.innerWidth <= 800);
-      const vh = window.innerHeight * 0.01;
+      const viewportHeight = visualViewport?.height ?? window.innerHeight;
+      const vh = viewportHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-    // Initialize on mount
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    updateViewportMetrics();
+    window.addEventListener("resize", updateViewportMetrics);
+    visualViewport?.addEventListener("resize", updateViewportMetrics);
+    visualViewport?.addEventListener("scroll", updateViewportMetrics);
+
+    return () => {
+      window.removeEventListener("resize", updateViewportMetrics);
+      visualViewport?.removeEventListener("resize", updateViewportMetrics);
+      visualViewport?.removeEventListener("scroll", updateViewportMetrics);
+    };
   }, []);
 
   return (
