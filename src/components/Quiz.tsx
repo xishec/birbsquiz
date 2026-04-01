@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useMemo } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import { PopperProps } from "@mui/material/Popper";
@@ -100,6 +106,7 @@ function Quiz() {
   const [loading, setLoading] = React.useState(true);
   const [shouldReveal, setShouldReveal] = React.useState(false);
   const answerBirbIdsRef = React.useRef<Array<string | null>>([]);
+  const answerInputRef = useRef<HTMLInputElement>(null);
   const [learnBirbId, setLearnBirbId] = React.useState("");
   const birbId = sequence[counter];
   const answerInput = answerInputs[counter] ?? "";
@@ -114,6 +121,26 @@ function Quiz() {
       ),
     [eBird, eBirdNameProperty],
   );
+
+  const answerAutocompleteOptions = useMemo(() => {
+    if (answerInput.trim().length < 3) {
+      return [];
+    }
+
+    const searchTerms = normalizeSearchText(answerInput)
+      .split(" ")
+      .filter((term) => term);
+
+    return sortedAllBirbIds.filter((option) => {
+      const optionLabel = normalizeSearchText(eBird[option][eBirdNameProperty]);
+      return searchTerms.every((term) => optionLabel.includes(term));
+    });
+  }, [answerInput, eBird, eBirdNameProperty, sortedAllBirbIds]);
+
+  const answerAutocompletePlacement =
+    isMobileDevice && answerAutocompleteOptions.length > 0
+      ? "top-start"
+      : "bottom-start";
 
   const pauseAllAudio = useCallback(() => {
     const audioElements = document.querySelectorAll("audio");
@@ -333,7 +360,7 @@ function Quiz() {
   }>(
     () => ({
       popper: {
-        placement: isMobileDevice ? "top-start" : "bottom-start",
+        placement: answerAutocompletePlacement,
         popperOptions: {
           strategy: isMobileDevice ? "fixed" : "absolute",
         },
@@ -357,7 +384,7 @@ function Quiz() {
         },
       },
     }),
-    [isMobileDevice],
+    [answerAutocompletePlacement, isMobileDevice],
   );
 
   if (!birbId || !eBird[birbId]) {
@@ -379,6 +406,7 @@ function Quiz() {
   const answerAutocomplete = () => (
     <Autocomplete
       autoHighlight
+      blurOnSelect={isMobileDevice ? "touch" : false}
       componentsProps={answerAutocompleteComponentsProps}
       forcePopupIcon={false}
       ListboxProps={{
@@ -394,6 +422,11 @@ function Quiz() {
       onChange={(_event, value) => {
         updateCurrentAnswerBirbId(value);
         updateCurrentAnswerInput(value ? eBird[value][eBirdNameProperty] : "");
+        if (isMobileDevice && value) {
+          window.setTimeout(() => {
+            answerInputRef.current?.blur();
+          }, 0);
+        }
       }}
       onInputChange={(_event, value, reason) => {
         updateCurrentAnswerInput(value);
@@ -429,6 +462,7 @@ function Quiz() {
         <TextField
           {...params}
           autoFocus
+          inputRef={answerInputRef}
           label={`${t.Answer} (${answerLanguageLabel}) ...`}
           onKeyDown={(event) => {
             if (!isPlainEnterKey(event)) {
