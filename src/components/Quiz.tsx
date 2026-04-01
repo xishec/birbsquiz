@@ -445,7 +445,9 @@ function Quiz() {
       }
       isOptionEqualToValue={(option, value) => option === value}
       noOptionsText={
-        answerInput.trim().length < 3 ? t.TypeAtLeast3Characters : undefined
+        answerInput.trim().length < 3
+          ? t.TypeAtLeast3Characters
+          : t.NoMatchingBirds
       }
       renderInput={(params) => (
         <TextField

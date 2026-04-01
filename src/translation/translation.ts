@@ -57,6 +57,7 @@ export interface Translation {
   Answer: string;
   NoAnswer: string;
   TypeAtLeast3Characters: string;
+  NoMatchingBirds: string;
   English: string;
   French: string;
   Latin: string;
@@ -130,6 +131,7 @@ export const translationEnglish: Translation = {
   Answer: "Answer",
   NoAnswer: "No answer",
   TypeAtLeast3Characters: "Type at least 3 characters",
+  NoMatchingBirds: "No matching birds",
   English: "English",
   French: "French",
   Latin: "Latin",
@@ -205,6 +207,7 @@ export const translationFrench: Translation = {
   Answer: "Réponse",
   NoAnswer: "Pas de réponse",
   TypeAtLeast3Characters: "Tapez au moins 3 caractères",
+  NoMatchingBirds: "Aucun birb correspondant",
   English: "Anglais",
   French: "Français",
   Latin: "Latin",
@@ -280,6 +283,7 @@ export const translationLatin: Translation = {
   Answer: "Responsum",
   NoAnswer: "Nulla responsum",
   TypeAtLeast3Characters: "Scribe saltem 3 characteres",
+  NoMatchingBirds: "Nullae aves congruentes",
   English: "Anglica",
   French: "Gallica",
   Latin: "Latina",
