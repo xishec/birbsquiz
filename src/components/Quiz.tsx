@@ -462,6 +462,17 @@ function Quiz() {
     />
   );
 
+  const answerSubmitButton = (
+    <Button
+      sx={buttonSx}
+      variant="outlined"
+      disabled={!audioPlayed && gameMode === GameMode.CHANTS}
+      onClick={revealCurrentQuestion}
+    >
+      {hasAnswerInput ? t.Confirm : t.NoAnswer}
+    </Button>
+  );
+
   const audioComponent = (
     <>
       {audioSources[audioRandomIndex] && (
@@ -681,6 +692,10 @@ function Quiz() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "start",
+              paddingBottom:
+                isMobileDevice && !shouldReveal
+                  ? "calc(8.5rem + env(safe-area-inset-bottom))"
+                  : 0,
             }}
           >
             {gameMode === GameMode.CHANTS && (
@@ -750,11 +765,32 @@ function Quiz() {
 
         <Box
           sx={{
-            padding: "1.5rem 1.5rem 0",
+            padding:
+              isMobileDevice && !shouldReveal ? 0 : "1.5rem 1.5rem 0",
             boxSizing: "border-box",
             backgroundColor: "background.paper",
-            position: "relative",
-            zIndex: 1,
+            position: isMobileDevice && !shouldReveal ? "fixed" : "relative",
+            left: isMobileDevice && !shouldReveal ? "50%" : undefined,
+            bottom:
+              isMobileDevice && !shouldReveal
+                ? "calc(env(safe-area-inset-bottom) + 0.75rem)"
+                : undefined,
+            transform:
+              isMobileDevice && !shouldReveal ? "translateX(-50%)" : undefined,
+            width:
+              isMobileDevice && !shouldReveal
+                ? "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))"
+                : undefined,
+            borderRadius: isMobileDevice && !shouldReveal ? "16px" : undefined,
+            boxShadow:
+              isMobileDevice && !shouldReveal
+                ? "0 8px 24px rgba(0, 0, 0, 0.12)"
+                : undefined,
+            border:
+              isMobileDevice && !shouldReveal
+                ? "1px solid rgba(0, 0, 0, 0.08)"
+                : undefined,
+            zIndex: isMobileDevice && !shouldReveal ? 1600 : 1,
           }}
         >
           <Box>
@@ -766,15 +802,8 @@ function Quiz() {
             >
               {!shouldReveal && (
                 <>
-                  {answerAutocomplete()}
-                  <Button
-                    sx={buttonSx}
-                    variant="outlined"
-                    disabled={!audioPlayed && gameMode === GameMode.CHANTS}
-                    onClick={revealCurrentQuestion}
-                  >
-                    {hasAnswerInput ? t.Confirm : t.NoAnswer}
-                  </Button>
+                  {isMobileDevice ? answerSubmitButton : answerAutocomplete()}
+                  {isMobileDevice ? answerAutocomplete() : answerSubmitButton}
                 </>
               )}
 

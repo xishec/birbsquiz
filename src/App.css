@@ -1,5 +1,8 @@
 :root {
   --app-height: 100dvh;
+  --app-offset-top: 0px;
+  --app-offset-left: 0px;
+  --app-width: 100vw;
   --screen-padding: clamp(16px, 4vw, 24px);
 }
 

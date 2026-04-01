@@ -451,6 +451,8 @@ function App() {
       const isTouchDevice =
         window.matchMedia("(pointer: coarse)").matches ||
         navigator.maxTouchPoints > 0;
+      const viewportOffsetTop = Math.round(visualViewport?.offsetTop ?? 0);
+      const viewportOffsetLeft = Math.round(visualViewport?.offsetLeft ?? 0);
 
       setIsMobileDevice(
         isTouchDevice && Math.min(viewportWidth, viewportHeight) <= 900,
@@ -459,6 +461,18 @@ function App() {
       document.documentElement.style.setProperty(
         "--app-height",
         `${viewportHeight}px`,
+      );
+      document.documentElement.style.setProperty(
+        "--app-width",
+        `${viewportWidth}px`,
+      );
+      document.documentElement.style.setProperty(
+        "--app-offset-top",
+        `${viewportOffsetTop}px`,
+      );
+      document.documentElement.style.setProperty(
+        "--app-offset-left",
+        `${viewportOffsetLeft}px`,
       );
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
@@ -563,8 +577,9 @@ function App() {
         <Box
           sx={{
             position: "fixed",
-            inset: 0,
-            width: "100%",
+            top: "var(--app-offset-top, 0px)",
+            left: "var(--app-offset-left, 0px)",
+            width: "var(--app-width, 100vw)",
             height: "var(--app-height, 100dvh)",
             minHeight: "var(--app-height, 100dvh)",
             overflow: "hidden",
