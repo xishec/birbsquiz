@@ -115,9 +115,10 @@ function BirbNames({
               </Typography>
               <Typography
                 sx={{
-                fontSize: "1rem",
-              }}
-            >
+                  fontSize: "1rem",
+                  overflowWrap: "anywhere",
+                }}
+              >
                 {`${name.value}${
                   index === 0 && !isBirbInRegion
                     ? ` (${replaceTemplate(

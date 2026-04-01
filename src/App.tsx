@@ -66,7 +66,6 @@ export type QuizContextType = {
   setShowAnswers: React.Dispatch<React.SetStateAction<boolean[]>>;
   setAnswerInputs: React.Dispatch<React.SetStateAction<string[]>>;
   setAnswerBirbIds: React.Dispatch<React.SetStateAction<Array<string | null>>>;
-  css_height_90: string;
   gameMode: GameMode | null;
   setSelectedBirbIds: React.Dispatch<React.SetStateAction<string[]>>;
   setOpenStartQuizDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -433,27 +432,68 @@ function App() {
     openLearnDialog,
   ]);
 
-  const css_height_90 = "calc(var(--vh, 1vh) * 93)";
-
   useEffect(() => {
     const visualViewport = window.visualViewport;
+    let timeoutId: number | undefined;
+    let animationFrameId: number | undefined;
 
     const updateViewportMetrics = () => {
-      setIsMobileDevice(window.innerWidth <= 800);
-      const viewportHeight = visualViewport?.height ?? window.innerHeight;
+      const viewportHeight = Math.round(
+        visualViewport?.height ??
+          document.documentElement.clientHeight ??
+          window.innerHeight,
+      );
+      const viewportWidth = Math.round(
+        visualViewport?.width ??
+          document.documentElement.clientWidth ??
+          window.innerWidth,
+      );
+      const isTouchDevice =
+        window.matchMedia("(pointer: coarse)").matches ||
+        navigator.maxTouchPoints > 0;
+
+      setIsMobileDevice(
+        isTouchDevice && Math.min(viewportWidth, viewportHeight) <= 900,
+      );
       const vh = viewportHeight * 0.01;
+      document.documentElement.style.setProperty(
+        "--app-height",
+        `${viewportHeight}px`,
+      );
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    updateViewportMetrics();
-    window.addEventListener("resize", updateViewportMetrics);
-    visualViewport?.addEventListener("resize", updateViewportMetrics);
-    visualViewport?.addEventListener("scroll", updateViewportMetrics);
+    const scheduleViewportUpdate = () => {
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+      if (animationFrameId !== undefined) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+
+      updateViewportMetrics();
+      animationFrameId = window.requestAnimationFrame(updateViewportMetrics);
+      timeoutId = window.setTimeout(updateViewportMetrics, 250);
+    };
+
+    scheduleViewportUpdate();
+    window.addEventListener("resize", scheduleViewportUpdate);
+    window.addEventListener("orientationchange", scheduleViewportUpdate);
+    visualViewport?.addEventListener("resize", scheduleViewportUpdate);
+    visualViewport?.addEventListener("scroll", scheduleViewportUpdate);
 
     return () => {
-      window.removeEventListener("resize", updateViewportMetrics);
-      visualViewport?.removeEventListener("resize", updateViewportMetrics);
-      visualViewport?.removeEventListener("scroll", updateViewportMetrics);
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+      if (animationFrameId !== undefined) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+
+      window.removeEventListener("resize", scheduleViewportUpdate);
+      window.removeEventListener("orientationchange", scheduleViewportUpdate);
+      visualViewport?.removeEventListener("resize", scheduleViewportUpdate);
+      visualViewport?.removeEventListener("scroll", scheduleViewportUpdate);
     };
   }, []);
 
@@ -478,7 +518,6 @@ function App() {
           setShowAnswers,
           setAnswerInputs,
           setAnswerBirbIds,
-          css_height_90,
           gameMode,
           setSelectedBirbIds,
           setOpenStartQuizDialog,
@@ -523,7 +562,11 @@ function App() {
       >
         <Box
           sx={{
-            height: css_height_90,
+            height: "var(--app-height, 100dvh)",
+            minHeight: "var(--app-height, 100dvh)",
+            overflow: "hidden",
+            display: "grid",
+            gridTemplateRows: "minmax(0, 1fr) auto",
             "*": {
               WebkitUserSelect: "none",
               MozUserSelect: "none",
@@ -538,6 +581,8 @@ function App() {
         >
           <Box
             sx={{
+              minHeight: 0,
+              height: "100%",
               display: "grid",
               justifyContent: "center",
               gridTemplateColumns: "minmax(min-content, 800px)",
@@ -550,13 +595,14 @@ function App() {
           {/* Footer */}
           <Box
             sx={{
-              position: "absolute",
-              bottom: 0,
-              margin: "0 2rem",
+              padding: "0.5rem var(--screen-padding)",
+              paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
               display: "flex",
               justifyContent: "space-between",
-              width: "calc(100% - 4rem)",
+              width: "100%",
+              minWidth: 0,
               alignItems: "center",
+              gap: "1rem",
             }}
           >
             <Box>

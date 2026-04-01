@@ -109,12 +109,25 @@ function LearnDialog({ birbId }: { birbId: string }) {
       open={openLearnDialog}
       maxWidth={false}
       fullScreen={isMobileDevice}
+      PaperProps={{
+        sx: {
+          width: isMobileDevice ? "100%" : "min(900px, calc(100vw - 3rem))",
+          maxWidth: "100%",
+          margin: isMobileDevice ? 0 : "1.5rem",
+          overflowX: "hidden",
+        },
+      }}
     >
       <DialogContent
         sx={{
-          padding: isMobileDevice ? "1rem" : "4rem",
-          width: isMobileDevice ? "100%" : "900px",
-          height: isMobileDevice ? "100%" : "90vh",
+          boxSizing: "border-box",
+          padding: isMobileDevice ? "var(--screen-padding)" : "2rem",
+          width: "100%",
+          maxWidth: "100%",
+          height: isMobileDevice
+            ? "var(--app-height, 100dvh)"
+            : "min(90vh, var(--app-height, 100dvh))",
+          overflowX: "hidden",
         }}
       >
         {loadingState === LoadingState.DONE ? (

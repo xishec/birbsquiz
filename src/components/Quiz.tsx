@@ -77,7 +77,6 @@ function Quiz() {
     setShowAnswers,
     setAnswerInputs,
     setAnswerBirbIds,
-    css_height_90,
     gameMode,
     callCheckbox,
     songCheckbox,
@@ -587,11 +586,12 @@ function Quiz() {
       <LearnDialog birbId={learnBirbId} />
       <Box
         sx={{
-          marginTop: "1.5rem",
           overflow: "auto",
           display: "grid",
-          height: css_height_90,
+          height: "100%",
           minHeight: 0,
+          boxSizing: "border-box",
+          paddingTop: "1.5rem",
           gridTemplateRows: "auto 1fr auto",
         }}
       >
@@ -732,13 +732,13 @@ function Quiz() {
 
         <Box
           sx={{
-            padding: "0 1.5rem",
+            padding: "1.5rem 1.5rem 0",
+            boxSizing: "border-box",
           }}
         >
           <Box>
             <Box
               sx={{
-                marginTop: "1.5rem",
                 display: "grid",
                 gap: "0.5rem",
               }}

@@ -59,7 +59,6 @@ function Lobby() {
     setOpenStartQuizDialog,
     setOpenSnake,
     setSnakeMessage,
-    css_height_90,
     currentList,
     setCurrentList,
     customList,
@@ -341,12 +340,13 @@ function Lobby() {
         sx={{
           overflow: "auto",
           display: "grid",
-          height: css_height_90,
+          height: "100%",
           minHeight: 0,
+          boxSizing: "border-box",
           gridTemplateColumns: "1fr",
           gridTemplateRows: "auto auto 1fr auto",
           gap: "1rem",
-          marginTop: "1rem",
+          paddingTop: "1rem",
         }}
       >
         {/* <Box

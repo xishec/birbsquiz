@@ -30,6 +30,7 @@ function LearnBirbContent({
   const {
     eBird,
     eBirdNameProperty,
+    isMobileDevice,
     region,
     regionList,
     currentTranslation: t,
@@ -71,14 +72,20 @@ function LearnBirbContent({
             sx={{
               display: "grid",
               gap: "0.5rem",
-              gridTemplateColumns: "60px 1fr min-content",
+              gridTemplateColumns: isMobileDevice
+                ? "minmax(0, 1fr) min-content"
+                : "60px minmax(0, 1fr) min-content",
               alignItems: "center",
+              minWidth: 0,
             }}
           >
             <Typography
               sx={{
                 marginRight: "0.5rem",
                 fontWeight: isHighlightedAudio ? 700 : undefined,
+                minWidth: 0,
+                overflowWrap: "anywhere",
+                gridColumn: isMobileDevice ? "1 / 2" : undefined,
               }}
             >
               {`${audioType.charAt(0).toUpperCase() + audioType.slice(1)} ${
@@ -86,20 +93,28 @@ function LearnBirbContent({
               }`}
             </Typography>
 
-            <audio
-              id={`audio-${birbId}-${audioType}-${index}`}
-              style={{
-                width: "100%",
-              }}
-              controls
-              src={urlWithMetadata.url}
-              onPlay={handleAudioPlay}
-              onError={() => {
-                window.location.reload();
+            <Box
+              sx={{
+                minWidth: 0,
+                gridColumn: isMobileDevice ? "1 / -1" : undefined,
               }}
             >
-              {t.BrowserDoesNotSupportAudio}
-            </audio>
+              <audio
+                id={`audio-${birbId}-${audioType}-${index}`}
+                style={{
+                  width: "100%",
+                  maxWidth: "100%",
+                }}
+                controls
+                src={urlWithMetadata.url}
+                onPlay={handleAudioPlay}
+                onError={() => {
+                  window.location.reload();
+                }}
+              >
+                {t.BrowserDoesNotSupportAudio}
+              </audio>
+            </Box>
 
             <Tooltip
               placement="top"
@@ -134,6 +149,8 @@ function LearnBirbContent({
       sx={{
         display: "grid",
         gap: "1rem",
+        width: "100%",
+        minWidth: 0,
       }}
     >
       <BirbNames
@@ -151,9 +168,14 @@ function LearnBirbContent({
           sx={{
             display: "grid",
             justifyContent: "center",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: {
+              xs: "minmax(0, 1fr)",
+              sm: "repeat(2, minmax(0, 1fr))",
+            },
             gap: "2rem",
             rowGap: "0.5rem",
+            width: "100%",
+            minWidth: 0,
           }}
         >
           {[
@@ -170,7 +192,12 @@ function LearnBirbContent({
             return (
               <Box
                 key={`image-box-${birbId}-${sex}`}
-                sx={{ justifySelf: "center" }}
+                sx={{
+                  justifySelf: "center",
+                  width: "100%",
+                  maxWidth: isMobileDevice ? "100%" : "420px",
+                  minWidth: 0,
+                }}
               >
                 <Typography
                   sx={{
@@ -204,6 +231,7 @@ function LearnBirbContent({
                     cursor: "pointer",
                     overflow: "hidden",
                     padding: "0 0rem",
+                    width: "100%",
                   }}
                   onClick={() => {
                     if (sex === Sex.MALE) {
@@ -241,7 +269,9 @@ function LearnBirbContent({
             marginTop: "0.5rem",
             display: "grid",
             gap: "0.5rem",
-            gridTemplateColumns: "repeat(auto-fill, 1fr)",
+            gridTemplateColumns: "minmax(0, 1fr)",
+            width: "100%",
+            minWidth: 0,
           }}
         >
           {renderAudioSection(audioSourcesSong, AudioType.SONG)}
