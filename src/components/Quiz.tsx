@@ -802,8 +802,8 @@ function Quiz() {
             >
               {!shouldReveal && (
                 <>
-                  {isMobileDevice ? answerSubmitButton : answerAutocomplete()}
-                  {isMobileDevice ? answerAutocomplete() : answerSubmitButton}
+                  {answerAutocomplete()}
+                  {answerSubmitButton}
                 </>
               )}
 
