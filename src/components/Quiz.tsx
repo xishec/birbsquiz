@@ -114,12 +114,12 @@ function Quiz() {
     [eBird, eBirdNameProperty],
   );
 
-  const pauseAllAudio = () => {
+  const pauseAllAudio = useCallback(() => {
     const audioElements = document.querySelectorAll("audio");
     audioElements.forEach((audio) => {
       audio.pause();
     });
-  };
+  }, []);
 
   const updateCurrentAnswerInput = (value: string) => {
     setAnswerInputs((previousAnswerInputs) =>
@@ -139,19 +139,19 @@ function Quiz() {
     });
   };
 
-  const nextQuestion = () => {
+  const nextQuestion = useCallback(() => {
     pauseAllAudio();
     setLoading(true);
     setCounter((previousCounter) => previousCounter + 1);
     setAudioPlayed(false);
-  };
+  }, [pauseAllAudio, setCounter]);
 
-  const previousQuestion = () => {
+  const previousQuestion = useCallback(() => {
     pauseAllAudio();
     setLoading(true);
     setCounter((previousCounter) => previousCounter - 1);
     setAudioPlayed(false);
-  };
+  }, [pauseAllAudio, setCounter]);
 
   const handleAudioPlay = (
     e: React.SyntheticEvent<HTMLAudioElement, Event>,
