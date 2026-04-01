@@ -62,6 +62,9 @@ const isPlainEnterKey = (event: {
 const isAutocompleteExpanded = (element: HTMLElement) =>
   element.querySelector("input")?.getAttribute("aria-expanded") === "true";
 
+const quizPagePadding = "1.5rem";
+const pinnedAnswerBarRadius = "16px";
+
 function Quiz() {
   const quizContext = useContext(QuizContext);
   if (!quizContext) {
@@ -383,6 +386,20 @@ function Quiz() {
   const revealSongSources = dbBirbs[birbId]?.audio?.[AudioType.SONG] || [];
   const revealCallSources = dbBirbs[birbId]?.audio?.[AudioType.CALL] || [];
   const isPinnedMobileAnswerBar = isMobileDevice && !shouldReveal;
+  const viewportTransition =
+    "var(--viewport-transition-duration) var(--viewport-transition-easing)";
+  const pinnedAnswerBarReserve =
+    "calc(8.5rem + var(--footer-height) + env(safe-area-inset-bottom))";
+  const pinnedAnswerBarBottom =
+    "calc(var(--footer-height) + env(safe-area-inset-bottom) + 0.75rem)";
+  const pinnedAnswerBarWidth =
+    "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))";
+  const answerBarTransition = [
+    `bottom ${viewportTransition}`,
+    `width ${viewportTransition}`,
+    `padding ${viewportTransition}`,
+    `border-radius ${viewportTransition}`,
+  ].join(", ");
 
   const answerAutocomplete = () => (
     <Autocomplete
@@ -619,7 +636,7 @@ function Quiz() {
           height: "100%",
           minHeight: 0,
           boxSizing: "border-box",
-          paddingTop: "1.5rem",
+          paddingTop: quizPagePadding,
           gridTemplateRows: "auto 1fr auto",
         }}
       >
@@ -629,7 +646,7 @@ function Quiz() {
             display: "grid",
             alignItems: "center",
             gridTemplateColumns: "1fr auto 1fr",
-            margin: "0 1.5rem",
+            margin: `0 ${quizPagePadding}`,
             gap: "1rem",
           }}
         >
@@ -693,19 +710,17 @@ function Quiz() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "start",
-              paddingBottom:
-                isPinnedMobileAnswerBar
-                  ? "calc(8.5rem + env(safe-area-inset-bottom))"
-                  : 0,
-              transition:
-                "padding-bottom var(--viewport-transition-duration) var(--viewport-transition-easing)",
+              paddingBottom: isPinnedMobileAnswerBar
+                ? pinnedAnswerBarReserve
+                : 0,
+              transition: `padding-bottom ${viewportTransition}`,
             }}
           >
             {gameMode === GameMode.CHANTS && (
               <Box
                 sx={{
                   marginTop: "1rem",
-                  padding: "0 1.5rem",
+                  padding: `0 ${quizPagePadding}`,
                   overflow: "auto",
                   paddingBottom: "1rem",
                 }}
@@ -737,7 +752,7 @@ function Quiz() {
                   marginTop: "1rem",
                   overflow: "auto",
                   display: "grid",
-                  padding: "0 1.5rem",
+                  padding: `0 ${quizPagePadding}`,
                   justifyContent: "center",
                 }}
               >
@@ -768,24 +783,20 @@ function Quiz() {
 
         <Box
           sx={{
-            padding: isPinnedMobileAnswerBar ? 0 : "1.5rem 1.5rem 0",
+            padding: isPinnedMobileAnswerBar
+              ? 0
+              : `${quizPagePadding} ${quizPagePadding} 0`,
             boxSizing: "border-box",
             backgroundColor: "background.paper",
             position: isPinnedMobileAnswerBar ? "fixed" : "relative",
             zIndex: isPinnedMobileAnswerBar ? 1600 : 1,
-            transition: [
-              "bottom var(--viewport-transition-duration) var(--viewport-transition-easing)",
-              "width var(--viewport-transition-duration) var(--viewport-transition-easing)",
-              "padding var(--viewport-transition-duration) var(--viewport-transition-easing)",
-              "border-radius var(--viewport-transition-duration) var(--viewport-transition-easing)",
-            ].join(", "),
+            transition: answerBarTransition,
             ...(isPinnedMobileAnswerBar && {
               left: "50%",
-              bottom: "calc(env(safe-area-inset-bottom) + 0.75rem)",
+              bottom: pinnedAnswerBarBottom,
               transform: "translateX(-50%)",
-              width:
-                "min(800px, calc(var(--app-width, 100vw) - (var(--screen-padding) * 2)))",
-              borderRadius: "16px",
+              width: pinnedAnswerBarWidth,
+              borderRadius: pinnedAnswerBarRadius,
             }),
           }}
         >

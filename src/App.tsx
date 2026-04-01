@@ -36,6 +36,12 @@ const birbEmojis = [
   "🍳",
 ];
 
+const viewportHeightTransition =
+  "height var(--viewport-transition-duration) var(--viewport-transition-easing)";
+const footerReservedSpace =
+  "calc(var(--footer-height) + env(safe-area-inset-bottom))";
+const footerTextSx = { color: "#dcdcdc", fontSize: "0.6rem" } as const;
+
 export enum GameMode {
   CHANTS = "chants",
   IMAGES = "images",
@@ -571,10 +577,8 @@ function App() {
             minHeight: "var(--app-height, 100dvh)",
             overflow: "hidden",
             display: "grid",
-            gridTemplateRows: "minmax(0, 1fr) auto",
-            transition: [
-              "height var(--viewport-transition-duration) var(--viewport-transition-easing)",
-            ].join(", "),
+            gridTemplateRows: "minmax(0, 1fr)",
+            transition: viewportHeightTransition,
             "*": {
               WebkitUserSelect: "none",
               MozUserSelect: "none",
@@ -594,6 +598,8 @@ function App() {
               display: "grid",
               justifyContent: "center",
               gridTemplateColumns: "minmax(min-content, 800px)",
+              paddingBottom: footerReservedSpace,
+              boxSizing: "border-box",
             }}
           >
             {!quizStarted && <Lobby />}
@@ -603,6 +609,10 @@ function App() {
           {/* Footer */}
           <Box
             sx={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
               padding: "0.5rem var(--screen-padding)",
               paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
               display: "flex",
@@ -611,12 +621,13 @@ function App() {
               minWidth: 0,
               alignItems: "center",
               gap: "1rem",
+              zIndex: 1200,
             }}
           >
             <Box>
               <Typography variant="caption">
                 <Link
-                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  sx={footerTextSx}
                   target="_blank"
                   rel="noopener"
                   underline="hover"
@@ -630,7 +641,7 @@ function App() {
             {buildDate && (
               <Box>
                 <Typography
-                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  sx={footerTextSx}
                   variant="caption"
                 >
                   Build on {buildDate}
@@ -641,7 +652,7 @@ function App() {
             <Box>
               <Typography variant="caption">
                 <Link
-                  sx={{ color: "#dcdcdc", fontSize: "0.6rem" }}
+                  sx={footerTextSx}
                   target="_blank"
                   rel="noopener"
                   underline="hover"
