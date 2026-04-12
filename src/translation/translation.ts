@@ -68,6 +68,7 @@ export interface Translation {
   Birb: string;
   Birbs: string;
   BrowserDoesNotSupportAudio: string;
+  AudioUnavailable: string;
 }
 
 export const translationEnglish: Translation = {
@@ -143,6 +144,7 @@ export const translationEnglish: Translation = {
   Birb: "birb",
   Birbs: "birbs",
   BrowserDoesNotSupportAudio: "Your browser does not support the audio element.",
+  AudioUnavailable: "Audio unavailable",
 };
 
 export const translationFrench: Translation = {
@@ -220,6 +222,7 @@ export const translationFrench: Translation = {
   Birbs: "birbs",
   BrowserDoesNotSupportAudio:
     "Votre navigateur ne prend pas en charge l'élément audio.",
+  AudioUnavailable: "Audio indisponible",
 };
 
 export const translationLatin: Translation = {
@@ -296,4 +299,5 @@ export const translationLatin: Translation = {
   Birbs: "aves",
   BrowserDoesNotSupportAudio:
     "Navigator tuus elementum audio non sustinet.",
+  AudioUnavailable: "Sonus non praesto est",
 };

@@ -106,6 +106,7 @@ function Quiz() {
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [imageSources, setImageSources] = React.useState<BirdImage>();
   const [audioPlayed, setAudioPlayed] = React.useState(false);
+  const [audioError, setAudioError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [shouldReveal, setShouldReveal] = React.useState(false);
   const answerBirbIdsRef = React.useRef<Array<string | null>>([]);
@@ -264,6 +265,7 @@ function Quiz() {
 
   useEffect(() => {
     setRevealedAudioType(null);
+    setAudioError(false);
     setAudioSources([]);
     setImageSources({
       [Sex.MALE]: [],
@@ -390,6 +392,28 @@ function Quiz() {
     "calc(8.5rem + var(--footer-height) + env(safe-area-inset-bottom))";
   const pinnedAnswerBarBottom =
     "calc(var(--footer-height) + env(safe-area-inset-bottom) + 0.75rem)";
+  const answerAutocompleteListboxSx = isMobileDevice
+    ? {
+        maxHeight: "calc(var(--vh, 1vh) * 45)",
+      }
+    : undefined;
+  const answerAutocompleteNoOptionsText =
+    answerInput.trim().length < 3 ? t.TypeAtLeast3Characters : t.NoMatchingBirds;
+  const answerInputLabelProps = isPinnedMobileAnswerBar
+    ? {
+        shrink: true,
+      }
+    : undefined;
+  const pinnedAnswerBarSx = isPinnedMobileAnswerBar
+    ? {
+        left: "50%",
+        bottom: pinnedAnswerBarBottom,
+        transform: "translateX(-50%)",
+        width: "calc(100vw - (var(--screen-padding) * 2))",
+        maxWidth: "800px",
+        borderRadius: pinnedAnswerBarRadius,
+      }
+    : undefined;
 
   const answerAutocomplete = () => (
     <Autocomplete
@@ -399,11 +423,7 @@ function Quiz() {
       disablePortal={isMobileDevice}
       forcePopupIcon={false}
       ListboxProps={{
-        sx: isMobileDevice
-          ? {
-              maxHeight: "calc(var(--vh, 1vh) * 45)",
-            }
-          : undefined,
+        sx: answerAutocompleteListboxSx,
       }}
       size="small"
       value={selectedAnswerBirbId}
@@ -444,24 +464,14 @@ function Quiz() {
         eBird[answerBirbId] ? eBird[answerBirbId][eBirdNameProperty] : ""
       }
       isOptionEqualToValue={(option, value) => option === value}
-      noOptionsText={
-        answerInput.trim().length < 3
-          ? t.TypeAtLeast3Characters
-          : t.NoMatchingBirds
-      }
+      noOptionsText={answerAutocompleteNoOptionsText}
       renderInput={(params) => (
         <TextField
           {...params}
           autoFocus
           inputRef={answerInputRef}
           label={`${t.Answer} (${answerLanguageLabel}) ...`}
-          InputLabelProps={
-            isPinnedMobileAnswerBar
-              ? {
-                  shrink: true,
-                }
-              : undefined
-          }
+          InputLabelProps={answerInputLabelProps}
           onKeyDown={(event) => {
             if (!isPlainEnterKey(event)) {
               return;
@@ -501,30 +511,37 @@ function Quiz() {
             alignItems: "center",
           }}
         >
-          <audio
-            id={`audio-${birbId}-before-reveal`}
-            style={{
-              width: "100%",
-            }}
-            controls
-            preload="auto"
-            autoPlay
-            src={audioSources[audioRandomIndex].url}
-            onPlay={handleAudioPlay}
-            onLoadedData={(e) => {
-              const audio = e.currentTarget;
-              audio.play();
-            }}
-            onCanPlay={(e) => {
-              const audio = e.currentTarget;
-              audio.play();
-            }}
-            onError={() => {
-              window.location.reload();
-            }}
-          >
-            {t.BrowserDoesNotSupportAudio}
-          </audio>
+          {audioError ? (
+            <Typography variant="body2" color="text.secondary" sx={{ padding: "0.5rem 0" }}>
+              {t.AudioUnavailable}
+            </Typography>
+          ) : (
+            <audio
+              id={`audio-${birbId}-before-reveal`}
+              style={{
+                width: "100%",
+              }}
+              controls
+              preload="auto"
+              autoPlay
+              src={audioSources[audioRandomIndex].url}
+              onPlay={handleAudioPlay}
+              onLoadedData={(e) => {
+                const audio = e.currentTarget;
+                audio.play();
+              }}
+              onCanPlay={(e) => {
+                const audio = e.currentTarget;
+                audio.play();
+              }}
+              onError={() => {
+                setAudioError(true);
+                setAudioPlayed(true);
+              }}
+            >
+              {t.BrowserDoesNotSupportAudio}
+            </audio>
+          )}
         </Box>
       )}
     </>
@@ -788,14 +805,7 @@ function Quiz() {
             backgroundColor: "background.paper",
             position: isPinnedMobileAnswerBar ? "fixed" : "relative",
             zIndex: isPinnedMobileAnswerBar ? 1600 : 1,
-            ...(isPinnedMobileAnswerBar && {
-              left: "50%",
-              bottom: pinnedAnswerBarBottom,
-              transform: "translateX(-50%)",
-              width: "calc(100vw - (var(--screen-padding) * 2))",
-              maxWidth: "800px",
-              borderRadius: pinnedAnswerBarRadius,
-            }),
+            ...pinnedAnswerBarSx,
           }}
         >
           <Box>

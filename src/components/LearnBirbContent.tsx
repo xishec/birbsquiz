@@ -38,10 +38,12 @@ function LearnBirbContent({
 
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
+  const [audioErrors, setAudioErrors] = React.useState<Set<string>>(new Set());
 
   React.useEffect(() => {
     setImageMaleRandomIndex(0);
     setImageFemaleRandomIndex(0);
+    setAudioErrors(new Set());
   }, [birbId, imageSources]);
 
   const handleAudioPlay = (
@@ -65,6 +67,7 @@ function LearnBirbContent({
       {audioSources.slice(0, 5).map((urlWithMetadata, index) => {
         const isHighlightedAudio =
           audioRandomIndex === index && highlightedAudioType === audioType;
+        const audioKey = `${audioType}-${index}`;
 
         return (
           <Box
@@ -95,21 +98,27 @@ function LearnBirbContent({
                 minWidth: 0,
               }}
             >
-              <audio
-                id={`audio-${birbId}-${audioType}-${index}`}
-                style={{
-                  width: "100%",
-                  maxWidth: "100%",
-                }}
-                controls
-                src={urlWithMetadata.url}
-                onPlay={handleAudioPlay}
-                onError={() => {
-                  window.location.reload();
-                }}
-              >
-                {t.BrowserDoesNotSupportAudio}
-              </audio>
+              {audioErrors.has(audioKey) ? (
+                <Typography variant="body2" color="text.secondary">
+                  {t.AudioUnavailable}
+                </Typography>
+              ) : (
+                <audio
+                  id={`audio-${birbId}-${audioType}-${index}`}
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                  }}
+                  controls
+                  src={urlWithMetadata.url}
+                  onPlay={handleAudioPlay}
+                  onError={() => {
+                    setAudioErrors((prev) => new Set(prev).add(audioKey));
+                  }}
+                >
+                  {t.BrowserDoesNotSupportAudio}
+                </audio>
+              )}
             </Box>
 
             <Tooltip
