@@ -3,7 +3,7 @@ import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { QuizContext } from "../App";
 import { AudioType, Sex } from "../tools/constants";
-import { BirdImage, UrlWithMetadata } from "../tools/tools";
+import { BirdImage, fetchAudioForOne, UrlWithMetadata } from "../tools/tools";
 import BirbNames from "./BirbNames";
 
 type LearnBirbContentProps = {
@@ -33,17 +33,20 @@ function LearnBirbContent({
     isMobileDevice,
     region,
     regionList,
+    setDBBirbs,
     currentTranslation: t,
   } = quizContext;
 
   const [imageMaleRandomIndex, setImageMaleRandomIndex] = React.useState(0);
   const [imageFemaleRandomIndex, setImageFemaleRandomIndex] = React.useState(0);
   const [audioErrors, setAudioErrors] = React.useState<Set<string>>(new Set());
+  const audioRefetchedRef = React.useRef(false);
 
   React.useEffect(() => {
     setImageMaleRandomIndex(0);
     setImageFemaleRandomIndex(0);
     setAudioErrors(new Set());
+    audioRefetchedRef.current = false;
   }, [birbId, imageSources]);
 
   const handleAudioPlay = (
@@ -114,6 +117,17 @@ function LearnBirbContent({
                   onPlay={handleAudioPlay}
                   onError={() => {
                     setAudioErrors((prev) => new Set(prev).add(audioKey));
+                    if (!audioRefetchedRef.current) {
+                      audioRefetchedRef.current = true;
+                      fetchAudioForOne(birbId, region, true).then((audio) => {
+                        if (audio) {
+                          setDBBirbs((prev) => ({
+                            ...prev,
+                            [birbId]: { ...prev[birbId], audio },
+                          }));
+                        }
+                      });
+                    }
                   }}
                 >
                   {t.BrowserDoesNotSupportAudio}

@@ -62,14 +62,17 @@ const fetchMedia = async (
 
 export const fetchAudioForOne = async (
   id: string,
-  region: string
+  region: string,
+  forceRefresh: boolean = false
 ): Promise<BirdAudio | null> => {
   const dbRef = ref(database, `v2/birbs/${id}/${region}/audio`);
-  try {
-    const snapshot = await get(dbRef);
-    if (snapshot.exists()) return snapshot.val() as BirdAudio;
-  } catch (error) {
-    console.error("Error reading from Firebase:", error);
+  if (!forceRefresh) {
+    try {
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) return snapshot.val() as BirdAudio;
+    } catch (error) {
+      console.error("Error reading from Firebase:", error);
+    }
   }
 
   const birdAudio: BirdAudio = {

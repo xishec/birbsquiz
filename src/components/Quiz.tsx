@@ -22,7 +22,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { GameMode, QuizContext, shuffleArray } from "../App";
 import { AudioType, Language, Sex } from "../tools/constants";
-import { BirdImage, UrlWithMetadata } from "../tools/tools";
+import { BirdImage, fetchAudioForOne, UrlWithMetadata } from "../tools/tools";
 import LearnDialog from "./Dialog/LearnDialog";
 import LearnBirbContent from "./LearnBirbContent";
 import { buttonSx } from "./buttonStyles";
@@ -94,6 +94,8 @@ function Quiz() {
     setOpenLearnDialog,
     eBirdNameProperty,
     dbBirbs,
+    setDBBirbs,
+    region,
     isMobileDevice,
     currentTranslation: t,
   } = quizContext;
@@ -537,6 +539,14 @@ function Quiz() {
               onError={() => {
                 setAudioError(true);
                 setAudioPlayed(true);
+                fetchAudioForOne(birbId, region, true).then((audio) => {
+                  if (audio) {
+                    setDBBirbs((prev) => ({
+                      ...prev,
+                      [birbId]: { ...prev[birbId], audio },
+                    }));
+                  }
+                });
               }}
             >
               {t.BrowserDoesNotSupportAudio}
